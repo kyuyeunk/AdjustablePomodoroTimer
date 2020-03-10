@@ -16,13 +16,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ggp-Pc-GPV">
-                                <rect key="frame" x="47" y="315" width="320" height="266"/>
+                                <rect key="frame" x="47" y="309" width="320" height="278"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sfb-sF-EvZ">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ytn-Cq-Ecv">
-                                        <rect key="frame" x="0.0" y="236" width="320" height="30"/>
+                                        <rect key="frame" x="0.0" y="236" width="320" height="42"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="startButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="42p-wV-SiO"/>
