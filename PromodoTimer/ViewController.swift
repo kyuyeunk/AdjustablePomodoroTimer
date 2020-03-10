@@ -83,7 +83,6 @@ class ViewController: UIViewController {
                 print("Reached 0 seconds")
                 self.timerStart = false
             }
-            
         })
     }
     
