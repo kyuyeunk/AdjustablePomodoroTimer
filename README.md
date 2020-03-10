@@ -1,2 +1,2 @@
-# Promodo-Timer
+# PromodoTimer
 Promodo timer tailored to the author
