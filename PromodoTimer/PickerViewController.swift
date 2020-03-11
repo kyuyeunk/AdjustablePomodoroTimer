@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class PickerViewController: UIViewController {
 
     var timer: TimeController!
     var secondRows: [Int] = []
@@ -28,13 +28,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initButtons()
+        initUI()
         timer = TimeController(delegate: self)
         // Do any additional setup after loading the view.
     }
 
     
-    func initButtons() {
+    func initUI() {
         startButton.setTitle("Start", for: .normal)
         for i in (-60 ... 60).reversed() {
             secondRows.append(i)
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -67,8 +67,8 @@ extension ViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
-extension ViewController: TimeControllerDelegate {
-    func secondPassed(currTime: Int) {
+extension PickerViewController: TimeControllerDelegate {
+    func passSecondUI(currTime: Int) {
         DispatchQueue.main.async {
             self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: true)
         }
@@ -78,13 +78,11 @@ extension ViewController: TimeControllerDelegate {
         return 60 - mainTimer.selectedRow(inComponent: 0)
     }
     
-    func stopTimer() {
-        startButton.setTitle("Stop", for: .normal)
+    func stopTimerUI() {
+        startButton.setTitle("Start", for: .normal)
     }
     
-    func startTimer() {
+    func startTimerUI() {
         startButton.setTitle("Stop", for: .normal)
     }
-    
-    
 }
