@@ -39,6 +39,8 @@ class TimeController {
         }
     }
     
+    var toggl = TogglController()
+    
     func stopTimer() {
         timeControllerDelegate.stopTimerUI()
         timer.invalidate()
