@@ -49,6 +49,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2E0FB9B0241A8963003AA41D /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2E0FB9A624190496003AA41D /* CircleViewController.swift */,
+				2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */,
+				2EC23D082417ADDA00EA7BD6 /* PickerViewController.swift */,
+			);
+			path = "View Controller";
+			sourceTree = "<group>";
+		};
+		2E0FB9B1241A8974003AA41D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2E0FB9AE241A75CF003AA41D /* TogglController.swift */,
+				2E0FB9A42418F377003AA41D /* TimeController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		2EC23CF82417ADDA00EA7BD6 = {
 			isa = PBXGroup;
 			children = (
@@ -69,17 +88,14 @@
 		2EC23D032417ADDA00EA7BD6 /* PromodoTimer */ = {
 			isa = PBXGroup;
 			children = (
+				2E0FB9B1241A8974003AA41D /* Controller */,
+				2E0FB9B0241A8963003AA41D /* View Controller */,
 				2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */,
-				2E0FB9AE241A75CF003AA41D /* TogglController.swift */,
-				2E0FB9A624190496003AA41D /* CircleViewController.swift */,
 				2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */,
-				2EC23D082417ADDA00EA7BD6 /* PickerViewController.swift */,
-				2E0FB9A42418F377003AA41D /* TimeController.swift */,
 				2EC23D0A2417ADDA00EA7BD6 /* Main.storyboard */,
 				2EC23D0D2417ADE600EA7BD6 /* Assets.xcassets */,
 				2EC23D0F2417ADE600EA7BD6 /* LaunchScreen.storyboard */,
 				2EC23D122417ADE600EA7BD6 /* Info.plist */,
-				2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */,
 				2E0FB9AC241A6C00003AA41D /* idpw.txt */,
 			);
 			path = PromodoTimer;
