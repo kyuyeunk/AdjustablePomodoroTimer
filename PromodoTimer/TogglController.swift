@@ -32,7 +32,7 @@ class TogglController {
                 
                 id = splitted[0]
                 pw = String(splitted[1].dropLast())
-                print("id: \(id), pw: \(pw)")
+                print("Toggl id: \(id), pw: \(pw)")
             }
             catch {
                 
@@ -40,7 +40,7 @@ class TogglController {
         }
     }
     
-    func getProjects() {
+    func getUserInfo() {
         let headers = ["Authorization": "Basic \(auth)"]
         
         var requestURL = URLRequest(url:baseURL)
