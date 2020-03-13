@@ -13,9 +13,7 @@ class TogglController {
     let startTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/start")!
     let currentTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/current")!
     var stopTimerURL: URL {
-        get {
-            return URL(string: "https://www.toggl.com/api/v8/time_entries/\(time_entry_id)/stop")!
-        }
+        return URL(string: "https://www.toggl.com/api/v8/time_entries/\(time_entry_id)/stop")!
     }
     var time_entry_id: Int {
         get {
@@ -34,13 +32,7 @@ class TogglController {
     }
     
     let idpwFile = "idpw.txt"   //TODO: FOR TESTING PURPOSE ONLY
-    var id: String = ""              //TODO: DO NOT STORE USER DATA IN PLAIN TEXT
-    var pw: String = ""              //TODO: DO NOT STORE USER DATA IN PLAIN TEXT
-    var auth: String {
-        get {
-            return "\(self.id):\(self.pw)".toBase64()
-        }
-    }
+    var auth: String = ""       //TODO: implement method to store auth with obfuscation
     
     init () {
         set_idpw()
@@ -68,9 +60,9 @@ class TogglController {
                 let contents = try String(contentsOfFile: filepath)
                 let splitted = contents.components(separatedBy: " ")
                 
-                id = splitted[0]
-                pw = String(splitted[1].dropLast())
-                print("Toggl id: \(id), pw: \(pw)")
+                let id = splitted[0]
+                let pw = String(splitted[1].dropLast())
+                auth = "\(id):\(pw)".toBase64()
             }
             catch {
                 
