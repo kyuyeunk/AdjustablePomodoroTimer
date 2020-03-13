@@ -18,7 +18,7 @@ class TogglController {
     var time_entry_id: Int {
         get {
             var temp: Int?
-            getDataFromRequest(url: currentTimerURL) { (data) in
+            getDataFromRequest(requestURL: URLRequest(url: currentTimerURL)) { (data) in
                 //TODO: error handling when no timer is running
                 //Data will return {"data":null}
                 //TODO: parse data to get time_entry_id
@@ -32,7 +32,7 @@ class TogglController {
     }
     
     let idpwFile = "idpw.txt"   //TODO: FOR TESTING PURPOSE ONLY
-    var auth: String = ""       //TODO: implement method to store auth with encryption
+    var auth: String = ""       //TODO: learn about keychain for better encryption
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     var archiveURL: URL {
         return documentsDirectory.appendingPathComponent("auth").appendingPathExtension("plist")
@@ -42,13 +42,13 @@ class TogglController {
         setAuth()
     }
     
-    func getDataFromRequest(url: URL, completion: @escaping (Data) -> Void) {
+    func getDataFromRequest(requestURL: URLRequest, completion: @escaping (Data) -> Void) {
         let headers = ["Authorization": "Basic \(auth)"]
         
-        var requestURL = URLRequest(url: url)
-        requestURL.allHTTPHeaderFields = headers
+        var myRequestURL = requestURL
+        myRequestURL.allHTTPHeaderFields = headers
         
-        let task = URLSession.shared.dataTask(with: requestURL) { (data,
+        let task = URLSession.shared.dataTask(with: myRequestURL) { (data,
         response, error) in
             if let data = data {
                 completion(data)
@@ -58,10 +58,32 @@ class TogglController {
         task.resume()
     }
     
+    func startTimer() {
+        let pid = 89341778      //Example input
+        let desc = "Working"    //Example input
+        let created_with = "PromodoTimer"
+        
+        let data = ["time_entry": ["description": desc, "pid": String(pid), "created_with": created_with]]
+        
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try? jsonEncoder.encode(data)
+        
+        var requestURL = URLRequest(url: startTimerURL)
+        requestURL.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        requestURL.httpBody = jsonData
+        requestURL.httpMethod = "POST"
+        
+        getDataFromRequest(requestURL: requestURL) { (data) in
+            if let string = String(data: data, encoding: .utf8) {
+                print(string)
+            }
+        }
+    }
+    
     func setAuth() {
         if let retrievedString = try? String(contentsOf: archiveURL) {
-            print("Read auth from file")
-            print(retrievedString)
+            print("Read auth \(retrievedString)")
+            auth = retrievedString
             return
         }
 
@@ -84,7 +106,7 @@ class TogglController {
 
     
     func getProjectInfo() {
-        getDataFromRequest(url: projectInfoURL) { (data) in
+        getDataFromRequest(requestURL: URLRequest(url: projectInfoURL)) { (data) in
             if let string = String(data: data, encoding: .utf8) {
                 print(string)
             }
