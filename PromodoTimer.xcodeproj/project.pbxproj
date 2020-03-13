@@ -11,8 +11,8 @@
 		2E0FB9A52418F377003AA41D /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A42418F377003AA41D /* TimeController.swift */; };
 		2E0FB9A724190496003AA41D /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A624190496003AA41D /* CircleViewController.swift */; };
 		2E0FB9A9241904EB003AA41D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */; };
-		2E0FB9AD241A6C00003AA41D /* idpw.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2E0FB9AC241A6C00003AA41D /* idpw.txt */; };
 		2E0FB9AF241A75CF003AA41D /* TogglController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9AE241A75CF003AA41D /* TogglController.swift */; };
+		2E0FB9B3241BC44B003AA41D /* idpw.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2E0FB9B2241BC44B003AA41D /* idpw.txt */; };
 		2EC23D052417ADDA00EA7BD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */; };
 		2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */; };
 		2EC23D092417ADDA00EA7BD6 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D082417ADDA00EA7BD6 /* PickerViewController.swift */; };
@@ -26,8 +26,8 @@
 		2E0FB9A42418F377003AA41D /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
 		2E0FB9A624190496003AA41D /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
 		2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		2E0FB9AC241A6C00003AA41D /* idpw.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = idpw.txt; sourceTree = "<group>"; };
 		2E0FB9AE241A75CF003AA41D /* TogglController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglController.swift; sourceTree = "<group>"; };
+		2E0FB9B2241BC44B003AA41D /* idpw.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = idpw.txt; sourceTree = "<group>"; };
 		2EC23D012417ADDA00EA7BD6 /* PromodoTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromodoTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 				2EC23D0D2417ADE600EA7BD6 /* Assets.xcassets */,
 				2EC23D0F2417ADE600EA7BD6 /* LaunchScreen.storyboard */,
 				2EC23D122417ADE600EA7BD6 /* Info.plist */,
-				2E0FB9AC241A6C00003AA41D /* idpw.txt */,
+				2E0FB9B2241BC44B003AA41D /* idpw.txt */,
 			);
 			path = PromodoTimer;
 			sourceTree = "<group>";
@@ -163,7 +163,7 @@
 				2EC23D0E2417ADE600EA7BD6 /* Assets.xcassets in Resources */,
 				2E0FB9A32417E0D7003AA41D /* README.md in Resources */,
 				2EC23D0C2417ADDA00EA7BD6 /* Main.storyboard in Resources */,
-				2E0FB9AD241A6C00003AA41D /* idpw.txt in Resources */,
+				2E0FB9B3241BC44B003AA41D /* idpw.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,32 @@
 import Foundation
 
 class TogglController {
-    let baseURL = URL(string: "https://www.toggl.com/api/v8/me")!
+    let projectInfoURL = URL(string: "https://www.toggl.com/api/v8/me?with_related_data=true")!
+    let startTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/start")!
+    let currentTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/current")!
+    var stopTimerURL: URL {
+        get {
+            let time_id = time_entry_id ?? {
+                set_time_entry_id()
+                while(true) {
+                    if let val = time_entry_id {
+                        return val
+                    }
+                }
+            }()
+    
+            return URL(string: "https://www.toggl.com/api/v8/time_entries/\(time_id)/stop")!
+        }
+    }
+    var time_entry_id: Int?
+    func set_time_entry_id(){
+        getDataFromRequest(url: currentTimerURL) { (data) in
+            //TODO: parse data to get time_entry_id
+            //for now, it is set to predetermined number
+            self.time_entry_id = 1476825420
+        }
+    }
+    
     let idpwFile = "idpw.txt"   //TODO: FOR TESTING PURPOSE ONLY
     var id: String = ""              //TODO: DO NOT STORE USER DATA IN PLAIN TEXT
     var pw: String = ""              //TODO: DO NOT STORE USER DATA IN PLAIN TEXT
@@ -23,8 +48,22 @@ class TogglController {
         getidpw()
     }
     
+    func getDataFromRequest(url: URL, completion: @escaping (Data) -> Void) {
+        let headers = ["Authorization": "Basic \(auth)"]
+        
+        var requestURL = URLRequest(url: url)
+        requestURL.allHTTPHeaderFields = headers
+        
+        let task = URLSession.shared.dataTask(with: requestURL) { (data,
+        response, error) in
+            if let data = data {
+                completion(data)
+            }
+        }
+        task.resume()
+    }
+    
     func getidpw() {
-        id = "test"
         if let filepath = Bundle.main.path(forResource: idpwFile, ofType: nil) {
             do {
                 let contents = try String(contentsOfFile: filepath)
@@ -40,21 +79,12 @@ class TogglController {
         }
     }
     
-    func getUserInfo() {
-        let headers = ["Authorization": "Basic \(auth)"]
-        
-        var requestURL = URLRequest(url:baseURL)
-        requestURL.allHTTPHeaderFields = headers
-        
-        let task = URLSession.shared.dataTask(with: requestURL) { (data,
-        response, error) in
-            if let data = data,
-                let string = String(data: data, encoding: .utf8) {
-                
+    func getProjectInfo() {
+        getDataFromRequest(url: projectInfoURL) { (data) in
+            if let string = String(data: data, encoding: .utf8) {
                 print(string)
             }
         }
-        task.resume()
     }
 }
 

@@ -16,10 +16,7 @@ protocol TimeControllerDelegate {
 }
 
 class TimeController {
-    init(delegate: TimeControllerDelegate) {
-        timeControllerDelegate = delegate
-    }
-    
+    var toggl = TogglController()
     var timeControllerDelegate: TimeControllerDelegate
     var timer: Timer!
     var timerStart = false {
@@ -39,7 +36,9 @@ class TimeController {
         }
     }
     
-    var toggl = TogglController()
+    init(delegate: TimeControllerDelegate) {
+        timeControllerDelegate = delegate
+    }
     
     func stopTimer() {
         timeControllerDelegate.stopTimerUI()
