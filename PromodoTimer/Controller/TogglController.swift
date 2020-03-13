@@ -14,24 +14,22 @@ class TogglController {
     let currentTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/current")!
     var stopTimerURL: URL {
         get {
-            let time_id = time_entry_id ?? {
-                set_time_entry_id()
-                while(true) {
-                    if let val = time_entry_id {
-                        return val
-                    }
-                }
-            }()
-    
-            return URL(string: "https://www.toggl.com/api/v8/time_entries/\(time_id)/stop")!
+            return URL(string: "https://www.toggl.com/api/v8/time_entries/\(time_entry_id)/stop")!
         }
     }
-    var time_entry_id: Int?
-    func set_time_entry_id(){
-        getDataFromRequest(url: currentTimerURL) { (data) in
-            //TODO: parse data to get time_entry_id
-            //for now, it is set to predetermined number
-            self.time_entry_id = 1476825420
+    var time_entry_id: Int {
+        get {
+            var temp: Int?
+            getDataFromRequest(url: currentTimerURL) { (data) in
+                //TODO: error handling when no timer is running
+                //Data will return {"data":null}
+                //TODO: parse data to get time_entry_id
+                //for now, it is set to predetermined number
+                temp = 1476825420
+            }
+            
+            while(temp == nil) {}
+            return temp!
         }
     }
     
@@ -45,7 +43,7 @@ class TogglController {
     }
     
     init () {
-        getidpw()
+        set_idpw()
     }
     
     func getDataFromRequest(url: URL, completion: @escaping (Data) -> Void) {
@@ -59,11 +57,12 @@ class TogglController {
             if let data = data {
                 completion(data)
             }
+            //TODO: Implement error handling
         }
         task.resume()
     }
     
-    func getidpw() {
+    func set_idpw() {
         if let filepath = Bundle.main.path(forResource: idpwFile, ofType: nil) {
             do {
                 let contents = try String(contentsOfFile: filepath)
