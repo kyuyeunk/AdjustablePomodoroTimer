@@ -32,10 +32,14 @@ class TogglController {
     }
     
     let idpwFile = "idpw.txt"   //TODO: FOR TESTING PURPOSE ONLY
-    var auth: String = ""       //TODO: implement method to store auth with obfuscation
+    var auth: String = ""       //TODO: implement method to store auth with encryption
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    var archiveURL: URL {
+        return documentsDirectory.appendingPathComponent("auth").appendingPathExtension("plist")
+    }
     
     init () {
-        set_idpw()
+        setAuth()
     }
     
     func getDataFromRequest(url: URL, completion: @escaping (Data) -> Void) {
@@ -54,7 +58,14 @@ class TogglController {
         task.resume()
     }
     
-    func set_idpw() {
+    func setAuth() {
+        if let retrievedString = try? String(contentsOf: archiveURL) {
+            print("Read auth from file")
+            print(retrievedString)
+            return
+        }
+
+        //DEBUGGING PURPOSE ONLY
         if let filepath = Bundle.main.path(forResource: idpwFile, ofType: nil) {
             do {
                 let contents = try String(contentsOfFile: filepath)
@@ -63,12 +74,14 @@ class TogglController {
                 let id = splitted[0]
                 let pw = String(splitted[1].dropLast())
                 auth = "\(id):\(pw)".toBase64()
-            }
-            catch {
+                print("Set auth to \(auth)")
                 
+                try auth.write(to: archiveURL, atomically: false, encoding: .utf8)
             }
+            catch {}
         }
     }
+
     
     func getProjectInfo() {
         getDataFromRequest(url: projectInfoURL) { (data) in
