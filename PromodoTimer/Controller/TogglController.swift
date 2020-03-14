@@ -9,6 +9,7 @@
 import Foundation
 
 class TogglController {
+    let baseInfoURL = URL(string: "https://www.toggl.com/api/v8/me")!
     let projectInfoURL = URL(string: "https://www.toggl.com/api/v8/me?with_related_data=true")!
     let startTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/start")!
     let currentTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/current")!
@@ -88,18 +89,30 @@ class TogglController {
         }
     }
     
-    func setAuth(id: String, pw: String) {
-        self.id = id
+    func setAuth(id: String, pw: String, completion: @escaping (Bool) -> Void) {
         auth = "\(id):\(pw)".toBase64()
-        print("Set auth to \(auth)")
-        
-        try? auth.write(to: archiveURL, atomically: false, encoding: .utf8)
-        
-        let cred = credential(id: id, auth: auth)
-        let propertyListEncoder = PropertyListEncoder()
-        let encodedCrednetial = try? propertyListEncoder.encode(cred)
-        try? encodedCrednetial?.write(to: archiveURL)
-        
+        getDataFromRequest(requestURL: URLRequest(url: baseInfoURL)) { (data) in
+            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                let toggl_data = json["data"] as? [String: Any],
+                let api_token = toggl_data["api_token"] as? String {
+                
+                print(api_token)
+                
+                self.id = id
+                self.auth = "\(api_token):api_token".toBase64()
+                
+                let cred = credential(id: id, auth: self.auth)
+                let propertyListEncoder = PropertyListEncoder()
+                let encodedCrednetial = try? propertyListEncoder.encode(cred)
+                try? encodedCrednetial?.write(to: self.archiveURL)
+                
+                completion(true)
+            }
+            else {
+                completion(false)
+            }
+        }
+
     }
 
     

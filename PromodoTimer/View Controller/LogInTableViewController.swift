@@ -20,21 +20,34 @@ class LogInTableViewController: UITableViewController {
             return
         }
     
-        GlobalVar.timeController.toggl.setAuth(id: id, pw: pw)
-        let alert = UIAlertController(title: "Toggl Authentication",
-            message: "Auth is set to \(GlobalVar.timeController.toggl.auth)", preferredStyle: .alert)
-        let okButton = UIAlertAction(title: "Ok", style: .cancel) { (action) in
-            if let navigation = self.navigationController {
-                if let settings = navigation.viewControllers[1] as? SettingsTableViewController {
-                    settings.togglIDLabel.text = GlobalVar.timeController.toggl.id
-                    navigation.popViewController(animated: true)
+        GlobalVar.timeController.toggl.setAuth(id: id, pw: pw) { (valid) in
+            DispatchQueue.main.async {
+                var alert: UIAlertController
+                var okButton: UIAlertAction
+                if valid {
+                    alert = UIAlertController(title: "Toggl Authentication",
+                        message: "Auth is set to \(GlobalVar.timeController.toggl.auth)", preferredStyle: .alert)
+                    okButton = UIAlertAction(title: "Ok", style: .cancel) { (action) in
+                        if let navigation = self.navigationController {
+                            if let settings = navigation.viewControllers[1] as? SettingsTableViewController {
+                                settings.togglIDLabel.text = GlobalVar.timeController.toggl.id
+                                navigation.popViewController(animated: true)
+                            }
+                        }
+                    }
                 }
-             }
+                else {
+                    alert = UIAlertController(title: "Error",
+                        message: "ID/PW is not valid", preferredStyle: .alert)
+                    okButton = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                }
+                
+                alert.addAction(okButton)
+                self.present(alert, animated: true, completion: nil)
+            }
         }
-
-        alert.addAction(okButton)
-        self.present(alert, animated: true, completion: nil)
     }
+    
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var pwTextField: UITextField!
     override func viewDidLoad() {
