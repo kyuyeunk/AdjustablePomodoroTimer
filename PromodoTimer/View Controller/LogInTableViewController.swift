@@ -28,11 +28,11 @@ class LogInTableViewController: UITableViewController {
                     alert = UIAlertController(title: "Toggl Authentication",
                         message: "Auth is set to \(GlobalVar.timeController.toggl.auth)", preferredStyle: .alert)
                     okButton = UIAlertAction(title: "Ok", style: .cancel) { (action) in
-                        if let navigation = self.navigationController {
-                            if let settings = navigation.viewControllers[1] as? SettingsTableViewController {
-                                settings.togglIDLabel.text = GlobalVar.timeController.toggl.id
-                                navigation.popViewController(animated: true)
-                            }
+                        if let navigation = self.navigationController,
+                            let settings = navigation.viewControllers[1] as? SettingsTableViewController {
+                            
+                            settings.togglIDLabel.text = GlobalVar.timeController.toggl.id
+                            navigation.popViewController(animated: true)  
                         }
                     }
                 }
