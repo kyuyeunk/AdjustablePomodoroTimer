@@ -8,6 +8,8 @@
 
 import UIKit
 
+//Allow view controllers to change UI when timer event triggers
+//Allow TimeController to fetch current time from view controllers
 protocol TimeControllerDelegate {
     func setSecondUI(currTime: Int)
     func getCurrTime() -> Int
@@ -18,8 +20,10 @@ protocol TimeControllerDelegate {
 class TimeController {
     var toggl = TogglController()
     var timeControllerDelegate: TimeControllerDelegate! {
+        //If the view has been changed, change the UI accordingly
+        //E.g., change clock hand if timer's current time doesn't match the clock hand
         didSet {
-            print("Changed timeControllerDelegate value")
+            print("[Timer] Changed timeControllerDelegate value")
             if timerStart == true {
                 timeControllerDelegate.startTimerUI()
             }
@@ -36,7 +40,7 @@ class TimeController {
         didSet {
             if timerStart == true {
                 if timeControllerDelegate.getCurrTime() == 0 {
-                    print("Start button pressed when selected time is 0")
+                    print("[Timer] Start button pressed when selected time is 0")
                     timerStart = false
                 }
                 else {
@@ -58,6 +62,7 @@ class TimeController {
     }
     
     func startTimer() {
+        //Based on the current time, positive or negative toggl timer should be started
         let startTime = self.timeControllerDelegate.getCurrTime()
         if startTime > 0 {
             toggl.startTimer(type: .positive)        //TODO: Testing purpose. Should be user-definable
@@ -91,7 +96,7 @@ class TimeController {
                 return
             }
             
-            print("[Timer]: current seconds: \(newTime)")
+            print("[Timer] current seconds: \(newTime)")
             self.timeControllerDelegate.setSecondUI(currTime: newTime)
             
             if newTime == 0 {

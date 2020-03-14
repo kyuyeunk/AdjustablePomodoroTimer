@@ -13,6 +13,7 @@ class TogglController {
     let projectInfoURL = URL(string: "https://www.toggl.com/api/v8/me?with_related_data=true")!
     let startTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/start")!
     let currentTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/current")!
+    //Get URL that stops the timer. Returns nil if no timer is currently running
     var stopTimerURL: URL? {
         if let entry_id = time_entry_id {
             return URL(string: "https://www.toggl.com/api/v8/time_entries/\(entry_id)/stop")!
@@ -21,6 +22,8 @@ class TogglController {
             return nil
         }
     }
+    //Use currentTimerURL to fetch time_entry_id
+    //Will return nil if no timer is currently running
     var time_entry_id: Int? {
         var entry_id: Int?
         var fetched = false
@@ -38,6 +41,7 @@ class TogglController {
             fetched = true
         }
         
+        //Use spinlock to wait for URL request to end
         while(fetched == false) {}
         return entry_id
     }
@@ -55,6 +59,14 @@ class TogglController {
     }
     
     init () {
+        loadFiles()
+        
+        //TODO: save this to the file and load it
+        userDefinedTracking[.positive] = trackingInfo(project: projects[0], desc: "Positive Test")
+        userDefinedTracking[.negative] = trackingInfo(project: projects[1], desc: "Negative Test")
+    }
+    
+    func loadFiles() {
         let propertyListDecoder = PropertyListDecoder()
         if let retrievedCredential = try? Data(contentsOf: credentialArchieveURL),
             let decodedCredential = try? propertyListDecoder.decode(credential.self, from: retrievedCredential){
@@ -72,19 +84,16 @@ class TogglController {
                 print("[Load] \(project.pid): \(project.name)")
             }
         }
-        
-        userDefinedTracking[.positive] = trackingInfo(project: projects[0], desc: "Positive Test")
-        userDefinedTracking[.negative] = trackingInfo(project: projects[1], desc: "Negative Test")
     }
     
+    //Send url reqeust from given requestURL
     func getDataFromRequest(requestURL: URLRequest, completion: @escaping (Data) -> Void) {
         let headers = ["Authorization": "Basic \(auth)"]
         
         var myRequestURL = requestURL
         myRequestURL.allHTTPHeaderFields = headers
         
-        let task = URLSession.shared.dataTask(with: myRequestURL) { (data,
-        response, error) in
+        let task = URLSession.shared.dataTask(with: myRequestURL) { (data, response, error) in
             if let data = data {
                 completion(data)
             }
@@ -93,6 +102,7 @@ class TogglController {
         task.resume()
     }
     
+    //Start the timer based on .positive and .negative types
     func startTimer(type: TrackingType) {
         if let info = userDefinedTracking[type] {
             startTimer(pid: info.project.pid, desc: info.desc)
@@ -102,6 +112,7 @@ class TogglController {
         }
     }
     
+    //Start the timer with given pid and description
     func startTimer(pid: Int, desc: String) {
         let created_with = "PromodoTimer"
         
@@ -123,6 +134,8 @@ class TogglController {
         }
     }
     
+    //Stop currently running timer
+    //Do nothing if there's no timer running
     func stopTimer() {
         if let stopTimerURL = stopTimerURL {
             getDataFromRequest(requestURL: URLRequest(url: stopTimerURL)) { (data) in
@@ -137,6 +150,7 @@ class TogglController {
         }
     }
     
+    //Fetch api_token from given id/pw and save it to credential.plist
     func setAuth(id: String, pw: String, completion: @escaping (Bool) -> Void) {
         auth = "\(id):\(pw)".toBase64()
         getDataFromRequest(requestURL: URLRequest(url: baseInfoURL)) { (data) in
@@ -165,7 +179,7 @@ class TogglController {
         }
     }
 
-    
+    //Fetch list of projects of current user and save it to projects.plist
     func setProjectInfo() {
         getDataFromRequest(requestURL: URLRequest(url: projectInfoURL)) { (data) in
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
