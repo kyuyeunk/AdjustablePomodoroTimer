@@ -71,7 +71,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension PickerViewController: TimeControllerDelegate {
     func setSecondUI(currTime: Int) {
-        let pickerTime = getCurrTime()
+        let pickerTime = 60 - mainTimer.selectedRow(inComponent: 0)
         var animated = false
         if pickerTime + 1 == currTime || pickerTime - 1 == currTime {
             animated = true

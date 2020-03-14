@@ -53,10 +53,12 @@ class TimeController {
         timeControllerDelegate.stopTimerUI()
         if timer.isValid {
             timer.invalidate()
+            toggl.stopTimer()
         }
     }
     
     func startTimer() {
+        toggl.startTimer(pid: 89341778, desc: "Testing")        //TODO: Testing purpose. Should be user-definable
         timeControllerDelegate.startTimerUI()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
             var currTime = self.timeControllerDelegate.getCurrTime()

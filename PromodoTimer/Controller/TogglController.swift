@@ -28,10 +28,11 @@ class TogglController {
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                 let toggl_data = json["data"] as? [String: Any],
                 let fetched_id = toggl_data["id"] as? Int {
-                print(fetched_id)
+                print("[Toggl] Fetched time_entry_id: \(fetched_id)")
                 entry_id = fetched_id
             }
             else {
+                print("[Toggl] Unabled to fetch time_entry_id")
                 entry_id = nil
             }
             fetched = true
@@ -42,7 +43,7 @@ class TogglController {
     }
     
     var projects: [projectInfo] = []
-    var id: String = " "
+    var id: String = "Please Input ID/PW"
     var auth: String = ""            //TODO: learn about keychain for better encryption
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     var credentialArchieveURL: URL {
@@ -103,8 +104,23 @@ class TogglController {
         
         getDataFromRequest(requestURL: requestURL) { (data) in
             if let string = String(data: data, encoding: .utf8) {
+                print("[Toggl] Timer Started with pid: \(pid) desc: \(desc)")
                 print(string)
             }
+        }
+    }
+    
+    func stopTimer() {
+        if let stopTimerURL = stopTimerURL {
+            getDataFromRequest(requestURL: URLRequest(url: stopTimerURL)) { (data) in
+                if let string = String(data: data, encoding: .utf8) {
+                    print("[Toggl] Timer Stopped")
+                    print(string)
+                }
+            }
+        }
+        else {
+            print("[Toggl] Cannot Stop Timer. No Timer Running")
         }
     }
     
@@ -134,7 +150,6 @@ class TogglController {
                 completion(false)
             }
         }
-
     }
 
     
