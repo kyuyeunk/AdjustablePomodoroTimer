@@ -10,26 +10,25 @@ import UIKit
 
 class PickerViewController: UIViewController {
 
-    var timer: TimeController!
     var secondRows: [Int] = []
 
     @IBOutlet weak var mainTimer: UIPickerView!
     @IBOutlet weak var startButton: UIButton!
     @IBAction func startButtonPressed(_ sender: Any) {
-        if timer.timerStart == false {
+        if GlobalVar.timeController.timerStart == false {
             print("Pressed Start Button")
-            timer.timerStart = true
+            GlobalVar.timeController.timerStart = true
         }
         else {
             print("Pressed Stop Button")
-            timer.timerStart = false
+            GlobalVar.timeController.timerStart = false
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
-        timer = TimeController(delegate: self)
+        GlobalVar.timeController.timeControllerDelegate = self
         // Do any additional setup after loading the view.
     }
 
@@ -61,7 +60,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if timer.timerStart {
+        if GlobalVar.timeController.timerStart {
             print("Moved timer during timing")
         }
     }

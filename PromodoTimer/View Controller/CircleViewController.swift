@@ -11,26 +11,25 @@ import UIKit
 class CircleViewController: UIViewController {
 
     let increment: CGFloat = 30 // Pi (180 degrees) = ${increment} seconds
-    var timer: TimeController!
     var currDegree: CGFloat = .pi / 2
     @IBOutlet weak var redBarImage: UIImageView!
     @IBOutlet weak var clockImage: UIImageView!
     @IBOutlet weak var startButton: UIButton!
     @IBAction func startButtonPressed(_ sender: Any) {
-        if timer.timerStart == false {
+        if GlobalVar.timeController.timerStart == false {
             print("Pressed Start Button")
-            timer.timerStart = true
+            GlobalVar.timeController.timerStart = true
         }
         else {
             print("Pressed Stop Button")
-            timer.timerStart = false
+            GlobalVar.timeController.timerStart = false
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
-        timer = TimeController(delegate: self)
+        GlobalVar.timeController.timeControllerDelegate = self
     }
     
     func initUI() {

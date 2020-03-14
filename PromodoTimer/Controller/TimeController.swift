@@ -17,7 +17,7 @@ protocol TimeControllerDelegate {
 
 class TimeController {
     var toggl = TogglController()
-    var timeControllerDelegate: TimeControllerDelegate
+    var timeControllerDelegate: TimeControllerDelegate!     //TODO: Is this safe?
     var timer: Timer!
     var timerStart = false {
         didSet {
@@ -34,10 +34,6 @@ class TimeController {
                 stopTimer()
             }
         }
-    }
-    
-    init(delegate: TimeControllerDelegate) {
-        timeControllerDelegate = delegate
     }
     
     func stopTimer() {
