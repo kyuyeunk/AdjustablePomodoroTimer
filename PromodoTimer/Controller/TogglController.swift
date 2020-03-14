@@ -13,23 +13,32 @@ class TogglController {
     let projectInfoURL = URL(string: "https://www.toggl.com/api/v8/me?with_related_data=true")!
     let startTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/start")!
     let currentTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/current")!
-    var stopTimerURL: URL {
-        return URL(string: "https://www.toggl.com/api/v8/time_entries/\(time_entry_id)/stop")!
-    }
-    var time_entry_id: Int {
-        get {
-            var temp: Int?
-            getDataFromRequest(requestURL: URLRequest(url: currentTimerURL)) { (data) in
-                //TODO: error handling when no timer is running
-                //Data will return {"data":null}
-                //TODO: parse data to get time_entry_id
-                //for now, it is set to predetermined number
-                temp = 1476825420
-            }
-            
-            while(temp == nil) {}
-            return temp!
+    var stopTimerURL: URL? {
+        if let entry_id = time_entry_id {
+            return URL(string: "https://www.toggl.com/api/v8/time_entries/\(entry_id)/stop")!
         }
+        else {
+            return nil
+        }
+    }
+    var time_entry_id: Int? {
+        var entry_id: Int?
+        var fetched = false
+        getDataFromRequest(requestURL: URLRequest(url: currentTimerURL)) { (data) in
+            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                let toggl_data = json["data"] as? [String: Any],
+                let fetched_id = toggl_data["id"] as? Int {
+                print(fetched_id)
+                entry_id = fetched_id
+            }
+            else {
+                entry_id = nil
+            }
+            fetched = true
+        }
+        
+        while(fetched == false) {}
+        return entry_id
     }
     
     var projects: [projectInfo] = []
@@ -50,15 +59,15 @@ class TogglController {
             id = decodedCredential.id
             auth = decodedCredential.auth
             
-            print("[From directory] id: \(id)")
-            print("[From directory] auth: \(auth)")
+            print("[Load] id: \(id)")
+            print("[Load] auth: \(auth)")
         }
         if let retrievedProjects = try? Data(contentsOf: projectsArchieveURL),
             let decodedProjects = try? propertyListDecoder.decode([projectInfo].self, from: retrievedProjects) {
-            print("[From directory] Projects retrieved")
+            print("[Load] Projects retrieved")
             projects = decodedProjects
             for project in projects {
-                print("[From directory] \(project.pid): \(project.name)")
+                print("[Load] \(project.pid): \(project.name)")
             }
         }
     }
@@ -116,8 +125,8 @@ class TogglController {
                 let encodedCrednetial = try? propertyListEncoder.encode(cred)
                 try? encodedCrednetial?.write(to: self.credentialArchieveURL)
                 
-                print("[To directory] id: \(self.id)")
-                print("[To directory] auth: \(self.auth)")
+                print("[Save] id: \(self.id)")
+                print("[Save] auth: \(self.auth)")
                 self.setProjectInfo()
                 completion(true)
             }
@@ -146,9 +155,9 @@ class TogglController {
                 let encodedProjects = try? propertyListEncoder.encode(self.projects)
                 try? encodedProjects?.write(to: self.projectsArchieveURL)
                 
-                print("[To directory] Projects saved")
+                print("[Save] Projects saved")
                 for project in self.projects {
-                    print("[To directory] \(project.pid): \(project.name)")
+                    print("[Save] \(project.pid): \(project.name)")
                 }
             }
         }
