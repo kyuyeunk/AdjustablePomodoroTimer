@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TimeControllerDelegate {
-    func passSecondUI(currTime: Int)
+    func setSecondUI(currTime: Int)
     func getCurrTime() -> Int
     func stopTimerUI()
     func startTimerUI()
@@ -17,7 +17,20 @@ protocol TimeControllerDelegate {
 
 class TimeController {
     var toggl = TogglController()
-    var timeControllerDelegate: TimeControllerDelegate!     //TODO: Is this safe?
+    var timeControllerDelegate: TimeControllerDelegate! {
+        didSet {
+            print("Changed timeControllerDelegate value")
+            if timerStart == true {
+                timeControllerDelegate.startTimerUI()
+            }
+            else {
+                timeControllerDelegate.stopTimerUI()
+            }
+            timeControllerDelegate.setSecondUI(currTime: currTime)
+        }
+    }
+    
+    var currTime = 0
     var timer: Timer!
     var timerStart = false {
         didSet {
@@ -38,7 +51,9 @@ class TimeController {
     
     func stopTimer() {
         timeControllerDelegate.stopTimerUI()
-        timer.invalidate()
+        if timer.isValid {
+            timer.invalidate()
+        }
     }
     
     func startTimer() {
@@ -58,12 +73,14 @@ class TimeController {
             }
             
             print("seconds: \(currTime)")
-            self.timeControllerDelegate.passSecondUI(currTime: currTime)
+            self.timeControllerDelegate.setSecondUI(currTime: currTime)
             
             if currTime == 0 {
                  print("Reached 0 seconds")
                  self.timerStart = false
-             }
+            } else {
+                self.currTime = currTime
+            }
         })
     }
 }

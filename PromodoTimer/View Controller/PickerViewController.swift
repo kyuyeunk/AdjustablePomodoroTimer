@@ -28,10 +28,13 @@ class PickerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
-        GlobalVar.timeController.timeControllerDelegate = self
         // Do any additional setup after loading the view.
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        GlobalVar.timeController.timeControllerDelegate = self
+    }
     
     func initUI() {
         startButton.setTitle("Start", for: .normal)
@@ -67,13 +70,23 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension PickerViewController: TimeControllerDelegate {
-    func passSecondUI(currTime: Int) {
+    func setSecondUI(currTime: Int) {
+        let pickerTime = getCurrTime()
+        var animated = false
+        if pickerTime + 1 == currTime || pickerTime - 1 == currTime {
+            animated = true
+        }
+ 
+        print("PickerView currTime: \(currTime)")
         DispatchQueue.main.async {
-            self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: true)
+
+            
+            self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: animated)
         }
     }
     
     func getCurrTime() -> Int {
+        print("Got current time from Picker View")
         return 60 - mainTimer.selectedRow(inComponent: 0)
     }
     

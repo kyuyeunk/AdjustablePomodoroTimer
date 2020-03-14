@@ -29,6 +29,11 @@ class CircleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         GlobalVar.timeController.timeControllerDelegate = self
     }
     
@@ -55,18 +60,19 @@ class CircleViewController: UIViewController {
 }
 
 extension CircleViewController: TimeControllerDelegate {
-    func passSecondUI(currTime: Int) {
-        DispatchQueue.main.async {
-            print("CurrTime: \(currTime)")
-            //currDegree / .pi * 180 = currTime
-            self.redBarImage.transform = self.redBarImage.transform.rotated(by: .pi / self.increment)
-            //self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: true)
-        }
-        currDegree = .pi * CGFloat(currTime) / self.increment
+    func setSecondUI(currTime: Int) {
+        print("CircleView currTime: \(currTime)")
+        let newDegree = .pi / increment * CGFloat(currTime)
+        let diffDegree = currDegree - newDegree
         
+        DispatchQueue.main.async {
+            self.redBarImage.transform = self.redBarImage.transform.rotated(by: diffDegree)
+        }
+        currDegree = newDegree
     }
     
     func getCurrTime() -> Int {
+        print("Got current time from Circle View")
         return Int(currDegree / .pi * self.increment)
     }
     
