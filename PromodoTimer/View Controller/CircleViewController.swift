@@ -72,8 +72,7 @@ extension CircleViewController: TimeControllerDelegate {
     }
     
     func getCurrTime() -> Int {
-        print("Got current time from Circle View")
-        return Int(currDegree / .pi * self.increment)
+        return Int(ceil(currDegree / .pi * self.increment))
     }
     
     func stopTimerUI() {

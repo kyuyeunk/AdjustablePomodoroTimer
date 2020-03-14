@@ -71,22 +71,19 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension PickerViewController: TimeControllerDelegate {
     func setSecondUI(currTime: Int) {
+        print("PickerView currTime: \(currTime)")
         let pickerTime = getCurrTime()
         var animated = false
         if pickerTime + 1 == currTime || pickerTime - 1 == currTime {
             animated = true
         }
  
-        print("PickerView currTime: \(currTime)")
         DispatchQueue.main.async {
-
-            
             self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: animated)
         }
     }
     
     func getCurrTime() -> Int {
-        print("Got current time from Picker View")
         return 60 - mainTimer.selectedRow(inComponent: 0)
     }
     
