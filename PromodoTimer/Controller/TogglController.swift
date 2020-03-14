@@ -31,15 +31,23 @@ class TogglController {
         }
     }
     
-    let idpwFile = "idpw.txt"   //TODO: FOR TESTING PURPOSE ONLY
-    var auth: String = ""       //TODO: learn about keychain for better encryption
+    var id: String = " "
+    var auth: String = ""            //TODO: learn about keychain for better encryption
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     var archiveURL: URL {
-        return documentsDirectory.appendingPathComponent("auth").appendingPathExtension("plist")
+        return documentsDirectory.appendingPathComponent("credential").appendingPathExtension("plist")
     }
     
     init () {
-        setAuth()
+        let propertyListDecoder = PropertyListDecoder()
+        if let retrievedData = try? Data(contentsOf: archiveURL),
+            let decodedCredential = try? propertyListDecoder.decode(credential.self, from: retrievedData){
+            id = decodedCredential.id
+            auth = decodedCredential.auth
+            
+            print("Read id \(id)")
+            print("Read auth \(auth)")
+        }
     }
     
     func getDataFromRequest(requestURL: URLRequest, completion: @escaping (Data) -> Void) {
@@ -80,28 +88,18 @@ class TogglController {
         }
     }
     
-    func setAuth() {
-        if let retrievedString = try? String(contentsOf: archiveURL) {
-            print("Read auth \(retrievedString)")
-            auth = retrievedString
-            return
-        }
-
-        //DEBUGGING PURPOSE ONLY
-        if let filepath = Bundle.main.path(forResource: idpwFile, ofType: nil) {
-            do {
-                let contents = try String(contentsOfFile: filepath)
-                let splitted = contents.components(separatedBy: " ")
-                
-                let id = splitted[0]
-                let pw = String(splitted[1].dropLast())
-                auth = "\(id):\(pw)".toBase64()
-                print("Set auth to \(auth)")
-                
-                try auth.write(to: archiveURL, atomically: false, encoding: .utf8)
-            }
-            catch {}
-        }
+    func setAuth(id: String, pw: String) {
+        self.id = id
+        auth = "\(id):\(pw)".toBase64()
+        print("Set auth to \(auth)")
+        
+        try? auth.write(to: archiveURL, atomically: false, encoding: .utf8)
+        
+        let cred = credential(id: id, auth: auth)
+        let propertyListEncoder = PropertyListEncoder()
+        let encodedCrednetial = try? propertyListEncoder.encode(cred)
+        try? encodedCrednetial?.write(to: archiveURL)
+        
     }
 
     
@@ -114,6 +112,14 @@ class TogglController {
     }
 }
 
+struct credential: Codable {
+    var id: String
+    var auth: String
+    init(id: String, auth: String) {
+        self.id = id
+        self.auth = auth
+    }
+}
 
 // Copied from https://stackoverflow.com/a/35360697
 extension String {

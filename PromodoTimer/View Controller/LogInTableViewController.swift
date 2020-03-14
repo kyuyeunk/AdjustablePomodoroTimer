@@ -1,20 +1,53 @@
 //
-//  SettingsTableViewController.swift
+//  LogInTableViewController.swift
 //  PromodoTimer
 //
-//  Created by Kyu Yeun Kim on 2020/03/11.
+//  Created by Kyu Yeun Kim on 2020/03/14.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
 //
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController {
+class LogInTableViewController: UITableViewController {
 
-    @IBOutlet weak var togglIDLabel: UILabel!
+    @IBAction func doneButtonPressed(_ sender: Any) {
+        guard let id = idTextField.text else {
+            print("Error: ID is not filled")
+            return
+        }
+        guard let pw = pwTextField.text else {
+            print("Error: PW is not filled")
+            return
+        }
+    
+        GlobalVar.timeController.toggl.setAuth(id: id, pw: pw)
+        let alert = UIAlertController(title: "Toggl Authentication",
+            message: "Auth is set to \(GlobalVar.timeController.toggl.auth)", preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "Ok", style: .cancel) { (action) in
+            if let navigation = self.navigationController {
+                if let settings = navigation.viewControllers[1] as? SettingsTableViewController {
+                    settings.togglIDLabel.text = GlobalVar.timeController.toggl.id
+                    navigation.popViewController(animated: true)
+                }
+             }
+        }
+
+        alert.addAction(okButton)
+        self.present(alert, animated: true, completion: nil)
+    }
+    @IBOutlet weak var idTextField: UITextField!
+    @IBOutlet weak var pwTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        togglIDLabel.text = GlobalVar.timeController.toggl.id
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+
+    // MARK: - Table view data source
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

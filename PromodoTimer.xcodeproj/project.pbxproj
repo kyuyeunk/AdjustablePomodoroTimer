@@ -12,8 +12,8 @@
 		2E0FB9A724190496003AA41D /* CircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A624190496003AA41D /* CircleViewController.swift */; };
 		2E0FB9A9241904EB003AA41D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */; };
 		2E0FB9AF241A75CF003AA41D /* TogglController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9AE241A75CF003AA41D /* TogglController.swift */; };
+		2E16120A241C7BEB007C55D8 /* LogInTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E161209241C7BEB007C55D8 /* LogInTableViewController.swift */; };
 		2E80F90A241C663500554B12 /* GlobalVarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80F909241C663500554B12 /* GlobalVarModel.swift */; };
-		2E80F90E241C674400554B12 /* idpw.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2E80F90D241C674400554B12 /* idpw.txt */; };
 		2EC23D052417ADDA00EA7BD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */; };
 		2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */; };
 		2EC23D092417ADDA00EA7BD6 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D082417ADDA00EA7BD6 /* PickerViewController.swift */; };
@@ -28,8 +28,8 @@
 		2E0FB9A624190496003AA41D /* CircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleViewController.swift; sourceTree = "<group>"; };
 		2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2E0FB9AE241A75CF003AA41D /* TogglController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglController.swift; sourceTree = "<group>"; };
+		2E161209241C7BEB007C55D8 /* LogInTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInTableViewController.swift; sourceTree = "<group>"; };
 		2E80F909241C663500554B12 /* GlobalVarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVarModel.swift; sourceTree = "<group>"; };
-		2E80F90D241C674400554B12 /* idpw.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = idpw.txt; sourceTree = "<group>"; };
 		2E80F90F241C67B400554B12 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EC23D012417ADDA00EA7BD6 /* PromodoTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromodoTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +57,7 @@
 				2E0FB9A624190496003AA41D /* CircleViewController.swift */,
 				2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */,
 				2EC23D082417ADDA00EA7BD6 /* PickerViewController.swift */,
+				2E161209241C7BEB007C55D8 /* LogInTableViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -99,7 +100,6 @@
 				2EC23D0F2417ADE600EA7BD6 /* LaunchScreen.storyboard */,
 				2E80F90F241C67B400554B12 /* Info.plist */,
 				2E80F909241C663500554B12 /* GlobalVarModel.swift */,
-				2E80F90D241C674400554B12 /* idpw.txt */,
 			);
 			path = PromodoTimer;
 			sourceTree = "<group>";
@@ -166,7 +166,6 @@
 				2EC23D0E2417ADE600EA7BD6 /* Assets.xcassets in Resources */,
 				2E0FB9A32417E0D7003AA41D /* README.md in Resources */,
 				2EC23D0C2417ADDA00EA7BD6 /* Main.storyboard in Resources */,
-				2E80F90E241C674400554B12 /* idpw.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +183,7 @@
 				2E0FB9A724190496003AA41D /* CircleViewController.swift in Sources */,
 				2E0FB9AF241A75CF003AA41D /* TogglController.swift in Sources */,
 				2E0FB9A52418F377003AA41D /* TimeController.swift in Sources */,
+				2E16120A241C7BEB007C55D8 /* LogInTableViewController.swift in Sources */,
 				2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

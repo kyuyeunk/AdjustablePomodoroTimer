@@ -61,7 +61,6 @@ class CircleViewController: UIViewController {
 
 extension CircleViewController: TimeControllerDelegate {
     func setSecondUI(currTime: Int) {
-        print("CircleView currTime: \(currTime)")
         let newDegree = .pi / increment * CGFloat(currTime)
         let diffDegree = currDegree - newDegree
         
@@ -72,7 +71,9 @@ extension CircleViewController: TimeControllerDelegate {
     }
     
     func getCurrTime() -> Int {
-        return Int(ceil(currDegree / .pi * self.increment))
+        let seconds = Int(ceil(currDegree / .pi * self.increment))
+        print("currDegree: \(currDegree) seconds: \(seconds)")
+        return seconds
     }
     
     func stopTimerUI() {
