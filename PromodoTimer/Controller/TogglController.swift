@@ -43,6 +43,7 @@ class TogglController {
     }
     
     var projects: [projectInfo] = []
+    var userDefinedTracking: [TrackingType: trackingInfo] = [:]
     var id: String = "Please Input ID/PW"
     var auth: String = ""            //TODO: learn about keychain for better encryption
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -71,6 +72,9 @@ class TogglController {
                 print("[Load] \(project.pid): \(project.name)")
             }
         }
+        
+        userDefinedTracking[.positive] = trackingInfo(project: projects[0], desc: "Positive Test")
+        userDefinedTracking[.negative] = trackingInfo(project: projects[1], desc: "Negative Test")
     }
     
     func getDataFromRequest(requestURL: URLRequest, completion: @escaping (Data) -> Void) {
@@ -87,6 +91,15 @@ class TogglController {
             //TODO: Implement error handling
         }
         task.resume()
+    }
+    
+    func startTimer(type: TrackingType) {
+        if let info = userDefinedTracking[type] {
+            startTimer(pid: info.project.pid, desc: info.desc)
+        }
+        else {
+            print("[Toggl] userDefinedTracking is not set")
+        }
     }
     
     func startTimer(pid: Int, desc: String) {
@@ -197,6 +210,19 @@ struct projectInfo: Codable {
     }
 }
 
+struct trackingInfo: Codable {
+    var project: projectInfo
+    var desc: String
+    init(project: projectInfo, desc: String) {
+        self.project = project
+        self.desc = desc
+    }
+}
+
+enum TrackingType {
+    case positive
+    case negative
+}
 // Copied from https://stackoverflow.com/a/35360697
 extension String {
     func fromBase64() -> String? {
