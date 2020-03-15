@@ -18,7 +18,6 @@ protocol TimeControllerDelegate {
 }
 
 class TimeController {
-    var toggl = TogglController()
     var timeControllerDelegate: TimeControllerDelegate! {
         //If the view has been changed, change the UI accordingly
         //E.g., change clock hand if timer's current time doesn't match the clock hand
@@ -58,7 +57,7 @@ class TimeController {
         timeControllerDelegate.stopTimerUI()
         if timer.isValid {
             timer.invalidate()
-            toggl.stopTimer()
+            GlobalVar.toggl.stopTimer()
             
             //If prevTime is 0, assume timer stopped automatically
             if prevTime == 0 && GlobalVar.settings.autoRepeat {
@@ -86,11 +85,11 @@ class TimeController {
         //Based on the current time, positive or negative toggl timer should be started
         let startTime = self.timeControllerDelegate.getCurrTime()
         if startTime > 0 {
-            toggl.startTimer(type: .positive)
+            GlobalVar.toggl.startTimer(type: .positive)
             currType = .positive
         }
         else {
-            toggl.startTimer(type: .negative)
+            GlobalVar.toggl.startTimer(type: .negative)
             currType = .negative
         }
         
@@ -99,13 +98,13 @@ class TimeController {
             var newTime = self.timeControllerDelegate.getCurrTime()
             if (self.prevTime > 0 && newTime < 0) {
                 print("[Timer] changed from positive to negative")
-                self.toggl.stopTimer()
-                self.toggl.startTimer(type: .negative)
+                GlobalVar.toggl.stopTimer()
+                GlobalVar.toggl.startTimer(type: .negative)
             }
             else if (self.prevTime < 0 && newTime > 0) {
                 print("[Timer] changed from negative to positive")
-                self.toggl.stopTimer()
-                self.toggl.startTimer(type: .positive)
+                GlobalVar.toggl.stopTimer()
+                GlobalVar.toggl.startTimer(type: .positive)
             }
  
             if newTime > 0 {

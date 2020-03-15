@@ -20,7 +20,7 @@ class LogInViewController: UIViewController {
             return
         }
     
-        GlobalVar.timeController.toggl.setAuth(id: id, pw: pw) { (valid) in
+        GlobalVar.toggl.setAuth(id: id, pw: pw) { (valid) in
             DispatchQueue.main.async {
                 var alert: UIAlertController
                 var okButton: UIAlertAction
