@@ -11,8 +11,8 @@ import UIKit
 class CircleViewController: UIViewController {
 
     let increment: CGFloat = 30 // Pi (180 degrees) = ${increment} seconds
-    var currDegree: CGFloat = .pi / 2
-    @IBOutlet weak var redBarImage: UIImageView!
+    var currDegree: CGFloat = 0
+    @IBOutlet weak var clockHand: UIImageView!
     @IBOutlet weak var clockImage: UIImageView!
     @IBOutlet weak var startButton: UIButton!
     @IBAction func startButtonPressed(_ sender: Any) {
@@ -40,13 +40,14 @@ class CircleViewController: UIViewController {
     func initUI() {
         startButton.setTitle("Start", for: .normal)
         if self.traitCollection.userInterfaceStyle == .dark {
-            clockImage.image = UIImage(named: "clockOutlineInverted")
+            clockImage.image = UIImage(named: "clockOutline2Inverted")
         } else {
-            clockImage.image = UIImage(named: "clockOutline")
+            clockImage.image = UIImage(named: "clockOutline2")
         }
-        redBarImage.image = UIImage(named: "redBar")
-        self.redBarImage.transform = self.redBarImage.transform.rotated(by: currDegree)
+        clockHand.image = UIImage(named: "redArrowHalf")
+        self.clockHand.transform = self.clockHand.transform.rotated(by: .pi/2)
     }
+    
     /*
     // MARK: - Navigation
 
@@ -65,7 +66,7 @@ extension CircleViewController: TimeControllerDelegate {
         let diffDegree = currDegree - newDegree
         
         DispatchQueue.main.async {
-            self.redBarImage.transform = self.redBarImage.transform.rotated(by: diffDegree)
+            self.clockHand.transform = self.clockHand.transform.rotated(by: diffDegree)
             if let completion = completion {
                 completion()
             }
@@ -85,5 +86,21 @@ extension CircleViewController: TimeControllerDelegate {
     
     func startTimerUI() {
         startButton.setTitle("Stop", for: .normal)
+    }
+}
+
+// Copied from https://stackoverflow.com/a/48626579
+extension UIBezierPath {
+    func addArrow(start: CGPoint, end: CGPoint, pointerLineLength: CGFloat, arrowAngle: CGFloat) {
+        self.move(to: start)
+        self.addLine(to: end)
+
+        let startEndAngle = atan((end.y - start.y) / (end.x - start.x)) + ((end.x - start.x) < 0 ? CGFloat(Double.pi) : 0)
+        let arrowLine1 = CGPoint(x: end.x + pointerLineLength * cos(CGFloat(Double.pi) - startEndAngle + arrowAngle), y: end.y - pointerLineLength * sin(CGFloat(Double.pi) - startEndAngle + arrowAngle))
+        let arrowLine2 = CGPoint(x: end.x + pointerLineLength * cos(CGFloat(Double.pi) - startEndAngle - arrowAngle), y: end.y - pointerLineLength * sin(CGFloat(Double.pi) - startEndAngle - arrowAngle))
+
+        self.addLine(to: arrowLine1)
+        self.move(to: end)
+        self.addLine(to: arrowLine2)
     }
 }

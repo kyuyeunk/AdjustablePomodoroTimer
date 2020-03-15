@@ -76,9 +76,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="374"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UjP-2U-amh">
-                                                <rect key="frame" x="177" y="20" width="20" height="354"/>
+                                                <rect key="frame" x="45" y="126" width="284" height="122"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="20" id="SbF-af-r1h"/>
+                                                    <constraint firstAttribute="width" secondItem="UjP-2U-amh" secondAttribute="height" multiplier="835:358" id="S5S-m8-AM0"/>
                                                 </constraints>
                                             </imageView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Bgp-Si-7RP">
@@ -87,14 +87,14 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="UjP-2U-amh" secondAttribute="bottom" id="20a-MD-Fyy"/>
                                             <constraint firstItem="Bgp-Si-7RP" firstAttribute="top" secondItem="iFu-2l-KbT" secondAttribute="top" constant="20" symbolic="YES" id="8NI-Cn-eeI"/>
-                                            <constraint firstItem="UjP-2U-amh" firstAttribute="centerX" secondItem="iFu-2l-KbT" secondAttribute="centerX" id="Gq6-HH-uJp"/>
                                             <constraint firstItem="Bgp-Si-7RP" firstAttribute="leading" secondItem="iFu-2l-KbT" secondAttribute="leading" constant="20" symbolic="YES" id="PJQ-4k-xX4"/>
                                             <constraint firstAttribute="width" secondItem="iFu-2l-KbT" secondAttribute="height" multiplier="1:1" id="Rzf-kr-KcU"/>
-                                            <constraint firstItem="UjP-2U-amh" firstAttribute="top" secondItem="iFu-2l-KbT" secondAttribute="top" constant="20" symbolic="YES" id="a1j-Hi-nKT"/>
                                             <constraint firstAttribute="trailing" secondItem="Bgp-Si-7RP" secondAttribute="trailing" constant="20" symbolic="YES" id="iuK-yG-bxB"/>
                                             <constraint firstAttribute="bottom" secondItem="Bgp-Si-7RP" secondAttribute="bottom" id="lGz-Zj-j50"/>
+                                            <constraint firstItem="UjP-2U-amh" firstAttribute="centerX" secondItem="iFu-2l-KbT" secondAttribute="centerX" id="lLi-NS-z7i"/>
+                                            <constraint firstItem="UjP-2U-amh" firstAttribute="width" secondItem="Bgp-Si-7RP" secondAttribute="width" constant="-50" id="lkU-aU-bhs"/>
+                                            <constraint firstItem="UjP-2U-amh" firstAttribute="centerY" secondItem="iFu-2l-KbT" secondAttribute="centerY" id="wU6-mg-SO4"/>
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IWV-9z-pIW">
@@ -125,8 +125,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="clockHand" destination="UjP-2U-amh" id="XQB-4w-Ysu"/>
                         <outlet property="clockImage" destination="Bgp-Si-7RP" id="67w-do-DUD"/>
-                        <outlet property="redBarImage" destination="UjP-2U-amh" id="XQB-4w-Ysu"/>
                         <outlet property="startButton" destination="IWV-9z-pIW" id="71k-F8-hiT"/>
                     </connections>
                 </viewController>
@@ -415,6 +415,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="WBp-Y1-QBL"/>
+        <segue reference="3U5-HR-rdD"/>
     </inferredMetricsTieBreakers>
 </document>
