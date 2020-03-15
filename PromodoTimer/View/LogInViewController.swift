@@ -53,6 +53,15 @@ class LogInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        idTextField.delegate = self
+        pwTextField.delegate = self
         // Do any additional setup after loading the view.
+    }
+}
+
+extension LogInViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

@@ -210,7 +210,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InputCell" id="CSa-sv-dNb">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="InputCell" id="CSa-sv-dNb" customClass="InputTableViewCell" customModule="PromodoTimer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="414" height="44.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CSa-sv-dNb" id="Nlg-2c-h6o">
@@ -230,6 +230,9 @@
                                         <constraint firstItem="b4V-le-KTX" firstAttribute="top" secondItem="Nlg-2c-h6o" secondAttribute="top" constant="5" id="zvq-U5-4d4"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="inputTextField" destination="b4V-le-KTX" id="kuN-9e-RK2"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LabelCell" textLabel="f5x-bp-Yaj" style="IBUITableViewCellStyleDefault" id="nWH-By-GKb">
                                 <rect key="frame" x="0.0" y="100" width="414" height="43.5"/>
@@ -269,7 +272,6 @@
         <!--Picker Mode-->
         <scene sceneID="Vcf-rj-KQ7">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4rR-aD-Jyk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rdd-z9-K7K" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Picker Mode" id="lnT-wI-JW5"/>
                     <toolbarItems/>
@@ -282,6 +284,7 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="f7C-Gd-ZiH"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4rR-aD-Jyk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="138.61607142857142"/>
         </scene>
@@ -394,7 +397,6 @@
         <!--Circle Mode-->
         <scene sceneID="LCY-6L-4m2">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ons-Jd-h2E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2O2-38-tUa" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Circle Mode" id="zhh-mv-SWc"/>
                     <toolbarItems/>
@@ -407,6 +409,7 @@
                         <segue destination="O6R-53-VCf" kind="relationship" relationship="rootViewController" id="ZwC-2a-VzX"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ons-Jd-h2E" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1048" y="852"/>
         </scene>
