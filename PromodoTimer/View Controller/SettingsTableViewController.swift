@@ -9,7 +9,10 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
-
+    var togglLoggedIn: Bool {
+        return GlobalVar.timeController.toggl.auth != ""
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -24,7 +27,7 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if GlobalVar.timeController.toggl.auth != "" {
+        if togglLoggedIn {
             return 2
         }
         else {
@@ -44,6 +47,9 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 0 {
             performSegue(withIdentifier: "LogInSegue", sender: nil)
+        }
+        else {
+           performSegue(withIdentifier: "TimerDetailSegue", sender: nil)
         }
     }
     
@@ -92,7 +98,18 @@ class SettingsTableViewController: UITableViewController {
         return cell
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let timerDetail = segue.destination as? TimerDetailTableViewController,
+            let indexPath = tableView.indexPathForSelectedRow {
+            
+            if indexPath.row == 0 {
+                timerDetail.type = .positive
+            }
+            else {
+                timerDetail.type = .negative
+            }
+        }
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

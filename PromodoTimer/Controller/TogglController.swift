@@ -62,8 +62,8 @@ class TogglController {
         loadFiles()
         
         //TODO: save this to the file and load it
-        userDefinedTracking[.positive] = trackingInfo(project: projects[0], desc: "Positive Test")
-        userDefinedTracking[.negative] = trackingInfo(project: projects[1], desc: "Negative Test")
+        //userDefinedTracking[.positive] = trackingInfo(project: projects[0], desc: "Positive Test")
+        //userDefinedTracking[.negative] = trackingInfo(project: projects[1], desc: "Negative Test")
     }
     
     func loadFiles() {
