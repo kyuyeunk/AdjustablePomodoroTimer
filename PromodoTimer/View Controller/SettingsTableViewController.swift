@@ -10,21 +10,88 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
 
-    @IBOutlet weak var togglIDLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        togglIDLabel.text = GlobalVar.timeController.toggl.id
     }
 
-    /*
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return 1
+        }
+        else {
+            return 2
+        }
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        if GlobalVar.timeController.toggl.auth != "" {
+            return 2
+        }
+        else {
+            return 1
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Toggl ID"
+        }
+        else {
+            return "Toggl Timer"
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            performSegue(withIdentifier: "LogInSegue", sender: nil)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        var cell: UITableViewCell
 
-        // Configure the cell...
-
+        if indexPath.section == 0 && indexPath.row == 0 {
+            cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
+            cell.textLabel?.text = GlobalVar.timeController.toggl.id
+        }
+        else if indexPath.section == 1 {
+            cell = tableView.dequeueReusableCell(withIdentifier: "TimerCell", for: indexPath)
+            
+            var type: TrackingType
+            var image: UIImage
+            if (indexPath.row == 0) {
+                type = .positive
+                image = UIImage(systemName: "plus")!
+            }
+            else {
+                type = .negative
+                image = UIImage(systemName: "minus")!
+            }
+            
+            cell.imageView?.image = image
+            if let trackingInfo = GlobalVar.timeController.toggl.userDefinedTracking[type] {
+                cell.textLabel?.text = trackingInfo.desc
+                cell.detailTextLabel?.text = trackingInfo.project.name
+            }
+            else {
+                print("ERROR: userDefinedTracking[.positive] has not been set")
+                if (indexPath.row == 0) {
+                        cell.textLabel?.text = "Description of Positive Toggl Timer"
+                        cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
+                }
+                else if (indexPath.row == 1) {
+                cell.textLabel?.text = "Description of Negative Toggl Timer"
+                cell.detailTextLabel?.text = "Project Name of Negative Toggl Timer"
+                }
+            }
+        }
+        else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
+        }
+        
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
