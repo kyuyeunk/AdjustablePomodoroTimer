@@ -24,9 +24,10 @@ class LogInViewController: UIViewController {
             DispatchQueue.main.async {
                 var alert: UIAlertController
                 var okButton: UIAlertAction
-                if valid {
+                if valid, let auth = GlobalVar.settings.auth {
+                    
                     alert = UIAlertController(title: "Toggl Authentication",
-                        message: "Auth is set to \(GlobalVar.settings.auth)", preferredStyle: .alert)
+                        message: "Auth is set to \(auth)", preferredStyle: .alert)
                     okButton = UIAlertAction(title: "Ok", style: .cancel) { (action) in
                         if let navigation = self.navigationController,
                             let settings = navigation.viewControllers[1] as? SettingsTableViewController {

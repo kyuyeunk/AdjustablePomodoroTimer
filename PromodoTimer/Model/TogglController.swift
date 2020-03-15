@@ -28,7 +28,11 @@ class TogglController {
     
     //Send url reqeust from given requestURL
     func getDataFromRequest(requestURL: URLRequest, completion: @escaping (Data) -> Void) {
-        let headers = ["Authorization": "Basic \(GlobalVar.settings.auth)"]
+        guard let auth = GlobalVar.settings.auth else {
+            print("Error: Authentication has not been set")
+            return
+        }
+        let headers = ["Authorization": "Basic \(auth)"]
         
         var myRequestURL = requestURL
         myRequestURL.allHTTPHeaderFields = headers
@@ -108,15 +112,16 @@ class TogglController {
                 print(api_token)
                 
                 GlobalVar.settings.id = id
-                GlobalVar.settings.auth = "\(api_token):api_token".toBase64()
+                let auth = "\(api_token):api_token".toBase64()
+                GlobalVar.settings.auth = auth
                 
-                let cred = credential(id: id, auth: GlobalVar.settings.auth)
+                let cred = credential(id: id, auth: auth)
                 let propertyListEncoder = PropertyListEncoder()
                 let encodedCrednetial = try? propertyListEncoder.encode(cred)
                 try? encodedCrednetial?.write(to: GlobalVar.settings.credentialArchieveURL)
                 
-                print("[Save] id: \(GlobalVar.settings.id)")
-                print("[Save] auth: \(GlobalVar.settings.auth)")
+                print("[Save] id: \(id)")
+                print("[Save] auth: \(auth)")
                 self.setProjectInfo()
                 completion(true)
             }

@@ -11,8 +11,8 @@ import Foundation
 class Settings {
     var projects: [projectInfo] = []
     var userDefinedTracking: [TrackingType: trackingInfo] = [:]
-    var id: String = "Please Input ID/PW"
-    var auth: String = ""            //TODO: learn about keychain for better encryption
+    var id: String?
+    var auth: String?           //TODO: learn about keychain for better encryption
     
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     var credentialArchieveURL: URL {
@@ -37,8 +37,8 @@ class Settings {
             id = decodedCredential.id
             auth = decodedCredential.auth
             
-            print("[Load] id: \(id)")
-            print("[Load] auth: \(auth)")
+            print("[Load] id: \(decodedCredential.id)")
+            print("[Load] auth: \(decodedCredential.auth)")
         }
         if let retrievedProjects = try? Data(contentsOf: projectsArchieveURL),
             let decodedProjects = try? propertyListDecoder.decode([projectInfo].self, from: retrievedProjects) {

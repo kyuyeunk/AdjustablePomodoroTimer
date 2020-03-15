@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
     var togglLoggedIn: Bool {
-        return GlobalVar.settings.auth != ""
+        return GlobalVar.settings.auth != nil
     }
     
     override func viewDidLoad() {
@@ -56,7 +56,12 @@ class SettingsTableViewController: UITableViewController {
 
         if indexPath.section == 0 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
-            cell.textLabel?.text = GlobalVar.settings.id
+            if let id = GlobalVar.settings.id {
+                    cell.textLabel?.text = id
+            }
+            else {
+                cell.textLabel?.text = "Please input ID/PW"
+            }
         }
         else if indexPath.section == 1 {
             cell = tableView.dequeueReusableCell(withIdentifier: "TimerCell", for: indexPath)
