@@ -30,11 +30,11 @@ class TimeController {
             else {
                 timeControllerDelegate.stopTimerUI()
             }
-            timeControllerDelegate.setSecondUI(currTime: currTime)
+            timeControllerDelegate.setSecondUI(currTime: prevTime)
         }
     }
     
-    var currTime = 0
+    var prevTime = 0
     var timer: Timer!
     var timerStart = false {
         didSet {
@@ -54,6 +54,7 @@ class TimeController {
     }
     
     func stopTimer() {
+        prevTime = 0
         timeControllerDelegate.stopTimerUI()
         if timer.isValid {
             timer.invalidate()
@@ -74,12 +75,12 @@ class TimeController {
         timeControllerDelegate.startTimerUI()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
             var newTime = self.timeControllerDelegate.getCurrTime()
-            if (self.currTime > 0 && newTime < 0) {
+            if (self.prevTime > 0 && newTime < 0) {
                 print("[Timer] changed from positive to negative")
                 self.toggl.stopTimer()
                 self.toggl.startTimer(type: .negative)
             }
-            else if (self.currTime < 0 && newTime > 0) {
+            else if (self.prevTime < 0 && newTime > 0) {
                 print("[Timer] changed from negative to positive")
                 self.toggl.stopTimer()
                 self.toggl.startTimer(type: .positive)
@@ -99,11 +100,10 @@ class TimeController {
             print("[Timer] current seconds: \(newTime)")
             self.timeControllerDelegate.setSecondUI(currTime: newTime)
             
+            self.prevTime = newTime
             if newTime == 0 {
                  print("[Timer] Reached 0 seconds")
                  self.timerStart = false
-            } else {
-                self.currTime = newTime
             }
         })
     }

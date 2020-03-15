@@ -10,7 +10,7 @@ import UIKit
 
 class SettingsTableViewController: UITableViewController {
     var togglLoggedIn: Bool {
-        return GlobalVar.timeController.toggl.auth != ""
+        return GlobalVar.settings.auth != ""
     }
     
     override func viewDidLoad() {
@@ -27,20 +27,18 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if togglLoggedIn {
-            return 2
-        }
-        else {
-            return 1
-        }
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "Toggl ID"
         }
-        else {
+        else if section == 1 && togglLoggedIn {
             return "Toggl Timer"
+        }
+        else {
+            return nil
         }
     }
     
@@ -58,7 +56,7 @@ class SettingsTableViewController: UITableViewController {
 
         if indexPath.section == 0 && indexPath.row == 0 {
             cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
-            cell.textLabel?.text = GlobalVar.timeController.toggl.id
+            cell.textLabel?.text = GlobalVar.settings.id
         }
         else if indexPath.section == 1 {
             cell = tableView.dequeueReusableCell(withIdentifier: "TimerCell", for: indexPath)
@@ -75,12 +73,12 @@ class SettingsTableViewController: UITableViewController {
             }
             
             cell.imageView?.image = image
-            if let trackingInfo = GlobalVar.timeController.toggl.userDefinedTracking[type] {
+            if let trackingInfo = GlobalVar.settings.userDefinedTracking[type] {
                 cell.textLabel?.text = trackingInfo.desc
                 cell.detailTextLabel?.text = trackingInfo.project.name
             }
             else {
-                print("ERROR: userDefinedTracking[.positive] has not been set")
+                print("ERROR: userDefinedTracking[] has not been set")
                 if (indexPath.row == 0) {
                         cell.textLabel?.text = "Description of Positive Toggl Timer"
                         cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
@@ -108,6 +106,20 @@ class SettingsTableViewController: UITableViewController {
             else {
                 timerDetail.type = .negative
             }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 1 {
+            if togglLoggedIn {
+                return 55.5
+            }
+            else {
+                return 0
+            }
+        }
+        else {
+            return 43.5
         }
     }
     /*

@@ -24,7 +24,7 @@ class TimerDetailTableViewController: UITableViewController {
         if let navigation = self.navigationController,
             let settings = navigation.viewControllers[1] as? SettingsTableViewController {
             
-            GlobalVar.timeController.toggl.userDefinedTracking[type] = selectedInfo
+            GlobalVar.settings.userDefinedTracking[type] = selectedInfo
             settings.tableView.reloadData()
             navigation.popViewController(animated: true)
         }
@@ -38,7 +38,7 @@ class TimerDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if section == 2 {
-            return GlobalVar.timeController.toggl.projects.count
+            return GlobalVar.settings.projects.count
         }
         else {
             return 1
@@ -56,6 +56,7 @@ class TimerDetailTableViewController: UITableViewController {
             return "List of Selectable Projects"
         }
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0,
@@ -67,7 +68,7 @@ class TimerDetailTableViewController: UITableViewController {
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
             if indexPath.section == 2 {
-                let project = GlobalVar.timeController.toggl.projects[indexPath.row]
+                let project = GlobalVar.settings.projects[indexPath.row]
                 cell.textLabel?.text = project.name
             }
             else {
@@ -79,12 +80,12 @@ class TimerDetailTableViewController: UITableViewController {
                 }
             }
              return cell
-        }  
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 2 {
-            selectedProject = GlobalVar.timeController.toggl.projects[indexPath.row]
+            selectedProject = GlobalVar.settings.projects[indexPath.row]
             let projectNameindexPath = IndexPath(row: 0, section: 1)
             tableView.reloadRows(at: [projectNameindexPath], with: .automatic)
         }

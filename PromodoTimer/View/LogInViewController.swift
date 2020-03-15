@@ -26,7 +26,7 @@ class LogInViewController: UIViewController {
                 var okButton: UIAlertAction
                 if valid {
                     alert = UIAlertController(title: "Toggl Authentication",
-                        message: "Auth is set to \(GlobalVar.timeController.toggl.auth)", preferredStyle: .alert)
+                        message: "Auth is set to \(GlobalVar.settings.auth)", preferredStyle: .alert)
                     okButton = UIAlertAction(title: "Ok", style: .cancel) { (action) in
                         if let navigation = self.navigationController,
                             let settings = navigation.viewControllers[1] as? SettingsTableViewController {

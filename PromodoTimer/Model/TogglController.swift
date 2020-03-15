@@ -24,71 +24,11 @@ class TogglController {
     }
     //Use currentTimerURL to fetch time_entry_id
     //Will return nil if no timer is currently running
-    var time_entry_id: Int? {
-        var entry_id: Int?
-        var fetched = false
-        getDataFromRequest(requestURL: URLRequest(url: currentTimerURL)) { (data) in
-            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                let toggl_data = json["data"] as? [String: Any],
-                let fetched_id = toggl_data["id"] as? Int {
-                print("[Toggl] Fetched time_entry_id: \(fetched_id)")
-                entry_id = fetched_id
-            }
-            else {
-                print("[Toggl] Unabled to fetch time_entry_id")
-                entry_id = nil
-            }
-            fetched = true
-        }
-        
-        //Use spinlock to wait for URL request to end
-        while(fetched == false) {}
-        return entry_id
-    }
-    
-    var projects: [projectInfo] = []
-    var userDefinedTracking: [TrackingType: trackingInfo] = [:]
-    var id: String = "Please Input ID/PW"
-    var auth: String = ""            //TODO: learn about keychain for better encryption
-    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    var credentialArchieveURL: URL {
-        return documentsDirectory.appendingPathComponent("credential").appendingPathExtension("plist")
-    }
-    var projectsArchieveURL: URL {
-        return documentsDirectory.appendingPathComponent("projects").appendingPathExtension("plist")
-    }
-    
-    init () {
-        loadFiles()
-        
-        //TODO: save this to the file and load it
-        //userDefinedTracking[.positive] = trackingInfo(project: projects[0], desc: "Positive Test")
-        //userDefinedTracking[.negative] = trackingInfo(project: projects[1], desc: "Negative Test")
-    }
-    
-    func loadFiles() {
-        let propertyListDecoder = PropertyListDecoder()
-        if let retrievedCredential = try? Data(contentsOf: credentialArchieveURL),
-            let decodedCredential = try? propertyListDecoder.decode(credential.self, from: retrievedCredential){
-            id = decodedCredential.id
-            auth = decodedCredential.auth
-            
-            print("[Load] id: \(id)")
-            print("[Load] auth: \(auth)")
-        }
-        if let retrievedProjects = try? Data(contentsOf: projectsArchieveURL),
-            let decodedProjects = try? propertyListDecoder.decode([projectInfo].self, from: retrievedProjects) {
-            print("[Load] Projects retrieved")
-            projects = decodedProjects
-            for project in projects {
-                print("[Load] \(project.pid): \(project.name)")
-            }
-        }
-    }
+    var time_entry_id: Int?
     
     //Send url reqeust from given requestURL
     func getDataFromRequest(requestURL: URLRequest, completion: @escaping (Data) -> Void) {
-        let headers = ["Authorization": "Basic \(auth)"]
+        let headers = ["Authorization": "Basic \(GlobalVar.settings.auth)"]
         
         var myRequestURL = requestURL
         myRequestURL.allHTTPHeaderFields = headers
@@ -104,7 +44,7 @@ class TogglController {
     
     //Start the timer based on .positive and .negative types
     func startTimer(type: TrackingType) {
-        if let info = userDefinedTracking[type] {
+        if let info = GlobalVar.settings.userDefinedTracking[type] {
             startTimer(pid: info.project.pid, desc: info.desc)
         }
         else {
@@ -128,8 +68,14 @@ class TogglController {
         
         getDataFromRequest(requestURL: requestURL) { (data) in
             if let string = String(data: data, encoding: .utf8) {
-                print("[Toggl] Timer Started with pid: \(pid) desc: \(desc)")
-                print(string)
+                print("[Toggl] Timer Started: \(string)")
+            }
+            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                let toggl_data = json["data"] as? [String: Any],
+                let entry_id = toggl_data["id"] as? Int {
+        
+                self.time_entry_id = entry_id
+                print("[Toggl] time_entry_id set to \(entry_id)")
             }
         }
     }
@@ -140,8 +86,9 @@ class TogglController {
         if let stopTimerURL = stopTimerURL {
             getDataFromRequest(requestURL: URLRequest(url: stopTimerURL)) { (data) in
                 if let string = String(data: data, encoding: .utf8) {
-                    print("[Toggl] Timer Stopped")
-                    print(string)
+                    print("[Toggl] Timer Stopped: \(string)")
+                    //print(string)
+                    self.time_entry_id = nil
                 }
             }
         }
@@ -152,7 +99,7 @@ class TogglController {
     
     //Fetch api_token from given id/pw and save it to credential.plist
     func setAuth(id: String, pw: String, completion: @escaping (Bool) -> Void) {
-        auth = "\(id):\(pw)".toBase64()
+        GlobalVar.settings.auth = "\(id):\(pw)".toBase64()
         getDataFromRequest(requestURL: URLRequest(url: baseInfoURL)) { (data) in
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                 let toggl_data = json["data"] as? [String: Any],
@@ -160,16 +107,16 @@ class TogglController {
                 
                 print(api_token)
                 
-                self.id = id
-                self.auth = "\(api_token):api_token".toBase64()
+                GlobalVar.settings.id = id
+                GlobalVar.settings.auth = "\(api_token):api_token".toBase64()
                 
-                let cred = credential(id: id, auth: self.auth)
+                let cred = credential(id: id, auth: GlobalVar.settings.auth)
                 let propertyListEncoder = PropertyListEncoder()
                 let encodedCrednetial = try? propertyListEncoder.encode(cred)
-                try? encodedCrednetial?.write(to: self.credentialArchieveURL)
+                try? encodedCrednetial?.write(to: GlobalVar.settings.credentialArchieveURL)
                 
-                print("[Save] id: \(self.id)")
-                print("[Save] auth: \(self.auth)")
+                print("[Save] id: \(GlobalVar.settings.id)")
+                print("[Save] auth: \(GlobalVar.settings.auth)")
                 self.setProjectInfo()
                 completion(true)
             }
@@ -186,19 +133,19 @@ class TogglController {
                 let toggl_data = json["data"] as? [String: Any],
                 let projects = toggl_data["projects"] as? [[String: Any]] {
                 
-                self.projects = []
+                GlobalVar.settings.projects = []
                 for project in projects {
                     if project["server_deleted_at"] == nil, let pid = project["id"] as? Int, let name = project["name"] as? String {
-                        self.projects.append(projectInfo(pid: pid, name: name))
+                        GlobalVar.settings.projects.append(projectInfo(pid: pid, name: name))
                     }
                 }
                 
                 let propertyListEncoder = PropertyListEncoder()
-                let encodedProjects = try? propertyListEncoder.encode(self.projects)
-                try? encodedProjects?.write(to: self.projectsArchieveURL)
+                let encodedProjects = try? propertyListEncoder.encode(GlobalVar.settings.projects)
+                try? encodedProjects?.write(to: GlobalVar.settings.projectsArchieveURL)
                 
                 print("[Save] Projects saved")
-                for project in self.projects {
+                for project in GlobalVar.settings.projects {
                     print("[Save] \(project.pid): \(project.name)")
                 }
             }

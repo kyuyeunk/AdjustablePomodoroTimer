@@ -10,4 +10,5 @@ import Foundation
 
 struct GlobalVar {
     static var timeController = TimeController()
+    static var settings = Settings()
 }
