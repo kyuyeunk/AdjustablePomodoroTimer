@@ -70,21 +70,26 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension PickerViewController: TimeControllerDelegate {
-    func setSecondUI(currTime: Int) {
+    func setSecondUI(currTime: Int, completion: (() -> ())?) {
         let pickerTime = 60 - mainTimer.selectedRow(inComponent: 0)
+        
+        //If completion is not nil, assume this is repeat mode
         var animated = false
-        if pickerTime + 1 == currTime || pickerTime - 1 == currTime {
+        if pickerTime + 1 == currTime || pickerTime - 1 == currTime || completion != nil {
             animated = true
         }
  
         DispatchQueue.main.async {
             self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: animated)
+            if let completion = completion {
+                completion()
+            }
         }
     }
     
     func getCurrTime() -> Int {
         let row = mainTimer.selectedRow(inComponent: 0)
-        print("selectedRow: \(row) seconds: \(60 - row)")
+        print("[Picker View] selectedRow: \(row) seconds: \(60 - row)")
         return 60 - mainTimer.selectedRow(inComponent: 0)
     }
     

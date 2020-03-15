@@ -9,6 +9,10 @@
 import Foundation
 
 class Settings {
+    var posStartTime = 30
+    var negStartTime = -15
+    var autoRepeat = true
+    
     var projects: [projectInfo] = []
     var userDefinedTracking: [TrackingType: trackingInfo] = [:]
     var id: String?

@@ -60,12 +60,15 @@ class CircleViewController: UIViewController {
 }
 
 extension CircleViewController: TimeControllerDelegate {
-    func setSecondUI(currTime: Int) {
+    func setSecondUI(currTime: Int, completion: (() -> ())?) {
         let newDegree = .pi / increment * CGFloat(currTime)
         let diffDegree = currDegree - newDegree
         
         DispatchQueue.main.async {
             self.redBarImage.transform = self.redBarImage.transform.rotated(by: diffDegree)
+            if let completion = completion {
+                completion()
+            }
         }
         currDegree = newDegree
     }

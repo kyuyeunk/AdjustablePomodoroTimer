@@ -22,8 +22,7 @@ class TogglController {
             return nil
         }
     }
-    //Use currentTimerURL to fetch time_entry_id
-    //Will return nil if no timer is currently running
+
     var time_entry_id: Int?
     
     //Send url reqeust from given requestURL
