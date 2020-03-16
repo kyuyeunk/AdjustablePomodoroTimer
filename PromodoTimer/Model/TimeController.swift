@@ -106,7 +106,7 @@ class TimeController {
                 GlobalVar.toggl.stopTimer()
                 GlobalVar.toggl.startTimer(type: .positive)
             }
- 
+            
             if newTime > 0 {
                 newTime -= 1
             }
@@ -114,19 +114,14 @@ class TimeController {
                 newTime += 1
             }
             else {
-                print("ERROR: timer should have ended before reaching 0")
+                print("[Timer] Reached 0 seconds")
+                self.timerStart = false
                 return
             }
             
             print("[Timer] current seconds: \(newTime)")
-            self.timeControllerDelegate.setSecondUI(currTime: newTime, completion: nil)
-            
             self.prevTime = newTime
-            if newTime == 0 {
-                 print("[Timer] Reached 0 seconds")
-                 self.timerStart = false
-            }
-            
+            self.timeControllerDelegate.setSecondUI(currTime: newTime, completion: nil)
         })
     }
 }
