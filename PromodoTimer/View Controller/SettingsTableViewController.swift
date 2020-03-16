@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum sections {
+    case togglID
+    case togglTimersSettings
+    case timerSettings
+}
 class SettingsTableViewController: UITableViewController {
     var togglLoggedIn: Bool {
         return GlobalVar.settings.auth != nil
@@ -21,13 +26,15 @@ class SettingsTableViewController: UITableViewController {
         if section == 0 {
             return 1
         }
-        else {
+        else if section == 1 {
             return 2
+        } else {
+            return 1
         }
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -36,6 +43,9 @@ class SettingsTableViewController: UITableViewController {
         }
         else if section == 1 && togglLoggedIn {
             return "Toggl Timer"
+        }
+        else if section == 2 {
+            return "Timer Settings"
         }
         else {
             return nil
@@ -52,19 +62,18 @@ class SettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell
-
         if indexPath.section == 0 && indexPath.row == 0 {
-            cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
             if let id = GlobalVar.settings.id {
                     cell.textLabel?.text = id
             }
             else {
                 cell.textLabel?.text = "Please input ID/PW"
             }
+            return cell
         }
         else if indexPath.section == 1 {
-            cell = tableView.dequeueReusableCell(withIdentifier: "TimerCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath)
             
             var type: TrackingType
             var image: UIImage
@@ -93,12 +102,24 @@ class SettingsTableViewController: UITableViewController {
                 cell.detailTextLabel?.text = "Project Name of Negative Toggl Timer"
                 }
             }
+            
+            return cell
+        }
+        else if let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as? SwitchTableViewCell {
+            if indexPath.row == 0 {
+                cell.settingTextLabel.text = "Auto-repeat Timer"
+                cell.settingSwitch.isOn = GlobalVar.settings.autoRepeat
+                cell.settingSwitch.addTarget(self, action: #selector(autoRepeatSwitched(myswitch:)), for: .valueChanged)
+            }
+            else {
+                cell.settingTextLabel.text = "What should I do?"
+            }
+    
+            return cell
         }
         else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
+            return tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
         }
-        
-        return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -127,49 +148,14 @@ class SettingsTableViewController: UITableViewController {
             return 43.5
         }
     }
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    @objc func autoRepeatSwitched(myswitch: UISwitch) {
+        GlobalVar.settings.autoRepeat = myswitch.isOn
+        if myswitch.isOn {
+            print("[Settings View] Auto-repeat switch turned on")
+        }
+        else {
+            print("[Settings View] Auto-repeat switch turned off")
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
