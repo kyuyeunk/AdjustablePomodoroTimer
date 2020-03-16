@@ -45,7 +45,8 @@ class CircleViewController: UIViewController {
             clockImage.image = UIImage(named: "clockOutline2")
         }
         clockHand.image = UIImage(named: "redArrowHalf")
-        self.clockHand.transform = self.clockHand.transform.rotated(by: .pi/2)
+        clockHand.transform = self.clockHand.transform.rotated(by: .pi/2)
+        clockImage.transform = clockImage.transform.translatedBy(x: 0, y: -10)
     }
     
     /*
@@ -76,7 +77,7 @@ extension CircleViewController: TimeControllerDelegate {
     
     func getCurrTime() -> Int {
         let seconds = Int(round(currDegree / .pi * self.increment))
-        print("currDegree: \(currDegree) seconds: \(seconds)")
+        print("[Circle View] currDegree: \(currDegree) seconds: \(seconds)")
         return seconds
     }
     
