@@ -10,6 +10,9 @@ import UIKit
 
 class TimerListTableViewController: UITableViewController {
 
+    @IBAction func addButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "TimerSettingsSegue", sender: GlobalVar.timerList.count)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,7 +46,9 @@ class TimerListTableViewController: UITableViewController {
         return cell
     }
     
-
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "TimerSettingsSegue", sender: indexPath.row)
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -56,7 +61,6 @@ class TimerListTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
             if GlobalVar.timerList.count == 1 {
                 DispatchQueue.main.async {
                     var alert: UIAlertController
@@ -79,7 +83,11 @@ class TimerListTableViewController: UITableViewController {
         }    
     }
     
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let timerSettings = segue.destination as? TimerSettingsTableViewController, let timerID = sender as? Int {
+            timerSettings.workingTimerID = timerID
+        }
+    }
     /*
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {

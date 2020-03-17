@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TimerDetailTableViewController: UITableViewController {
+class TogglTimerSettingsTableViewController: UITableViewController {
 
     var type: TrackingType = .positive
     var selectedProject: projectInfo?
@@ -93,7 +93,7 @@ class TimerDetailTableViewController: UITableViewController {
     }
 }
 
-extension TimerDetailTableViewController: UITextFieldDelegate {
+extension TogglTimerSettingsTableViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         desc = textField.text
     }
