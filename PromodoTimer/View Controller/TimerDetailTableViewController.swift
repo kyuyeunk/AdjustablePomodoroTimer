@@ -24,7 +24,7 @@ class TimerDetailTableViewController: UITableViewController {
         if let navigation = self.navigationController,
             let settings = navigation.viewControllers[1] as? SettingsTableViewController {
             
-            GlobalVar.settings.userDefinedTracking[type] = selectedInfo
+            GlobalVar.timerList[GlobalVar.currTimer].userDefinedTracking[type] = selectedInfo
             settings.tableView.reloadData()
             navigation.popViewController(animated: true)
         }

@@ -14,7 +14,7 @@ class Settings {
     var autoRepeat = true
     
     var projects: [projectInfo] = []
-    var userDefinedTracking: [TrackingType: trackingInfo] = [:]
+    
     var id: String?
     var auth: String?           //TODO: learn about keychain for better encryption
     

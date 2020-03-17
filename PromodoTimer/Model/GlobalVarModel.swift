@@ -12,4 +12,13 @@ struct GlobalVar {
     static var timeController = TimeController()
     static var settings = Settings()
     static var toggl = TogglController()
+    static var currTimer: Int = 0 {
+        didSet {
+            let timer = self.timerList[self.currTimer]
+            self.settings.posStartTime = timer.posStartTime
+            self.settings.negStartTime = timer.negStartTime
+            self.settings.autoRepeat = timer.autoRepeat
+        }
+    }
+    static var timerList: [TimerModel] = []
 }

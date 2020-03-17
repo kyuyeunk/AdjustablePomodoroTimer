@@ -73,7 +73,7 @@ class SettingsTableViewController: UITableViewController {
             return cell
         }
         else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "timerValueCell", for: indexPath)
             
             var type: TrackingType
             var image: UIImage
@@ -87,7 +87,7 @@ class SettingsTableViewController: UITableViewController {
             }
             
             cell.imageView?.image = image
-            if let trackingInfo = GlobalVar.settings.userDefinedTracking[type] {
+            if let trackingInfo = GlobalVar.timerList[GlobalVar.currTimer].userDefinedTracking[type] {
                 cell.textLabel?.text = trackingInfo.desc
                 cell.detailTextLabel?.text = trackingInfo.project.name
             }
