@@ -52,17 +52,33 @@ class TimerListTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            
+            if GlobalVar.timerList.count == 1 {
+                DispatchQueue.main.async {
+                    var alert: UIAlertController
+                    var okButton: UIAlertAction
+
+                    alert = UIAlertController(title: "Error",
+                        message: "There should be at least one timer", preferredStyle: .alert)
+                    okButton = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    
+                    alert.addAction(okButton)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+            else {
+                GlobalVar.timerList.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
