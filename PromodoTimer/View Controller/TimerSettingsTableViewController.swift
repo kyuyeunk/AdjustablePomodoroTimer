@@ -11,17 +11,38 @@ import UIKit
 class TimerSettingsTableViewController: UITableViewController {
 
     var workingTimerID: Int!
+    var workingTimerModel: TimerModel!
+    var newTimer: Bool {
+        if workingTimerID < GlobalVar.timerList.count {
+            return false
+        }
+        else {
+            return true
+        }
+    }
     
     var posTimePickerHidden = true
     var negTimePickerHidden = true
+    
+    var secondRows: [Int] = []
+    var posPickerView: UIPickerView!
+    var negPickerView: UIPickerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let id = workingTimerID {
             print("[Timer Settings] Working on timer \(id)")
         }
+        for i in (-60 ... 60).reversed() {
+            secondRows.append(i)
+        }
+        if newTimer {
+            workingTimerModel = TimerModel()
+        }
+        else {
+            workingTimerModel = GlobalVar.timerList[workingTimerID]
+        }
     }
-
-    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -40,21 +61,18 @@ class TimerSettingsTableViewController: UITableViewController {
         }
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-
         if indexPath.section == 0 {
             if indexPath.row == 0 || indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
-                if workingTimerID < GlobalVar.timerList.count {
+                if !newTimer {
                     if indexPath.row == 0 {
-                        cell.textLabel?.text = String(GlobalVar.timerList[workingTimerID].posStartTime)
+                        cell.textLabel?.text = String(workingTimerModel.posStartTime)
                         cell.imageView?.image = UIImage(systemName: "plus")!
                         
                     }
                     else if indexPath.row == 2 {
-                        cell.textLabel?.text = String(GlobalVar.timerList[workingTimerID].negStartTime)
+                        cell.textLabel?.text = String(workingTimerModel.negStartTime)
                         cell.imageView?.image = UIImage(systemName: "minus")!
                     }
                 }
@@ -72,9 +90,22 @@ class TimerSettingsTableViewController: UITableViewController {
                 return cell
             }
             else if let cell = tableView.dequeueReusableCell(withIdentifier: "pickerCell", for: indexPath) as? PickerTableViewCell {
-                for i in (-60 ... 60).reversed() {
-                    cell.dataSource.append(i)
+                var currRow: Int = 60
+                if indexPath.row == 1 {
+                    posPickerView = cell.pickerView
+                    if !newTimer {
+                        currRow = 60 - workingTimerModel.posStartTime
+                    }
                 }
+                else {
+                    negPickerView = cell.pickerView
+                    if !newTimer {
+                        currRow = 60 - workingTimerModel.negStartTime
+                    }
+                }
+                
+                cell.pickerView.delegate = self
+                cell.pickerView.selectRow(currRow, inComponent: 0, animated: false)
                 
                 return cell
             }
@@ -94,7 +125,7 @@ class TimerSettingsTableViewController: UITableViewController {
             }
             
             cell.imageView?.image = image
-            if workingTimerID < GlobalVar.timerList.count, let trackingInfo = GlobalVar.timerList[0].userDefinedTracking[type] {
+            if !newTimer, let trackingInfo = workingTimerModel.userDefinedTracking[type] {
                 cell.textLabel?.text = trackingInfo.desc
                 cell.detailTextLabel?.text = trackingInfo.project.name
             }
@@ -115,11 +146,11 @@ class TimerSettingsTableViewController: UITableViewController {
         else if let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as? SwitchTableViewCell {
             if indexPath.row == 0 {
                 cell.settingTextLabel.text = "Auto-repeat Timer"
-                cell.settingSwitch.isOn = GlobalVar.settings.autoRepeat
+                cell.settingSwitch.isOn = workingTimerModel.autoRepeat
                 cell.settingSwitch.addTarget(self, action: #selector(autoRepeatSwitched(myswitch:)), for: .valueChanged)
             }
             else {
-                cell.settingTextLabel.text = "What should I do?"
+                cell.settingTextLabel.text = "ERROR: no label for this switchCell"
             }
             
             return cell
@@ -194,12 +225,47 @@ class TimerSettingsTableViewController: UITableViewController {
     }
     
      @objc func autoRepeatSwitched(myswitch: UISwitch) {
-        GlobalVar.timerList[workingTimerID].autoRepeat = myswitch.isOn
+        workingTimerModel.autoRepeat = myswitch.isOn
         if myswitch.isOn {
             print("[Settings View] Auto-repeat switch turned on")
         }
         else {
             print("[Settings View] Auto-repeat switch turned off")
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if self.isMovingFromParent {
+            print("Hello")
+        }
+    }
+}
+
+extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return secondRows.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(secondRows[row])
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if pickerView == posPickerView {
+            workingTimerModel.posStartTime = secondRows[row]
+            let labelIndexPath = IndexPath(row: 0, section: 0)
+            tableView.reloadRows(at: [labelIndexPath], with: .automatic)
+        }
+        else {
+            workingTimerModel.negStartTime = secondRows[row]
+            let labelIndexPath = IndexPath(row: 2, section: 0)
+            tableView.reloadRows(at: [labelIndexPath], with: .automatic)
         }
     }
 }

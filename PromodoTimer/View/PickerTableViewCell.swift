@@ -8,25 +8,12 @@
 
 import UIKit
 
-class PickerTableViewCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource {
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return dataSource.count
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(dataSource[row])
-    }
-    var dataSource: [Int] = []
+class PickerTableViewCell: UITableViewCell {
+
     @IBOutlet weak var pickerView: UIPickerView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        pickerView.delegate = self
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
