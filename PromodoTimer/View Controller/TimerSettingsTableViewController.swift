@@ -45,32 +45,41 @@ class TimerSettingsTableViewController: UITableViewController {
         
 
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
-            if workingTimerID < GlobalVar.timerList.count {
-                if indexPath.row == 0 {
-                    cell.textLabel?.text = String(GlobalVar.timerList[workingTimerID].posStartTime)
-                    cell.imageView?.image = UIImage(systemName: "plus")!
-                    
+            if indexPath.row == 0 || indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
+                if workingTimerID < GlobalVar.timerList.count {
+                    if indexPath.row == 0 {
+                        cell.textLabel?.text = String(GlobalVar.timerList[workingTimerID].posStartTime)
+                        cell.imageView?.image = UIImage(systemName: "plus")!
+                        
+                    }
+                    else if indexPath.row == 2 {
+                        cell.textLabel?.text = String(GlobalVar.timerList[workingTimerID].negStartTime)
+                        cell.imageView?.image = UIImage(systemName: "minus")!
+                    }
                 }
-                else if indexPath.row == 2 {
-                    cell.textLabel?.text = String(GlobalVar.timerList[workingTimerID].negStartTime)
-                    cell.imageView?.image = UIImage(systemName: "minus")!
+                else {
+                    if indexPath.row == 0 {
+                        cell.textLabel?.text = "Please Input Positive Time"
+                        cell.imageView?.image = UIImage(systemName: "plus")!
+                    }
+                    else if indexPath.row == 2{
+                        cell.textLabel?.text = "Please Input Positive Time"
+                        cell.imageView?.image = UIImage(systemName: "minus")!
+                    }
                 }
-            }
-            else {
-                if indexPath.row == 0 {
-                    cell.textLabel?.text = "Please Input Positive Time"
-                    cell.imageView?.image = UIImage(systemName: "plus")!
-                }
-                else if indexPath.row == 2{
-                    cell.textLabel?.text = "Please Input Positive Time"
-                    cell.imageView?.image = UIImage(systemName: "minus")!
-                }
-            }
 
-            return cell
+                return cell
+            }
+            else if let cell = tableView.dequeueReusableCell(withIdentifier: "pickerCell", for: indexPath) as? PickerTableViewCell {
+                for i in (-60 ... 60).reversed() {
+                    cell.dataSource.append(i)
+                }
+                
+                return cell
+            }
         }
-        if indexPath.section == 1 {
+        else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "togglTimerSettingsCell", for: indexPath)
             
             var type: TrackingType
@@ -119,7 +128,7 @@ class TimerSettingsTableViewController: UITableViewController {
             return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
         }
 
-        
+        return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -135,8 +144,26 @@ class TimerSettingsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 && ((indexPath.row == 1 && posTimePickerHidden) || (indexPath.row == 3 && negTimePickerHidden)){
-            return 0
+        if indexPath.section == 0 {
+            if indexPath.row == 1 {
+                if posTimePickerHidden {
+                    return 0
+                }
+                else {
+                    return 200
+                }
+            }
+            else if indexPath.row == 3 {
+                if negTimePickerHidden {
+                    return 0
+                }
+                else {
+                    return 200
+                }
+            }
+            else {
+                return 45
+            }
         }
         else if indexPath.section == 1 {
             return 55.5
