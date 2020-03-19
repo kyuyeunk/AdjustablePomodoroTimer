@@ -33,7 +33,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
         if let navigation = self.navigationController,
             let settings = navigation.viewControllers[1] as? SettingsTableViewController {
             
-            GlobalVar.timerList[GlobalVar.currTimer].userDefinedTracking[type] = selectedInfo
+            GlobalVar.timerList[GlobalVar.settings.currTimer].userDefinedTracking[type] = selectedInfo
             settings.tableView.reloadData()
             navigation.popViewController(animated: true)
         }

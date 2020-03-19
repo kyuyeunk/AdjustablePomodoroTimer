@@ -41,13 +41,19 @@ class TimerListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath)
         let timer = GlobalVar.timerList[indexPath.row]
         cell.textLabel?.text = timer.timerName
-        // Configure the cell...
+        if indexPath.row == GlobalVar.settings.currTimer {
+        cell.imageView?.image = UIImage(systemName: "circle.fill")!
+        }
+        else {
+        cell.imageView?.image = UIImage(systemName: "circle")!
+        }
 
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "TimerSettingsSegue", sender: indexPath.row)
+        GlobalVar.settings.currTimer = indexPath.row
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     /*
     // Override to support conditional editing of the table view.
@@ -88,29 +94,9 @@ class TimerListTableViewController: UITableViewController {
             timerSettings.workingTimerID = timerID
         }
     }
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        performSegue(withIdentifier: "TimerSettingsSegue", sender: indexPath.row)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

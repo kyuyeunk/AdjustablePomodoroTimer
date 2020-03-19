@@ -9,6 +9,16 @@
 import Foundation
 
 class Settings {
+    var currTimer: Int = 0 {
+        didSet {
+            let timer = GlobalVar.timerList[self.currTimer]
+            posStartTime = timer.posStartTime
+            negStartTime = timer.negStartTime
+            autoRepeat = timer.autoRepeat
+            print("[Settings] set the timer to timerList[\(self.currTimer)]")
+        }
+    }
+    
     var posStartTime = 30
     var negStartTime = -15
     var autoRepeat = true

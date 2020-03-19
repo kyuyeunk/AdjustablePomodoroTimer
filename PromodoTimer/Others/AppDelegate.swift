@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         GlobalVar.timerList.append(TimerModel())
-        GlobalVar.currTimer = 0
+        GlobalVar.settings.currTimer = 0
         return true
     }
 
