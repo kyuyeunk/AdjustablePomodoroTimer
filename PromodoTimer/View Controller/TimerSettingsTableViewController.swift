@@ -9,7 +9,17 @@
 import UIKit
 
 class TimerSettingsTableViewController: UITableViewController {
-
+    enum sections: Int {
+        case timerValues
+        case togglValues
+        case misc
+        case numberOfSections
+        
+        init?(indexPath: NSIndexPath) {
+            self.init(rawValue: indexPath.section)
+        }
+    }
+    
     var workingTimerID: Int!
     var workingTimerModel: TimerModel!
     var newTimer: Bool {
@@ -46,23 +56,25 @@ class TimerSettingsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 3
+        return sections.numberOfSections.rawValue
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        switch sections(rawValue: section) {
+        case .timerValues:
             return 4
-        }
-        else if section == 1 {
+        case .togglValues:
             return 2
-        }
-        else {
+        case .misc:
             return 1
+        default:
+            return 0
         }
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        switch sections(rawValue: indexPath.section) {
+        case .timerValues:
             if indexPath.row == 0 || indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
                 if !newTimer {
@@ -86,7 +98,7 @@ class TimerSettingsTableViewController: UITableViewController {
                         cell.imageView?.image = UIImage(systemName: "minus")!
                     }
                 }
-
+                
                 return cell
             }
             else if let cell = tableView.dequeueReusableCell(withIdentifier: "pickerCell", for: indexPath) as? PickerTableViewCell {
@@ -109,8 +121,10 @@ class TimerSettingsTableViewController: UITableViewController {
                 
                 return cell
             }
-        }
-        else if indexPath.section == 1 {
+            else {
+                break
+            }
+        case .togglValues:
             let cell = tableView.dequeueReusableCell(withIdentifier: "togglTimerSettingsCell", for: indexPath)
             
             var type: TrackingType
@@ -132,50 +146,54 @@ class TimerSettingsTableViewController: UITableViewController {
             else {
                 print("ERROR: userDefinedTracking[] has not been set")
                 if (indexPath.row == 0) {
-                        cell.textLabel?.text = "Description of Positive Toggl Timer"
-                        cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
+                    cell.textLabel?.text = "Description of Positive Toggl Timer"
+                    cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
                 }
                 else if (indexPath.row == 1) {
-                cell.textLabel?.text = "Description of Negative Toggl Timer"
-                cell.detailTextLabel?.text = "Project Name of Negative Toggl Timer"
+                    cell.textLabel?.text = "Description of Negative Toggl Timer"
+                    cell.detailTextLabel?.text = "Project Name of Negative Toggl Timer"
                 }
             }
             
             return cell
-        }
-        else if let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as? SwitchTableViewCell {
-            if indexPath.row == 0 {
-                cell.settingTextLabel.text = "Auto-repeat Timer"
-                cell.settingSwitch.isOn = workingTimerModel.autoRepeat
-                cell.settingSwitch.addTarget(self, action: #selector(autoRepeatSwitched(myswitch:)), for: .valueChanged)
+        case .misc:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as? SwitchTableViewCell {
+                if indexPath.row == 0 {
+                    cell.settingTextLabel.text = "Auto-repeat Timer"
+                    cell.settingSwitch.isOn = workingTimerModel.autoRepeat
+                    cell.settingSwitch.addTarget(self, action: #selector(autoRepeatSwitched(myswitch:)), for: .valueChanged)
+                }
+                else {
+                    cell.settingTextLabel.text = "ERROR: no label for this switchCell"
+                }
+                return cell
             }
             else {
-                cell.settingTextLabel.text = "ERROR: no label for this switchCell"
+                break
             }
-            
-            return cell
+        default:
+            break
         }
-        else {
-            return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
-        }
-
+        
         return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
+        switch sections(rawValue: section) {
+        case .timerValues:
             return "Timer Values"
-        }
-        else if section == 1 {
-            return "Toggl Timer Values"
-        }
-        else {
+        case .togglValues:
+            return "Toggl Timer values"
+        case .misc:
             return "Misc"
+        default:
+            return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
+        switch sections(rawValue: indexPath.section) {
+        case .timerValues:
             if indexPath.row == 1 {
                 if posTimePickerHidden {
                     return 0
@@ -193,33 +211,41 @@ class TimerSettingsTableViewController: UITableViewController {
                 }
             }
             else {
-                return 45
+                break
             }
+        case .togglValues:
+            if indexPath.section == 1 {
+                return 55.5
+            }
+            else {
+                break
+            }
+        default:
+            break
         }
-        else if indexPath.section == 1 {
-            return 55.5
-        }
-        else {
-            return 45
-        }
+        return 45
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && (indexPath.row == 0 || indexPath.row == 2){
-            let pickerIndexPath: IndexPath
-            if indexPath.row == 0 {
-                pickerIndexPath = IndexPath(row: 1, section: 0)
-                posTimePickerHidden = !posTimePickerHidden
+        switch sections(rawValue: indexPath.section) {
+        case .timerValues:
+            if indexPath.row == 0 || indexPath.row == 2 {
+                let pickerIndexPath: IndexPath
+                if indexPath.row == 0 {
+                    pickerIndexPath = IndexPath(row: 1, section: 0)
+                    posTimePickerHidden = !posTimePickerHidden
+                    tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
+                }
+                else {
+                    pickerIndexPath = IndexPath(row: 3, section: 0)
+                    negTimePickerHidden = !negTimePickerHidden
+                }
                 tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
             }
-            else {
-                pickerIndexPath = IndexPath(row: 3, section: 0)
-                negTimePickerHidden = !negTimePickerHidden
-            }
-            tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
-        }
-        else if indexPath.section == 1 {
+        case .togglValues:
             performSegue(withIdentifier: "TogglTimerDetailSegue", sender: nil)
+        default:
+            break
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -238,7 +264,7 @@ class TimerSettingsTableViewController: UITableViewController {
         super.viewWillDisappear(animated)
 
         if self.isMovingFromParent {
-            print("Hello")
+            print("TODO: Implemented refreshing TimerListTableView")
         }
     }
 }
