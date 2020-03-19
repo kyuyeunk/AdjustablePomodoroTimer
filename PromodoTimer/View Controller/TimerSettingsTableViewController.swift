@@ -31,6 +31,22 @@ class TimerSettingsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        if newTimer {
+            GlobalVar.timerList.append(workingTimerModel)
+        }
+        else {
+            GlobalVar.timerList[workingTimerID] = workingTimerModel
+        }
+        
+        if let navigation = self.navigationController,
+            let timerList = navigation.viewControllers[1] as? TimerListTableViewController {
+            
+            timerList.tableView.reloadData()
+            navigation.popViewController(animated: true)
+        }
+    }
+        
     var posTimePickerHidden = true
     var negTimePickerHidden = true
     
@@ -257,14 +273,6 @@ class TimerSettingsTableViewController: UITableViewController {
         }
         else {
             print("[Settings View] Auto-repeat switch turned off")
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if self.isMovingFromParent {
-            print("TODO: Implemented refreshing TimerListTableView")
         }
     }
 }

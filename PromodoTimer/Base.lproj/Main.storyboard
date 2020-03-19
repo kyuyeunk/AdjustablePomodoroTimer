@@ -345,7 +345,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="e3B-he-f9h">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="rWm-Zk-e9W"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="rWm-Zk-e9W">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="LVu-Ld-QiE" id="o2f-OC-djU"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="DGA-o7-lWY" kind="show" identifier="TogglTimerDetailSegue" id="KRS-lQ-0ee"/>

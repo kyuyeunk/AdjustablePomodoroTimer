@@ -80,9 +80,9 @@
 			isa = PBXGroup;
 			children = (
 				2E0FB9A624190496003AA41D /* CircleViewController.swift */,
-				2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */,
 				2EC23D082417ADDA00EA7BD6 /* PickerViewController.swift */,
 				2E16120D241D5AA5007C55D8 /* LogInViewController.swift */,
+				2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */,
 				2E0F26E8241DF4320076C5AC /* TogglTimerDetailTableViewController.swift */,
 				2E5D8BEC2420E71B00860E1B /* TimerListTableViewController.swift */,
 				2E5D8BF02420EFB300860E1B /* TimerSettingsTableViewController.swift */,
