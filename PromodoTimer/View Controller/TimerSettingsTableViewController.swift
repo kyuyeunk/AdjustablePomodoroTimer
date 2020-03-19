@@ -19,7 +19,14 @@ class TimerSettingsTableViewController: UITableViewController {
             self.init(rawValue: indexPath.section)
         }
     }
+    struct Selected {
+        var posTimer = false
+        var negTimer = false
+        var posTogglTimer = false
+        var negTogglTimer = false
+    }
     
+    var selected = Selected()
     var workingTimerID: Int!
     var workingTimerModel: TimerModel!
     var newTimer: Bool {
@@ -93,26 +100,24 @@ class TimerSettingsTableViewController: UITableViewController {
         case .timerValues:
             if indexPath.row == 0 || indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
-                if !newTimer {
-                    if indexPath.row == 0 {
+                if indexPath.row == 0 {
+                    if !newTimer || selected.posTimer {
                         cell.textLabel?.text = String(workingTimerModel.posStartTime)
-                        cell.imageView?.image = UIImage(systemName: "plus")!
+                    }
+                    else {
+                        cell.textLabel?.text = "Please Input Positive Time"
                         
                     }
-                    else if indexPath.row == 2 {
-                        cell.textLabel?.text = String(workingTimerModel.negStartTime)
-                        cell.imageView?.image = UIImage(systemName: "minus")!
-                    }
+                    cell.imageView?.image = UIImage(systemName: "plus")!
                 }
-                else {
-                    if indexPath.row == 0 {
-                        cell.textLabel?.text = "Please Input Positive Time"
-                        cell.imageView?.image = UIImage(systemName: "plus")!
+                else if indexPath.row == 2 {
+                    if !newTimer || selected.negTimer {
+                        cell.textLabel?.text = String(workingTimerModel.negStartTime)
                     }
-                    else if indexPath.row == 2{
+                    else {
                         cell.textLabel?.text = "Please Input Positive Time"
-                        cell.imageView?.image = UIImage(systemName: "minus")!
                     }
+                    cell.imageView?.image = UIImage(systemName: "minus")!
                 }
                 
                 return cell
@@ -155,22 +160,33 @@ class TimerSettingsTableViewController: UITableViewController {
             }
             
             cell.imageView?.image = image
-            if !newTimer, let trackingInfo = workingTimerModel.userDefinedTracking[type] {
-                cell.textLabel?.text = trackingInfo.desc
-                cell.detailTextLabel?.text = trackingInfo.project.name
-            }
-            else {
-                print("ERROR: userDefinedTracking[] has not been set")
-                if (indexPath.row == 0) {
+            if indexPath.row == 0 {
+                if !newTimer || selected.posTogglTimer {
+                    let trackingInfo = workingTimerModel.userDefinedTracking[.positive]!
+                    cell.textLabel?.text = trackingInfo.desc
+                    cell.detailTextLabel?.text = trackingInfo.project.name
+                }
+                else {
+                   print("ERROR: userDefinedTracking[.positive] has not been set")
                     cell.textLabel?.text = "Description of Positive Toggl Timer"
                     cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
                 }
-                else if (indexPath.row == 1) {
-                    cell.textLabel?.text = "Description of Negative Toggl Timer"
-                    cell.detailTextLabel?.text = "Project Name of Negative Toggl Timer"
-                }
+                cell.imageView?.image = UIImage(systemName: "plus")!
             }
-            
+            else {
+                if !newTimer || selected.negTogglTimer {
+                    let trackingInfo = workingTimerModel.userDefinedTracking[.negative]!
+                    cell.textLabel?.text = trackingInfo.desc
+                    cell.detailTextLabel?.text = trackingInfo.project.name
+                }
+                else {
+                   print("ERROR: userDefinedTracking[.positive] has not been set")
+                    cell.textLabel?.text = "Description of Positive Toggl Timer"
+                    cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
+                }
+                cell.imageView?.image = UIImage(systemName: "minus")!
+            }
+
             return cell
         case .misc:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as? SwitchTableViewCell {
@@ -251,15 +267,26 @@ class TimerSettingsTableViewController: UITableViewController {
                     pickerIndexPath = IndexPath(row: 1, section: 0)
                     posTimePickerHidden = !posTimePickerHidden
                     tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
+                    selected.posTimer = true
                 }
                 else {
                     pickerIndexPath = IndexPath(row: 3, section: 0)
                     negTimePickerHidden = !negTimePickerHidden
+                    selected.negTimer = true
                 }
                 tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
             }
         case .togglValues:
-            performSegue(withIdentifier: "TogglTimerDetailSegue", sender: nil)
+            var trackingType: TrackingType
+            if indexPath.row == 0 {
+                selected.posTogglTimer = true
+                trackingType = .positive
+            }
+            else {
+                selected.negTogglTimer = true
+                trackingType = .negative
+            }
+            performSegue(withIdentifier: "TogglTimerDetailSegue", sender: trackingType)
         default:
             break
         }
@@ -273,6 +300,13 @@ class TimerSettingsTableViewController: UITableViewController {
         }
         else {
             print("[Settings View] Auto-repeat switch turned off")
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let togglTimer = segue.destination as? TogglTimerSettingsTableViewController,
+            let type = sender as? TrackingType {
+            togglTimer.type = type
         }
     }
 }

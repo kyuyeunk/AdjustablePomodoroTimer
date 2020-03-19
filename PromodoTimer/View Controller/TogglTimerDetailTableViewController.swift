@@ -19,7 +19,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
             self.init(rawValue: indexPath.section)
         }
     }
-    var type: TrackingType = .positive
+    var type: TrackingType!
     var selectedProject: projectInfo?
     var desc: String?
 
@@ -31,10 +31,10 @@ class TogglTimerSettingsTableViewController: UITableViewController {
         
         let selectedInfo = trackingInfo(project: selectedProject, desc: desc)
         if let navigation = self.navigationController,
-            let settings = navigation.viewControllers[1] as? SettingsTableViewController {
+            let timerSettings = navigation.viewControllers[2] as? TimerSettingsTableViewController {
             
-            GlobalVar.timerList[GlobalVar.settings.currTimer].userDefinedTracking[type] = selectedInfo
-            settings.tableView.reloadData()
+            timerSettings.workingTimerModel.userDefinedTracking[type] = selectedInfo
+            timerSettings.tableView.reloadData()
             navigation.popViewController(animated: true)
         }
     }
