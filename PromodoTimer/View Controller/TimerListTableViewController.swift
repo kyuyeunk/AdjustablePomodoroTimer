@@ -18,27 +18,27 @@ class TimerListTableViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return GlobalVar.timerList.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath)
         let timer = GlobalVar.timerList[indexPath.row]
         cell.textLabel?.text = timer.timerName
         if indexPath.row == GlobalVar.settings.currTimer {
-        cell.imageView?.image = UIImage(systemName: "circle.fill")!
+            cell.imageView?.image = UIImage(systemName: "circle.fill")!
         }
         else {
-        cell.imageView?.image = UIImage(systemName: "circle")!
+            cell.imageView?.image = UIImage(systemName: "circle")!
         }
-
+        
+        let detailText = "[Positive] \(timer.posStartTime) [Negative] \(timer.negStartTime)"
+        cell.detailTextLabel?.text = detailText
+        
         return cell
     }
     
