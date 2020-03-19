@@ -10,6 +10,7 @@ import UIKit
 
 class TimerSettingsTableViewController: UITableViewController {
     enum sections: Int {
+        case timerName
         case timerValues
         case togglValues
         case misc
@@ -84,6 +85,8 @@ class TimerSettingsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections(rawValue: section) {
+        case .timerName:
+            return 1
         case .timerValues:
             return 4
         case .togglValues:
@@ -97,6 +100,12 @@ class TimerSettingsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections(rawValue: indexPath.section) {
+        case .timerName:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "textInputCell", for: indexPath) as? InputTableViewCell {
+                cell.inputTextField.text = workingTimerModel.timerName
+                cell.inputTextField.delegate = self
+                return cell
+            }
         case .timerValues:
             if indexPath.row == 0 || indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
@@ -148,18 +157,6 @@ class TimerSettingsTableViewController: UITableViewController {
         case .togglValues:
             let cell = tableView.dequeueReusableCell(withIdentifier: "togglTimerSettingsCell", for: indexPath)
             
-            var type: TrackingType
-            var image: UIImage
-            if (indexPath.row == 0) {
-                type = .positive
-                image = UIImage(systemName: "plus")!
-            }
-            else {
-                type = .negative
-                image = UIImage(systemName: "minus")!
-            }
-            
-            cell.imageView?.image = image
             if indexPath.row == 0 {
                 if !newTimer || selected.posTogglTimer {
                     let trackingInfo = workingTimerModel.userDefinedTracking[.positive]!
@@ -212,6 +209,8 @@ class TimerSettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch sections(rawValue: section) {
+        case .timerName:
+            return "Timer Name"
         case .timerValues:
             return "Timer Values"
         case .togglValues:
@@ -335,5 +334,18 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
             let labelIndexPath = IndexPath(row: 2, section: 0)
             tableView.reloadRows(at: [labelIndexPath], with: .automatic)
         }
+    }
+}
+
+extension TimerSettingsTableViewController: UITextFieldDelegate {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if let text = textField.text {
+            workingTimerModel.timerName = text
+        }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

@@ -111,7 +111,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
 }
 
 extension TogglTimerSettingsTableViewController: UITextFieldDelegate {
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         desc = textField.text
     }
     
