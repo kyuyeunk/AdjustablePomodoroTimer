@@ -31,8 +31,8 @@ class PickerViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         GlobalVar.timeController.timeControllerDelegate = self
     }
     
@@ -70,15 +70,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension PickerViewController: TimeControllerDelegate {
-    func setSecondUI(currTime: Int, completion: (() -> ())?) {
-        let pickerTime = 60 - mainTimer.selectedRow(inComponent: 0)
-        
-        //If completion is not nil, assume this is repeat mode
-        var animated = false
-        if pickerTime + 1 == currTime || pickerTime - 1 == currTime || completion != nil {
-            animated = true
-        }
- 
+    func setSecondUI(currTime: Int, animated: Bool, completion: (() -> ())?) {
         DispatchQueue.main.async {
             self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: animated)
             if let completion = completion {

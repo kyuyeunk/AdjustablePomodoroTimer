@@ -263,13 +263,13 @@ class TimerSettingsTableViewController: UITableViewController {
             if indexPath.row == 0 || indexPath.row == 2 {
                 let pickerIndexPath: IndexPath
                 if indexPath.row == 0 {
-                    pickerIndexPath = IndexPath(row: 1, section: 0)
+                    pickerIndexPath = IndexPath(row: 1, section: sections.timerValues.rawValue)
                     posTimePickerHidden = !posTimePickerHidden
                     tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
                     selected.posTimer = true
                 }
                 else {
-                    pickerIndexPath = IndexPath(row: 3, section: 0)
+                    pickerIndexPath = IndexPath(row: 3, section: sections.timerValues.rawValue)
                     negTimePickerHidden = !negTimePickerHidden
                     selected.negTimer = true
                 }
@@ -326,12 +326,12 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == posPickerView {
             workingTimerModel.posStartTime = secondRows[row]
-            let labelIndexPath = IndexPath(row: 0, section: 0)
+            let labelIndexPath = IndexPath(row: 0, section: sections.timerValues.rawValue)
             tableView.reloadRows(at: [labelIndexPath], with: .automatic)
         }
         else {
             workingTimerModel.negStartTime = secondRows[row]
-            let labelIndexPath = IndexPath(row: 2, section: 0)
+            let labelIndexPath = IndexPath(row: 2, section: sections.timerValues.rawValue)
             tableView.reloadRows(at: [labelIndexPath], with: .automatic)
         }
     }

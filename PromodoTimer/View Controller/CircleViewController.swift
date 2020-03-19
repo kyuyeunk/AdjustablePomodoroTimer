@@ -62,7 +62,7 @@ class CircleViewController: UIViewController {
 }
 
 extension CircleViewController: TimeControllerDelegate {
-    func setSecondUI(currTime: Int, completion: (() -> ())?) {
+    func setSecondUI(currTime: Int, animated: Bool, completion: (() -> ())?) {
         let newDegree = .pi / increment * CGFloat(currTime)
         let diffDegree = currDegree - newDegree
         

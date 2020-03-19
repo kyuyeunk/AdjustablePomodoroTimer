@@ -11,7 +11,7 @@ import UIKit
 //Allow view controllers to change UI when timer event triggers
 //Allow TimeController to fetch current time from view controllers
 protocol TimeControllerDelegate {
-    func setSecondUI(currTime: Int, completion: (() -> ())?)
+    func setSecondUI(currTime: Int, animated: Bool, completion: (() -> ())?)
     func getCurrTime() -> Int
     func stopTimerUI()
     func startTimerUI()
@@ -28,8 +28,9 @@ class TimeController {
             }
             else {
                 timeControllerDelegate.stopTimerUI()
+                prevTime = GlobalVar.timerList[GlobalVar.settings.currTimer].posStartTime
             }
-            timeControllerDelegate.setSecondUI(currTime: prevTime, completion: nil)
+            timeControllerDelegate.setSecondUI(currTime: prevTime, animated: false, completion: nil)
         }
     }
     
@@ -73,7 +74,7 @@ class TimeController {
                     nextTimerTime = GlobalVar.settings.posStartTime
                 }
                 
-                timeControllerDelegate.setSecondUI(currTime: nextTimerTime) { () in
+                timeControllerDelegate.setSecondUI(currTime: nextTimerTime, animated: true) { () in
                     self.timerStart = true
                 }
             }
@@ -121,7 +122,7 @@ class TimeController {
             
             print("[Timer] current seconds: \(newTime)")
             self.prevTime = newTime
-            self.timeControllerDelegate.setSecondUI(currTime: newTime, completion: nil)
+            self.timeControllerDelegate.setSecondUI(currTime: newTime, animated: true, completion: nil)
         })
     }
 }
