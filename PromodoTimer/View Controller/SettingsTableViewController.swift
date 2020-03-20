@@ -45,7 +45,7 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 && indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
-            if let id = GlobalVar.settings.id {
+            if let id = GlobalVar.settings.togglCredential?.id {
                     cell.textLabel?.text = id
             }
             else {

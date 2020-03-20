@@ -24,7 +24,7 @@ class LogInViewController: UIViewController {
             DispatchQueue.main.async {
                 var alert: UIAlertController
                 var okButton: UIAlertAction
-                if valid, let auth = GlobalVar.settings.auth {
+                if valid, let auth = GlobalVar.settings.togglCredential?.auth {
                     
                     alert = UIAlertController(title: "Toggl Authentication",
                         message: "Auth is set to \(auth)", preferredStyle: .alert)

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TimerModel {
+class TimerModel: Codable {
     var timerName: String
     var posStartTime: Int
     var negStartTime: Int

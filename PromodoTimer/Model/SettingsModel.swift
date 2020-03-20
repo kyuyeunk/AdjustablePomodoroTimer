@@ -25,38 +25,27 @@ class Settings {
     
     var projectList: [projectInfo] = []
     
-    var id: String?
-    var auth: String?           //TODO: learn about keychain for better encryption
+    var togglCredential: credential?
 
     var timerList: [TimerModel] = []
     
-    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    var credentialArchieveURL: URL {
-        return documentsDirectory.appendingPathComponent("credential").appendingPathExtension("plist")
-    }
-    var projectsArchieveURL: URL {
-        return documentsDirectory.appendingPathComponent("projects").appendingPathExtension("plist")
-    }
+    var settingsDirectory = directory()
     
     init () {
         loadFiles()
-        
-        //TODO: save this to the file and load it
-        //userDefinedTracking[.positive] = trackingInfo(project: projects[0], desc: "Positive Test")
-        //userDefinedTracking[.negative] = trackingInfo(project: projects[1], desc: "Negative Test")
     }
     
     func loadFiles() {
         let propertyListDecoder = PropertyListDecoder()
-        if let retrievedCredential = try? Data(contentsOf: credentialArchieveURL),
+        if let retrievedCredential = try? Data(contentsOf: settingsDirectory.credentialArchieveURL),
             let decodedCredential = try? propertyListDecoder.decode(credential.self, from: retrievedCredential){
-            id = decodedCredential.id
-            auth = decodedCredential.auth
+            
+            togglCredential = decodedCredential
             
             print("[Load] id: \(decodedCredential.id)")
             print("[Load] auth: \(decodedCredential.auth)")
         }
-        if let retrievedProjects = try? Data(contentsOf: projectsArchieveURL),
+        if let retrievedProjects = try? Data(contentsOf: settingsDirectory.projectsArchieveURL),
             let decodedProjects = try? propertyListDecoder.decode([projectInfo].self, from: retrievedProjects) {
             print("[Load] Projects retrieved")
             projectList = decodedProjects
@@ -67,18 +56,18 @@ class Settings {
     }
     
     func setAndSaveAuth(id: String, auth: String) {
-        self.auth = auth
-        self.id = id
+        self.togglCredential?.auth = auth
+        self.togglCredential?.id = id
         let cred = credential(id: id, auth: auth)
         let propertyListEncoder = PropertyListEncoder()
         let encodedCrednetial = try? propertyListEncoder.encode(cred)
-        try? encodedCrednetial?.write(to: credentialArchieveURL)
+        try? encodedCrednetial?.write(to: settingsDirectory.credentialArchieveURL)
         
         print("[Save] id: \(id)")
         print("[Save] auth: \(auth)")
     }
     
-    func saveProjectList(projects: [[String: Any]]) {
+    func setAndSaveProjectList(projects: [[String: Any]]) {
         projectList = []
         for project in projects {
             if project["server_deleted_at"] == nil, let pid = project["id"] as? Int, let name = project["name"] as? String {
@@ -88,15 +77,31 @@ class Settings {
         
         let propertyListEncoder = PropertyListEncoder()
         let encodedProjects = try? propertyListEncoder.encode(projectList)
-        try? encodedProjects?.write(to: projectsArchieveURL)
+        try? encodedProjects?.write(to: settingsDirectory.projectsArchieveURL)
         
         print("[Save] Projects saved")
         for project in projectList {
             print("[Save] \(project.pid): \(project.name)")
         }
     }
+    
+    func saveTimerList(timerList: [TimerModel]) {
+        
+    }
 }
 
+struct directory {
+    let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    var credentialArchieveURL: URL {
+        return documentsDirectory.appendingPathComponent("credential").appendingPathExtension("plist")
+    }
+    var projectsArchieveURL: URL {
+        return documentsDirectory.appendingPathComponent("projects").appendingPathExtension("plist")
+    }
+    var timersArchieveURL: URL {
+        return documentsDirectory.appendingPathComponent("timers").appendingPathExtension("plist")
+    }
+}
 struct credential: Codable {
     var id: String
     var auth: String
