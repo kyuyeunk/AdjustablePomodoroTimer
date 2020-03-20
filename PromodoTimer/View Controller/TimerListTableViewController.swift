@@ -65,6 +65,7 @@ class TimerListTableViewController: UITableViewController {
             }
             else {
                 GlobalVar.settings.timerList.remove(at: indexPath.row)
+                GlobalVar.settings.saveTimerList()
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
         } else if editingStyle == .insert {

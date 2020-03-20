@@ -35,7 +35,7 @@ class TimeController {
     }
     
     var currType: TrackingType = .positive
-    var prevTime = GlobalVar.settings.posStartTime  //TODO: Set this value to currently selected time
+    var prevTime = GlobalVar.settings.currPostStartTime
     var timer: Timer!
     var timerStart = false {
         didSet {
@@ -61,17 +61,17 @@ class TimeController {
             GlobalVar.toggl.stopTimer()
             
             //If prevTime is 0, assume timer stopped automatically
-            if prevTime == 0 && GlobalVar.settings.autoRepeat {
+            if prevTime == 0 && GlobalVar.settings.currAutoRepeat {
                 print("[Timer] Setting up next auto timer")
                 var nextTimerTime: Int
                 if currType == .positive {
                     print("[Timer] Started as a Positive Timer")
-                    nextTimerTime = GlobalVar.settings.negStartTime
+                    nextTimerTime = GlobalVar.settings.currNegStartTime
                     
                 }
                 else {
                     print("[Timer] Started as a Negative Timer")
-                    nextTimerTime = GlobalVar.settings.posStartTime
+                    nextTimerTime = GlobalVar.settings.currPostStartTime
                 }
                 
                 timeControllerDelegate.setSecondUI(currTime: nextTimerTime, animated: true) { () in

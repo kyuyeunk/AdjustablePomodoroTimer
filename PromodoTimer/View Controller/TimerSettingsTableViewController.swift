@@ -51,6 +51,8 @@ class TimerSettingsTableViewController: UITableViewController {
             GlobalVar.settings.timerList[workingTimerID] = workingTimerModel
         }
         
+        GlobalVar.settings.saveTimerList()
+        
         if let navigation = self.navigationController,
             let timerList = navigation.viewControllers[1] as? TimerListTableViewController {
             

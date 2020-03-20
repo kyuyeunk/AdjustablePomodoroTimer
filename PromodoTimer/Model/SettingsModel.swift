@@ -9,19 +9,17 @@
 import Foundation
 
 class Settings {
-    var currTimer: Int = 0 {
-        didSet {
-            let timer = timerList[self.currTimer]
-            posStartTime = timer.posStartTime
-            negStartTime = timer.negStartTime
-            autoRepeat = timer.autoRepeat
-            print("[Settings] set the timer to timerList[\(self.currTimer)]")
-        }
-    }
+    var currTimer: Int = 0
     
-    var posStartTime = 30
-    var negStartTime = -15
-    var autoRepeat = true
+    var currPostStartTime: Int {
+        return timerList[currTimer].posStartTime
+    }
+    var currNegStartTime: Int {
+        return timerList[currTimer].negStartTime
+    }
+    var currAutoRepeat: Bool {
+        return timerList[currTimer].autoRepeat
+    }
     
     var projectList: [projectInfo] = []
     
@@ -29,10 +27,15 @@ class Settings {
 
     var timerList: [TimerModel] = []
     
-    var settingsDirectory = directory()
+    var settingsDirectory = directories()
     
     init () {
         loadFiles()
+        
+        if timerList.count == 0 {
+            timerList.append(TimerModel())
+            currTimer = 0
+        }
     }
     
     func loadFiles() {
@@ -51,6 +54,14 @@ class Settings {
             projectList = decodedProjects
             for project in projectList {
                 print("[Load] \(project.pid): \(project.name)")
+            }
+        }
+        if let retrievedTimers = try? Data(contentsOf: settingsDirectory.timersArchieveURL),
+            let decodedTimers = try? propertyListDecoder.decode([TimerModel].self, from: retrievedTimers) {
+            print("[Load] Timers retrieved")
+            timerList = decodedTimers
+            for timer in self.timerList {
+                print("[Load] \(timer.timerName) w pos: \(timer.posStartTime), neg: \(timer.negStartTime)")
             }
         }
     }
@@ -85,12 +96,19 @@ class Settings {
         }
     }
     
-    func saveTimerList(timerList: [TimerModel]) {
+    func saveTimerList() {
+        let propertyListEncoder = PropertyListEncoder()
+        let encodedtimers = try? propertyListEncoder.encode(self.timerList)
+        try? encodedtimers?.write(to: settingsDirectory.timersArchieveURL)
         
+        print("[Save] Timers saved")
+        for timer in self.timerList {
+            print("[Save] \(timer.timerName) w pos: \(timer.posStartTime), neg: \(timer.negStartTime)")
+        }
     }
 }
 
-struct directory {
+struct directories {
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     var credentialArchieveURL: URL {
         return documentsDirectory.appendingPathComponent("credential").appendingPathExtension("plist")
