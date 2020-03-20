@@ -40,7 +40,11 @@ class TimerSettingsTableViewController: UITableViewController {
     }
     
     @IBAction func saveButtonTapped(_ sender: Any) {
-        if newTimer {
+        if selected.posTimer == false || selected.negTimer == false {
+            print("Error: Timer value has not been filled yet")
+            return
+        }
+        else if newTimer {
             GlobalVar.timerList.append(workingTimerModel)
         }
         else {
@@ -75,6 +79,8 @@ class TimerSettingsTableViewController: UITableViewController {
         }
         else {
             workingTimerModel = GlobalVar.timerList[workingTimerID]
+            selected.posTimer = true
+            selected.negTimer = true
         }
     }
 
@@ -110,7 +116,7 @@ class TimerSettingsTableViewController: UITableViewController {
             if indexPath.row == 0 || indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
                 if indexPath.row == 0 {
-                    if !newTimer || selected.posTimer {
+                    if selected.posTimer {
                         cell.textLabel?.text = String(workingTimerModel.posStartTime)
                     }
                     else {
@@ -120,7 +126,7 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.imageView?.image = UIImage(systemName: "plus")!
                 }
                 else if indexPath.row == 2 {
-                    if !newTimer || selected.negTimer {
+                    if selected.negTimer {
                         cell.textLabel?.text = String(workingTimerModel.negStartTime)
                     }
                     else {
@@ -158,7 +164,7 @@ class TimerSettingsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "togglTimerSettingsCell", for: indexPath)
             
             if indexPath.row == 0 {
-                if !newTimer || selected.posTogglTimer {
+                if workingTimerModel.userDefinedTracking[.positive] != nil || selected.posTogglTimer {
                     let trackingInfo = workingTimerModel.userDefinedTracking[.positive]!
                     cell.textLabel?.text = trackingInfo.desc
                     cell.detailTextLabel?.text = trackingInfo.project.name
@@ -171,13 +177,13 @@ class TimerSettingsTableViewController: UITableViewController {
                 cell.imageView?.image = UIImage(systemName: "plus")!
             }
             else {
-                if !newTimer || selected.negTogglTimer {
+                if workingTimerModel.userDefinedTracking[.negative] != nil || selected.negTogglTimer {
                     let trackingInfo = workingTimerModel.userDefinedTracking[.negative]!
                     cell.textLabel?.text = trackingInfo.desc
                     cell.detailTextLabel?.text = trackingInfo.project.name
                 }
                 else {
-                   print("ERROR: userDefinedTracking[.positive] has not been set")
+                   print("ERROR: userDefinedTracking[.negative] has not been set")
                     cell.textLabel?.text = "Description of Positive Toggl Timer"
                     cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
                 }
@@ -344,6 +350,7 @@ extension TimerSettingsTableViewController: UITextFieldDelegate {
         }
     }
     
+    //TODO: also hide keyboard when tapping outside of textfield
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

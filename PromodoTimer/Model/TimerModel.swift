@@ -20,8 +20,5 @@ class TimerModel {
         self.posStartTime = 30
         self.negStartTime = -15
         self.autoRepeat = true
-        
-        userDefinedTracking[.positive] = trackingInfo(project: GlobalVar.settings.projects[0], desc: "Pos Test")
-        userDefinedTracking[.negative] = trackingInfo(project: GlobalVar.settings.projects[1], desc: "Neg Test")
     }
 }
