@@ -11,7 +11,7 @@ import UIKit
 class TimerListTableViewController: UITableViewController {
 
     @IBAction func addButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "TimerSettingsSegue", sender: GlobalVar.timerList.count)
+        performSegue(withIdentifier: "TimerSettingsSegue", sender: GlobalVar.settings.timerList.count)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +22,12 @@ class TimerListTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return GlobalVar.timerList.count
+        return GlobalVar.settings.timerList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath)
-        let timer = GlobalVar.timerList[indexPath.row]
+        let timer = GlobalVar.settings.timerList[indexPath.row]
         cell.textLabel?.text = timer.timerName
         if indexPath.row == GlobalVar.settings.currTimer {
             cell.imageView?.image = UIImage(systemName: "circle.fill")!
@@ -50,7 +50,7 @@ class TimerListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if GlobalVar.timerList.count == 1 {
+            if GlobalVar.settings.timerList.count == 1 {
                 DispatchQueue.main.async {
                     var alert: UIAlertController
                     var okButton: UIAlertAction
@@ -64,7 +64,7 @@ class TimerListTableViewController: UITableViewController {
                 }
             }
             else {
-                GlobalVar.timerList.remove(at: indexPath.row)
+                GlobalVar.settings.timerList.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
         } else if editingStyle == .insert {

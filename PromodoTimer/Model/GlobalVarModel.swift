@@ -12,5 +12,4 @@ struct GlobalVar {
     static var timeController = TimeController()
     static var settings = Settings()
     static var toggl = TogglController()
-    static var timerList: [TimerModel] = []
 }

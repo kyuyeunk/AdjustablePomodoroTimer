@@ -31,7 +31,7 @@ class TimerSettingsTableViewController: UITableViewController {
     var workingTimerID: Int!
     var workingTimerModel: TimerModel!
     var newTimer: Bool {
-        if workingTimerID < GlobalVar.timerList.count {
+        if workingTimerID < GlobalVar.settings.timerList.count {
             return false
         }
         else {
@@ -45,10 +45,10 @@ class TimerSettingsTableViewController: UITableViewController {
             return
         }
         else if newTimer {
-            GlobalVar.timerList.append(workingTimerModel)
+            GlobalVar.settings.timerList.append(workingTimerModel)
         }
         else {
-            GlobalVar.timerList[workingTimerID] = workingTimerModel
+            GlobalVar.settings.timerList[workingTimerID] = workingTimerModel
         }
         
         if let navigation = self.navigationController,
@@ -78,7 +78,7 @@ class TimerSettingsTableViewController: UITableViewController {
             workingTimerModel = TimerModel()
         }
         else {
-            workingTimerModel = GlobalVar.timerList[workingTimerID]
+            workingTimerModel = GlobalVar.settings.timerList[workingTimerID]
             selected.posTimer = true
             selected.negTimer = true
         }

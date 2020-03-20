@@ -28,7 +28,7 @@ class TimeController {
             }
             else {
                 timeControllerDelegate.stopTimerUI()
-                prevTime = GlobalVar.timerList[GlobalVar.settings.currTimer].posStartTime
+                prevTime = GlobalVar.settings.timerList[GlobalVar.settings.currTimer].posStartTime
             }
             timeControllerDelegate.setSecondUI(currTime: prevTime, animated: false, completion: nil)
         }

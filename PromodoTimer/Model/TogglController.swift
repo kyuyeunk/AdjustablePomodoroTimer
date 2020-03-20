@@ -47,7 +47,7 @@ class TogglController {
     
     //Start the timer based on .positive and .negative types
     func startTimer(type: TrackingType) {
-        if let info = GlobalVar.timerList[GlobalVar.settings.currTimer].userDefinedTracking[type] {
+        if let info = GlobalVar.settings.timerList[GlobalVar.settings.currTimer].userDefinedTracking[type] {
             startTimer(pid: info.project.pid, desc: info.desc)
         }
         else {
@@ -109,18 +109,10 @@ class TogglController {
                 let api_token = toggl_data["api_token"] as? String {
                 
                 print(api_token)
-                
-                GlobalVar.settings.id = id
+
                 let auth = "\(api_token):api_token".toBase64()
-                GlobalVar.settings.auth = auth
-                
-                let cred = credential(id: id, auth: auth)
-                let propertyListEncoder = PropertyListEncoder()
-                let encodedCrednetial = try? propertyListEncoder.encode(cred)
-                try? encodedCrednetial?.write(to: GlobalVar.settings.credentialArchieveURL)
-                
-                print("[Save] id: \(id)")
-                print("[Save] auth: \(auth)")
+                GlobalVar.settings.setAndSaveAuth(id: id, auth: auth)
+
                 self.setProjectInfo()
                 completion(true)
             }
@@ -137,50 +129,9 @@ class TogglController {
                 let toggl_data = json["data"] as? [String: Any],
                 let projects = toggl_data["projects"] as? [[String: Any]] {
                 
-                GlobalVar.settings.projects = []
-                for project in projects {
-                    if project["server_deleted_at"] == nil, let pid = project["id"] as? Int, let name = project["name"] as? String {
-                        GlobalVar.settings.projects.append(projectInfo(pid: pid, name: name))
-                    }
-                }
-                
-                let propertyListEncoder = PropertyListEncoder()
-                let encodedProjects = try? propertyListEncoder.encode(GlobalVar.settings.projects)
-                try? encodedProjects?.write(to: GlobalVar.settings.projectsArchieveURL)
-                
-                print("[Save] Projects saved")
-                for project in GlobalVar.settings.projects {
-                    print("[Save] \(project.pid): \(project.name)")
-                }
+                GlobalVar.settings.saveProjectList(projects: projects)
             }
         }
-    }
-}
-
-struct credential: Codable {
-    var id: String
-    var auth: String
-    init(id: String, auth: String) {
-        self.id = id
-        self.auth = auth
-    }
-}
-
-struct projectInfo: Codable {
-    var pid: Int
-    var name: String
-    init(pid: Int, name: String) {
-        self.pid = pid
-        self.name = name
-    }
-}
-
-struct trackingInfo: Codable {
-    var project: projectInfo
-    var desc: String
-    init(project: projectInfo, desc: String) {
-        self.project = project
-        self.desc = desc
     }
 }
 
@@ -188,6 +139,7 @@ enum TrackingType {
     case positive
     case negative
 }
+
 // Copied from https://stackoverflow.com/a/35360697
 extension String {
     func fromBase64() -> String? {

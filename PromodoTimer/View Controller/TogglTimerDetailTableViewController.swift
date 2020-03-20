@@ -47,7 +47,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch sections(rawValue: section) {
         case .projectList:
-            return GlobalVar.settings.projects.count
+            return GlobalVar.settings.projectList.count
         default:
             return 1
         }
@@ -85,7 +85,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
             return cell
         case .projectList:
             let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
-            let project = GlobalVar.settings.projects[indexPath.row]
+            let project = GlobalVar.settings.projectList[indexPath.row]
             cell.textLabel?.text = project.name
             
             return cell
@@ -99,7 +99,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections(rawValue: indexPath.section) {
         case .projectList:
-            selectedProject = GlobalVar.settings.projects[indexPath.row]
+            selectedProject = GlobalVar.settings.projectList[indexPath.row]
             let projectNameindexPath = IndexPath(row: 0, section: 1)
             tableView.reloadRows(at: [projectNameindexPath], with: .automatic)
         default:
