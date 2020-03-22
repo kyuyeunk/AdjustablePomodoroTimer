@@ -12,6 +12,8 @@ class PickerViewController: UIViewController {
 
     var secondRows: [Int] = []
 
+    @IBOutlet weak var posTimeLabel: UILabel!
+    @IBOutlet weak var negTimeLabel: UILabel!
     @IBOutlet weak var mainTimer: UIPickerView!
     @IBOutlet weak var startButton: UIButton!
     @IBAction func startButtonPressed(_ sender: Any) {
@@ -38,6 +40,8 @@ class PickerViewController: UIViewController {
     
     func initUI() {
         startButton.setTitle("Start", for: .normal)
+        posTimeLabel.text = "Off"
+        negTimeLabel.text = "Off"
         for i in (-60 ... 60).reversed() {
             secondRows.append(i)
         }
@@ -70,6 +74,28 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension PickerViewController: TimeControllerDelegate {
+    func togglStartTimerUI(type: TrackingType) {
+        DispatchQueue.main.async {
+            if type == .positive {
+                self.posTimeLabel.text = "On"
+            }
+            else {
+                self.negTimeLabel.text = "On"
+            }
+        }
+    }
+    
+    func togglStopTimerUI(type: TrackingType) {
+        DispatchQueue.main.async {
+            if type == .positive {
+                self.posTimeLabel.text = "Off"
+            }
+            else {
+                self.negTimeLabel.text = "Off"
+            }
+        }
+    }
+    
     func setSecondUI(currTime: Int, animated: Bool, completion: (() -> ())?) {
         DispatchQueue.main.async {
             self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: animated)

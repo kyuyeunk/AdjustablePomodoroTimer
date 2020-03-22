@@ -15,6 +15,8 @@ protocol TimeControllerDelegate {
     func getCurrTime() -> Int
     func stopTimerUI()
     func startTimerUI()
+    func togglStartTimerUI(type: TrackingType)
+    func togglStopTimerUI(type: TrackingType)
 }
 
 class TimeController {
@@ -58,7 +60,11 @@ class TimeController {
         timeControllerDelegate.stopTimerUI()
         if timer.isValid {
             timer.invalidate()
-            GlobalVar.toggl.stopTimer()
+            
+            let prevType = currType
+            GlobalVar.toggl.stopTimer() { (complete: Bool) in
+                self.timeControllerDelegate.togglStopTimerUI(type: prevType)
+            }
             
             //If prevTime is 0, assume timer stopped automatically
             if prevTime == 0 && GlobalVar.settings.currAutoRepeat {
@@ -86,12 +92,14 @@ class TimeController {
         //Based on the current time, positive or negative toggl timer should be started
         let startTime = self.timeControllerDelegate.getCurrTime()
         if startTime > 0 {
-            GlobalVar.toggl.startTimer(type: .positive)
             currType = .positive
         }
         else {
-            GlobalVar.toggl.startTimer(type: .negative)
             currType = .negative
+        }
+        
+        GlobalVar.toggl.startTimer(type: currType) { (complete: Bool) in
+            self.timeControllerDelegate.togglStartTimerUI(type: self.currType)
         }
         
         timeControllerDelegate.startTimerUI()
@@ -99,13 +107,23 @@ class TimeController {
             var newTime = self.timeControllerDelegate.getCurrTime()
             if (self.prevTime > 0 && newTime < 0) {
                 print("[Timer] changed from positive to negative")
-                GlobalVar.toggl.stopTimer()
-                GlobalVar.toggl.startTimer(type: .negative)
+                GlobalVar.toggl.stopTimer() { (complete: Bool) in
+                    self.timeControllerDelegate.togglStopTimerUI(type: .positive)
+                }
+                self.currType = .negative
+                GlobalVar.toggl.startTimer(type: .negative) { (complete: Bool) in
+                    print("Negative Toggl Started")
+                }
             }
             else if (self.prevTime < 0 && newTime > 0) {
                 print("[Timer] changed from negative to positive")
-                GlobalVar.toggl.stopTimer()
-                GlobalVar.toggl.startTimer(type: .positive)
+                GlobalVar.toggl.stopTimer() { (complete: Bool) in
+                    self.timeControllerDelegate.togglStopTimerUI(type: .negative)
+                }
+                self.currType = .positive
+                GlobalVar.toggl.startTimer(type: .positive) { (complete: Bool) in
+                    print("Positive Toggl Started")
+                }
             }
             
             if newTime > 0 {

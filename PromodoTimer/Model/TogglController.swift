@@ -46,9 +46,11 @@ class TogglController {
     }
     
     //Start the timer based on .positive and .negative types
-    func startTimer(type: TrackingType) {
+    func startTimer(type: TrackingType, completion: ((Bool) -> ())?) {
         if let info = GlobalVar.settings.timerList[GlobalVar.settings.currTimer].userDefinedTracking[type] {
-            startTimer(pid: info.project.pid, desc: info.desc)
+            startTimer(pid: info.project.pid, desc: info.desc) { (complete: Bool) in
+                completion?(complete)
+            }
         }
         else {
             print("[Toggl] userDefinedTracking is not set")
@@ -56,7 +58,7 @@ class TogglController {
     }
     
     //Start the timer with given pid and description
-    func startTimer(pid: Int, desc: String) {
+    func startTimer(pid: Int, desc: String, completion: ((Bool) -> ())?) {
         let created_with = "PromodoTimer"
         
         let data = ["time_entry": ["description": desc, "pid": String(pid), "created_with": created_with]]
@@ -72,26 +74,34 @@ class TogglController {
         getDataFromRequest(requestURL: requestURL) { (data) in
             if let string = String(data: data, encoding: .utf8) {
                 print("[Toggl] Timer Started: \(string)")
+                if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                        let toggl_data = json["data"] as? [String: Any],
+                        let entry_id = toggl_data["id"] as? Int {
+                
+                        self.time_entry_id = entry_id
+                        print("[Toggl] time_entry_id set to \(entry_id)")
+                }
+                completion?(true)
             }
-            if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                let toggl_data = json["data"] as? [String: Any],
-                let entry_id = toggl_data["id"] as? Int {
-        
-                self.time_entry_id = entry_id
-                print("[Toggl] time_entry_id set to \(entry_id)")
+            else {
+                completion?(false)
             }
         }
     }
     
     //Stop currently running timer
     //Do nothing if there's no timer running
-    func stopTimer() {
+    func stopTimer(completion: ((Bool) -> ())?) {
         if let stopTimerURL = stopTimerURL {
             getDataFromRequest(requestURL: URLRequest(url: stopTimerURL)) { (data) in
                 if let string = String(data: data, encoding: .utf8) {
                     print("[Toggl] Timer Stopped: \(string)")
                     //print(string)
                     self.time_entry_id = nil
+                    completion?(true)
+                }
+                else {
+                    completion?(false)
                 }
             }
         }
