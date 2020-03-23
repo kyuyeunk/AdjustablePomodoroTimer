@@ -75,6 +75,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension PickerViewController: TimeControllerDelegate {
     func togglStartTimerUI(type: TrackingType) {
+        /*
         DispatchQueue.main.async {
             if type == .positive {
                 self.posTimeLabel.text = "On"
@@ -83,9 +84,11 @@ extension PickerViewController: TimeControllerDelegate {
                 self.negTimeLabel.text = "On"
             }
         }
+         */
     }
     
     func togglStopTimerUI(type: TrackingType) {
+        /*
         DispatchQueue.main.async {
             if type == .positive {
                 self.posTimeLabel.text = "Off"
@@ -94,11 +97,14 @@ extension PickerViewController: TimeControllerDelegate {
                 self.negTimeLabel.text = "Off"
             }
         }
+         */
     }
     
-    func setSecondUI(currTime: Int, animated: Bool, completion: (() -> ())?) {
+    func setSecondUI(currTime: Int, togglTime: [TrackingType: Int], animated: Bool, completion: (() -> ())?) {
         DispatchQueue.main.async {
             self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: animated)
+            self.posTimeLabel.text = String(togglTime[.positive]!)
+            self.negTimeLabel.text = String(togglTime[.negative]!)
             if let completion = completion {
                 completion()
             }

@@ -11,7 +11,7 @@ import UIKit
 //Allow view controllers to change UI when timer event triggers
 //Allow TimeController to fetch current time from view controllers
 protocol TimeControllerDelegate {
-    func setSecondUI(currTime: Int, animated: Bool, completion: (() -> ())?)
+    func setSecondUI(currTime: Int, togglTime: [TrackingType: Int], animated: Bool, completion: (() -> ())?)
     func getCurrTime() -> Int
     func stopTimerUI()
     func startTimerUI()
@@ -32,12 +32,13 @@ class TimeController {
                 timeControllerDelegate.stopTimerUI()
                 prevTime = GlobalVar.settings.timerList[GlobalVar.settings.currTimer].posStartTime
             }
-            timeControllerDelegate.setSecondUI(currTime: prevTime, animated: false, completion: nil)
+            timeControllerDelegate.setSecondUI(currTime: prevTime, togglTime: togglTime, animated: false, completion: nil)
         }
     }
     
     var currType: TrackingType = .positive
     var prevTime = GlobalVar.settings.currPostStartTime
+    var togglTime: [TrackingType: Int] = [.positive: 0, .negative: 0]   //TODO: track actual time, not number of times UI was changed
     var timer: Timer!
     var timerStart = false {
         didSet {
@@ -73,14 +74,15 @@ class TimeController {
                 if currType == .positive {
                     print("[Timer] Started as a Positive Timer")
                     nextTimerTime = GlobalVar.settings.currNegStartTime
-                    
+                    togglTime[.negative] = 0
                 }
                 else {
                     print("[Timer] Started as a Negative Timer")
                     nextTimerTime = GlobalVar.settings.currPostStartTime
+                    togglTime[.positive] = 0
                 }
                 
-                timeControllerDelegate.setSecondUI(currTime: nextTimerTime, animated: true) { () in
+                timeControllerDelegate.setSecondUI(currTime: nextTimerTime, togglTime: togglTime, animated: true) { () in
                     self.timerStart = true
                 }
             }
@@ -112,6 +114,7 @@ class TimeController {
                 }
                 self.currType = .negative
                 GlobalVar.toggl.startTimer(type: .negative) { (complete: Bool) in
+                    self.togglTime[.negative] = 0
                     print("Negative Toggl Started")
                 }
             }
@@ -122,12 +125,15 @@ class TimeController {
                 }
                 self.currType = .positive
                 GlobalVar.toggl.startTimer(type: .positive) { (complete: Bool) in
+                    self.togglTime[.positive] = 0
                     print("Positive Toggl Started")
                 }
             }
             
+            
             if newTime > 0 {
                 newTime -= 1
+                
             }
             else if newTime < 0 {
                 newTime += 1
@@ -140,7 +146,8 @@ class TimeController {
             
             print("[Timer] current seconds: \(newTime)")
             self.prevTime = newTime
-            self.timeControllerDelegate.setSecondUI(currTime: newTime, animated: true, completion: nil)
+            self.togglTime[self.currType]! += 1
+            self.timeControllerDelegate.setSecondUI(currTime: newTime, togglTime: self.togglTime, animated: true, completion: nil)
         })
     }
 }
