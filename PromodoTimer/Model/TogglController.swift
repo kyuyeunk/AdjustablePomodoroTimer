@@ -46,7 +46,7 @@ class TogglController {
     }
     
     //Start the timer based on .positive and .negative types
-    func startTimer(type: TrackingType, completion: ((Bool) -> ())?) {
+    func startTimer(type: TimerType, completion: ((Bool) -> ())?) {
         if let info = GlobalVar.settings.timerList[GlobalVar.settings.currTimer].userDefinedTracking[type] {
             startTimer(pid: info.project.pid, desc: info.desc) { (complete: Bool) in
                 completion?(complete)
@@ -145,7 +145,7 @@ class TogglController {
     }
 }
 
-enum TrackingType: Int, Codable {
+enum TimerType: Int, Codable {
     case positive
     case negative
 }

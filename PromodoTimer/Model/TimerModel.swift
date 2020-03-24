@@ -10,15 +10,14 @@ import Foundation
 
 class TimerModel: Codable {
     var timerName: String
-    var posStartTime: Int
-    var negStartTime: Int
+    var startTime: [TimerType: Int] = [:]
     var autoRepeat: Bool
     
-    var userDefinedTracking: [TrackingType: trackingInfo] = [:]
+    var userDefinedTracking: [TimerType: trackingInfo] = [:]
     init() {
         self.timerName = "Default Timer"
-        self.posStartTime = 30
-        self.negStartTime = -15
+        self.startTime[.positive] = 30
+        self.startTime[.negative] = -15
         self.autoRepeat = true
     }
 }

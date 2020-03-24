@@ -19,7 +19,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
             self.init(rawValue: indexPath.section)
         }
     }
-    var type: TrackingType!
+    var type: TimerType!
     var selectedProject: projectInfo?
     var desc: String?
 

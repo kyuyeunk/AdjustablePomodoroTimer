@@ -12,10 +12,10 @@ class Settings {
     var currTimer: Int = 0
     
     var currPostStartTime: Int {
-        return timerList[currTimer].posStartTime
+        return timerList[currTimer].startTime[.positive]!
     }
     var currNegStartTime: Int {
-        return timerList[currTimer].negStartTime
+        return timerList[currTimer].startTime[.positive]!
     }
     var currAutoRepeat: Bool {
         return timerList[currTimer].autoRepeat
@@ -61,7 +61,7 @@ class Settings {
             print("[Load] Timers retrieved")
             timerList = decodedTimers
             for timer in self.timerList {
-                print("[Load] \(timer.timerName) w pos: \(timer.posStartTime), neg: \(timer.negStartTime)")
+                print("[Load] \(timer.timerName) w pos: \(timer.startTime[.positive]!), neg: \(timer.startTime[.negative]!)")
             }
         }
     }
@@ -103,7 +103,7 @@ class Settings {
         
         print("[Save] Timers saved")
         for timer in self.timerList {
-            print("[Save] \(timer.timerName) w pos: \(timer.posStartTime), neg: \(timer.negStartTime)")
+            print("[Save] \(timer.timerName) w pos: \(timer.startTime[.positive]!), neg: \(timer.startTime[.negative]!)")
         }
     }
 }

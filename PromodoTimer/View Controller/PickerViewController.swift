@@ -74,7 +74,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension PickerViewController: TimeControllerDelegate {
-    func togglStartTimerUI(type: TrackingType) {
+    func togglStartTimerUI(type: TimerType) {
         /*
         DispatchQueue.main.async {
             if type == .positive {
@@ -87,7 +87,7 @@ extension PickerViewController: TimeControllerDelegate {
          */
     }
     
-    func togglStopTimerUI(type: TrackingType) {
+    func togglStopTimerUI(type: TimerType) {
         /*
         DispatchQueue.main.async {
             if type == .positive {
@@ -100,7 +100,7 @@ extension PickerViewController: TimeControllerDelegate {
          */
     }
     
-    func setSecondUI(currTime: Int, togglTime: [TrackingType: Int], animated: Bool, completion: (() -> ())?) {
+    func setSecondUI(currTime: Int, togglTime: [TimerType: Int], animated: Bool, completion: (() -> ())?) {
         DispatchQueue.main.async {
             self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: animated)
             self.posTimeLabel.text = String(togglTime[.positive]!)

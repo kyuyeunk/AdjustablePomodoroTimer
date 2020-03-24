@@ -62,15 +62,15 @@ class CircleViewController: UIViewController {
 }
 
 extension CircleViewController: TimeControllerDelegate {
-    func togglStartTimerUI(type: TrackingType) {
+    func togglStartTimerUI(type: TimerType) {
         //TODO: implement the UI
     }
     
-    func togglStopTimerUI(type: TrackingType) {
+    func togglStopTimerUI(type: TimerType) {
         //TODO: implement the UI
     }
     
-    func setSecondUI(currTime: Int, togglTime: [TrackingType: Int], animated: Bool, completion: (() -> ())?) {
+    func setSecondUI(currTime: Int, togglTime: [TimerType: Int], animated: Bool, completion: (() -> ())?) {
         let newDegree = .pi / increment * CGFloat(currTime)
         let diffDegree = currDegree - newDegree
         

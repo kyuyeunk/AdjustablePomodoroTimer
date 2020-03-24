@@ -11,12 +11,12 @@ import UIKit
 //Allow view controllers to change UI when timer event triggers
 //Allow TimeController to fetch current time from view controllers
 protocol TimeControllerDelegate {
-    func setSecondUI(currTime: Int, togglTime: [TrackingType: Int], animated: Bool, completion: (() -> ())?)
+    func setSecondUI(currTime: Int, togglTime: [TimerType: Int], animated: Bool, completion: (() -> ())?)
     func getCurrTime() -> Int
     func stopTimerUI()
     func startTimerUI()
-    func togglStartTimerUI(type: TrackingType)
-    func togglStopTimerUI(type: TrackingType)
+    func togglStartTimerUI(type: TimerType)
+    func togglStopTimerUI(type: TimerType)
 }
 
 class TimeController {
@@ -30,15 +30,15 @@ class TimeController {
             }
             else {
                 timeControllerDelegate.stopTimerUI()
-                prevTime = GlobalVar.settings.timerList[GlobalVar.settings.currTimer].posStartTime
+                prevTime = GlobalVar.settings.timerList[GlobalVar.settings.currTimer].startTime[.positive]!
             }
             timeControllerDelegate.setSecondUI(currTime: prevTime, togglTime: togglTime, animated: false, completion: nil)
         }
     }
     
-    var currType: TrackingType = .positive
+    var currType: TimerType = .positive
     var prevTime = GlobalVar.settings.currPostStartTime
-    var togglTime: [TrackingType: Int] = [.positive: 0, .negative: 0]   //TODO: track actual time, not number of times UI was changed
+    var togglTime: [TimerType: Int] = [.positive: 0, .negative: 0]   //TODO: track actual time, not number of times UI was changed
     var timer: Timer!
     var timerStart = false {
         didSet {
