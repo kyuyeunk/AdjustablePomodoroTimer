@@ -75,29 +75,25 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension PickerViewController: TimeControllerDelegate {
     func togglStartTimerUI(type: TimerType) {
-        /*
         DispatchQueue.main.async {
             if type == .positive {
-                self.posTimeLabel.text = "On"
+                self.posTimeLabel.textColor = .red
             }
             else {
-                self.negTimeLabel.text = "On"
+                self.negTimeLabel.textColor = .red
             }
         }
-         */
     }
     
     func togglStopTimerUI(type: TimerType) {
-        /*
         DispatchQueue.main.async {
             if type == .positive {
-                self.posTimeLabel.text = "Off"
+                self.posTimeLabel.textColor = .white
             }
             else {
-                self.negTimeLabel.text = "Off"
+                self.negTimeLabel.textColor = .white
             }
         }
-         */
     }
     
     func setSecondUI(currTime: Int, togglTime: [TimerType: Int], animated: Bool, completion: (() -> ())?) {
