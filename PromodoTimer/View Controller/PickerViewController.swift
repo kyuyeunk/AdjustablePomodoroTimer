@@ -10,7 +10,13 @@ import UIKit
 
 class PickerViewController: UIViewController {
 
+    var posSecondRows: [Int] = []
+    var negSecondRows: [Int] = []
     var secondRows: [Int] = []
+    let MAX_ROW: Int = Int(INT16_MAX)
+    var MIDDLE_ROW: Int {
+        return MAX_ROW / 2
+    }
 
     @IBOutlet weak var posTimeLabel: UILabel!
     @IBOutlet weak var negTimeLabel: UILabel!
@@ -42,28 +48,43 @@ class PickerViewController: UIViewController {
         startButton.setTitle("Start", for: .normal)
         posTimeLabel.text = "Off"
         negTimeLabel.text = "Off"
-        for i in (-60 ... 60).reversed() {
+        for i in (0 ... 59).reversed() {
+            posSecondRows.append(i)
+        }
+        for i in (-59 ... 0).reversed() {
+            negSecondRows.append(i)
+        }
+        for i in (-59 ... 59).reversed() {
             secondRows.append(i)
         }
         
         mainTimer.dataSource = self
         mainTimer.delegate = self
         
-        mainTimer.selectRow(60, inComponent: 0, animated: false)
+        mainTimer.selectRow(MIDDLE_ROW, inComponent: 0, animated: false)
+        mainTimer.selectRow(MIDDLE_ROW, inComponent: 1, animated: false)
     }
 }
 
 extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return secondRows.count
+        return MAX_ROW
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(secondRows[row])
+        let currSeconds = (MIDDLE_ROW - row) % 60
+        let currSecondsStr: String
+        if currSeconds == 0 && row > MIDDLE_ROW {
+            currSecondsStr = "-0"
+        }
+        else {
+            currSecondsStr = String(currSeconds)
+        }
+        return currSecondsStr
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
