@@ -36,7 +36,12 @@ class TimerListTableViewController: UITableViewController {
             cell.imageView?.image = UIImage(systemName: "circle")!
         }
         
-        let detailText = "[Positive] \(timer.startTime[.positive]!) [Negative] \(timer.startTime[.negative]!)"
+        let posMin = timer.startTime[.positive]! / 60
+        let posSec = timer.startTime[.positive]! % 60
+        let negMin = abs(timer.startTime[.negative]!) / 60
+        let negSec = abs(timer.startTime[.negative]!) % 60
+
+        let detailText = "[Positive] \(posMin)m \(posSec)s [Negative] \(negMin)m \(negSec)s"
         cell.detailTextLabel?.text = detailText
         
         return cell
