@@ -82,7 +82,17 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             print("[Picker View] Minute picker moved")
             let minutes = MIDDLE_ROW - row
             let currSeconds = (MIDDLE_ROW - pickerView.selectedRow(inComponent: 1)) % 60
-            let seconds = minutes * 60 + currSeconds
+            var seconds: Int
+            if minutes > 0 && currSeconds < 0 {
+                seconds = (minutes + 1) * 60 - currSeconds
+            }
+            else if minutes < 0 && currSeconds > 0 {
+                seconds = minutes  * 60 - currSeconds
+            }
+            else {
+                seconds = minutes * 60 + currSeconds
+            }
+            //let seconds = minutes * 60 + currSeconds
             print("[Picker View] Selected val in Min: \(minutes), in Sec: \(seconds)")
             pickerView.selectRow(MIDDLE_ROW - seconds, inComponent: 1, animated: true)
         }
