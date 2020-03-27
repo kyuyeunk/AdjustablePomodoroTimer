@@ -10,9 +10,8 @@ import UIKit
 
 class PickerViewController: UIViewController {
 
-    var posSecondRows: [Int] = []
-    var negSecondRows: [Int] = []
-    var secondRows: [Int] = []
+    var currSecRow = 0
+    var currMinRow = 0
     let MAX_ROW: Int = Int(INT16_MAX)
     var MIDDLE_ROW: Int {
         return MAX_ROW / 2
@@ -48,21 +47,15 @@ class PickerViewController: UIViewController {
         startButton.setTitle("Start", for: .normal)
         posTimeLabel.text = "Off"
         negTimeLabel.text = "Off"
-        for i in (0 ... 59).reversed() {
-            posSecondRows.append(i)
-        }
-        for i in (-59 ... 0).reversed() {
-            negSecondRows.append(i)
-        }
-        for i in (-59 ... 59).reversed() {
-            secondRows.append(i)
-        }
         
         mainTimer.dataSource = self
         mainTimer.delegate = self
         
-        mainTimer.selectRow(MIDDLE_ROW, inComponent: 0, animated: false)
-        mainTimer.selectRow(MIDDLE_ROW, inComponent: 1, animated: false)
+        currSecRow = MIDDLE_ROW
+        currMinRow = MIDDLE_ROW
+        
+        mainTimer.selectRow(currSecRow, inComponent: 0, animated: false)
+        mainTimer.selectRow(currMinRow, inComponent: 1, animated: false)
     }
 }
 
@@ -76,18 +69,39 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let currSeconds = (MIDDLE_ROW - row) % 60
-        let currSecondsStr: String
-        if currSeconds == 0 && row > MIDDLE_ROW {
-            currSecondsStr = "-0"
+        if component == 1 {
+    
+            let seconds = (MIDDLE_ROW - row) % 60
+            let minutes = (MIDDLE_ROW - row) / 60
+            let minSub = IntToSuperscript(n: minutes)
+            
+            return "\(seconds) \(minSub)"
         }
         else {
-            currSecondsStr = String(currSeconds)
+            return String(MIDDLE_ROW - row)
         }
-        return currSecondsStr
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if component == 0 {
+            print("Minute picker moved")
+            currMinRow = row
+            let minutes = MIDDLE_ROW - row
+            let currSeconds = (MIDDLE_ROW - pickerView.selectedRow(inComponent: 1)) % 60
+            let seconds = minutes * 60 + currSeconds
+            print("Selected val in Min: \(minutes), in Sec: \(seconds)")
+            print("Current sec: \(currSeconds)")
+            pickerView.selectRow(MIDDLE_ROW - seconds, inComponent: 1, animated: true)
+        }
+        else {
+            print("Second picker moved")
+            let seconds = MIDDLE_ROW - row
+            let minutes = seconds / 60
+            
+            print("Selected val in Min: \(minutes), in Sec: \(seconds)")
+            pickerView.selectRow(MIDDLE_ROW - minutes, inComponent: 0, animated: true)
+        }
         if GlobalVar.timeController.timerStart {
             print("Moved timer during timing")
         }
@@ -119,7 +133,7 @@ extension PickerViewController: TimeControllerDelegate {
     
     func setSecondUI(currTime: Int, togglTime: [TimerType: Int], animated: Bool, completion: (() -> ())?) {
         DispatchQueue.main.async {
-            self.mainTimer.selectRow(60 - currTime, inComponent: 0, animated: animated)
+            self.mainTimer.selectRow(self.MIDDLE_ROW - currTime, inComponent: 1, animated: animated)
             self.posTimeLabel.text = String(togglTime[.positive]!)
             self.negTimeLabel.text = String(togglTime[.negative]!)
             if let completion = completion {
@@ -129,9 +143,9 @@ extension PickerViewController: TimeControllerDelegate {
     }
     
     func getCurrTime() -> Int {
-        let row = mainTimer.selectedRow(inComponent: 0)
-        print("[Picker View] selectedRow: \(row) seconds: \(60 - row)")
-        return 60 - mainTimer.selectedRow(inComponent: 0)
+        let row = mainTimer.selectedRow(inComponent: 1)
+        print("[Picker View] selectedRow: \(row) seconds: \(MIDDLE_ROW - row)")
+        return MIDDLE_ROW - mainTimer.selectedRow(inComponent: 1)
     }
     
     func stopTimerUI() {
@@ -141,4 +155,32 @@ extension PickerViewController: TimeControllerDelegate {
     func startTimerUI() {
         startButton.setTitle("Stop", for: .normal)
     }
+}
+
+func IntToSuperscript(n: Int) -> String {
+    var j = n
+    var ret = ""
+    if n > 10 {
+        let i = n / 10
+        ret = IntToSuperscript(n: i)
+        j = n % 10
+    }
+    
+    let uni: Int
+    if n == 2 {
+        uni = 0x00B2
+    }
+    else if n == 3 {
+        uni = 0x00B3
+    }
+    else if n == 1 {
+        uni = 0x00B9
+    }
+    else {
+        uni = 0x2070 + j
+    }
+    let scalarValue = UnicodeScalar(uni)!
+    let string = String(scalarValue)
+    
+    return ret + string
 }
