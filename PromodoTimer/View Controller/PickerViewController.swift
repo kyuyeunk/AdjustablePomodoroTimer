@@ -10,8 +10,6 @@ import UIKit
 
 class PickerViewController: UIViewController {
 
-    var currSecRow = 0
-    var currMinRow = 0
     let MAX_ROW: Int = Int(INT16_MAX)
     var MIDDLE_ROW: Int {
         return MAX_ROW / 2
@@ -51,11 +49,8 @@ class PickerViewController: UIViewController {
         mainTimer.dataSource = self
         mainTimer.delegate = self
         
-        currSecRow = MIDDLE_ROW
-        currMinRow = MIDDLE_ROW
-        
-        mainTimer.selectRow(currSecRow, inComponent: 0, animated: false)
-        mainTimer.selectRow(currMinRow, inComponent: 1, animated: false)
+        mainTimer.selectRow(MIDDLE_ROW, inComponent: 0, animated: false)
+        mainTimer.selectRow(MIDDLE_ROW, inComponent: 1, animated: false)
     }
 }
 
@@ -70,7 +65,6 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         if component == 1 {
-    
             let seconds = (MIDDLE_ROW - row) % 60
             let minutes = (MIDDLE_ROW - row) / 60
             let minSub = IntToSuperscript(n: abs(minutes))
@@ -85,24 +79,23 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            print("Minute picker moved")
+            print("[Picker View] Minute picker moved")
             let minutes = MIDDLE_ROW - row
             let currSeconds = (MIDDLE_ROW - pickerView.selectedRow(inComponent: 1)) % 60
             let seconds = minutes * 60 + currSeconds
-            print("Selected val in Min: \(minutes), in Sec: \(seconds)")
-            print("Current sec: \(currSeconds)")
+            print("[Picker View] Selected val in Min: \(minutes), in Sec: \(seconds)")
             pickerView.selectRow(MIDDLE_ROW - seconds, inComponent: 1, animated: true)
         }
         else {
-            print("Second picker moved")
+            print("[Picker View] Second picker moved")
             let seconds = MIDDLE_ROW - row
             let minutes = seconds / 60
             
-            print("Selected val in Min: \(minutes), in Sec: \(seconds)")
+            print("[Picker View] Selected val in Min: \(minutes), in Sec: \(seconds)")
             pickerView.selectRow(MIDDLE_ROW - minutes, inComponent: 0, animated: true)
         }
         if GlobalVar.timeController.timerStart {
-            print("Moved timer during timing")
+            print("[Picker View] Moved timer during timing")
         }
     }
 }
