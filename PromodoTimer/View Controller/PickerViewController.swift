@@ -73,7 +73,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
             let seconds = (MIDDLE_ROW - row) % 60
             let minutes = (MIDDLE_ROW - row) / 60
-            let minSub = IntToSuperscript(n: minutes)
+            let minSub = IntToSuperscript(n: abs(minutes))
             
             return "\(seconds) \(minSub)"
         }
@@ -86,7 +86,6 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
             print("Minute picker moved")
-            currMinRow = row
             let minutes = MIDDLE_ROW - row
             let currSeconds = (MIDDLE_ROW - pickerView.selectedRow(inComponent: 1)) % 60
             let seconds = minutes * 60 + currSeconds
@@ -134,6 +133,7 @@ extension PickerViewController: TimeControllerDelegate {
     func setSecondUI(currTime: Int, togglTime: [TimerType: Int], animated: Bool, completion: (() -> ())?) {
         DispatchQueue.main.async {
             self.mainTimer.selectRow(self.MIDDLE_ROW - currTime, inComponent: 1, animated: animated)
+            self.mainTimer.selectRow((self.MIDDLE_ROW - currTime / 60), inComponent: 0, animated: animated)
             self.posTimeLabel.text = String(togglTime[.positive]!)
             self.negTimeLabel.text = String(togglTime[.negative]!)
             if let completion = completion {
@@ -167,13 +167,13 @@ func IntToSuperscript(n: Int) -> String {
     }
     
     let uni: Int
-    if n == 2 {
+    if j == 2 {
         uni = 0x00B2
     }
-    else if n == 3 {
+    else if j == 3 {
         uni = 0x00B3
     }
-    else if n == 1 {
+    else if j == 1 {
         uni = 0x00B9
     }
     else {
