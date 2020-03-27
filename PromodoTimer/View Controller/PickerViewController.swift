@@ -67,7 +67,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         if component == 1 {
             let seconds = (MIDDLE_ROW - row) % 60
             let minutes = (MIDDLE_ROW - row) / 60
-            let minSub = IntToSuperscript(n: abs(minutes))
+            let minSub = abs(minutes).toSuperscript()
             
             return "\(seconds) \(minSub)"
         }
@@ -81,27 +81,27 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         if component == 0 {
             print("[Picker View] Minute picker moved")
             let minutes = MIDDLE_ROW - row
-            let currSeconds = (MIDDLE_ROW - pickerView.selectedRow(inComponent: 1)) % 60
-            var seconds: Int
-            if minutes > 0 && currSeconds < 0 {
-                seconds = (minutes + 1) * 60 - currSeconds
+            let seconds = (MIDDLE_ROW - pickerView.selectedRow(inComponent: 1)) % 60
+            var time: Int
+            if minutes > 0 && seconds < 0 {
+                time = (minutes + 1) * 60 - seconds
             }
-            else if minutes < 0 && currSeconds > 0 {
-                seconds = minutes  * 60 - currSeconds
+            else if minutes < 0 && seconds > 0 {
+                time = minutes  * 60 - seconds
             }
             else {
-                seconds = minutes * 60 + currSeconds
+                time = minutes * 60 + seconds
             }
 
-            print("[Picker View] Selected val in Min: \(minutes), in Sec: \(seconds)")
-            pickerView.selectRow(MIDDLE_ROW - seconds, inComponent: 1, animated: true)
+            print("[Picker View] Selected val in Min: \(minutes), in Sec: \(time)")
+            pickerView.selectRow(MIDDLE_ROW - time, inComponent: 1, animated: true)
         }
         else {
             print("[Picker View] Second picker moved")
-            let seconds = MIDDLE_ROW - row
-            let minutes = seconds / 60
+            let time = MIDDLE_ROW - row
+            let minutes = time / 60
             
-            print("[Picker View] Selected val in Min: \(minutes), in Sec: \(seconds)")
+            print("[Picker View] Selected val in Min: \(minutes), in Sec: \(time)")
             pickerView.selectRow(MIDDLE_ROW - minutes, inComponent: 0, animated: true)
         }
         if GlobalVar.timeController.timerStart {
@@ -160,30 +160,33 @@ extension PickerViewController: TimeControllerDelegate {
     }
 }
 
-func IntToSuperscript(n: Int) -> String {
-    var j = n
-    var ret = ""
-    if n > 10 {
-        let i = n / 10
-        ret = IntToSuperscript(n: i)
-        j = n % 10
+extension Int {
+    func toSuperscript() -> String {
+        var j = self
+        var ret = ""
+        if self > 10 {
+            let i = self / 10
+            ret = i.toSuperscript()
+            j = self % 10
+        }
+        
+        let uni: Int
+        if j == 2 {
+            uni = 0x00B2
+        }
+        else if j == 3 {
+            uni = 0x00B3
+        }
+        else if j == 1 {
+            uni = 0x00B9
+        }
+        else {
+            uni = 0x2070 + j
+        }
+        let scalarValue = UnicodeScalar(uni)!
+        let string = String(scalarValue)
+        
+        return ret + string
     }
-    
-    let uni: Int
-    if j == 2 {
-        uni = 0x00B2
-    }
-    else if j == 3 {
-        uni = 0x00B3
-    }
-    else if j == 1 {
-        uni = 0x00B9
-    }
-    else {
-        uni = 0x2070 + j
-    }
-    let scalarValue = UnicodeScalar(uni)!
-    let string = String(scalarValue)
-    
-    return ret + string
 }
+
