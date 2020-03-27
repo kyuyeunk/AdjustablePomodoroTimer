@@ -115,45 +115,50 @@ class TimerSettingsTableViewController: UITableViewController {
         case .timerValues:
             if indexPath.row == 0 || indexPath.row == 2 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
+                var currType: TimerType
+                
                 if indexPath.row == 0 {
-                    if selected.timer[.positive]! {
-                        cell.textLabel?.text = String(workingTimerModel.startTime[.positive]!)
-                    }
-                    else {
-                        cell.textLabel?.text = "Please Input Positive Time"
-                        
-                    }
-                    cell.imageView?.image = UIImage(systemName: "plus")!
+                    currType = .positive
                 }
-                else if indexPath.row == 2 {
-                    if selected.timer[.negative]! {
-                        cell.textLabel?.text = String(workingTimerModel.startTime[.negative]!)
-                    }
-                    else {
-                        cell.textLabel?.text = "Please Input Positive Time"
-                    }
-                    cell.imageView?.image = UIImage(systemName: "minus")!
+                else {
+                    currType = .negative
                 }
+                
+                if selected.timer[currType]! {
+                    let time = abs(workingTimerModel.startTime[currType]!)
+                    let seconds = time % 60
+                    let minutes = time / 60
+                    cell.textLabel?.text = "\(minutes)m \(seconds)s"
+                }
+                else {
+                        cell.textLabel?.text = "Please Input Negative Time"
+                }
+                
+                cell.imageView?.image = UIImage(systemName: "minus")!
                 
                 return cell
             }
             else if let cell = tableView.dequeueReusableCell(withIdentifier: "pickerCell", for: indexPath) as? PickerTableViewCell {
-                var currRow: Int = 60
+                var time: Int = 0
                 if indexPath.row == 1 {
                     posPickerView = cell.pickerView
                     if !newTimer {
-                        currRow = 60 - workingTimerModel.startTime[.positive]!
+                        time = workingTimerModel.startTime[.positive]!
                     }
                 }
                 else {
                     negPickerView = cell.pickerView
                     if !newTimer {
-                        currRow = 60 - workingTimerModel.startTime[.negative]!
+                        time = workingTimerModel.startTime[.negative]!
                     }
                 }
                 
+                let minutes = abs(time / 60)
+                let seconds = abs(time % 60)
+                
                 cell.pickerView.delegate = self
-                cell.pickerView.selectRow(currRow, inComponent: 0, animated: false)
+                cell.pickerView.selectRow(59 - minutes, inComponent: 0, animated: false)
+                cell.pickerView.selectRow(59 - seconds, inComponent: 1, animated: false)
                 
                 return cell
             }
@@ -318,25 +323,41 @@ class TimerSettingsTableViewController: UITableViewController {
 
 extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return 2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return secondRows.count
+        return 60
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(secondRows[row])
+        return String(59 - row)
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        var seconds: Int
+        var minutes: Int
+        
+        if component == 0 {
+            minutes = 59 - row
+            seconds = 59 - pickerView.selectedRow(inComponent: 1)
+        }
+        else {
+            seconds = 59 - row
+            minutes = 59 - pickerView.selectedRow(inComponent: 0)
+        }
+        
+        seconds += minutes * 60
+        
+        print("Picked \(seconds)")
+        
         if pickerView == posPickerView {
-            workingTimerModel.startTime[.positive] = secondRows[row]
+            workingTimerModel.startTime[.positive] = seconds
             let labelIndexPath = IndexPath(row: 0, section: sections.timerValues.rawValue)
             tableView.reloadRows(at: [labelIndexPath], with: .automatic)
         }
         else {
-            workingTimerModel.startTime[.negative] = secondRows[row]
+            workingTimerModel.startTime[.negative] = -seconds
             let labelIndexPath = IndexPath(row: 2, section: sections.timerValues.rawValue)
             tableView.reloadRows(at: [labelIndexPath], with: .automatic)
         }

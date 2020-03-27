@@ -92,7 +92,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             else {
                 seconds = minutes * 60 + currSeconds
             }
-            //let seconds = minutes * 60 + currSeconds
+
             print("[Picker View] Selected val in Min: \(minutes), in Sec: \(seconds)")
             pickerView.selectRow(MIDDLE_ROW - seconds, inComponent: 1, animated: true)
         }
