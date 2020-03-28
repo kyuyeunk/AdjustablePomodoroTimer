@@ -19,13 +19,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ggp-Pc-GPV">
-                                <rect key="frame" x="47" y="309" width="320" height="278"/>
+                                <rect key="frame" x="47" y="279" width="320" height="318.5"/>
                                 <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AUL-b6-1wc">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gve-v9-vih">
+                                                <rect key="frame" x="0.0" y="0.0" width="160" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Secondsᵐⁱⁿ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YZ8-OP-Khe">
+                                                <rect key="frame" x="160" y="0.0" width="160" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="gve-v9-vih" firstAttribute="width" secondItem="YZ8-OP-Khe" secondAttribute="width" id="m4j-RC-2hr"/>
+                                        </constraints>
+                                    </stackView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sfb-sF-EvZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="216"/>
+                                        <rect key="frame" x="0.0" y="40.5" width="320" height="216"/>
                                     </pickerView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ytn-Cq-Ecv">
-                                        <rect key="frame" x="0.0" y="236" width="320" height="42"/>
+                                        <rect key="frame" x="0.0" y="276.5" width="320" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
@@ -35,7 +55,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="JMa-lD-Vyc">
-                                <rect key="frame" x="20" y="148" width="374" height="91"/>
+                                <rect key="frame" x="20" y="128" width="374" height="91"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passed Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBc-d6-9MA">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="30"/>
@@ -87,9 +107,9 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="ggp-Pc-GPV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GN0-ny-eE0"/>
-                            <constraint firstItem="ggp-Pc-GPV" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="bd3-rQ-hQN"/>
-                            <constraint firstItem="JMa-lD-Vyc" firstAttribute="top" secondItem="8qf-aD-Syb" secondAttribute="bottom" constant="60" id="ovD-kF-Umq"/>
+                            <constraint firstItem="ggp-Pc-GPV" firstAttribute="top" secondItem="JMa-lD-Vyc" secondAttribute="bottom" constant="60" id="Vg5-5J-N0v"/>
+                            <constraint firstItem="JMa-lD-Vyc" firstAttribute="top" secondItem="8qf-aD-Syb" secondAttribute="bottom" constant="40" id="ovD-kF-Umq"/>
+                            <constraint firstItem="ggp-Pc-GPV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rc6-Cc-DvJ"/>
                             <constraint firstItem="JMa-lD-Vyc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="wSa-t8-a1i"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JMa-lD-Vyc" secondAttribute="trailing" id="xdI-fU-AH5"/>
                         </constraints>
