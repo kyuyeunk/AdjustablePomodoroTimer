@@ -22,11 +22,11 @@ class PickerViewController: UIViewController {
     @IBAction func startButtonPressed(_ sender: Any) {
         if GlobalVar.timeController.timerStart == false {
             print("Pressed Start Button")
-            GlobalVar.timeController.timerStart = true
+            GlobalVar.timeController.startButtonTapped()
         }
         else {
             print("Pressed Stop Button")
-            GlobalVar.timeController.timerStart = false
+            GlobalVar.timeController.stopButtonTapped()
         }
     }
     
@@ -136,9 +136,9 @@ extension PickerViewController: TimeControllerDelegate {
         }
     }
     
-    func setSecondUI(currTime: Int, passedTime: [TimerType: Int], animated: Bool, completion: (() -> ())?) {
-        let posTime = passedTime[.positive]!
-        let negTime = passedTime[.negative]!
+    func setSecondUI(currTime: Int, passedTime: [TimerType: Double], animated: Bool, completion: (() -> ())?) {
+        let posTime = Int(passedTime[.positive]!)
+        let negTime = Int(passedTime[.negative]!)
         
         let posSeconds = posTime % 60
         let posMinutes = posTime / 60

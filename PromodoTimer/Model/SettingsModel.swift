@@ -9,9 +9,9 @@
 import Foundation
 
 class Settings {
-    var currTimer: Int = 0
+    var currTimer: Int = 0  //TODO: Implement ability for this data to be saved and loaded
     
-    var currPostStartTime: Int {
+    var currPosStartTime: Int {
         return timerList[currTimer].startTime[.positive]!
     }
     var currNegStartTime: Int {
@@ -19,6 +19,9 @@ class Settings {
     }
     var currAutoRepeat: Bool {
         return timerList[currTimer].autoRepeat
+    }
+    var currAccumulatePassedTime: Bool {
+        return timerList[currTimer].accumulatePassedTime
     }
     
     var projectList: [projectInfo] = []

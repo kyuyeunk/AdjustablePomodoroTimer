@@ -85,7 +85,6 @@ class TimerSettingsTableViewController: UITableViewController {
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return sections.numberOfSections.rawValue
     }
 
@@ -98,7 +97,7 @@ class TimerSettingsTableViewController: UITableViewController {
         case .togglValues:
             return 2
         case .misc:
-            return 1
+            return 2
         default:
             return 0
         }
@@ -203,6 +202,11 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.settingSwitch.isOn = workingTimerModel.autoRepeat
                     cell.settingSwitch.addTarget(self, action: #selector(autoRepeatSwitched(myswitch:)), for: .valueChanged)
                 }
+                else if indexPath.row == 1 {
+                    cell.settingTextLabel.text = "Accumulate Passed Time Data"
+                    cell.settingSwitch.isOn = workingTimerModel.accumulatePassedTime
+                    cell.settingSwitch.addTarget(self, action: #selector(accumulateSwitched(myswitch:)), for: .valueChanged)
+                }
                 else {
                     cell.settingTextLabel.text = "ERROR: no label for this switchCell"
                 }
@@ -303,13 +307,23 @@ class TimerSettingsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-     @objc func autoRepeatSwitched(myswitch: UISwitch) {
+    @objc func autoRepeatSwitched(myswitch: UISwitch) {
         workingTimerModel.autoRepeat = myswitch.isOn
         if myswitch.isOn {
             print("[Settings View] Auto-repeat switch turned on")
         }
         else {
             print("[Settings View] Auto-repeat switch turned off")
+        }
+    }
+    
+    @objc func accumulateSwitched(myswitch: UISwitch) {
+        workingTimerModel.accumulatePassedTime = myswitch.isOn
+        if myswitch.isOn {
+            print("[Settings View] Accumulate Passed Time switch turned on")
+        }
+        else {
+            print("[Settings View] Accumulate Passed Time switch turned off")
         }
     }
     
