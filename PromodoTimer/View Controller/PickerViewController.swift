@@ -43,8 +43,6 @@ class PickerViewController: UIViewController {
     
     func initUI() {
         startButton.setTitle("Start", for: .normal)
-        posTimeLabel.text = "Off"
-        negTimeLabel.text = "Off"
         
         mainTimer.dataSource = self
         mainTimer.delegate = self
@@ -134,11 +132,20 @@ extension PickerViewController: TimeControllerDelegate {
     }
     
     func setSecondUI(currTime: Int, togglTime: [TimerType: Int], animated: Bool, completion: (() -> ())?) {
+        let posTime = togglTime[.positive]!
+        let negTime = togglTime[.negative]!
+        
+        let posSeconds = posTime % 60
+        let posMinutes = posTime / 60
+        
+        let negSeconds = negTime % 60
+        let negMinutes = negTime / 60
+        
         DispatchQueue.main.async {
             self.mainTimer.selectRow(self.MIDDLE_ROW - currTime, inComponent: 1, animated: animated)
             self.mainTimer.selectRow((self.MIDDLE_ROW - currTime / 60), inComponent: 0, animated: animated)
-            self.posTimeLabel.text = String(togglTime[.positive]!)
-            self.negTimeLabel.text = String(togglTime[.negative]!)
+            self.posTimeLabel.text = "\(posMinutes)m \(posSeconds)s"
+            self.negTimeLabel.text = "\(negMinutes)m \(negSeconds)s"
             if let completion = completion {
                 completion()
             }
