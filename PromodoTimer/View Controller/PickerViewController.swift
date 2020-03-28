@@ -142,6 +142,7 @@ extension PickerViewController: TimeControllerDelegate {
         let negMinutes = negTime / 60
         
         DispatchQueue.main.async {
+            print("[Picker View] Setting timer UI to \(currTime) seconds")
             self.mainTimer.selectRow(self.MIDDLE_ROW - currTime, inComponent: 1, animated: animated)
             self.mainTimer.selectRow((self.MIDDLE_ROW - currTime / 60), inComponent: 0, animated: animated)
             self.posTimeLabel.text = "\(posMinutes)m \(posSeconds)s"

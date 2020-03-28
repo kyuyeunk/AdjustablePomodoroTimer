@@ -69,6 +69,7 @@ class TimeController {
             
             //If prevTime is 0, assume timer stopped automatically
             if prevTime == 0 && GlobalVar.settings.currAutoRepeat {
+                print(timeControllerDelegate.getCurrTime())
                 print("[Timer] Setting up next auto timer")
                 var nextTimerTime: Int
                 if currType == .positive {
@@ -108,6 +109,7 @@ class TimeController {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
             var newTime = self.timeControllerDelegate.getCurrTime()
             if (self.prevTime > 0 && newTime < 0) {
+                self.prevTime = newTime
                 print("[Timer] changed from positive to negative")
                 GlobalVar.toggl.stopTimer() { (complete: Bool) in
                     self.timeControllerDelegate.togglStopTimerUI(type: .positive)
@@ -117,8 +119,10 @@ class TimeController {
                     self.togglTime[.negative] = 0
                     print("Negative Toggl Started")
                 }
+                return
             }
             else if (self.prevTime < 0 && newTime > 0) {
+                self.prevTime = newTime
                 print("[Timer] changed from negative to positive")
                 GlobalVar.toggl.stopTimer() { (complete: Bool) in
                     self.timeControllerDelegate.togglStopTimerUI(type: .negative)
@@ -128,6 +132,7 @@ class TimeController {
                     self.togglTime[.positive] = 0
                     print("Positive Toggl Started")
                 }
+                return
             }
             
             
@@ -142,12 +147,14 @@ class TimeController {
             print("[Timer] current seconds: \(newTime)")
             self.prevTime = newTime
             self.togglTime[self.currType]! += 1
-            self.timeControllerDelegate.setSecondUI(currTime: newTime, togglTime: self.togglTime, animated: true, completion: nil)
-            
-            if newTime == 0 {
-                print("[Timer] Reached 0 seconds")
-                self.timerStart = false
+            self.timeControllerDelegate.setSecondUI(currTime: newTime, togglTime: self.togglTime, animated: true) { () in
+                if newTime == 0 {
+                    print("[Timer] Reached 0 seconds")
+                    self.timerStart = false
+                }
             }
+            
+
         })
     }
 }
