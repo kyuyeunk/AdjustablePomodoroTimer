@@ -67,7 +67,12 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             let minutes = (MIDDLE_ROW - row) / 60
             let minSub = abs(minutes).toSuperscript()
             
-            return "\(seconds) \(minSub)"
+            if (MIDDLE_ROW - row) < 0 && seconds == 0 {
+                return "-0 \(minSub)"
+            }
+            else {
+                return "\(seconds) \(minSub)"
+            }
         }
         else {
             return String(MIDDLE_ROW - row)
@@ -92,7 +97,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             }
 
             print("[Picker View] Selected val in Min: \(minutes), in Sec: \(time)")
-            pickerView.selectRow(MIDDLE_ROW - time, inComponent: 1, animated: true)
+            pickerView.selectRow(MIDDLE_ROW - time, inComponent: 1, animated: false)
         }
         else {
             print("[Picker View] Second picker moved")
@@ -172,7 +177,7 @@ extension Int {
     func toSuperscript() -> String {
         var j = self
         var ret = ""
-        if self > 10 {
+        if self >= 10 {
             let i = self / 10
             ret = i.toSuperscript()
             j = self % 10
