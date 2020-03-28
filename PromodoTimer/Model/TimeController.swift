@@ -38,7 +38,8 @@ class TimeController {
     
     var currType: TimerType = .positive
     var prevTime = GlobalVar.settings.currPostStartTime
-    var togglTime: [TimerType: Int] = [.positive: 0, .negative: 0]   //TODO: track actual time, not number of times UI was changed
+    var togglTime: [TimerType: Int] = [.positive: 0, .negative: 0]
+    var togglStartTime: [TimerType: TimeInterval] = [.positive: Date().timeIntervalSince1970, .negative: Date().timeIntervalSince1970]
     var timer: Timer!
     var timerStart = false {
         didSet {
@@ -69,7 +70,6 @@ class TimeController {
             
             //If prevTime is 0, assume timer stopped automatically
             if prevTime == 0 && GlobalVar.settings.currAutoRepeat {
-                print(timeControllerDelegate.getCurrTime())
                 print("[Timer] Setting up next auto timer")
                 var nextTimerTime: Int
                 if currType == .positive {
@@ -87,7 +87,6 @@ class TimeController {
                     self.timerStart = true
                 }
             }
-            
         }
     }
     
@@ -100,6 +99,8 @@ class TimeController {
         else {
             currType = .negative
         }
+        
+        togglStartTime[currType] = Date().timeIntervalSince1970
         
         GlobalVar.toggl.startTimer(type: currType) { (complete: Bool) in
             self.timeControllerDelegate.togglStartTimerUI(type: self.currType)
@@ -146,7 +147,7 @@ class TimeController {
             
             print("[Timer] current seconds: \(newTime)")
             self.prevTime = newTime
-            self.togglTime[self.currType]! += 1
+            self.togglTime[self.currType]! = Int(Date().timeIntervalSince1970 - self.togglStartTime[self.currType]!)
             self.timeControllerDelegate.setSecondUI(currTime: newTime, togglTime: self.togglTime, animated: true) { () in
                 if newTime == 0 {
                     print("[Timer] Reached 0 seconds")
