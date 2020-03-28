@@ -15,7 +15,7 @@ class Settings {
         return timerList[currTimer].startTime[.positive]!
     }
     var currNegStartTime: Int {
-        return timerList[currTimer].startTime[.positive]!
+        return timerList[currTimer].startTime[.negative]!
     }
     var currAutoRepeat: Bool {
         return timerList[currTimer].autoRepeat

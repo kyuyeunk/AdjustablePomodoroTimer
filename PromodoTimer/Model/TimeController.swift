@@ -138,16 +138,16 @@ class TimeController {
             else if newTime < 0 {
                 newTime += 1
             }
-            else {
-                print("[Timer] Reached 0 seconds")
-                self.timerStart = false
-                return
-            }
             
             print("[Timer] current seconds: \(newTime)")
             self.prevTime = newTime
             self.togglTime[self.currType]! += 1
             self.timeControllerDelegate.setSecondUI(currTime: newTime, togglTime: self.togglTime, animated: true, completion: nil)
+            
+            if newTime == 0 {
+                print("[Timer] Reached 0 seconds")
+                self.timerStart = false
+            }
         })
     }
 }
