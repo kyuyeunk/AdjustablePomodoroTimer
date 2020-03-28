@@ -131,9 +131,9 @@ extension PickerViewController: TimeControllerDelegate {
         }
     }
     
-    func setSecondUI(currTime: Int, togglTime: [TimerType: Int], animated: Bool, completion: (() -> ())?) {
-        let posTime = togglTime[.positive]!
-        let negTime = togglTime[.negative]!
+    func setSecondUI(currTime: Int, passedTime: [TimerType: Int], animated: Bool, completion: (() -> ())?) {
+        let posTime = passedTime[.positive]!
+        let negTime = passedTime[.negative]!
         
         let posSeconds = posTime % 60
         let posMinutes = posTime / 60
