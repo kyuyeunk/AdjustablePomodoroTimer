@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
+import AudioToolbox
+
 
 //Allow view controllers to change UI when timer event triggers
 //Allow TimeController to fetch current time from view controllers
@@ -138,6 +141,7 @@ class TimeController {
             self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true) { () in
                 if newTime == 0 {
                     print("[Timer] Reached 0 seconds")
+                    AudioServicesPlayAlertSound(SystemSoundID(1005))
                     self.timerStart = false
                 }
             }
