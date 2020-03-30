@@ -33,14 +33,14 @@ class TimeController {
             }
             else {
                 timeControllerDelegate.stopTimerUI()
-                prevTime = GlobalVar.settings.currPosStartTime
+                prevTime = GlobalVar.settings.currTimer.startTime[.positive]!
             }
             timeControllerDelegate.setSecondUI(currTime: prevTime, passedTime: passedTime, animated: false, completion: nil)
         }
     }
     
     var currType: TimerType = .positive
-    var prevTime = GlobalVar.settings.currPosStartTime
+    var prevTime = GlobalVar.settings.currTimer.startTime[.positive]!
     var passedTime: [TimerType: Double] = [.positive: 0, .negative: 0]
     var startedTime: [TimerType: TimeInterval] = [.positive: Date().timeIntervalSince1970, .negative: Date().timeIntervalSince1970]
     var timer: Timer!
@@ -69,16 +69,16 @@ class TimeController {
             GlobalVar.toggl.stopTimer()
             
             //If prevTime is 0, assume timer stopped automatically
-            if prevTime == 0 && GlobalVar.settings.currAutoRepeat {
+            if prevTime == 0 && GlobalVar.settings.currTimer.autoRepeat {
                 print("[Timer] Setting up next auto timer")
                 var nextTimerTime: Int
                 if currType == .positive {
                     print("[Timer] Started as a Positive Timer")
-                    nextTimerTime = GlobalVar.settings.currNegStartTime
+                    nextTimerTime = GlobalVar.settings.currTimer.startTime[.negative]!
                 }
                 else {
                     print("[Timer] Started as a Negative Timer")
-                    nextTimerTime = GlobalVar.settings.currPosStartTime
+                    nextTimerTime = GlobalVar.settings.currTimer.startTime[.positive]!
                 }
                 
                 timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true) { () in
@@ -141,7 +141,14 @@ class TimeController {
             self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true) { () in
                 if newTime == 0 {
                     print("[Timer] Reached 0 seconds")
-                    AudioServicesPlayAlertSound(SystemSoundID(1005))
+                    var systemAlarmID: Int
+                    if self.currType == .positive {
+                        systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.positive]!
+                    }
+                    else {
+                        systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.negative]!
+                    }
+                    AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
                     self.timerStart = false
                 }
             }
@@ -153,7 +160,7 @@ class TimeController {
     func startButtonTapped() {
         timerStart = true
         
-        if !GlobalVar.settings.currAccumulatePassedTime {
+        if !GlobalVar.settings.currTimer.accumulatePassedTime {
             self.passedTime[.positive] = 0
             self.passedTime[.negative] = 0
         }

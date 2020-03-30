@@ -9,19 +9,10 @@
 import Foundation
 
 class Settings {
-    var currTimer: Int = 0  //TODO: Implement ability for this data to be saved and loaded
+    var currTimerID: Int = 0  //TODO: Implement ability for this data to be saved and loaded
     
-    var currPosStartTime: Int {
-        return timerList[currTimer].startTime[.positive]!
-    }
-    var currNegStartTime: Int {
-        return timerList[currTimer].startTime[.negative]!
-    }
-    var currAutoRepeat: Bool {
-        return timerList[currTimer].autoRepeat
-    }
-    var currAccumulatePassedTime: Bool {
-        return timerList[currTimer].accumulatePassedTime
+    var currTimer: TimerModel {
+        return timerList[currTimerID]
     }
     
     var projectList: [projectInfo] = []
@@ -37,7 +28,7 @@ class Settings {
         
         if timerList.count == 0 {
             timerList.append(TimerModel())
-            currTimer = 0
+            currTimerID = 0
         }
     }
     

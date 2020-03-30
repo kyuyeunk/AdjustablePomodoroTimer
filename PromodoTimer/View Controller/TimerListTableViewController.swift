@@ -29,7 +29,7 @@ class TimerListTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath)
         let timer = GlobalVar.settings.timerList[indexPath.row]
         cell.textLabel?.text = timer.timerName
-        if indexPath.row == GlobalVar.settings.currTimer {
+        if indexPath.row == GlobalVar.settings.currTimerID {
             cell.imageView?.image = UIImage(systemName: "circle.fill")!
         }
         else {
@@ -48,8 +48,8 @@ class TimerListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let prevIndexPath = IndexPath(row: GlobalVar.settings.currTimer, section: 0)
-        GlobalVar.settings.currTimer = indexPath.row
+        let prevIndexPath = IndexPath(row: GlobalVar.settings.currTimerID, section: 0)
+        GlobalVar.settings.currTimerID = indexPath.row
         tableView.reloadRows(at: [prevIndexPath, indexPath], with: .automatic)
     }
 

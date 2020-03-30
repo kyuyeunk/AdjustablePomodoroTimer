@@ -13,6 +13,7 @@ class TimerModel: Codable {
     var startTime: [TimerType: Int] = [:]
     var autoRepeat: Bool
     var accumulatePassedTime: Bool
+    var timerAlarm: [TimerType: Int] = [:]
     
     var userDefinedTracking: [TimerType: trackingInfo] = [:]
     init() {
@@ -21,5 +22,7 @@ class TimerModel: Codable {
         self.startTime[.negative] = -15
         self.autoRepeat = true
         self.accumulatePassedTime = false
+        self.timerAlarm[.positive] = 1005
+        self.timerAlarm[.negative] = 1004
     }
 }

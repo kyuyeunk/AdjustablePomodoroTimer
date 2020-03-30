@@ -47,7 +47,7 @@ class TogglController {
     
     //Start the timer based on .positive and .negative types
     func startTimer(type: TimerType) {
-        if let info = GlobalVar.settings.timerList[GlobalVar.settings.currTimer].userDefinedTracking[type] {
+        if let info = GlobalVar.settings.timerList[GlobalVar.settings.currTimerID].userDefinedTracking[type] {
             startTimer(pid: info.project.pid, desc: info.desc)
         }
         else {
