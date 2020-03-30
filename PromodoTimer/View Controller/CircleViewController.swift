@@ -62,7 +62,7 @@ class CircleViewController: UIViewController {
 }
 
 extension CircleViewController: TimeControllerDelegate {
-    func displayTimeoutAlert() {
+    func displayTimeoutAlert(completion: @escaping (() -> ())) {
         //TODO: implement the UI
     }
     

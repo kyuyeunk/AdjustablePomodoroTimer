@@ -20,7 +20,7 @@ protocol TimeControllerDelegate {
     func startTimerUI()
     func togglStartTimerUI(type: TimerType)
     func togglStopTimerUI(type: TimerType)
-    func displayTimeoutAlert()
+    func displayTimeoutAlert(completion: @escaping (() -> ()))
 }
 
 class TimeController {
@@ -123,8 +123,10 @@ class TimeController {
                 return
             }
             
-            
-            if newTime > 0 {
+            if newTime == 0 {
+                return
+            }
+            else if newTime > 0 {
                 newTime -= 1
                 
             }
@@ -132,13 +134,14 @@ class TimeController {
                 newTime += 1
             }
             
+            
             print("[Timer] current seconds: \(newTime)")
             self.prevTime = newTime
             
             let currTimeSince1970 = Date().timeIntervalSince1970
             self.passedTime[self.currType]! += Double(currTimeSince1970 - self.startedTime[self.currType]!)
             self.startedTime[self.currType]! = currTimeSince1970
-            
+                        
             self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true) { () in
                 if newTime == 0 {
                     print("[Timer] Reached 0 seconds")
@@ -150,8 +153,9 @@ class TimeController {
                         systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.negative]!
                     }
                     AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
-                    self.timeControllerDelegate.displayTimeoutAlert()
-                    self.timerStart = false
+                    self.timeControllerDelegate.displayTimeoutAlert {
+                        self.timerStart = false
+                    }
                 }
             }
             

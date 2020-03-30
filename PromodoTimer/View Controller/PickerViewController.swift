@@ -114,7 +114,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension PickerViewController: TimeControllerDelegate {
-    func displayTimeoutAlert() {
+    func displayTimeoutAlert(completion: @escaping (() -> ())) {
         //TODO: Implement ability to stop the timer when the alert is displayed
         DispatchQueue.main.async {
             var alert: UIAlertController
@@ -123,8 +123,13 @@ extension PickerViewController: TimeControllerDelegate {
             
             alert = UIAlertController(title: "Time out",
                                       message: "Your positive timer lasted 123 seconds", preferredStyle: .alert)
-            continueButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            stopButton = UIAlertAction(title: "Stop", style: .default, handler: nil)
+            //TODO: do differnt things for continue and stop buttons
+            continueButton = UIAlertAction(title: "Ok", style: .default, handler: {(UIAlertAction) in
+                completion()
+            })
+            stopButton = UIAlertAction(title: "Stop", style: .default, handler: {(UIAlertAction) in
+                completion()
+            })
             
             alert.addAction(continueButton)
             alert.addAction(stopButton)
