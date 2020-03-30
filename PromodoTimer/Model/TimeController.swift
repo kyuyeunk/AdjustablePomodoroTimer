@@ -20,6 +20,7 @@ protocol TimeControllerDelegate {
     func startTimerUI()
     func togglStartTimerUI(type: TimerType)
     func togglStopTimerUI(type: TimerType)
+    func displayTimeoutAlert()
 }
 
 class TimeController {
@@ -149,6 +150,7 @@ class TimeController {
                         systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.negative]!
                     }
                     AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
+                    self.timeControllerDelegate.displayTimeoutAlert()
                     self.timerStart = false
                 }
             }

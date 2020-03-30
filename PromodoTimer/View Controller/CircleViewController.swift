@@ -62,6 +62,10 @@ class CircleViewController: UIViewController {
 }
 
 extension CircleViewController: TimeControllerDelegate {
+    func displayTimeoutAlert() {
+        //TODO: implement the UI
+    }
+    
     func togglStartTimerUI(type: TimerType) {
         //TODO: implement the UI
     }
