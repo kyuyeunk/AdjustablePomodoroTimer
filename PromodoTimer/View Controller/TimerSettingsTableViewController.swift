@@ -97,7 +97,7 @@ class TimerSettingsTableViewController: UITableViewController {
         case .togglValues:
             return 2
         case .misc:
-            return 2
+            return 3
         default:
             return 0
         }
@@ -203,6 +203,11 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.settingSwitch.addTarget(self, action: #selector(autoRepeatSwitched(myswitch:)), for: .valueChanged)
                 }
                 else if indexPath.row == 1 {
+                    cell.settingTextLabel.text = "Show Alert When Timer Ends"
+                    cell.settingSwitch.isOn = workingTimerModel.alertTimerEnd
+                    cell.settingSwitch.addTarget(self, action: #selector(showAlertSwitched(myswitch:)), for: .valueChanged)
+                }
+                else if indexPath.row == 2 {
                     cell.settingTextLabel.text = "Accumulate Passed Time Data"
                     cell.settingSwitch.isOn = workingTimerModel.accumulatePassedTime
                     cell.settingSwitch.addTarget(self, action: #selector(accumulateSwitched(myswitch:)), for: .valueChanged)
@@ -324,6 +329,16 @@ class TimerSettingsTableViewController: UITableViewController {
         }
         else {
             print("[Settings View] Accumulate Passed Time switch turned off")
+        }
+    }
+    
+    @objc func showAlertSwitched(myswitch: UISwitch) {
+        workingTimerModel.alertTimerEnd = myswitch.isOn
+        if myswitch.isOn {
+            print("[Settings View] Show alert switch turned on")
+        }
+        else {
+            print("[Settings View] Show alert switch turned off")
         }
     }
     

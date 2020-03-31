@@ -14,6 +14,7 @@ class TimerModel: Codable {
     var autoRepeat: Bool
     var accumulatePassedTime: Bool
     var timerAlarm: [TimerType: Int] = [:]
+    var alertTimerEnd: Bool
     
     var userDefinedTracking: [TimerType: trackingInfo] = [:]
     init() {
@@ -24,5 +25,6 @@ class TimerModel: Codable {
         self.accumulatePassedTime = false
         self.timerAlarm[.positive] = 1005
         self.timerAlarm[.negative] = 1004
+        self.alertTimerEnd = true
     }
 }

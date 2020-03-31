@@ -16,13 +16,13 @@ class CircleViewController: UIViewController {
     @IBOutlet weak var clockImage: UIImageView!
     @IBOutlet weak var startButton: UIButton!
     @IBAction func startButtonPressed(_ sender: Any) {
-        if GlobalVar.timeController.timerStart == false {
+        if GlobalVar.timeController.timerStarted == false {
             print("Pressed Start Button")
-            GlobalVar.timeController.timerStart = true
+            GlobalVar.timeController.startButtonTapped()
         }
         else {
             print("Pressed Stop Button")
-            GlobalVar.timeController.timerStart = false
+            GlobalVar.timeController.stopButtonTapped()
         }
     }
     
@@ -62,7 +62,7 @@ class CircleViewController: UIViewController {
 }
 
 extension CircleViewController: TimeControllerDelegate {
-    func displayTimeoutAlert(completion: @escaping (() -> ())) {
+    func displayTimeoutAlert(completion: @escaping ((Bool) -> Void)) {
         //TODO: implement the UI
     }
     

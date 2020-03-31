@@ -20,7 +20,7 @@ class PickerViewController: UIViewController {
     @IBOutlet weak var mainTimer: UIPickerView!
     @IBOutlet weak var startButton: UIButton!
     @IBAction func startButtonPressed(_ sender: Any) {
-        if GlobalVar.timeController.timerStart == false {
+        if GlobalVar.timeController.timerStarted == false {
             print("Pressed Start Button")
             GlobalVar.timeController.startButtonTapped()
         }
@@ -107,28 +107,36 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             print("[Picker View] Selected val in Min: \(minutes), in Sec: \(time)")
             pickerView.selectRow(MIDDLE_ROW - minutes, inComponent: 0, animated: true)
         }
-        if GlobalVar.timeController.timerStart {
+        if GlobalVar.timeController.timerStarted {
             print("[Picker View] Moved timer during timing")
         }
     }
 }
 
 extension PickerViewController: TimeControllerDelegate {
-    func displayTimeoutAlert(completion: @escaping (() -> ())) {
+    func displayTimeoutAlert(completion: @escaping ((Bool) -> Void)) {
         //TODO: Implement ability to stop the timer when the alert is displayed
         DispatchQueue.main.async {
             var alert: UIAlertController
             var continueButton: UIAlertAction
             var stopButton: UIAlertAction
             
+            var message: String
+            if GlobalVar.settings.currTimer.autoRepeat {
+                message = "Press Continue to start the next timer or press Stop to stop the timer"
+            }
+            else {
+                message = "Press Stop to stop the timer"
+            }
+            
             alert = UIAlertController(title: "Time out",
-                                      message: "Your positive timer lasted 123 seconds", preferredStyle: .alert)
+                                      message: message, preferredStyle: .alert)
             //TODO: do differnt things for continue and stop buttons
-            continueButton = UIAlertAction(title: "Ok", style: .default, handler: {(UIAlertAction) in
-                completion()
+            continueButton = UIAlertAction(title: "Continue", style: .default, handler: {(UIAlertAction) in
+                completion(true)
             })
             stopButton = UIAlertAction(title: "Stop", style: .default, handler: {(UIAlertAction) in
-                completion()
+                completion(false)
             })
             
             alert.addAction(continueButton)

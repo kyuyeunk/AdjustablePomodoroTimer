@@ -20,7 +20,7 @@ protocol TimeControllerDelegate {
     func startTimerUI()
     func togglStartTimerUI(type: TimerType)
     func togglStopTimerUI(type: TimerType)
-    func displayTimeoutAlert(completion: @escaping (() -> ()))
+    func displayTimeoutAlert(completion: @escaping ((Bool) -> Void))
 }
 
 class TimeController {
@@ -29,7 +29,7 @@ class TimeController {
         //E.g., change clock hand if timer's current time doesn't match the clock hand
         didSet {
             print("[Timer] Changed timeControllerDelegate value")
-            if timerStart == true {
+            if timerStarted == true {
                 timeControllerDelegate.startTimerUI()
             }
             else {
@@ -44,53 +44,42 @@ class TimeController {
     var prevTime = GlobalVar.settings.currTimer.startTime[.positive]!
     var passedTime: [TimerType: Double] = [.positive: 0, .negative: 0]
     var startedTime: [TimerType: TimeInterval] = [.positive: Date().timeIntervalSince1970, .negative: Date().timeIntervalSince1970]
-    var timer: Timer!
-    var timerStart = false {
-        didSet {
-            if timerStart == true {
-                if timeControllerDelegate.getCurrTime() == 0 {
-                    print("[Timer] Start button pressed when selected time is 0")
-                    timerStart = false
-                }
-                else {
-                    startTimer()
-                }
-            }
-            else {
-                stopTimer()
-            }
-        }
+    var timer = Timer()
+    var timerStarted: Bool {
+        return timer.isValid
     }
     
-    func stopTimer() {
+    func stopTimer(autoRepeat: Bool) {
         timeControllerDelegate.stopTimerUI()
         if timer.isValid {
             timer.invalidate()
+        }
+        
+        GlobalVar.toggl.stopTimer()
+        
+        //If prevTime is 0, assume timer stopped automatically
+        if autoRepeat {
+            print("[Timer] Setting up next auto timer")
+            var nextTimerTime: Int
+            if currType == .positive {
+                print("[Timer] Started as a Positive Timer")
+                nextTimerTime = GlobalVar.settings.currTimer.startTime[.negative]!
+            }
+            else {
+                print("[Timer] Started as a Negative Timer")
+                nextTimerTime = GlobalVar.settings.currTimer.startTime[.positive]!
+            }
             
-            GlobalVar.toggl.stopTimer()
-            
-            //If prevTime is 0, assume timer stopped automatically
-            if prevTime == 0 && GlobalVar.settings.currTimer.autoRepeat {
-                print("[Timer] Setting up next auto timer")
-                var nextTimerTime: Int
-                if currType == .positive {
-                    print("[Timer] Started as a Positive Timer")
-                    nextTimerTime = GlobalVar.settings.currTimer.startTime[.negative]!
-                }
-                else {
-                    print("[Timer] Started as a Negative Timer")
-                    nextTimerTime = GlobalVar.settings.currTimer.startTime[.positive]!
-                }
-                
-                timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true) { () in
-                    self.timerStart = true
-                }
+            timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true) { () in
+                //As startTimer() fetches current time from UI,
+                //startTimer() should start after the UI function finishes
+                self.startTimer()
             }
         }
     }
     
     func startTimer() {
-        //Based on the current time, positive or negative toggl timer should be started
+        //Always assume that starting time is set by UI
         let startTime = self.timeControllerDelegate.getCurrTime()
         if startTime > 0 {
             currType = .positive
@@ -104,7 +93,13 @@ class TimeController {
         GlobalVar.toggl.startTimer(type: currType)
         
         timeControllerDelegate.startTimerUI()
+        
+        startScheduledTimer()
+    }
+    
+    func startScheduledTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
+            //New time should always be fetched from the UI
             var newTime = self.timeControllerDelegate.getCurrTime()
             if (self.prevTime > 0 && newTime < 0) {
                 self.prevTime = newTime
@@ -123,10 +118,7 @@ class TimeController {
                 return
             }
             
-            if newTime == 0 {
-                return
-            }
-            else if newTime > 0 {
+            if newTime > 0 {
                 newTime -= 1
                 
             }
@@ -134,45 +126,59 @@ class TimeController {
                 newTime += 1
             }
             
-            
             print("[Timer] current seconds: \(newTime)")
             self.prevTime = newTime
             
             let currTimeSince1970 = Date().timeIntervalSince1970
             self.passedTime[self.currType]! += Double(currTimeSince1970 - self.startedTime[self.currType]!)
             self.startedTime[self.currType]! = currTimeSince1970
-                        
-            self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true) { () in
-                if newTime == 0 {
-                    print("[Timer] Reached 0 seconds")
-                    var systemAlarmID: Int
-                    if self.currType == .positive {
-                        systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.positive]!
-                    }
-                    else {
-                        systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.negative]!
-                    }
-                    AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
-                    self.timeControllerDelegate.displayTimeoutAlert {
-                        self.timerStart = false
+            
+            self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true, completion: nil)
+            
+            if newTime == 0 {
+                var systemAlarmID: Int
+                if self.currType == .positive {
+                    systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.positive]!
+                }
+                else {
+                    systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.negative]!
+                }
+                print("[Timer] Reached 0 seconds, starting the alarm")
+                AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
+                
+                if GlobalVar.settings.currTimer.alertTimerEnd {
+                    print("[Timer] Reached 0 seconds, starting the alert")
+                    self.timeControllerDelegate.displayTimeoutAlert { (autoRepeat: Bool) in
+                        print("[Timer] Did user decided to continue the timer?: \(autoRepeat)")
+                        self.stopTimer(autoRepeat: autoRepeat)
                     }
                 }
+                else {
+                    let autoRepeat = GlobalVar.settings.currTimer.autoRepeat
+                    print("[Timer] Stop the timer with auto repeat? \(autoRepeat)")
+                    self.stopTimer(autoRepeat: autoRepeat)
+                }
+                timer.invalidate()
+                print("[Timer] Stopping the timer")
             }
-            
-
         })
     }
     
     func startButtonTapped() {
-        timerStart = true
-        
-        if !GlobalVar.settings.currTimer.accumulatePassedTime {
-            self.passedTime[.positive] = 0
-            self.passedTime[.negative] = 0
+        if timeControllerDelegate.getCurrTime() == 0 {
+            print("[Timer] Start button pressed when selected time is 0")
+        }
+        else {
+            if !GlobalVar.settings.currTimer.accumulatePassedTime {
+                self.passedTime[.positive] = 0
+                self.passedTime[.negative] = 0
+            }
+            
+            startTimer()
         }
     }
     
     func stopButtonTapped() {
-        timerStart = false
+        stopTimer(autoRepeat: false)
     }
 }
