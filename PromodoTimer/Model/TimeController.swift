@@ -18,8 +18,6 @@ protocol TimeControllerDelegate {
     func getCurrTime() -> Int
     func stopTimerUI()
     func startTimerUI()
-    func togglStartTimerUI(type: TimerType)
-    func togglStopTimerUI(type: TimerType)
     func displayTimeoutAlert(completion: @escaping ((Bool) -> Void))
 }
 
@@ -50,7 +48,6 @@ class TimeController {
     }
     
     func stopTimer(autoRepeat: Bool) {
-        timeControllerDelegate.stopTimerUI()
         if timer.isValid {
             timer.invalidate()
         }
@@ -75,6 +72,9 @@ class TimeController {
                 //startTimer() should start after the UI function finishes
                 self.startTimer()
             }
+        }
+        else {
+            timeControllerDelegate.stopTimerUI()
         }
     }
     

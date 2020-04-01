@@ -131,40 +131,20 @@ extension PickerViewController: TimeControllerDelegate {
             
             alert = UIAlertController(title: "Time out",
                                       message: message, preferredStyle: .alert)
-            //TODO: do differnt things for continue and stop buttons
-            continueButton = UIAlertAction(title: "Continue", style: .default, handler: {(UIAlertAction) in
-                completion(true)
-            })
-            stopButton = UIAlertAction(title: "Stop", style: .default, handler: {(UIAlertAction) in
+
+            if GlobalVar.settings.currTimer.autoRepeat {
+                continueButton = UIAlertAction(title: "Continue", style: .default, handler: {(UIAlertAction) in
+                    completion(true)
+                })
+                alert.addAction(continueButton)
+            }
+            
+            stopButton = UIAlertAction(title: "Stop", style: .cancel, handler: {(UIAlertAction) in
                 completion(false)
             })
-            
-            alert.addAction(continueButton)
             alert.addAction(stopButton)
             
             self.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func togglStartTimerUI(type: TimerType) {
-        DispatchQueue.main.async {
-            if type == .positive {
-                self.posTimeLabel.textColor = .red
-            }
-            else {
-                self.negTimeLabel.textColor = .red
-            }
-        }
-    }
-    
-    func togglStopTimerUI(type: TimerType) {
-        DispatchQueue.main.async {
-            if type == .positive {
-                self.posTimeLabel.textColor = .white
-            }
-            else {
-                self.negTimeLabel.textColor = .white
-            }
         }
     }
     
@@ -198,10 +178,20 @@ extension PickerViewController: TimeControllerDelegate {
     
     func stopTimerUI() {
         startButton.setTitle("Start", for: .normal)
+        posTimeLabel.textColor = .none
+        negTimeLabel.textColor = .none
     }
     
     func startTimerUI() {
         startButton.setTitle("Stop", for: .normal)
+        if getCurrTime() > 0 {
+            posTimeLabel.textColor = .cyan
+            negTimeLabel.textColor = .none
+        }
+        else {
+            negTimeLabel.textColor = .cyan
+            posTimeLabel.textColor = .none
+        }
     }
 }
 
@@ -234,4 +224,3 @@ extension Int {
         return ret + string
     }
 }
-
