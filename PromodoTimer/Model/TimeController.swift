@@ -98,6 +98,8 @@ class TimeController {
     }
     
     func startScheduledTimer() {
+        let uuidString = UUID().uuidString
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
             //New time should always be fetched from the UI
             var newTime = self.timeControllerDelegate.getCurrTime()
@@ -117,6 +119,8 @@ class TimeController {
                 GlobalVar.toggl.startTimer(type: .positive)
                 return
             }
+            
+            self.createNotification(delayTime: newTime, uuidString: uuidString)
             
             if newTime > 0 {
                 newTime -= 1
@@ -180,5 +184,26 @@ class TimeController {
     
     func stopButtonTapped() {
         stopTimer(autoRepeat: false)
+    }
+    
+    func createNotification(delayTime: Int, uuidString: String) {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
+        let content = UNMutableNotificationContent()
+        content.title = "Timer Ended"
+        if delayTime > 0 {
+            content.body = "Your positive timer has ended"
+        }
+        else {
+            content.body = "Your negative timer has ended"
+        }
+        
+        print("[Timer] Notification will start in \(delayTime)")
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(delayTime), repeats: false)
+        
+        let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request) { (error) in
+            //TODO
+        }
     }
 }

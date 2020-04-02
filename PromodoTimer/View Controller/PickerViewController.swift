@@ -34,6 +34,12 @@ class PickerViewController: UIViewController {
         super.viewDidLoad()
         initUI()
         // Do any additional setup after loading the view.
+        
+        //TODO: let user grant the autorization from settings menu even if user pressed no
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
+            print("Did user granted autorization? \(granted)")
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -77,7 +83,6 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         else {
             return String(MIDDLE_ROW - row)
         }
-        
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
