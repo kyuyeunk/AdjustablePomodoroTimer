@@ -50,6 +50,7 @@ class TimerListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let prevIndexPath = IndexPath(row: GlobalVar.settings.currTimerID, section: 0)
         GlobalVar.settings.currTimerID = indexPath.row
+        GlobalVar.settings.saveMiscs()
         tableView.reloadRows(at: [prevIndexPath, indexPath], with: .automatic)
     }
 

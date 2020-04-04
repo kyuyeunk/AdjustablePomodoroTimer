@@ -58,6 +58,11 @@ class Settings {
                 print("[Load] \(timer.timerName) w pos: \(timer.startTime[.positive]!), neg: \(timer.startTime[.negative]!)")
             }
         }
+        if let retrievedMiscs = try? Data(contentsOf: settingsDirectory.miscsArchieveURL),
+            let decodedMiscs = try? propertyListDecoder.decode(miscInfo.self, from: retrievedMiscs) {
+            print("[Load] Miscs retrieved")
+            currTimerID = decodedMiscs.currTimerID
+        }
     }
     
     func setAndSaveAuth(id: String, auth: String) {
@@ -100,6 +105,15 @@ class Settings {
             print("[Save] \(timer.timerName) w pos: \(timer.startTime[.positive]!), neg: \(timer.startTime[.negative]!)")
         }
     }
+    
+    func saveMiscs() {
+        let propertyListEncoder = PropertyListEncoder()
+        let miscs = miscInfo(currTimerID: currTimerID)
+        let encodedMiscs = try? propertyListEncoder.encode(miscs)
+        try? encodedMiscs?.write(to: settingsDirectory.miscsArchieveURL)
+        
+        print("[Save] Miscs saved")
+    }
 }
 
 struct directories {
@@ -112,6 +126,9 @@ struct directories {
     }
     var timersArchieveURL: URL {
         return documentsDirectory.appendingPathComponent("timers").appendingPathExtension("plist")
+    }
+    var miscsArchieveURL: URL {
+        return documentsDirectory.appendingPathComponent("miscs").appendingPathExtension("plist")
     }
 }
 struct credential: Codable {
@@ -138,5 +155,12 @@ struct trackingInfo: Codable {
     init(project: projectInfo, desc: String) {
         self.project = project
         self.desc = desc
+    }
+}
+
+struct miscInfo: Codable {
+    var currTimerID: Int
+    init(currTimerID: Int) {
+        self.currTimerID = currTimerID
     }
 }
