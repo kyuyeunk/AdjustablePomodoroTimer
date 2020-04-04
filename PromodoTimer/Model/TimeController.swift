@@ -37,6 +37,7 @@ class TimeController {
         }
     }
     
+    let uuidString = UUID().uuidString
     var currType: TimerType = .positive
     var prevTime = GlobalVar.settings.currTimer.startTime[.positive]!
     var passedTime: [TimerType: Double] = [.positive: 0, .negative: 0]
@@ -97,8 +98,6 @@ class TimeController {
     }
     
     func startScheduledTimer() {
-        let uuidString = UUID().uuidString
-        
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
             //New time should always be fetched from the UI
             var newTime = self.timeControllerDelegate.getCurrTime()
@@ -119,7 +118,7 @@ class TimeController {
                 return
             }
             
-            self.createNotification(delayTime: abs(newTime), uuidString: uuidString)
+            self.createNotification(delayTime: abs(newTime), uuidString: self.uuidString)
             
             if newTime > 0 {
                 newTime -= 1
@@ -184,6 +183,7 @@ class TimeController {
     
     func stopButtonTapped() {
         stopTimer(autoRepeat: false)
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
     }
     
     func createNotification(delayTime: Int, uuidString: String) {

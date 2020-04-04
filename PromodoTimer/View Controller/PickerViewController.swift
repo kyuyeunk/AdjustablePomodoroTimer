@@ -23,11 +23,11 @@ class PickerViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
     @IBAction func startButtonPressed(_ sender: Any) {
         if GlobalVar.timeController.timerStarted == false {
-            print("Pressed Start Button")
+            print("[Picker View] Pressed Start Button")
             GlobalVar.timeController.startButtonTapped()
         }
         else {
-            print("Pressed Stop Button")
+            print("[Picker View] Pressed Stop Button")
             GlobalVar.timeController.stopButtonTapped()
         }
     }
