@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import AudioToolbox
 
 class PickerViewController: UIViewController {
 
@@ -120,7 +122,8 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension PickerViewController: TimeControllerDelegate {
     func displayTimeoutAlert(completion: @escaping ((Bool) -> Void)) {
-        //TODO: Implement ability to stop the timer when the alert is displayed
+
+            
         DispatchQueue.main.async {
             var alert: UIAlertController
             var continueButton: UIAlertAction
@@ -137,15 +140,32 @@ extension PickerViewController: TimeControllerDelegate {
             alert = UIAlertController(title: "Time out",
                                       message: message, preferredStyle: .alert)
 
+            //TODO: set different value for .positive and .negative timer
+            let systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.positive]!
+            
+            var timer = Timer()
+            AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
+            if GlobalVar.settings.currTimer.repeatAlarm {
+                timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
+                    AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
+                })
+            }
+            
             if GlobalVar.settings.currTimer.autoRepeat {
                 continueButton = UIAlertAction(title: "Continue", style: .default, handler: {(UIAlertAction) in
                     completion(true)
+                    if GlobalVar.settings.currTimer.repeatAlarm {
+                        timer.invalidate()
+                    }
                 })
                 alert.addAction(continueButton)
             }
             
             stopButton = UIAlertAction(title: "Stop", style: .cancel, handler: {(UIAlertAction) in
                 completion(false)
+                if GlobalVar.settings.currTimer.repeatAlarm {
+                    timer.invalidate()
+                }
             })
             alert.addAction(stopButton)
             

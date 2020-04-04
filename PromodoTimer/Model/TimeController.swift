@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 import AudioToolbox
 
-
 //Allow view controllers to change UI when timer event triggers
 //Allow TimeController to fetch current time from view controllers
 protocol TimeControllerDelegate {
@@ -120,7 +119,7 @@ class TimeController {
                 return
             }
             
-            self.createNotification(delayTime: newTime, uuidString: uuidString)
+            self.createNotification(delayTime: abs(newTime), uuidString: uuidString)
             
             if newTime > 0 {
                 newTime -= 1
@@ -140,15 +139,7 @@ class TimeController {
             self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true, completion: nil)
             
             if newTime == 0 {
-                var systemAlarmID: Int
-                if self.currType == .positive {
-                    systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.positive]!
-                }
-                else {
-                    systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.negative]!
-                }
                 print("[Timer] Reached 0 seconds, starting the alarm")
-                AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
                 
                 if GlobalVar.settings.currTimer.alertTimerEnd {
                     print("[Timer] Reached 0 seconds, starting the alert")
@@ -158,6 +149,15 @@ class TimeController {
                     }
                 }
                 else {
+                    var systemAlarmID: Int
+                    if self.currType == .positive {
+                        systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.positive]!
+                    }
+                    else {
+                        systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.negative]!
+                    }
+                    
+                    AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
                     let autoRepeat = GlobalVar.settings.currTimer.autoRepeat
                     print("[Timer] Stop the timer with auto repeat? \(autoRepeat)")
                     self.stopTimer(autoRepeat: autoRepeat)
