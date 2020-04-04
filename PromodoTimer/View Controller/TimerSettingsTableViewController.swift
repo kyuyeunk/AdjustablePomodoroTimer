@@ -97,7 +97,7 @@ class TimerSettingsTableViewController: UITableViewController {
         case .togglValues:
             return 2
         case .misc:
-            return 3
+            return 4
         default:
             return 0
         }
@@ -208,6 +208,11 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.settingSwitch.addTarget(self, action: #selector(showAlertSwitched(myswitch:)), for: .valueChanged)
                 }
                 else if indexPath.row == 2 {
+                    cell.settingTextLabel.text = "Repeat Alarm until Alert is Tapped"
+                    cell.settingSwitch.isOn = workingTimerModel.repeatAlarmOption
+                    cell.settingSwitch.addTarget(self, action: #selector(repeatAlarmSwitched(myswitch:)), for: .valueChanged)
+                }
+                else if indexPath.row == 3 {
                     cell.settingTextLabel.text = "Accumulate Passed Time Data"
                     cell.settingSwitch.isOn = workingTimerModel.accumulatePassedTime
                     cell.settingSwitch.addTarget(self, action: #selector(accumulateSwitched(myswitch:)), for: .valueChanged)
@@ -265,8 +270,10 @@ class TimerSettingsTableViewController: UITableViewController {
                 break
             }
         case .togglValues:
-            if indexPath.section == 1 {
-                return 55.5
+            return 55.5
+        case .misc:
+            if indexPath.row == 2 && !workingTimerModel.alertTimerEnd {
+                return 0
             }
             else {
                 break
@@ -339,6 +346,18 @@ class TimerSettingsTableViewController: UITableViewController {
         }
         else {
             print("[Settings View] Show alert switch turned off")
+        }
+        let repeatAlarmIndexPath = IndexPath(row: 2, section: sections.misc.rawValue)
+        tableView.reloadRows(at: [repeatAlarmIndexPath], with: .none)
+    }
+    
+    @objc func repeatAlarmSwitched(myswitch: UISwitch) {
+        workingTimerModel.repeatAlarmOption = myswitch.isOn
+        if myswitch.isOn {
+            print("[Settings View] Repeat Alarm switch turned on")
+        }
+        else {
+            print("[Settings View] Repeat Alarm switch turned off")
         }
     }
     

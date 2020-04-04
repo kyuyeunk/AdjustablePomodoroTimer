@@ -196,7 +196,7 @@ class TimeController {
         else {
             content.body = "Your negative timer has ended"
         }
-        content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound.default
 
         print("[Timer] Notification will start in \(delayTime)")
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(delayTime), repeats: false)
