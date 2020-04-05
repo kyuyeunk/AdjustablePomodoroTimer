@@ -47,6 +47,8 @@ class PickerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         GlobalVar.timeController.timeControllerDelegate = self
+        UIApplication.shared.isIdleTimerDisabled = GlobalVar.settings.dontSleep
+        print("[Picker View] Will this view stay on? \(GlobalVar.settings.dontSleep)")
     }
     
     func initUI() {
@@ -197,7 +199,7 @@ extension PickerViewController: TimeControllerDelegate {
     
     func getCurrTime() -> Int {
         let row = mainTimer.selectedRow(inComponent: 1)
-        print("[Picker View] selectedRow: \(row) seconds: \(MIDDLE_ROW - row)")
+        print("[Picker View] getCurrTime() - selectedRow: \(row) seconds: \(MIDDLE_ROW - row)")
         return MIDDLE_ROW - mainTimer.selectedRow(inComponent: 1)
     }
     
