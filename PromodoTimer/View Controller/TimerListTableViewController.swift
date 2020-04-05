@@ -50,7 +50,6 @@ class TimerListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let prevIndexPath = IndexPath(row: GlobalVar.settings.currTimerID, section: 0)
         GlobalVar.settings.currTimerID = indexPath.row
-        GlobalVar.settings.saveMiscs()
         tableView.reloadRows(at: [prevIndexPath, indexPath], with: .automatic)
     }
 
@@ -73,6 +72,12 @@ class TimerListTableViewController: UITableViewController {
                 GlobalVar.settings.timerList.remove(at: indexPath.row)
                 GlobalVar.settings.saveTimerList()
                 tableView.deleteRows(at: [indexPath], with: .fade)
+                if indexPath.row == GlobalVar.settings.currTimerID {
+                    var newTimerIndexPath = indexPath
+                    newTimerIndexPath.row -= 1
+                    GlobalVar.settings.currTimerID -= 1
+                    tableView.reloadRows(at: [newTimerIndexPath], with: .fade)
+                }
             }
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view

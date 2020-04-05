@@ -9,7 +9,11 @@
 import Foundation
 
 class Settings {
-    var currTimerID: Int = 0  //TODO: Implement ability for this data to be saved and loaded
+    var currTimerID: Int = 0 {
+        didSet {
+            saveMiscs()
+        }
+    }
     
     var currTimer: TimerModel {
         return timerList[currTimerID]
@@ -28,6 +32,10 @@ class Settings {
         
         if timerList.count == 0 {
             timerList.append(TimerModel())
+            currTimerID = 0
+        }
+        else if timerList.count < currTimerID {
+            print("ERROR: Bugfound, currTimerID is larger than timer count")
             currTimerID = 0
         }
     }
