@@ -6,10 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Picker View Controller-->
+        <!--Player View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="PickerViewController" customModule="PromodoTimer" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="AVPlayerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8qf-aD-Syb"/>
                         <viewControllerLayoutGuide type="bottom" id="teM-br-6ml"/>
@@ -48,9 +48,6 @@
                                         <rect key="frame" x="0.0" y="276.5" width="320" height="42"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="startButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="42p-wV-SiO"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -126,12 +123,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="mainTimer" destination="sfb-sF-EvZ" id="o2O-qN-nMb"/>
-                        <outlet property="negTimeLabel" destination="2hu-Rd-SJq" id="Hjk-RA-4IA"/>
-                        <outlet property="posTimeLabel" destination="rTI-m8-6Bq" id="AFf-Eg-lK8"/>
-                        <outlet property="startButton" destination="Ytn-Cq-Ecv" id="76A-sk-EgN"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -246,24 +237,24 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="switchCell" id="bmg-VA-Ayd" customClass="SwitchTableViewCell" customModule="PromodoTimer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="99" width="414" height="79"/>
+                                <rect key="frame" x="0.0" y="99" width="414" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bmg-VA-Ayd" id="FJO-VY-EgT">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aH2-Hg-4ok">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="79"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="80"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wC0-ug-7Dm">
-                                                    <rect key="frame" x="0.0" y="29" width="325" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="29.5" width="325" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5SI-Dq-C4L">
-                                                    <rect key="frame" x="325" y="24" width="51" height="31"/>
+                                                    <rect key="frame" x="325" y="24.5" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                         </stackView>
@@ -401,24 +392,24 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="switchCell" id="4Y1-RR-SJw" customClass="SwitchTableViewCell" customModule="PromodoTimer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="154.5" width="414" height="78"/>
+                                <rect key="frame" x="0.0" y="154.5" width="414" height="79"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4Y1-RR-SJw" id="x77-Lc-Vd8">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="78"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JkB-AD-GLy">
-                                            <rect key="frame" x="20" y="0.0" width="374" height="78"/>
+                                            <rect key="frame" x="20" y="0.0" width="374" height="79"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Drx-DM-qY4">
-                                                    <rect key="frame" x="0.0" y="28.5" width="325" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="29" width="325" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="enE-oh-oli">
-                                                    <rect key="frame" x="325" y="23.5" width="51" height="31"/>
+                                                    <rect key="frame" x="325" y="24" width="51" height="31"/>
                                                 </switch>
                                             </subviews>
                                         </stackView>
@@ -436,7 +427,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="pickerCell" id="QDM-ME-FZc" customClass="PickerTableViewCell" customModule="PromodoTimer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="232.5" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="233.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QDM-ME-FZc" id="a3V-ga-T9a">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -456,7 +447,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="textInputCell" id="iTo-tW-Fa1" customClass="InputTableViewCell" customModule="PromodoTimer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="276" width="414" height="44.5"/>
+                                <rect key="frame" x="0.0" y="277" width="414" height="44.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="iTo-tW-Fa1" id="snO-NE-15m">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="44.5"/>

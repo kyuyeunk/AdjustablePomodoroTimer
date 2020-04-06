@@ -17,11 +17,25 @@ class PickerViewController: UIViewController {
         return MAX_ROW / 2
     }
 
-    @IBOutlet weak var posTimeLabel: UILabel!
-    @IBOutlet weak var negTimeLabel: UILabel!
-    @IBOutlet weak var mainTimer: UIPickerView!
-    @IBOutlet weak var startButton: UIButton!
-    @IBAction func startButtonPressed(_ sender: Any) {
+    var passedTimeLabel = UILabel()
+    var timeInfoStackView = UIStackView()
+    var posInfoStackView = UIStackView()
+    var negInfoStackView = UIStackView()
+    var pickerInfoStackView = UIStackView()
+    
+    var posTimeLabel = UILabel()
+    var negTimeLabel = UILabel()
+    
+    var posTimeValLabel = UILabel()
+    var negTimeValLabel = UILabel()
+    
+    var pickerInfoMinutesLabel = UILabel()
+    var pickerInfoSecondsLabel = UILabel()
+    
+    var mainTimer = UIPickerView()
+    var startButton = UIButton()
+    
+    @objc func startButtonPressed(_ sender: Any) {
         if GlobalVar.timeController.timerStarted == false {
             print("[Picker View] Pressed Start Button")
             GlobalVar.timeController.startButtonTapped()
@@ -52,13 +66,109 @@ class PickerViewController: UIViewController {
     }
     
     func initUI() {
-        startButton.setTitle("Start", for: .normal)
+        addToViews()
+        initUIAttributes()
+        initUIConstraints()
+        initUIFeatures()
+    }
+    
+    func addToViews() {
+        view.addSubview(passedTimeLabel)
+        view.addSubview(timeInfoStackView)
+        view.addSubview(pickerInfoStackView)
+        view.addSubview(mainTimer)
+        view.addSubview(startButton)
         
+        timeInfoStackView.addArrangedSubview(posInfoStackView)
+        timeInfoStackView.addArrangedSubview(negInfoStackView)
+        
+        posInfoStackView.addArrangedSubview(posTimeLabel)
+        posInfoStackView.addArrangedSubview(posTimeValLabel)
+        
+        negInfoStackView.addArrangedSubview(negTimeLabel)
+        negInfoStackView.addArrangedSubview(negTimeValLabel)
+        
+        pickerInfoStackView.addArrangedSubview(pickerInfoMinutesLabel)
+        pickerInfoStackView.addArrangedSubview(pickerInfoSecondsLabel)
+    }
+    
+    func initUIAttributes() {
+        passedTimeLabel.text = "Passed Time"
+        passedTimeLabel.font = passedTimeLabel.font.withSize(25)
+        
+        posTimeLabel.text = "Positive:"
+        posTimeLabel.textAlignment = .center
+        
+        negTimeLabel.text = "Negative:"
+        negTimeLabel.textAlignment = .center
+        
+        posTimeValLabel.text = "0m 0s"
+        posTimeValLabel.textAlignment = .center
+        
+        negTimeValLabel.text = "0m 0s"
+        negTimeValLabel.textAlignment = .center
+        
+        pickerInfoMinutesLabel.text = "Minutes"
+        pickerInfoMinutesLabel.textAlignment = .center
+        
+        pickerInfoSecondsLabel.text = "Secondsᵐⁱⁿ"
+        pickerInfoSecondsLabel.textAlignment = .center
+        
+        startButton.setTitle("Start", for: .normal)
+        startButton.setTitleColor(.systemBlue, for: .normal)
+        startButton.titleLabel?.font = startButton.titleLabel?.font.withSize(25)
+        
+        timeInfoStackView.axis = .horizontal
+        timeInfoStackView.distribution = .fillEqually
+        timeInfoStackView.spacing = 0
+        
+        posInfoStackView.axis = .vertical
+        posInfoStackView.distribution = .fillEqually
+        posInfoStackView.spacing = 5
+        
+        negInfoStackView.axis = .vertical
+        negInfoStackView.distribution = .fillEqually
+        negInfoStackView.spacing = 5
+        
+        pickerInfoStackView.axis = .horizontal
+        pickerInfoStackView.distribution = .fillEqually
+        pickerInfoStackView.spacing = 0
+    }
+    
+    func initUIConstraints() {
+        passedTimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        passedTimeLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 40).isActive = true
+        passedTimeLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
+        
+        timeInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+        timeInfoStackView.topAnchor.constraint(equalTo: passedTimeLabel.bottomAnchor, constant: 20).isActive = true
+        timeInfoStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
+        timeInfoStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
+        
+        pickerInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+        pickerInfoStackView.bottomAnchor.constraint(equalTo: mainTimer.topAnchor, constant: -20).isActive = true
+        pickerInfoStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
+        pickerInfoStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
+        
+        mainTimer.translatesAutoresizingMaskIntoConstraints = false
+        mainTimer.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
+        mainTimer.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor, constant: 0).isActive = true
+        mainTimer.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
+        mainTimer.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
+        
+        startButton.translatesAutoresizingMaskIntoConstraints = false
+        startButton.topAnchor.constraint(equalTo: mainTimer.bottomAnchor, constant: 20).isActive = true
+        startButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
+    }
+    
+    func initUIFeatures() {
         mainTimer.dataSource = self
         mainTimer.delegate = self
         
         mainTimer.selectRow(MIDDLE_ROW, inComponent: 0, animated: false)
         mainTimer.selectRow(MIDDLE_ROW, inComponent: 1, animated: false)
+        
+        startButton.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
     }
 }
 
@@ -189,8 +299,8 @@ extension PickerViewController: TimeControllerDelegate {
             print("[Picker View] Setting timer UI to \(currTime) seconds")
             self.mainTimer.selectRow(self.MIDDLE_ROW - currTime, inComponent: 1, animated: animated)
             self.mainTimer.selectRow((self.MIDDLE_ROW - currTime / 60), inComponent: 0, animated: animated)
-            self.posTimeLabel.text = "\(posMinutes)m \(posSeconds)s"
-            self.negTimeLabel.text = "\(negMinutes)m \(negSeconds)s"
+            self.posTimeValLabel.text = "\(posMinutes)m \(posSeconds)s"
+            self.negTimeValLabel.text = "\(negMinutes)m \(negSeconds)s"
             if let completion = completion {
                 completion()
             }
@@ -205,19 +315,19 @@ extension PickerViewController: TimeControllerDelegate {
     
     func stopTimerUI() {
         startButton.setTitle("Start", for: .normal)
-        posTimeLabel.textColor = .none
-        negTimeLabel.textColor = .none
+        posTimeValLabel.textColor = .none
+        negTimeValLabel.textColor = .none
     }
     
     func startTimerUI() {
         startButton.setTitle("Stop", for: .normal)
         if getCurrTime() > 0 {
-            posTimeLabel.textColor = .cyan
-            negTimeLabel.textColor = .none
+            posTimeValLabel.textColor = .cyan
+            negTimeValLabel.textColor = .none
         }
         else {
-            negTimeLabel.textColor = .cyan
-            posTimeLabel.textColor = .none
+            negTimeValLabel.textColor = .cyan
+            posTimeValLabel.textColor = .none
         }
     }
 }
