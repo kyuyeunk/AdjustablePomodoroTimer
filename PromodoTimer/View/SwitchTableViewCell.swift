@@ -10,17 +10,28 @@ import UIKit
 
 class SwitchTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var settingTextLabel: UILabel!
-    @IBOutlet weak var settingSwitch: UISwitch!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initiaization code
+    var settingStackView = UIStackView()
+    var settingTextLabel = UILabel()
+    var settingSwitch = UISwitch()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        addSubview(settingStackView)
+        settingStackView.addArrangedSubview(settingTextLabel)
+        settingStackView.addArrangedSubview(settingSwitch)
+
+        settingStackView.axis = .horizontal
+        settingStackView.distribution = .fill
+        
+        settingStackView.translatesAutoresizingMaskIntoConstraints = false
+        settingStackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
+        settingStackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
+        settingStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
+        settingStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor).isActive = true
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
 }

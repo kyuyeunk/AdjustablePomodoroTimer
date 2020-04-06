@@ -13,10 +13,14 @@ enum sections {
     case togglTimersSettings
     case timerSettings
 }
+
 class SettingsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
+        tableView.register(SwitchTableViewCell.self, forCellReuseIdentifier: "switchCell")
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -54,17 +58,18 @@ class SettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
                 if let id = GlobalVar.settings.togglCredential?.id {
                     cell.textLabel?.text = id
                 }
                 else {
                     cell.textLabel?.text = "Please input ID/PW"
                 }
+                cell.editingAccessoryType = .disclosureIndicator
                 return cell
             }
             else {
-                return tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
+                return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
             }
         }
         else if indexPath.section == 1 {
@@ -75,11 +80,11 @@ class SettingsTableViewController: UITableViewController {
                 return cell
             }
             else {
-                return tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
+                return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
             }
         }
         else {
-            return tableView.dequeueReusableCell(withIdentifier: "idCell", for: indexPath)
+            return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
         }
     }
     

@@ -47,7 +47,8 @@ class PickerViewController: UIViewController {
     }
     
     @objc func leftBarPressed() {
-        
+        let settingsViewController = SettingsTableViewController()
+        self.navigationController?.pushViewController(settingsViewController, animated: true)
     }
     
     @objc func rightBarPressed() {
