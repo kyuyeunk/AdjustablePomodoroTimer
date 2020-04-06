@@ -33,7 +33,7 @@ class PickerViewController: UIViewController {
     var pickerInfoSecondsLabel = UILabel()
     
     var mainTimer = UIPickerView()
-    var startButton = UIButton()
+    var startButton = UIButton(type: .system)
     
     @objc func startButtonPressed(_ sender: Any) {
         if GlobalVar.timeController.timerStarted == false {
@@ -44,6 +44,14 @@ class PickerViewController: UIViewController {
             print("[Picker View] Pressed Stop Button")
             GlobalVar.timeController.stopButtonTapped()
         }
+    }
+    
+    @objc func leftBarPressed() {
+        
+    }
+    
+    @objc func rightBarPressed() {
+        
     }
     
     override func viewDidLoad() {
@@ -93,6 +101,9 @@ class PickerViewController: UIViewController {
     }
     
     func initUIAttributes() {
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(leftBarPressed))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Timers", style: .plain, target: self, action: #selector(rightBarPressed))
+        
         passedTimeLabel.text = "Passed Time"
         passedTimeLabel.font = passedTimeLabel.font.withSize(25)
         
@@ -115,7 +126,6 @@ class PickerViewController: UIViewController {
         pickerInfoSecondsLabel.textAlignment = .center
         
         startButton.setTitle("Start", for: .normal)
-        startButton.setTitleColor(.systemBlue, for: .normal)
         startButton.titleLabel?.font = startButton.titleLabel?.font.withSize(25)
         
         timeInfoStackView.axis = .horizontal
@@ -329,35 +339,5 @@ extension PickerViewController: TimeControllerDelegate {
             negTimeValLabel.textColor = .cyan
             posTimeValLabel.textColor = .none
         }
-    }
-}
-
-extension Int {
-    func toSuperscript() -> String {
-        var j = self
-        var ret = ""
-        if self >= 10 {
-            let i = self / 10
-            ret = i.toSuperscript()
-            j = self % 10
-        }
-        
-        let uni: Int
-        if j == 2 {
-            uni = 0x00B2
-        }
-        else if j == 3 {
-            uni = 0x00B3
-        }
-        else if j == 1 {
-            uni = 0x00B9
-        }
-        else {
-            uni = 0x2070 + j
-        }
-        let scalarValue = UnicodeScalar(uni)!
-        let string = String(scalarValue)
-        
-        return ret + string
     }
 }
