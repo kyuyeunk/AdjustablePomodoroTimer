@@ -10,11 +10,17 @@ import UIKit
 
 class TimerListTableViewController: UITableViewController {
 
-    @IBAction func addButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "TimerSettingsSegue", sender: GlobalVar.settings.timerList.count)
+    @objc func addButtonTapped() {
+        let timerSettings = TimerSettingsTableViewController()
+        timerSettings.workingTimerID = GlobalVar.settings.timerList.count
+        navigationController?.pushViewController(timerSettings, animated: true)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.register(TimerInfoTableViewCell.self, forCellReuseIdentifier: "timerCell")
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addButtonTapped))
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -26,25 +32,29 @@ class TimerListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath)
-        let timer = GlobalVar.settings.timerList[indexPath.row]
-        cell.textLabel?.text = timer.timerName
-        if indexPath.row == GlobalVar.settings.currTimerID {
-            cell.imageView?.image = UIImage(systemName: "circle.fill")!
-        }
-        else {
-            cell.imageView?.image = UIImage(systemName: "circle")!
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath) as? TimerInfoTableViewCell {
+            let timer = GlobalVar.settings.timerList[indexPath.row]
+            cell.textLabel?.text = timer.timerName
+            if indexPath.row == GlobalVar.settings.currTimerID {
+                cell.imageView?.image = UIImage(systemName: "circle.fill")!
+            }
+            else {
+                cell.imageView?.image = UIImage(systemName: "circle")!
+            }
+            
+            let posMin = timer.startTime[.positive]! / 60
+            let posSec = timer.startTime[.positive]! % 60
+            let negMin = abs(timer.startTime[.negative]!) / 60
+            let negSec = abs(timer.startTime[.negative]!) % 60
+            let detailText = "[Positive] \(posMin)m \(posSec)s [Negative] \(negMin)m \(negSec)s"
+            
+            cell.detailTextLabel?.text = detailText
+            cell.accessoryType = .detailButton
+            
+            return cell
         }
         
-        let posMin = timer.startTime[.positive]! / 60
-        let posSec = timer.startTime[.positive]! % 60
-        let negMin = abs(timer.startTime[.negative]!) / 60
-        let negSec = abs(timer.startTime[.negative]!) % 60
-
-        let detailText = "[Positive] \(posMin)m \(posSec)s [Negative] \(negMin)m \(negSec)s"
-        cell.detailTextLabel?.text = detailText
-        
-        return cell
+        return tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -91,7 +101,9 @@ class TimerListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        performSegue(withIdentifier: "TimerSettingsSegue", sender: indexPath.row)
+        let timerSettings = TimerSettingsTableViewController()
+        timerSettings.workingTimerID = indexPath.row
+        navigationController?.pushViewController(timerSettings, animated: true)
     }
 
 }

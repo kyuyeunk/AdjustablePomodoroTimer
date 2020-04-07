@@ -52,7 +52,8 @@ class PickerViewController: UIViewController {
     }
     
     @objc func rightBarPressed() {
-        
+        let timerListViewController = TimerListTableViewController(style: .grouped)
+        self.navigationController?.pushViewController(timerListViewController, animated: true)
     }
     
     override func viewDidLoad() {

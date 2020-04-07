@@ -65,11 +65,8 @@ class SettingsTableViewController: UITableViewController {
                 else {
                     cell.textLabel?.text = "Please input ID/PW"
                 }
-                cell.editingAccessoryType = .disclosureIndicator
+                cell.accessoryType = .disclosureIndicator
                 return cell
-            }
-            else {
-                return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
             }
         }
         else if indexPath.section == 1 {
@@ -79,13 +76,9 @@ class SettingsTableViewController: UITableViewController {
                 cell.settingSwitch.addTarget(self, action: #selector(dontSleepSwitched(myswitch:)), for: .valueChanged)
                 return cell
             }
-            else {
-                return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
-            }
         }
-        else {
-            return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
-        }
+        
+        return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
