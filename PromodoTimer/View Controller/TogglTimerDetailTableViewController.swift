@@ -28,9 +28,11 @@ class TogglTimerSettingsTableViewController: UITableViewController {
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
         tableView.register(InputTableViewCell.self, forCellReuseIdentifier: "inputCell")
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonPressed))
     }
     
-    @objc func doneButtonPressed(_ sender: Any) {
+    @objc func doneButtonPressed() {
         guard let selectedProject = selectedProject, let desc = desc else {
             print("Error: timer detail has not been filled")
             return
