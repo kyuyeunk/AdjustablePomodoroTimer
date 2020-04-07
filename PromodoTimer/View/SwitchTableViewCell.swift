@@ -25,8 +25,8 @@ class SwitchTableViewCell: UITableViewCell {
         settingStackView.distribution = .fill
         
         settingStackView.translatesAutoresizingMaskIntoConstraints = false
-        settingStackView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).isActive = true
-        settingStackView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).isActive = true
+        settingStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        settingStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         settingStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
         settingStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor).isActive = true
     }

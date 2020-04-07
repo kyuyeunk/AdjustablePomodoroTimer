@@ -11,7 +11,7 @@ import UIKit
 class TimerListTableViewController: UITableViewController {
 
     @objc func addButtonTapped() {
-        let timerSettings = TimerSettingsTableViewController()
+        let timerSettings = TimerSettingsTableViewController(style: .grouped)
         timerSettings.workingTimerID = GlobalVar.settings.timerList.count
         navigationController?.pushViewController(timerSettings, animated: true)
     }
@@ -19,10 +19,14 @@ class TimerListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(TimerInfoTableViewCell.self, forCellReuseIdentifier: "timerCell")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addButtonTapped))
+        initUI()
     }
 
+    func initUI() {
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "subtitleCell")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -32,7 +36,7 @@ class TimerListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath) as? TimerInfoTableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "subtitleCell", for: indexPath) as? SubtitleTableViewCell {
             let timer = GlobalVar.settings.timerList[indexPath.row]
             cell.textLabel?.text = timer.timerName
             if indexPath.row == GlobalVar.settings.currTimerID {
@@ -54,7 +58,7 @@ class TimerListTableViewController: UITableViewController {
             return cell
         }
         
-        return tableView.dequeueReusableCell(withIdentifier: "timerCell", for: indexPath)
+        return tableView.dequeueReusableCell(withIdentifier: "subtitleCell", for: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -101,7 +105,7 @@ class TimerListTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        let timerSettings = TimerSettingsTableViewController()
+        let timerSettings = TimerSettingsTableViewController(style: .grouped)
         timerSettings.workingTimerID = indexPath.row
         navigationController?.pushViewController(timerSettings, animated: true)
     }

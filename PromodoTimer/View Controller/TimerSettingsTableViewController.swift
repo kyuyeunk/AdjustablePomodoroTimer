@@ -37,7 +37,7 @@ class TimerSettingsTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func saveButtonTapped(_ sender: Any) {
+    @objc func saveButtonTapped() {
         if selected.timer[.positive]! == false || selected.timer[.negative]! == false {
             print("Error: Timer value has not been filled yet")
             return
@@ -68,6 +68,21 @@ class TimerSettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        initUI()
+        initTimer()
+    }
+    
+    func initUI() {
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonTapped))
+        tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "subtitleCell")
+        tableView.register(SwitchTableViewCell.self, forCellReuseIdentifier: "switchCell")
+        tableView.register(InputTableViewCell.self, forCellReuseIdentifier: "textInputCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
+        tableView.register(PickerTableViewCell.self, forCellReuseIdentifier: "pickerCell")
+    }
+    
+    func initTimer() {
         if let id = workingTimerID {
             print("[Timer Settings] Working on timer \(id)")
         }
@@ -165,7 +180,7 @@ class TimerSettingsTableViewController: UITableViewController {
                 break
             }
         case .togglValues:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "togglTimerSettingsCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "subtitleCell", for: indexPath)
             
             if indexPath.row == 0 {
                 if workingTimerModel.userDefinedTracking[.positive] != nil || selected.togglTimer[.positive]! {

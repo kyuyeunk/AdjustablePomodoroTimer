@@ -103,8 +103,8 @@ class PickerViewController: UIViewController {
     }
     
     func initUIAttributes() {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(leftBarPressed))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Timers", style: .plain, target: self, action: #selector(rightBarPressed))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(leftBarPressed))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Timers", style: .plain, target: self, action: #selector(rightBarPressed))
         
         passedTimeLabel.text = "Passed Time"
         passedTimeLabel.font = passedTimeLabel.font.withSize(25)
