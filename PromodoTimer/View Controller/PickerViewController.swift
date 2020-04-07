@@ -35,6 +35,8 @@ class PickerViewController: UIViewController {
     var mainTimer = UIPickerView()
     var startButton = UIButton(type: .system)
     
+    var clockImage = UIImageView()
+    
     @objc func startButtonPressed(_ sender: Any) {
         if GlobalVar.timeController.timerStarted == false {
             print("[Picker View] Pressed Start Button")
@@ -88,6 +90,7 @@ class PickerViewController: UIViewController {
         view.addSubview(pickerInfoStackView)
         view.addSubview(mainTimer)
         view.addSubview(startButton)
+        view.addSubview(clockImage)
         
         timeInfoStackView.addArrangedSubview(posInfoStackView)
         timeInfoStackView.addArrangedSubview(negInfoStackView)
@@ -130,6 +133,8 @@ class PickerViewController: UIViewController {
         startButton.setTitle("Start", for: .normal)
         startButton.titleLabel?.font = startButton.titleLabel?.font.withSize(25)
         
+        clockImage.image = UIImage(named: "clockOutline2Inverted")
+        
         timeInfoStackView.axis = .horizontal
         timeInfoStackView.distribution = .fillEqually
         timeInfoStackView.spacing = 0
@@ -158,19 +163,28 @@ class PickerViewController: UIViewController {
         timeInfoStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
         
         pickerInfoStackView.translatesAutoresizingMaskIntoConstraints = false
-        pickerInfoStackView.bottomAnchor.constraint(equalTo: mainTimer.topAnchor, constant: -20).isActive = true
-        pickerInfoStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
-        pickerInfoStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
-        
+        pickerInfoStackView.bottomAnchor.constraint(equalTo: mainTimer.topAnchor, constant: -10).isActive = true
+        pickerInfoStackView.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor).isActive = true
+        pickerInfoStackView.widthAnchor.constraint(equalToConstant: 160).isActive = true
+ 
         mainTimer.translatesAutoresizingMaskIntoConstraints = false
         mainTimer.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
-        mainTimer.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor, constant: 0).isActive = true
-        mainTimer.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
-        mainTimer.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
+        mainTimer.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor, constant: 20).isActive = true
+        mainTimer.widthAnchor.constraint(equalToConstant: 160).isActive = true
         
         startButton.translatesAutoresizingMaskIntoConstraints = false
-        startButton.topAnchor.constraint(equalTo: mainTimer.bottomAnchor, constant: 20).isActive = true
+        startButton.topAnchor.constraint(equalTo: mainTimer.bottomAnchor, constant: 80).isActive = true
         startButton.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
+        
+        clockImage.translatesAutoresizingMaskIntoConstraints = false
+        clockImage.centerXAnchor.constraint(equalTo: mainTimer.centerXAnchor).isActive = true
+        clockImage.centerYAnchor.constraint(equalTo: mainTimer.centerYAnchor).isActive = true
+        clockImage.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        clockImage.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+        clockImage.heightAnchor.constraint(equalTo: clockImage.widthAnchor).isActive = true
+        
+        //TODO: decide to keep this stackview or not
+        pickerInfoStackView.isHidden = true
     }
     
     func initUIFeatures() {
