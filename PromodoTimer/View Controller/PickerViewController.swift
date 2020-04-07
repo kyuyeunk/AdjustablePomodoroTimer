@@ -36,6 +36,7 @@ class PickerViewController: UIViewController {
     var startButton = UIButton(type: .system)
     
     var clockImage = UIImageView()
+    var passedTimePie = TimePieView()
     
     @objc func startButtonPressed(_ sender: Any) {
         if GlobalVar.timeController.timerStarted == false {
@@ -85,6 +86,7 @@ class PickerViewController: UIViewController {
     }
     
     func addViews() {
+        view.addSubview(passedTimePie)
         view.addSubview(passedTimeLabel)
         view.addSubview(timeInfoStackView)
         view.addSubview(pickerInfoStackView)
@@ -183,6 +185,12 @@ class PickerViewController: UIViewController {
         clockImage.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
         clockImage.heightAnchor.constraint(equalTo: clockImage.widthAnchor).isActive = true
         
+        passedTimePie.translatesAutoresizingMaskIntoConstraints = false
+        passedTimePie.centerXAnchor.constraint(equalTo: clockImage.centerXAnchor).isActive = true
+        passedTimePie.centerYAnchor.constraint(equalTo: clockImage.centerYAnchor).isActive = true
+        passedTimePie.widthAnchor.constraint(equalTo: clockImage.widthAnchor, multiplier: 1, constant: -34).isActive = true
+        passedTimePie.heightAnchor.constraint(equalTo: passedTimePie.widthAnchor).isActive = true
+        
         //TODO: decide to keep this stackview or not
         pickerInfoStackView.isHidden = true
     }
@@ -243,6 +251,8 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
             print("[Picker View] Selected val in Min: \(minutes), in Sec: \(time)")
             pickerView.selectRow(MIDDLE_ROW - time, inComponent: 1, animated: false)
+            
+            passedTimePie.changeTime(time: time)
         }
         else {
             print("[Picker View] Second picker moved")
@@ -251,6 +261,8 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             
             print("[Picker View] Selected val in Min: \(minutes), in Sec: \(time)")
             pickerView.selectRow(MIDDLE_ROW - minutes, inComponent: 0, animated: true)
+            
+            passedTimePie.changeTime(time: time)
         }
         if GlobalVar.timeController.timerStarted {
             print("[Picker View] Moved timer during timing")
@@ -260,8 +272,6 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 
 extension PickerViewController: TimeControllerDelegate {
     func displayTimeoutAlert(completion: @escaping ((Bool) -> Void)) {
-
-            
         DispatchQueue.main.async {
             var alert: UIAlertController
             var continueButton: UIAlertAction
@@ -327,6 +337,9 @@ extension PickerViewController: TimeControllerDelegate {
             self.mainTimer.selectRow((self.MIDDLE_ROW - currTime / 60), inComponent: 0, animated: animated)
             self.posTimeValLabel.text = "\(posMinutes)m \(posSeconds)s"
             self.negTimeValLabel.text = "\(negMinutes)m \(negSeconds)s"
+            
+            self.passedTimePie.changeTime(time: currTime)
+            
             if let completion = completion {
                 completion()
             }

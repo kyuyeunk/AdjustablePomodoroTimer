@@ -1,5 +1,5 @@
 //
-//  TimerInfoTableViewCell.swift
+//  SubtitleTableViewCell.swift
 //  PromodoTimer
 //
 //  Created by Kyu Yeun Kim on 2020/04/07.
