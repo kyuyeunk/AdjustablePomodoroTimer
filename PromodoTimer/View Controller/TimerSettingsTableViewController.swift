@@ -93,7 +93,7 @@ class TimerSettingsTableViewController: UITableViewController {
             workingTimerModel = TimerModel()
         }
         else {
-            workingTimerModel = GlobalVar.settings.timerList[workingTimerID]
+            workingTimerModel = TimerModel(timerModel: GlobalVar.settings.timerList[workingTimerID])
             selected.timer[.positive] = true
             selected.timer[.negative] = true
         }
@@ -189,7 +189,7 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.detailTextLabel?.text = trackingInfo.project.name
                 }
                 else {
-                   print("ERROR: userDefinedTracking[.positive] has not been set")
+                   print("[Timer Settings View] userDefinedTracking[.positive] has not been set")
                     cell.textLabel?.text = "Description of Positive Toggl Timer"
                     cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
                 }
@@ -202,7 +202,7 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.detailTextLabel?.text = trackingInfo.project.name
                 }
                 else {
-                   print("ERROR: userDefinedTracking[.negative] has not been set")
+                   print("[Timer Settings View] userDefinedTracking[.negative] has not been set")
                     cell.textLabel?.text = "Description of Positive Toggl Timer"
                     cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
                 }
@@ -337,30 +337,30 @@ class TimerSettingsTableViewController: UITableViewController {
     @objc func autoRepeatSwitched(myswitch: UISwitch) {
         workingTimerModel.autoRepeat = myswitch.isOn
         if myswitch.isOn {
-            print("[Settings View] Auto-repeat switch turned on")
+            print("[Timer Settings View] Auto-repeat switch turned on")
         }
         else {
-            print("[Settings View] Auto-repeat switch turned off")
+            print("[Timer Settings View] Auto-repeat switch turned off")
         }
     }
     
     @objc func accumulateSwitched(myswitch: UISwitch) {
         workingTimerModel.accumulatePassedTime = myswitch.isOn
         if myswitch.isOn {
-            print("[Settings View] Accumulate Passed Time switch turned on")
+            print("[Timer Settings View] Accumulate Passed Time switch turned on")
         }
         else {
-            print("[Settings View] Accumulate Passed Time switch turned off")
+            print("[Timer Settings View] Accumulate Passed Time switch turned off")
         }
     }
     
     @objc func showAlertSwitched(myswitch: UISwitch) {
         workingTimerModel.alertTimerEnd = myswitch.isOn
         if myswitch.isOn {
-            print("[Settings View] Show alert switch turned on")
+            print("[Timer Settings View] Show alert switch turned on")
         }
         else {
-            print("[Settings View] Show alert switch turned off")
+            print("[Timer Settings View] Show alert switch turned off")
         }
         let repeatAlarmIndexPath = IndexPath(row: 2, section: sections.misc.rawValue)
         tableView.reloadRows(at: [repeatAlarmIndexPath], with: .none)
@@ -369,10 +369,10 @@ class TimerSettingsTableViewController: UITableViewController {
     @objc func repeatAlarmSwitched(myswitch: UISwitch) {
         workingTimerModel.repeatAlarmOption = myswitch.isOn
         if myswitch.isOn {
-            print("[Settings View] Repeat Alarm switch turned on")
+            print("[Timer Settings View] Repeat Alarm switch turned on")
         }
         else {
-            print("[Settings View] Repeat Alarm switch turned off")
+            print("[Timer Settings View] Repeat Alarm switch turned off")
         }
     }
     

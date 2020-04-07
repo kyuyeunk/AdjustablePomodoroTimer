@@ -32,4 +32,16 @@ class TimerModel: Codable {
         self.alertTimerEnd = true
         self.repeatAlarmOption = true
     }
+    
+    init(timerModel: TimerModel) {
+        self.timerName = timerModel.timerName
+        self.startTime[.positive] = timerModel.startTime[.positive]
+        self.startTime[.negative] = timerModel.startTime[.negative]
+        self.autoRepeat = timerModel.autoRepeat
+        self.accumulatePassedTime = timerModel.accumulatePassedTime
+        self.timerAlarm[.positive] = timerModel.timerAlarm[.positive]
+        self.timerAlarm[.negative] = timerModel.timerAlarm[.negative]
+        self.alertTimerEnd = timerModel.alertTimerEnd
+        self.repeatAlarmOption = timerModel.repeatAlarmOption
+    }
 }
