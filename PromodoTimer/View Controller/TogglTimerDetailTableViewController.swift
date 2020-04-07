@@ -23,7 +23,14 @@ class TogglTimerSettingsTableViewController: UITableViewController {
     var selectedProject: projectInfo?
     var desc: String?
 
-    @IBAction func doneButtonPressed(_ sender: Any) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
+        tableView.register(InputTableViewCell.self, forCellReuseIdentifier: "inputCell")
+    }
+    
+    @objc func doneButtonPressed(_ sender: Any) {
         guard let selectedProject = selectedProject, let desc = desc else {
             print("Error: timer detail has not been filled")
             return
@@ -40,7 +47,6 @@ class TogglTimerSettingsTableViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return sections.numberOfSections.rawValue
     }
 
@@ -69,13 +75,13 @@ class TogglTimerSettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch sections(rawValue: indexPath.section) {
         case .description:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "InputCell", for: indexPath) as? InputTableViewCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "inputCell", for: indexPath) as? InputTableViewCell {
                 cell.inputTextField.delegate = self
                 return cell
             }
             break
         case .selectedProject:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
             if let selectedProject = selectedProject {
                 cell.textLabel?.text = selectedProject.name
             }
@@ -84,7 +90,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
             }
             return cell
         case .projectList:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
             let project = GlobalVar.settings.projectList[indexPath.row]
             cell.textLabel?.text = project.name
             
@@ -93,7 +99,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
             break
         }
         
-        return tableView.dequeueReusableCell(withIdentifier: "LabelCell", for: indexPath)
+        return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

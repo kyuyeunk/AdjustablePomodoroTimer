@@ -51,7 +51,8 @@ class SettingsTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 0 {
-            performSegue(withIdentifier: "LogInSegue", sender: nil)
+            let loginView = LogInViewController()
+            navigationController?.pushViewController(loginView, animated: true)
         }
     }
     
@@ -59,7 +60,7 @@ class SettingsTableViewController: UITableViewController {
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
-                if let id = GlobalVar.settings.togglCredential?.id {
+                if let id = GlobalVar.settings.togglCredential.id {
                     cell.textLabel?.text = id
                 }
                 else {

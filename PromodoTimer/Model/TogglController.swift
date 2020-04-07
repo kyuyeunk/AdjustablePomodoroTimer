@@ -27,7 +27,7 @@ class TogglController {
     
     //Send url reqeust from given requestURL
     func getDataFromRequest(requestURL: URLRequest, completion: @escaping (Data) -> Void) {
-        guard let auth = GlobalVar.settings.togglCredential?.auth else {
+        guard let auth = GlobalVar.settings.togglCredential.auth else {
             print("Error: Authentication has not been set")
             return
         }
@@ -102,7 +102,7 @@ class TogglController {
     
     //Fetch api_token from given id/pw and save it to credential.plist
     func setAuth(id: String, pw: String, completion: @escaping (Bool) -> Void) {
-        GlobalVar.settings.togglCredential?.auth = "\(id):\(pw)".toBase64()
+        GlobalVar.settings.togglCredential.auth = "\(id):\(pw)".toBase64()
         getDataFromRequest(requestURL: URLRequest(url: baseInfoURL)) { (data) in
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                 let toggl_data = json["data"] as? [String: Any],

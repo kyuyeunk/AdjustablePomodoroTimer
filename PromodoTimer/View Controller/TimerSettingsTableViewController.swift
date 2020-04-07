@@ -327,7 +327,10 @@ class TimerSettingsTableViewController: UITableViewController {
                 selected.togglTimer[.negative] = true
                 trackingType = .negative
             }
-            performSegue(withIdentifier: "TogglTimerDetailSegue", sender: trackingType)
+            
+            let togglTimerDetailView = TogglTimerSettingsTableViewController(style: .grouped)
+            togglTimerDetailView.type = trackingType
+            navigationController?.pushViewController(togglTimerDetailView, animated: true)
         default:
             break
         }
@@ -373,13 +376,6 @@ class TimerSettingsTableViewController: UITableViewController {
         }
         else {
             print("[Timer Settings View] Repeat Alarm switch turned off")
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let togglTimer = segue.destination as? TogglTimerSettingsTableViewController,
-            let type = sender as? TimerType {
-            togglTimer.type = type
         }
     }
 }

@@ -76,13 +76,13 @@ class PickerViewController: UIViewController {
     }
     
     func initUI() {
-        addToViews()
+        addViews()
         initUIAttributes()
         initUIConstraints()
         initUIFeatures()
     }
     
-    func addToViews() {
+    func addViews() {
         view.addSubview(passedTimeLabel)
         view.addSubview(timeInfoStackView)
         view.addSubview(pickerInfoStackView)

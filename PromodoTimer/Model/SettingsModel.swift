@@ -26,7 +26,7 @@ class Settings {
     
     var projectList: [projectInfo] = []
     
-    var togglCredential: credential?
+    var togglCredential = credential()
 
     var timerList: [TimerModel] = []
     
@@ -52,8 +52,10 @@ class Settings {
             
             togglCredential = decodedCredential
             
-            print("[Load] id: \(decodedCredential.id)")
-            print("[Load] auth: \(decodedCredential.auth)")
+            if let id = decodedCredential.id, let auth = decodedCredential.auth {
+                print("[Load] id: \(id)")
+                print("[Load] auth: \(auth)")
+            }
         }
         if let retrievedProjects = try? Data(contentsOf: settingsDirectory.projectsArchieveURL),
             let decodedProjects = try? propertyListDecoder.decode([projectInfo].self, from: retrievedProjects) {
@@ -80,8 +82,8 @@ class Settings {
     }
     
     func setAndSaveAuth(id: String, auth: String) {
-        self.togglCredential?.auth = auth
-        self.togglCredential?.id = id
+        togglCredential.auth = auth
+        togglCredential.id = id
         let cred = credential(id: id, auth: auth)
         let propertyListEncoder = PropertyListEncoder()
         let encodedCrednetial = try? propertyListEncoder.encode(cred)
@@ -146,11 +148,16 @@ struct directories {
     }
 }
 struct credential: Codable {
-    var id: String
-    var auth: String
+    var id: String?
+    var auth: String?
+    
     init(id: String, auth: String) {
         self.id = id
         self.auth = auth
+    }
+    
+    init() {
+        
     }
 }
 

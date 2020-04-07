@@ -23,6 +23,7 @@ class SwitchTableViewCell: UITableViewCell {
 
         settingStackView.axis = .horizontal
         settingStackView.distribution = .fill
+        settingStackView.alignment = .center
         
         settingStackView.translatesAutoresizingMaskIntoConstraints = false
         settingStackView.topAnchor.constraint(equalTo: topAnchor).isActive = true

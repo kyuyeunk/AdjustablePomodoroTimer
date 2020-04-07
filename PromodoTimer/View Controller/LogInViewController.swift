@@ -9,8 +9,17 @@
 import UIKit
 
 class LogInViewController: UIViewController {
-
-    @IBAction func loginButtonPressed(_ sender: Any) {
+    var loginStackView = UIStackView()
+    var togglLabel = UILabel()
+    var idStackView = UIStackView()
+    var pwStackView = UIStackView()
+    var idLabel = UILabel()
+    var idTextField = UITextField()
+    var pwLabel = UILabel()
+    var pwTextField = UITextField()
+    var loginButton = UIButton(type: .system)
+    
+    @objc func loginButtonPressed() {
         guard let id = idTextField.text else {
             print("Error: ID is not filled")
             return
@@ -24,7 +33,7 @@ class LogInViewController: UIViewController {
             DispatchQueue.main.async {
                 var alert: UIAlertController
                 var okButton: UIAlertAction
-                if valid, let auth = GlobalVar.settings.togglCredential?.auth {
+                if valid, let auth = GlobalVar.settings.togglCredential.auth {
                     
                     alert = UIAlertController(title: "Toggl Authentication",
                         message: "Auth is set to \(auth)", preferredStyle: .alert)
@@ -49,14 +58,75 @@ class LogInViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var idTextField: UITextField!
-    @IBOutlet weak var pwTextField: UITextField!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        addViews()
+        initUIAttributes()
+        initUIConstraints()
+        initUIFeatures()
+    }
+    
+    func addViews() {
+        view.addSubview(loginStackView)
+        
+        loginStackView.addArrangedSubview(togglLabel)
+        loginStackView.addArrangedSubview(idStackView)
+        loginStackView.addArrangedSubview(pwStackView)
+        loginStackView.addArrangedSubview(loginButton)
+        
+        idStackView.addArrangedSubview(idLabel)
+        idStackView.addArrangedSubview(idTextField)
+        
+        pwStackView.addArrangedSubview(pwLabel)
+        pwStackView.addArrangedSubview(pwTextField)
+    }
+    
+    func initUIAttributes() {
+        view.backgroundColor = .black
+        
+        loginStackView.axis = .vertical
+        loginStackView.alignment = .fill
+        loginStackView.spacing = 12
+        
+        togglLabel.text = "Toggl"
+        togglLabel.font = togglLabel.font.withSize(30)
+        togglLabel.textAlignment = .center
+        
+        idLabel.text = "ID"
+        idTextField.borderStyle = .roundedRect
+        idTextField.keyboardType = .emailAddress
+        idTextField.autocapitalizationType = .none
+        
+        pwLabel.text = "PW"
+        pwTextField.borderStyle = .roundedRect
+        pwTextField.isSecureTextEntry = true
+        
+        loginButton.setTitle("Log In", for: .normal)
+        loginButton.titleLabel?.font = loginButton.titleLabel?.font.withSize(20)
+        
+        idStackView.axis = .horizontal
+        pwStackView.axis = .horizontal
+    }
+    
+    func initUIConstraints() {
+        loginStackView.translatesAutoresizingMaskIntoConstraints = false
+        loginStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
+        loginStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
+        loginStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 100).isActive = true
+        
+        idLabel.translatesAutoresizingMaskIntoConstraints = false
+        idLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        pwLabel.translatesAutoresizingMaskIntoConstraints = false
+        pwLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func initUIFeatures() {
         idTextField.delegate = self
         pwTextField.delegate = self
-        // Do any additional setup after loading the view.
+        
+        loginButton.addTarget(self, action: #selector(loginButtonPressed), for: .touchUpInside)
     }
 }
 
