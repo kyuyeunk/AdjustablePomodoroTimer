@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TimerViewController.swift
 //  PromodoTimer
 //
 //  Created by Kyu Yeun Kim on 2020/03/10.
@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import AudioToolbox
 
-class PickerViewController: UIViewController {
+class TimerViewController: UIViewController {
 
     let maxMinutes: Int = 12
 
@@ -254,7 +254,7 @@ class PickerViewController: UIViewController {
     }
 }
 
-extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     enum components: Int {
         case sign
         case minVal
@@ -379,7 +379,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
 }
 
-extension PickerViewController: TimeControllerDelegate {
+extension TimerViewController: TimeControllerDelegate {
     func displayTimeoutAlert(completion: @escaping ((Bool) -> Void)) {
         DispatchQueue.main.async {
             var alert: UIAlertController

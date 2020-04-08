@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.windowScene = windowScene
         
-        let pickerView = PickerViewController()
+        let pickerView = TimerViewController()
         let navigationView = UINavigationController(rootViewController: pickerView)
         
         window?.rootViewController = navigationView
