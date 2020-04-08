@@ -42,8 +42,12 @@ class TimePieView : UIView {
         path.fill()
     }
     
-    func changeTime(time: Int) {
+    func setTime(time: Int) {
         endTime = CGFloat(time)
         self.setNeedsDisplay()
+    }
+    
+    func getTime(angle: CGFloat) -> Int{
+        return Int(angle / (2 * .pi) * max)
     }
 }

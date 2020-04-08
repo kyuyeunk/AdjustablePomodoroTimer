@@ -56,6 +56,51 @@ class PickerViewController: UIViewController {
         self.navigationController?.pushViewController(timerListViewController, animated: true)
     }
     
+    @objc func panGesture(sender: UIPanGestureRecognizer) {
+        guard let view = sender.view else {return}
+        let location = sender.location(in: view)
+        let center = mainTimer.center
+        
+        let circleX = location.x - center.x
+        let circleY = center.y - location.y
+        var angle = abs(atan(circleY / circleX))
+        var relAngle: CGFloat
+        if circleX >= 0 && circleY >= 0 {
+            //First quadrant
+            relAngle = angle + .pi * 1.5
+        }
+        else if circleX < 0 && circleY >= 0 {
+            //Second quadrant
+            angle = .pi - angle
+            relAngle = angle - .pi / 2
+        }
+        else if circleX < 0 && circleY < 0 {
+            //Third quadrant
+            angle += .pi
+            relAngle = angle - .pi / 2
+        }
+        else {
+            //Fourth quadrant
+            angle = 2 * .pi - angle
+            relAngle = angle - .pi / 2
+        }
+        
+        let time = passedTimePie.getTime(angle: relAngle)
+        
+        print("Circle x:\(circleX) y:\(circleY) angle:\(angle) time: \(time)")
+        passedTimePie.setTime(time: time)
+        passedTimePie.setNeedsDisplay()
+        
+        if sender.state == .ended {
+            let minutes = time / 60
+            let seconds = time % 60
+            
+            
+            mainTimer.selectRow(maxMinutes + 1 - minutes, inComponent: components.minVal.rawValue, animated: true)
+            mainTimer.selectRow(60 - seconds, inComponent: components.secVal.rawValue, animated: true)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
@@ -102,6 +147,9 @@ class PickerViewController: UIViewController {
         
         pickerInfoStackView.addArrangedSubview(pickerInfoMinutesLabel)
         pickerInfoStackView.addArrangedSubview(pickerInfoSecondsLabel)
+        
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
+        view.addGestureRecognizer(pan)
     }
     
     func initUIAttributes() {
@@ -172,6 +220,7 @@ class PickerViewController: UIViewController {
         mainTimer.translatesAutoresizingMaskIntoConstraints = false
         mainTimer.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
         mainTimer.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor, constant: 20).isActive = true
+        mainTimer.widthAnchor.constraint(equalToConstant: 140).isActive = true
         
         startButton.translatesAutoresizingMaskIntoConstraints = false
         startButton.topAnchor.constraint(equalTo: mainTimer.bottomAnchor, constant: 80).isActive = true
@@ -230,7 +279,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         case .secVal:
             return 60
         default:
-            return 0
+            return 1
         }
     }
     
@@ -285,7 +334,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             let time = (minutes * 60 + seconds) * sign
             
             print("[Picker View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
-            passedTimePie.changeTime(time: time)
+            passedTimePie.setTime(time: time)
         case .minVal:
             print("[Picker View] Minute picker moved")
             let minutes = maxMinutes - row
@@ -300,7 +349,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             let time = (minutes * 60 + seconds) * sign
             
             print("[Picker View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
-            passedTimePie.changeTime(time: time)
+            passedTimePie.setTime(time: time)
         case .secVal:
             print("[Picker View] Second picker moved")
             var seconds = 59 - row
@@ -319,7 +368,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             let time = (minutes * 60 + seconds) * sign
             
             print("[Picker View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
-            passedTimePie.changeTime(time: time)
+            passedTimePie.setTime(time: time)
         default:
             break
         }
@@ -413,7 +462,7 @@ extension PickerViewController: TimeControllerDelegate {
             self.posTimeValLabel.text = "\(posMinutes)m \(posSeconds)s"
             self.negTimeValLabel.text = "\(negMinutes)m \(negSeconds)s"
             
-            self.passedTimePie.changeTime(time: currTime)
+            self.passedTimePie.setTime(time: currTime)
             
             if let completion = completion {
                 completion()
