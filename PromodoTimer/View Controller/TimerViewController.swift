@@ -14,6 +14,7 @@ class TimerViewController: UIViewController {
 
     let maxMinutes: Int = 12
     var currTime: Int = 0
+    var panTimerType: TimerType = .positive
 
     var passedTimeLabel = UILabel()
     var timeInfoStackView = UIStackView()
@@ -58,42 +59,66 @@ class TimerViewController: UIViewController {
     }
     
     @objc func panGesture(sender: UIPanGestureRecognizer) {
-        guard let view = sender.view else {return}
-        let location = sender.location(in: view)
-        let center = mainTimer.center
-        
-        let circleX = location.x - center.x
-        let circleY = center.y - location.y
-        var angle = abs(atan(circleY / circleX))
-        var relAngle: CGFloat
-        if circleX >= 0 && circleY >= 0 {
-            //First quadrant
-            relAngle = angle + .pi * 1.5
-        }
-        else if circleX < 0 && circleY >= 0 {
-            //Second quadrant
-            angle = .pi - angle
-            relAngle = angle - .pi / 2
-        }
-        else if circleX < 0 && circleY < 0 {
-            //Third quadrant
-            angle += .pi
-            relAngle = angle - .pi / 2
+        if sender.state == .began {
+            if currTime >= 0 {
+                panTimerType = .positive
+            }
+            else {
+                panTimerType = .negative
+            }
         }
         else {
-            //Fourth quadrant
-            angle = 2 * .pi - angle
-            relAngle = angle - .pi / 2
-        }
-        
-        let time = passedTimePie.getTime(angle: relAngle)
-        
-        print("[Timer View] Dragged to Circle x:\(circleX) y:\(circleY) angle:\(angle) time: \(time)")
-        passedTimePie.setTime(time: time)
-        passedTimePie.setNeedsDisplay()
-        
-        if sender.state == .ended {
-            setTime(time: time, animated: true)
+            guard let view = sender.view else {return}
+            let location = sender.location(in: view)
+            let center = mainTimer.center
+            
+            let circleX = location.x - center.x
+            let circleY = center.y - location.y
+            var angle = abs(atan(circleY / circleX))
+            var relAngle: CGFloat
+            if circleX >= 0 && circleY >= 0 {
+                //First quadrant
+                relAngle = angle + .pi * 1.5
+            }
+            else if circleX < 0 && circleY >= 0 {
+                //Second quadrant
+                angle = .pi - angle
+                relAngle = angle - .pi / 2
+            }
+            else if circleX < 0 && circleY < 0 {
+                //Third quadrant
+                angle += .pi
+                relAngle = angle - .pi / 2
+            }
+            else {
+                //Fourth quadrant
+                angle = 2 * .pi - angle
+                relAngle = angle - .pi / 2
+            }
+            
+            //TODO: fix issue where type doesn't change where finger moves fast
+            if passedTimePie.angle < 0.1 && relAngle > .pi * 2 - 0.1 {
+                print("Flipped to negative")
+                panTimerType = .negative
+            }
+            else if relAngle < 0.1 && passedTimePie.angle > 0.1 - 2 * .pi {
+                print("Flipped to positive")
+                panTimerType = .positive
+            }
+                
+            if panTimerType == .negative {
+                relAngle = relAngle - 2 * .pi
+            }
+            
+            let time = passedTimePie.getTime(angle: relAngle)
+            
+            print("[Timer View] Dragged to Circle x:\(Int(circleX)) y:\(Int(circleY)) angle:\(angle) time: \(time)")
+            passedTimePie.setTime(time: time)
+            passedTimePie.setNeedsDisplay()
+            
+            if sender.state == .ended {
+                setTime(time: time, animated: true)
+            }
         }
     }
     
@@ -216,7 +241,7 @@ class TimerViewController: UIViewController {
         pickerInfoStackView.distribution = .fillEqually
         pickerInfoStackView.spacing = 0
         
-        passedTimePie.max = CGFloat(maxMinutes * 60)
+        passedTimePie.maxTime = CGFloat(maxMinutes * 60)
         passedTimePie.backgroundColor = .black
     }
     

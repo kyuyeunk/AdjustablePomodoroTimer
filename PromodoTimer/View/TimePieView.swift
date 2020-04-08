@@ -11,7 +11,8 @@ import UIKit
 // Inspired by https://stackoverflow.com/a/38260553
 class TimePieView : UIView {
     var endTime: CGFloat = 0
-    var max: CGFloat = 60 * 60
+    var maxTime: CGFloat = 60 * 60
+    var angle: CGFloat = 0
     let path = UIBezierPath()
     
     override func draw(_ rect: CGRect) {
@@ -19,7 +20,7 @@ class TimePieView : UIView {
         let radius = min(rect.width, rect.height) / 2
         
         let startAngle = -CGFloat.pi / 2
-        let endAngle = -(CGFloat.pi / 2 + endTime / max * CGFloat.pi * 2)
+        let endAngle = -(CGFloat.pi / 2 + endTime / maxTime * CGFloat.pi * 2)
         
         var clockwise: Bool
         var color: UIColor
@@ -33,13 +34,15 @@ class TimePieView : UIView {
             color = .blue
         }
         
-        print("[TimePieView] startAngle: \(startAngle) endAngle: \(endAngle)")
         let path = UIBezierPath()
         path.move(to: center)
         path.addArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
         path.close()
         color.setFill()
         path.fill()
+        
+        angle = startAngle - endAngle
+        print("[TimePieView] startAngle: \(startAngle) endAngle: \(endAngle) relAngle: \(angle)")
     }
     
     func setTime(time: Int) {
@@ -48,6 +51,6 @@ class TimePieView : UIView {
     }
     
     func getTime(angle: CGFloat) -> Int{
-        return Int(angle / (2 * .pi) * max)
+        return Int(angle / (2 * .pi) * maxTime)
     }
 }
