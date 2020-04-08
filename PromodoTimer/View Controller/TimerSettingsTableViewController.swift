@@ -381,34 +381,70 @@ class TimerSettingsTableViewController: UITableViewController {
 }
 
 extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    enum components: Int {
+        case minVal
+        case minLabel
+        case secVal
+        case secLabel
+        case numberOfComponents
+        
+        init?(indexPath: NSIndexPath) {
+            self.init(rawValue: indexPath.section)
+        }
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
+        return components.numberOfComponents.rawValue
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 60
+        switch components(rawValue: component) {
+        case .minVal:
+            return 60
+        case .minLabel:
+            return 1
+        case .secVal:
+            return 60
+        case .secLabel:
+            return 1
+        default:
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(59 - row)
+        switch components(rawValue: component) {
+        case .minVal:
+            return String(59 - row)
+        case .minLabel:
+            return "m"
+        case .secVal:
+            return String(59 - row)
+        case .secLabel:
+            return "s"
+        default:
+            return nil
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        var seconds: Int
-        var minutes: Int
+        var seconds: Int = 0
+        var minutes: Int = 0
         
-        if component == 0 {
+        switch components(rawValue: component) {
+        case .minVal:
             minutes = 59 - row
-            seconds = 59 - pickerView.selectedRow(inComponent: 1)
-        }
-        else {
+            seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
+        case .secVal:
             seconds = 59 - row
-            minutes = 59 - pickerView.selectedRow(inComponent: 0)
+            minutes = 59 - pickerView.selectedRow(inComponent: components.minVal.rawValue)
+        default:
+            break
         }
         
         seconds += minutes * 60
         
-        print("Picked \(seconds)")
+        print("[Timer Settings View] Picked \(seconds)")
         
         if pickerView == posPickerView {
             workingTimerModel.startTime[.positive] = seconds
@@ -419,6 +455,23 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
             workingTimerModel.startTime[.negative] = -seconds
             let labelIndexPath = IndexPath(row: 2, section: sections.timerValues.rawValue)
             tableView.reloadRows(at: [labelIndexPath], with: .automatic)
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        let timeWidth: CGFloat = 40
+        let labelWidth: CGFloat = 40
+        switch components(rawValue: component) {
+        case .minVal:
+            return timeWidth
+        case .minLabel:
+            return labelWidth
+        case .secVal:
+            return timeWidth
+        case .secLabel:
+            return labelWidth
+        default:
+            return 0
         }
     }
 }

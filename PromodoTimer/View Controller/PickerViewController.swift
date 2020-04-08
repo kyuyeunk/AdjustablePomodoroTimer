@@ -271,6 +271,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch components(rawValue: component) {
         case .sign:
+            print("[Picker View] Sign picker moved")
             let minutes = maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
             let seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
             
@@ -281,8 +282,9 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             else {
                 sign = -1
             }
-            
             let time = (minutes * 60 + seconds) * sign
+            
+            print("[Picker View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
             passedTimePie.changeTime(time: time)
         case .minVal:
             print("[Picker View] Minute picker moved")
@@ -297,7 +299,7 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             let time = (minutes * 60 + seconds) * sign
             
-
+            print("[Picker View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
             passedTimePie.changeTime(time: time)
         case .secVal:
             print("[Picker View] Second picker moved")
@@ -314,11 +316,9 @@ extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             else {
                 sign = -1
             }
-            
             let time = (minutes * 60 + seconds) * sign
             
-            print("[Picker View] Selected val in Min: \(minutes), in Sec: \(time)")
-            
+            print("[Picker View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
             passedTimePie.changeTime(time: time)
         default:
             break

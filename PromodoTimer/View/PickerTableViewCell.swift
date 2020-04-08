@@ -21,8 +21,8 @@ class PickerTableViewCell: UITableViewCell {
         pickerView.translatesAutoresizingMaskIntoConstraints = false
         pickerView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         pickerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        pickerView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        pickerView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        pickerView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
+        pickerView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
