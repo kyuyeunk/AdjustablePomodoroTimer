@@ -13,6 +13,7 @@ import AudioToolbox
 class TimerViewController: UIViewController {
 
     let maxMinutes: Int = 12
+    var currTime: Int = 0
 
     var passedTimeLabel = UILabel()
     var timeInfoStackView = UIStackView()
@@ -37,11 +38,11 @@ class TimerViewController: UIViewController {
     
     @objc func startButtonPressed(_ sender: Any) {
         if GlobalVar.timeController.timerStarted == false {
-            print("[Picker View] Pressed Start Button")
+            print("[Timer View] Pressed Start Button")
             GlobalVar.timeController.startButtonTapped()
         }
         else {
-            print("[Picker View] Pressed Stop Button")
+            print("[Timer View] Pressed Stop Button")
             GlobalVar.timeController.stopButtonTapped()
         }
     }
@@ -87,18 +88,35 @@ class TimerViewController: UIViewController {
         
         let time = passedTimePie.getTime(angle: relAngle)
         
-        print("Circle x:\(circleX) y:\(circleY) angle:\(angle) time: \(time)")
+        print("[Timer View] Dragged to Circle x:\(circleX) y:\(circleY) angle:\(angle) time: \(time)")
         passedTimePie.setTime(time: time)
         passedTimePie.setNeedsDisplay()
         
         if sender.state == .ended {
-            let minutes = time / 60
-            let seconds = time % 60
-            
-            
-            mainTimer.selectRow(maxMinutes + 1 - minutes, inComponent: components.minVal.rawValue, animated: true)
-            mainTimer.selectRow(60 - seconds, inComponent: components.secVal.rawValue, animated: true)
+            setTime(time: time, animated: true)
         }
+    }
+    
+    func setTime(time: Int, animated: Bool) {
+        currTime = time
+        var seconds = abs(currTime) % 60
+        var minutes = abs(currTime) / 60
+        
+        if minutes > self.maxMinutes {
+            minutes = self.maxMinutes
+            seconds = 0
+        }
+        
+        self.mainTimer.selectRow(59 - seconds, inComponent: components.secVal.rawValue, animated: animated)
+        self.mainTimer.selectRow(self.maxMinutes - minutes, inComponent: components.minVal.rawValue, animated: animated)
+        if currTime >= 0 {
+            self.mainTimer.selectRow(0, inComponent: components.sign.rawValue, animated: animated)
+        }
+        else {
+            self.mainTimer.selectRow(1, inComponent: components.sign.rawValue, animated: animated)
+        }
+        
+        self.passedTimePie.setTime(time: currTime)
     }
     
     override func viewDidLoad() {
@@ -117,7 +135,7 @@ class TimerViewController: UIViewController {
         super.viewWillAppear(animated)
         GlobalVar.timeController.timeControllerDelegate = self
         UIApplication.shared.isIdleTimerDisabled = GlobalVar.settings.dontSleep
-        print("[Picker View] Will this view stay on? \(GlobalVar.settings.dontSleep)")
+        print("[Timer View] Will this view stay on? \(GlobalVar.settings.dontSleep)")
     }
     
     func initUI() {
@@ -320,7 +338,7 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch components(rawValue: component) {
         case .sign:
-            print("[Picker View] Sign picker moved")
+            print("[Timer View] Sign picker moved")
             let minutes = maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
             let seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
             
@@ -333,10 +351,11 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             let time = (minutes * 60 + seconds) * sign
             
-            print("[Picker View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
-            passedTimePie.setTime(time: time)
+            print("[Timer View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
+            
+            setTime(time: time, animated: true)
         case .minVal:
-            print("[Picker View] Minute picker moved")
+            print("[Timer View] Minute picker moved")
             let minutes = maxMinutes - row
             let seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
             var sign: Int
@@ -348,10 +367,10 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             let time = (minutes * 60 + seconds) * sign
             
-            print("[Picker View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
-            passedTimePie.setTime(time: time)
+            print("[Timer View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
+            setTime(time: time, animated: true)
         case .secVal:
-            print("[Picker View] Second picker moved")
+            print("[Timer View] Second picker moved")
             var seconds = 59 - row
             let minutes = maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
             if minutes == maxMinutes && seconds > 0 {
@@ -367,14 +386,14 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             let time = (minutes * 60 + seconds) * sign
             
-            print("[Picker View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
-            passedTimePie.setTime(time: time)
+            print("[Timer View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
+            setTime(time: time, animated: true)
         default:
             break
         }
         
         if GlobalVar.timeController.timerStarted {
-            print("[Picker View] Moved timer during timing")
+            print("[Timer View] Moved timer during timing")
         }
     }
 }
@@ -439,30 +458,13 @@ extension TimerViewController: TimeControllerDelegate {
         
         let negSeconds = negTime % 60
         let negMinutes = negTime / 60
-    
-        
-        var seconds = abs(currTime) % 60
-        var minutes = abs(currTime) / 60
-        
-        if minutes > self.maxMinutes {
-            minutes = self.maxMinutes
-            seconds = 0
-        }
         
         DispatchQueue.main.async {
-            print("[Picker View] Setting timer UI to \(currTime) seconds")
-            self.mainTimer.selectRow(59 - seconds, inComponent: components.secVal.rawValue, animated: animated)
-            self.mainTimer.selectRow(self.maxMinutes - minutes, inComponent: components.minVal.rawValue, animated: animated)
-            if currTime >= 0 {
-                self.mainTimer.selectRow(0, inComponent: components.sign.rawValue, animated: animated)
-            }
-            else {
-                self.mainTimer.selectRow(1, inComponent: components.sign.rawValue, animated: animated)
-            }
+            print("[Timer View] Setting timer UI to \(currTime) seconds")
+            self.setTime(time: currTime, animated: animated)
+            
             self.posTimeValLabel.text = "\(posMinutes)m \(posSeconds)s"
             self.negTimeValLabel.text = "\(negMinutes)m \(negSeconds)s"
-            
-            self.passedTimePie.setTime(time: currTime)
             
             if let completion = completion {
                 completion()
@@ -471,18 +473,7 @@ extension TimerViewController: TimeControllerDelegate {
     }
     
     func getCurrTime() -> Int {
-        let seconds = 59 - mainTimer.selectedRow(inComponent: components.secVal.rawValue)
-        let minutes = maxMinutes - mainTimer.selectedRow(inComponent: components.minVal.rawValue)
-        var sign: Int
-        if mainTimer.selectedRow(inComponent:components.sign.rawValue) == 0 {
-            sign = 1
-        }
-        else {
-            sign = -1
-        }
-        let time = (minutes * 60 + seconds) * sign
-        
-        return time
+        return currTime
     }
     
     func stopTimerUI() {

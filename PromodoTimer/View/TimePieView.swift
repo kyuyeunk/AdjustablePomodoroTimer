@@ -33,7 +33,7 @@ class TimePieView : UIView {
             color = .blue
         }
         
-        print("[TimePieView] startAngle: \(startAngle) end: \(endTime) endAngle: \(endAngle)")
+        print("[TimePieView] startAngle: \(startAngle) endAngle: \(endAngle)")
         let path = UIBezierPath()
         path.move(to: center)
         path.addArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
