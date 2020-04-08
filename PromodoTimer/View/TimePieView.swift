@@ -15,7 +15,6 @@ class TimePieView : UIView {
     let path = UIBezierPath()
     
     override func draw(_ rect: CGRect) {
-        backgroundColor = .black
         let center = CGPoint(x: rect.origin.x + rect.width / 2, y: rect.origin.y + rect.height / 2)
         let radius = min(rect.width, rect.height) / 2
         

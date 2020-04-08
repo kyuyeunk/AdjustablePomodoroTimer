@@ -12,10 +12,7 @@ import AudioToolbox
 
 class PickerViewController: UIViewController {
 
-    let MAX_ROW: Int = Int(INT16_MAX)
-    var MIDDLE_ROW: Int {
-        return MAX_ROW / 2
-    }
+    let maxMinutes: Int = 12
 
     var passedTimeLabel = UILabel()
     var timeInfoStackView = UIStackView()
@@ -152,6 +149,9 @@ class PickerViewController: UIViewController {
         pickerInfoStackView.axis = .horizontal
         pickerInfoStackView.distribution = .fillEqually
         pickerInfoStackView.spacing = 0
+        
+        passedTimePie.max = CGFloat(maxMinutes * 60)
+        passedTimePie.backgroundColor = .black
     }
     
     func initUIConstraints() {
@@ -172,7 +172,6 @@ class PickerViewController: UIViewController {
         mainTimer.translatesAutoresizingMaskIntoConstraints = false
         mainTimer.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
         mainTimer.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor, constant: 20).isActive = true
-        mainTimer.widthAnchor.constraint(equalToConstant: 160).isActive = true
         
         startButton.translatesAutoresizingMaskIntoConstraints = false
         startButton.topAnchor.constraint(equalTo: mainTimer.bottomAnchor, constant: 80).isActive = true
@@ -199,71 +198,132 @@ class PickerViewController: UIViewController {
         mainTimer.dataSource = self
         mainTimer.delegate = self
         
-        mainTimer.selectRow(MIDDLE_ROW, inComponent: 0, animated: false)
-        mainTimer.selectRow(MIDDLE_ROW, inComponent: 1, animated: false)
+        mainTimer.selectRow(60, inComponent: components.secVal.rawValue, animated: false)
+        mainTimer.selectRow(maxMinutes + 1, inComponent: components.minVal.rawValue, animated: false)
         
         startButton.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
     }
 }
 
 extension PickerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    enum components: Int {
+        case sign
+        case minVal
+        case secVal
+        case blank
+        case numberOfComponents
+        
+        init?(indexPath: NSIndexPath) {
+            self.init(rawValue: indexPath.section)
+        }
+    }
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
+        return components.numberOfComponents.rawValue
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return MAX_ROW
+        switch components(rawValue: component) {
+        case .sign:
+            return 2
+        case .minVal:
+            return maxMinutes + 1
+        case .secVal:
+            return 60
+        default:
+            return 0
+        }
     }
     
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        let timeWidth: CGFloat = 40
+        let othersWidth: CGFloat = 20
+        switch components(rawValue: component) {
+        case .sign:
+            return othersWidth
+        case .minVal:
+            return timeWidth
+        case .secVal:
+            return timeWidth
+        case .blank:
+            return othersWidth
+        default:
+            return 0
+        }
+    }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if component == 1 {
-            let seconds = (MIDDLE_ROW - row) % 60
-            let minutes = (MIDDLE_ROW - row) / 60
-            let minSub = abs(minutes).toSuperscript()
-            
-            if (MIDDLE_ROW - row) < 0 && seconds == 0 {
-                return "-0 \(minSub)"
+        switch components(rawValue: component) {
+        case .sign:
+            if row == 0 {
+                return "+"
             }
             else {
-                return "\(seconds) \(minSub)"
+                return "-"
             }
-        }
-        else {
-            return String(MIDDLE_ROW - row)
+        case .minVal:
+            return String(maxMinutes - row)
+        case .secVal:
+            return String(59 - row)
+        default:
+            return nil
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if component == 0 {
-            print("[Picker View] Minute picker moved")
-            let minutes = MIDDLE_ROW - row
-            let seconds = (MIDDLE_ROW - pickerView.selectedRow(inComponent: 1)) % 60
-            var time: Int
-            if minutes > 0 && seconds < 0 {
-                time = (minutes + 1) * 60 - seconds
-            }
-            else if minutes < 0 && seconds > 0 {
-                time = minutes  * 60 - seconds
+        switch components(rawValue: component) {
+        case .sign:
+            let minutes = maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
+            let seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
+            
+            var sign: Int
+            if row == 0 {
+                sign = 1
             }
             else {
-                time = minutes * 60 + seconds
+                sign = -1
             }
+            
+            let time = (minutes * 60 + seconds) * sign
+            passedTimePie.changeTime(time: time)
+        case .minVal:
+            print("[Picker View] Minute picker moved")
+            let minutes = maxMinutes - row
+            let seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
+            var sign: Int
+            if pickerView.selectedRow(inComponent:components.sign.rawValue) == 0 {
+                sign = 1
+            }
+            else {
+                sign = -1
+            }
+            let time = (minutes * 60 + seconds) * sign
+            
 
-            print("[Picker View] Selected val in Min: \(minutes), in Sec: \(time)")
-            pickerView.selectRow(MIDDLE_ROW - time, inComponent: 1, animated: false)
-            
             passedTimePie.changeTime(time: time)
-        }
-        else {
+        case .secVal:
             print("[Picker View] Second picker moved")
-            let time = MIDDLE_ROW - row
-            let minutes = time / 60
+            var seconds = 59 - row
+            let minutes = maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
+            if minutes == maxMinutes && seconds > 0 {
+                pickerView.selectRow(59, inComponent: components.secVal.rawValue, animated: true)
+                seconds = 0
+            }
+            var sign: Int
+            if pickerView.selectedRow(inComponent:components.sign.rawValue) == 0 {
+                sign = 1
+            }
+            else {
+                sign = -1
+            }
+            
+            let time = (minutes * 60 + seconds) * sign
             
             print("[Picker View] Selected val in Min: \(minutes), in Sec: \(time)")
-            pickerView.selectRow(MIDDLE_ROW - minutes, inComponent: 0, animated: true)
             
             passedTimePie.changeTime(time: time)
+        default:
+            break
         }
+        
         if GlobalVar.timeController.timerStarted {
             print("[Picker View] Moved timer during timing")
         }
@@ -330,11 +390,26 @@ extension PickerViewController: TimeControllerDelegate {
         
         let negSeconds = negTime % 60
         let negMinutes = negTime / 60
+    
+        
+        var seconds = abs(currTime) % 60
+        var minutes = abs(currTime) / 60
+        
+        if minutes > self.maxMinutes {
+            minutes = self.maxMinutes
+            seconds = 0
+        }
         
         DispatchQueue.main.async {
             print("[Picker View] Setting timer UI to \(currTime) seconds")
-            self.mainTimer.selectRow(self.MIDDLE_ROW - currTime, inComponent: 1, animated: animated)
-            self.mainTimer.selectRow((self.MIDDLE_ROW - currTime / 60), inComponent: 0, animated: animated)
+            self.mainTimer.selectRow(59 - seconds, inComponent: components.secVal.rawValue, animated: animated)
+            self.mainTimer.selectRow(self.maxMinutes - minutes, inComponent: components.minVal.rawValue, animated: animated)
+            if currTime >= 0 {
+                self.mainTimer.selectRow(0, inComponent: components.sign.rawValue, animated: animated)
+            }
+            else {
+                self.mainTimer.selectRow(1, inComponent: components.sign.rawValue, animated: animated)
+            }
             self.posTimeValLabel.text = "\(posMinutes)m \(posSeconds)s"
             self.negTimeValLabel.text = "\(negMinutes)m \(negSeconds)s"
             
@@ -347,9 +422,18 @@ extension PickerViewController: TimeControllerDelegate {
     }
     
     func getCurrTime() -> Int {
-        let row = mainTimer.selectedRow(inComponent: 1)
-        print("[Picker View] getCurrTime() - selectedRow: \(row) seconds: \(MIDDLE_ROW - row)")
-        return MIDDLE_ROW - mainTimer.selectedRow(inComponent: 1)
+        let seconds = 59 - mainTimer.selectedRow(inComponent: components.secVal.rawValue)
+        let minutes = maxMinutes - mainTimer.selectedRow(inComponent: components.minVal.rawValue)
+        var sign: Int
+        if mainTimer.selectedRow(inComponent:components.sign.rawValue) == 0 {
+            sign = 1
+        }
+        else {
+            sign = -1
+        }
+        let time = (minutes * 60 + seconds) * sign
+        
+        return time
     }
     
     func stopTimerUI() {
