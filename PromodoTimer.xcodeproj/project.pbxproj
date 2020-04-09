@@ -24,6 +24,7 @@
 		2E5D8BF12420EFB300860E1B /* TimerSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BF02420EFB300860E1B /* TimerSettingsTableViewController.swift */; };
 		2E5D8BF524222F8E00860E1B /* PickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BF424222F8E00860E1B /* PickerTableViewCell.swift */; };
 		2E80F90A241C663500554B12 /* GlobalVarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80F909241C663500554B12 /* GlobalVarModel.swift */; };
+		2E8B9F9B243F655700B13AA9 /* PickerWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9A243F655700B13AA9 /* PickerWindowView.swift */; };
 		2EC23D052417ADDA00EA7BD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */; };
 		2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */; };
 		2EC23D092417ADDA00EA7BD6 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D082417ADDA00EA7BD6 /* TimerViewController.swift */; };
@@ -50,6 +51,7 @@
 		2E5D8BF424222F8E00860E1B /* PickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableViewCell.swift; sourceTree = "<group>"; };
 		2E80F909241C663500554B12 /* GlobalVarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVarModel.swift; sourceTree = "<group>"; };
 		2E80F90F241C67B400554B12 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E8B9F9A243F655700B13AA9 /* PickerWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWindowView.swift; sourceTree = "<group>"; };
 		2EC23D012417ADDA00EA7BD6 /* PromodoTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromodoTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,7 +102,6 @@
 				2E80F909241C663500554B12 /* GlobalVarModel.swift */,
 				2E0F26ED241E4AEB0076C5AC /* SettingsModel.swift */,
 				2E5D8BEE2420E79600860E1B /* TimerModel.swift */,
-				2E444B33243CDF9D00A9E0AB /* TimePieView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -112,6 +113,8 @@
 				2E5D8BE8241FA67600860E1B /* SwitchTableViewCell.swift */,
 				2E5D8BF424222F8E00860E1B /* PickerTableViewCell.swift */,
 				2E444B31243C953700A9E0AB /* SubtitleTableViewCell.swift */,
+				2E444B33243CDF9D00A9E0AB /* TimePieView.swift */,
+				2E8B9F9A243F655700B13AA9 /* PickerWindowView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				2E444B34243CDF9D00A9E0AB /* TimePieView.swift in Sources */,
 				2E5D8BEF2420E79600860E1B /* TimerModel.swift in Sources */,
 				2E16120E241D5AA5007C55D8 /* LogInViewController.swift in Sources */,
+				2E8B9F9B243F655700B13AA9 /* PickerWindowView.swift in Sources */,
 				2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

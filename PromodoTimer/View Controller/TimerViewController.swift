@@ -11,7 +11,6 @@ import AVFoundation
 import AudioToolbox
 
 class TimerViewController: UIViewController {
-
     var lastPanFeedbackMin = 0
     let maxMinutes: Int = 12
     var currTime: Int = 0
@@ -53,6 +52,7 @@ class TimerViewController: UIViewController {
     
     var clockImage = UIImageView()
     var passedTimePie = TimePieView()
+    var pickerWindow = PickerWindowView()
     
     @objc func startButtonPressed(_ sender: Any) {
         if GlobalVar.timeController.timerStarted == false {
@@ -198,6 +198,7 @@ class TimerViewController: UIViewController {
     
     func addViews() {
         view.addSubview(passedTimePie)
+        view.addSubview(pickerWindow)
         view.addSubview(passedTimeLabel)
         view.addSubview(timeInfoStackView)
         view.addSubview(pickerInfoStackView)
@@ -307,6 +308,12 @@ class TimerViewController: UIViewController {
         passedTimePie.centerYAnchor.constraint(equalTo: clockImage.centerYAnchor).isActive = true
         passedTimePie.widthAnchor.constraint(equalTo: clockImage.widthAnchor, multiplier: 1, constant: -34).isActive = true
         passedTimePie.heightAnchor.constraint(equalTo: passedTimePie.widthAnchor).isActive = true
+        
+        pickerWindow.translatesAutoresizingMaskIntoConstraints = false
+        pickerWindow.centerXAnchor.constraint(equalTo: clockImage.centerXAnchor).isActive = true
+        pickerWindow.centerYAnchor.constraint(equalTo: clockImage.centerYAnchor).isActive = true
+        pickerWindow.widthAnchor.constraint(equalToConstant: 140).isActive = true
+        pickerWindow.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         //TODO: decide to keep this stackview or not
         pickerInfoStackView.isHidden = true
