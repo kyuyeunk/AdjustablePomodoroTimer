@@ -21,21 +21,7 @@ protocol TimeControllerDelegate {
 }
 
 class TimeController {
-    var timeControllerDelegate: TimeControllerDelegate! {
-        //If the view has been changed, change the UI accordingly
-        //E.g., change clock hand if timer's current time doesn't match the clock hand
-        didSet {
-            print("[Timer] Changed timeControllerDelegate value")
-            if timerStarted == true {
-                timeControllerDelegate.startTimerUI()
-            }
-            else {
-                timeControllerDelegate.stopTimerUI()
-                prevTime = GlobalVar.settings.currTimer.startTime[.positive]!
-            }
-            timeControllerDelegate.setSecondUI(currTime: prevTime, passedTime: passedTime, animated: false, completion: nil)
-        }
-    }
+    var timeControllerDelegate: TimeControllerDelegate!
     
     let uuidString = UUID().uuidString
     var currType: TimerType = .positive

@@ -19,6 +19,7 @@ class SettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Settings"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
         tableView.register(SwitchTableViewCell.self, forCellReuseIdentifier: "switchCell")
     }

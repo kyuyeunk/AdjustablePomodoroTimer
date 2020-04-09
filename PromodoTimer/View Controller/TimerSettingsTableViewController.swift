@@ -74,7 +74,8 @@ class TimerSettingsTableViewController: UITableViewController {
     }
     
     func initUI() {
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveButtonTapped))
+        navigationItem.title = "Timer Settings"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "subtitleCell")
         tableView.register(SwitchTableViewCell.self, forCellReuseIdentifier: "switchCell")
         tableView.register(InputTableViewCell.self, forCellReuseIdentifier: "textInputCell")

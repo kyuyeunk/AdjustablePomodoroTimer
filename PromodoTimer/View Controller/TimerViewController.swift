@@ -163,15 +163,23 @@ class TimerViewController: UIViewController {
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             print("Did user granted autorization? \(granted)")
         }
+        
+        GlobalVar.timeController.timeControllerDelegate = self 
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        GlobalVar.timeController.timeControllerDelegate = self
+        
         UIApplication.shared.isIdleTimerDisabled = GlobalVar.settings.dontSleep
         print("[Timer View] Will this view stay on? \(GlobalVar.settings.dontSleep)")
+        
+        let currTimer = GlobalVar.settings.currTimer
+        navigationItem.title = currTimer.timerName
+        if !GlobalVar.timeController.timerStarted {
+            setTime(time: currTimer.startTime[.positive]!, animated: false)
+        }
     }
-    
+
     func initUI() {
         addViews()
         initUIAttributes()

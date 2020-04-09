@@ -26,6 +26,7 @@ class TogglTimerSettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.title = "Toggl Timer"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
         tableView.register(InputTableViewCell.self, forCellReuseIdentifier: "inputCell")
         

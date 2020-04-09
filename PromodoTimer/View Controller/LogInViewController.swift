@@ -83,6 +83,7 @@ class LogInViewController: UIViewController {
     }
     
     func initUIAttributes() {
+        navigationItem.title = "Login Toggl"
         view.backgroundColor = .black
         
         loginStackView.axis = .vertical
