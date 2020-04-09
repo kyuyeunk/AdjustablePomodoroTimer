@@ -27,11 +27,11 @@ class TimePieView : UIView {
         
         if endTime > 0 {
             clockwise = false
-            color = .red
+            color = .systemRed
         }
         else {
             clockwise = true
-            color = .blue
+            color = .systemBlue
         }
         
         let path = UIBezierPath()

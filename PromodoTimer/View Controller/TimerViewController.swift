@@ -130,15 +130,16 @@ class TimerViewController: UIViewController {
     }
     
     func setTime(time: Int, animated: Bool) {
-        currTime = time
-        var seconds = abs(currTime) % 60
-        var minutes = abs(currTime) / 60
+        var seconds = abs(time) % 60
+        var minutes = abs(time) / 60
         
         if minutes >= maxMinutes {
             minutes = maxMinutes
             seconds = 0
         }
         
+        currTime = time
+
         mainTimer.selectRow(59 - seconds, inComponent: components.secVal.rawValue, animated: animated)
         mainTimer.selectRow(maxMinutes - minutes, inComponent: components.minVal.rawValue, animated: animated)
 

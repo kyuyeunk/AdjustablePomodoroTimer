@@ -118,7 +118,7 @@ class TimeController {
                 return
             }
             
-            self.createNotification(delayTime: abs(newTime), uuidString: self.uuidString)
+            self.createNotification(delayTime: abs(newTime))
             
             if newTime > 0 {
                 newTime -= 1
@@ -183,10 +183,11 @@ class TimeController {
     
     func stopButtonTapped() {
         stopTimer(autoRepeat: false)
+        print("[Timer] Stopping notification")
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
     }
     
-    func createNotification(delayTime: Int, uuidString: String) {
+    func createNotification(delayTime: Int) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
         let content = UNMutableNotificationContent()
         content.title = "Timer Ended"
@@ -203,6 +204,7 @@ class TimeController {
         
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
         
+    
         UNUserNotificationCenter.current().add(request) { (error) in
             //TODO
         }
