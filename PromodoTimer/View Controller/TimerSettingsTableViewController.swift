@@ -125,6 +125,7 @@ class TimerSettingsTableViewController: UITableViewController {
             if let cell = tableView.dequeueReusableCell(withIdentifier: "textInputCell", for: indexPath) as? InputTableViewCell {
                 cell.inputTextField.text = workingTimerModel.timerName
                 cell.inputTextField.delegate = self
+                cell.inputTextField.returnKeyType = .done
                 return cell
             }
         case .timerValues:

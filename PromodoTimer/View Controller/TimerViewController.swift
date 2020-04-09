@@ -12,7 +12,11 @@ import AudioToolbox
 
 class TimerViewController: UIViewController {
     var lastPanFeedbackMin = 0
-    let maxMinutes: Int = 12
+    var maxMinutes: Int = 0 {
+        didSet {
+            passedTimePie.maxTime = CGFloat(maxMinutes) * 60
+        }
+    }
     var currTime: Int = 0
     var panTimerType: TimerType = .positive
 
@@ -136,10 +140,13 @@ class TimerViewController: UIViewController {
         if minutes >= maxMinutes {
             minutes = maxMinutes
             seconds = 0
+            currTime = maxMinutes * 60 * minutes / abs(minutes)
         }
-        
-        currTime = time
+        else {
+            currTime = time
+        }
 
+        print("[Timer View] setTime to \(currTime)")
         mainTimer.selectRow(59 - seconds, inComponent: components.secVal.rawValue, animated: animated)
         mainTimer.selectRow(maxMinutes - minutes, inComponent: components.minVal.rawValue, animated: animated)
 
@@ -175,7 +182,9 @@ class TimerViewController: UIViewController {
         
         let currTimer = GlobalVar.settings.currTimer
         navigationItem.title = currTimer.timerName
+        maxMinutes = currTimer.maxMinutes
         if !GlobalVar.timeController.timerStarted {
+            print("[Timer View] Initializing timer to \(currTimer.startTime[.positive]!)")
             setTime(time: currTimer.startTime[.positive]!, animated: false)
         }
     }
@@ -313,9 +322,6 @@ class TimerViewController: UIViewController {
     func initUIFeatures() {
         mainTimer.dataSource = self
         mainTimer.delegate = self
-        
-        mainTimer.selectRow(60, inComponent: components.secVal.rawValue, animated: false)
-        mainTimer.selectRow(maxMinutes + 1, inComponent: components.minVal.rawValue, animated: false)
         
         startButton.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
     }

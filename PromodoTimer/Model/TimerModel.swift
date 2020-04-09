@@ -9,6 +9,7 @@
 import Foundation
 
 class TimerModel: Codable {
+    var maxMinutes: Int
     var timerName: String
     var startTime: [TimerType: Int] = [:]
     var autoRepeat: Bool
@@ -31,6 +32,7 @@ class TimerModel: Codable {
         self.timerAlarm[.negative] = 1004
         self.alertTimerEnd = true
         self.repeatAlarmOption = true
+        self.maxMinutes = 12
     }
     
     init(timerModel: TimerModel) {
@@ -43,5 +45,6 @@ class TimerModel: Codable {
         self.timerAlarm[.negative] = timerModel.timerAlarm[.negative]
         self.alertTimerEnd = timerModel.alertTimerEnd
         self.repeatAlarmOption = timerModel.repeatAlarmOption
+        self.maxMinutes = timerModel.maxMinutes
     }
 }
