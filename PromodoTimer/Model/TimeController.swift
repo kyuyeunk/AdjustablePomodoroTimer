@@ -119,7 +119,8 @@ class TimeController {
             
             let currTimeSince1970 = Date().timeIntervalSince1970
             self.passedTime[self.currType]! += Double(currTimeSince1970 - self.startedTime[self.currType]!)
-            self.startedTime[self.currType]! = currTimeSince1970
+            self.startedTime[.positive]! = currTimeSince1970
+            self.startedTime[.negative]! = currTimeSince1970
             
             self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true, completion: nil)
             
