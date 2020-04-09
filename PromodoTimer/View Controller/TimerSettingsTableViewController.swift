@@ -133,9 +133,11 @@ class TimerSettingsTableViewController: UITableViewController {
                 
                 if indexPath.row == 0 {
                     currType = .positive
+                    cell.imageView?.image = UIImage(systemName: "plus")!
                 }
                 else {
                     currType = .negative
+                    cell.imageView?.image = UIImage(systemName: "minus")!
                 }
                 
                 if selected.timer[currType]! {
@@ -147,8 +149,6 @@ class TimerSettingsTableViewController: UITableViewController {
                 else {
                         cell.textLabel?.text = "Please Input Negative Time"
                 }
-                
-                cell.imageView?.image = UIImage(systemName: "minus")!
                 
                 return cell
             }
