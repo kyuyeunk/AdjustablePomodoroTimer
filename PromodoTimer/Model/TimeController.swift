@@ -199,7 +199,7 @@ class TimeController {
         content.sound = UNNotificationSound.default
 
         print("[Timer] Notification will start in \(delayTime)")
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(delayTime), repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(abs(delayTime)), repeats: false)
         
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
         
