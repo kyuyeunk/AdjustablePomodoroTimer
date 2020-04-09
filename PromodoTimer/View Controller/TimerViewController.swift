@@ -374,7 +374,8 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             else {
                 sign = -1
             }
-            let time = (minutes * 60 + seconds) * sign
+            
+            let time = -(minutes * 60 + seconds)
             
             print("[Timer View] Selected Sign: \(sign) Min: \(minutes), in Sec: \(time)")
             
@@ -416,6 +417,8 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         let label = UILabel()
         label.font = label.font.withSize(22)
         label.textAlignment = .center
+        
+        var time: Int
         switch components(rawValue: component) {
         case .sign:
             if row == 0 {
