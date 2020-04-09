@@ -140,9 +140,7 @@ class TimerViewController: UIViewController {
                 lastPanFeedbackMin = time / 60
             }
             
-            if sender.state == .ended {
-                setTime(time: time, animated: true)
-            }
+            setTime(time: time, animated: false)
         }
 
     }
