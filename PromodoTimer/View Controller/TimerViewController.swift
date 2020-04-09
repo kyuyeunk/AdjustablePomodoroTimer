@@ -114,12 +114,12 @@ class TimerViewController: UIViewController {
                 relAngle = angle - .pi / 2
             }
             
-            //TODO: fix issue where type doesn't change where finger moves fast
-            if passedTimePie.angle < 0.1 && relAngle > .pi * 2 - 0.1 {
+            let threshold: CGFloat = 0.2
+            if passedTimePie.angle < threshold && relAngle > .pi * 2 - threshold {
                 print("Flipped to negative")
                 panTimerType = .negative
             }
-            else if relAngle < 0.1 && passedTimePie.angle > 0.1 - 2 * .pi {
+            else if relAngle < threshold && passedTimePie.angle > threshold - 2 * .pi {
                 print("Flipped to positive")
                 panTimerType = .positive
             }
