@@ -16,22 +16,6 @@ class TimerViewController: UIViewController {
     var currTime: Int = 0
     var panTimerType: TimerType = .positive
 
-    var minuteMaxRow: Int {
-        return maxMinutes * 2 + 1
-    }
-    
-    var minuteMiddleRow: Int {
-        return minuteMaxRow / 2
-    }
-    
-    var secondMaxRow: Int {
-        return maxMinutes * 120 + 1
-    }
-    
-    var secondMiddleRow: Int {
-        return secondMaxRow / 2
-    }
-    
     var passedTimeLabel = UILabel()
     var timeInfoStackView = UIStackView()
     var posInfoStackView = UIStackView()
@@ -147,27 +131,25 @@ class TimerViewController: UIViewController {
     
     func setTime(time: Int, animated: Bool) {
         currTime = time
-        var minutes = currTime / 60
+        var seconds = abs(currTime) % 60
+        var minutes = abs(currTime) / 60
         
-        print("[Timer View] Setting time tot: \(currTime) min: \(minutes)")
-        if abs(minutes) >= maxMinutes {
-            minutes = maxMinutes * (minutes / abs(minutes))
-            currTime = minutes * 60
-            print("[Timer View] Exceeded maximum, setting to max val: \(currTime) min: \(minutes)")
-            
+        if minutes >= maxMinutes {
+            minutes = maxMinutes
+            seconds = 0
         }
         
-        mainTimer.selectRow(secondMiddleRow - currTime, inComponent: components.secVal.rawValue, animated: animated)
-        mainTimer.selectRow(minuteMiddleRow - minutes, inComponent: components.minVal.rawValue, animated: animated)
+        mainTimer.selectRow(59 - seconds, inComponent: components.secVal.rawValue, animated: animated)
+        mainTimer.selectRow(maxMinutes - minutes, inComponent: components.minVal.rawValue, animated: animated)
 
         if currTime >= 0 {
-            self.mainTimer.selectRow(0, inComponent: components.sign.rawValue, animated: animated)
+            mainTimer.selectRow(0, inComponent: components.sign.rawValue, animated: animated)
         }
         else {
-            self.mainTimer.selectRow(1, inComponent: components.sign.rawValue, animated: animated)
+            mainTimer.selectRow(1, inComponent: components.sign.rawValue, animated: animated)
         }
         
-        self.passedTimePie.setTime(time: currTime)
+        passedTimePie.setTime(time: currTime)
     }
     
     override func viewDidLoad() {
@@ -323,8 +305,8 @@ class TimerViewController: UIViewController {
         mainTimer.dataSource = self
         mainTimer.delegate = self
         
-        mainTimer.selectRow(secondMiddleRow, inComponent: components.secVal.rawValue, animated: false)
-        mainTimer.selectRow(minuteMiddleRow, inComponent: components.minVal.rawValue, animated: false)
+        mainTimer.selectRow(60, inComponent: components.secVal.rawValue, animated: false)
+        mainTimer.selectRow(maxMinutes + 1, inComponent: components.minVal.rawValue, animated: false)
         
         startButton.addTarget(self, action: #selector(startButtonPressed), for: .touchUpInside)
     }
@@ -351,9 +333,9 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         case .sign:
             return 2
         case .minVal:
-            return minuteMaxRow
+            return maxMinutes + 1
         case .secVal:
-            return secondMaxRow
+            return 60
         default:
             return 1
         }
@@ -376,12 +358,30 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         }
     }
     
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch components(rawValue: component) {
+        case .sign:
+            if row == 0 {
+                return "+"
+            }
+            else {
+                return "-"
+            }
+        case .minVal:
+            return String(maxMinutes - row)
+        case .secVal:
+            return String(59 - row)
+        default:
+            return nil
+        }
+    }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch components(rawValue: component) {
         case .sign:
             print("[Timer View] Sign picker moved")
-            let minutes = minuteMiddleRow - pickerView.selectedRow(inComponent: components.minVal.rawValue)
-            let seconds = (secondMiddleRow - pickerView.selectedRow(inComponent: components.secVal.rawValue)) % 60
+            let minutes = maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
+            let seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
             
             var sign: Int
             if row == 0 {
@@ -390,36 +390,44 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             else {
                 sign = -1
             }
+            let time = (minutes * 60 + seconds) * sign
             
-            let time = -(minutes * 60 + seconds)
-            
-            print("[Timer View] Selected Sign: \(sign) Min: \(minutes), in Sec: \(time)")
+            print("[Timer View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
             
             setTime(time: time, animated: true)
         case .minVal:
             print("[Timer View] Minute picker moved")
-            let minutes = minuteMiddleRow - row
-            let seconds = (secondMiddleRow - pickerView.selectedRow(inComponent: components.secVal.rawValue)) % 60
-
-            var time: Int
-            if minutes > 0 && seconds < 0 {
-                time = (minutes + 1) * 60 - seconds
-            }
-            else if minutes < 0 && seconds > 0 {
-                time = minutes  * 60 - seconds
+            let minutes = maxMinutes - row
+            let seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
+            var sign: Int
+            if pickerView.selectedRow(inComponent:components.sign.rawValue) == 0 {
+                sign = 1
             }
             else {
-                time = minutes * 60 + seconds
+                sign = -1
             }
+            let time = (minutes * 60 + seconds) * sign
             
-            print("[Timer View] Selected Min: \(minutes), in Sec: \(time)")
-        
+            print("[Timer View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
             setTime(time: time, animated: true)
         case .secVal:
             print("[Timer View] Second picker moved")
-            let time = secondMiddleRow - row
+            var seconds = 59 - row
+            let minutes = maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
+            if minutes == maxMinutes && seconds > 0 {
+                pickerView.selectRow(59, inComponent: components.secVal.rawValue, animated: true)
+                seconds = 0
+            }
+            var sign: Int
+            if pickerView.selectedRow(inComponent:components.sign.rawValue) == 0 {
+                sign = 1
+            }
+            else {
+                sign = -1
+            }
+            let time = (minutes * 60 + seconds) * sign
             
-            print("[Timer View] Selected Sec: \(time)")
+            print("[Timer View] Selected val in Sign: \(sign) Min: \(minutes), in Sec: \(time)")
             setTime(time: time, animated: true)
         default:
             break
@@ -486,23 +494,6 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return label
     }
      */
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch components(rawValue: component) {
-        case .sign:
-            if row == 0 {
-                return "+"
-            }
-            else {
-                return "-"
-            }
-        case .minVal:
-            return String(abs(minuteMiddleRow - row))
-        case .secVal:
-            return String(abs(secondMiddleRow - row) % 60)
-        default:
-            return nil
-        }
-    }
 }
 
 extension TimerViewController: TimeControllerDelegate {
