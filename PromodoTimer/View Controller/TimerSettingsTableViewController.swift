@@ -20,12 +20,7 @@ class TimerSettingsTableViewController: UITableViewController {
             self.init(rawValue: indexPath.section)
         }
     }
-    struct Selected {
-        var timer: [TimerType: Bool] = [.positive: false, .negative: false]
-        var togglTimer: [TimerType: Bool] = [.positive: false, .negative: false]
-    }
     
-    var selected = Selected()
     var workingTimerID: Int!
     var workingTimerModel: TimerModel!
     var newTimer: Bool {
@@ -38,11 +33,7 @@ class TimerSettingsTableViewController: UITableViewController {
     }
     
     @objc func saveButtonTapped() {
-        if selected.timer[.positive]! == false || selected.timer[.negative]! == false {
-            print("Error: Timer value has not been filled yet")
-            return
-        }
-        else if newTimer {
+        if newTimer {
             GlobalVar.settings.timerList.append(workingTimerModel)
         }
         else {
@@ -61,10 +52,12 @@ class TimerSettingsTableViewController: UITableViewController {
         
     var posTimePickerHidden = true
     var negTimePickerHidden = true
+    var maxTimePickerHidden = true
     
     var secondRows: [Int] = []
     var posPickerView: UIPickerView!
     var negPickerView: UIPickerView!
+    var maxPickerView: UIPickerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,8 +88,6 @@ class TimerSettingsTableViewController: UITableViewController {
         }
         else {
             workingTimerModel = TimerModel(timerModel: GlobalVar.settings.timerList[workingTimerID])
-            selected.timer[.positive] = true
-            selected.timer[.negative] = true
         }
     }
 
@@ -109,7 +100,7 @@ class TimerSettingsTableViewController: UITableViewController {
         case .timerName:
             return 1
         case .timerValues:
-            return 4
+            return 6
         case .togglValues:
             return 2
         case .misc:
@@ -129,52 +120,63 @@ class TimerSettingsTableViewController: UITableViewController {
                 return cell
             }
         case .timerValues:
-            if indexPath.row == 0 || indexPath.row == 2 {
+            if indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 4 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
                 var currType: TimerType
                 
-                if indexPath.row == 0 {
-                    currType = .positive
-                    cell.imageView?.image = UIImage(systemName: "plus")!
-                }
-                else {
-                    currType = .negative
-                    cell.imageView?.image = UIImage(systemName: "minus")!
-                }
-                
-                if selected.timer[currType]! {
+                if indexPath.row == 2 || indexPath.row == 4 {
+                    var text: String
+                    if indexPath.row == 2 {
+                        text = "Pos"
+                        currType = .positive
+                        cell.imageView?.image = UIImage(systemName: "plus.circle")!
+                    }
+                    else {
+                        text = "Neg"
+                        currType = .negative
+                        cell.imageView?.image = UIImage(systemName: "minus.circle")!
+                    }
                     let time = abs(workingTimerModel.startTime[currType]!)
                     let seconds = time % 60
                     let minutes = time / 60
-                    cell.textLabel?.text = "\(minutes)m \(seconds)s"
+                    cell.textLabel?.text = "\(text): \(minutes)m \(seconds)s"
                 }
                 else {
-                        cell.textLabel?.text = "Please Input Negative Time"
+                    cell.textLabel?.text = "Max Minutes: \(workingTimerModel.maxMinutes)"
+                    cell.imageView?.image = UIImage(systemName: "chevron.up.circle")!
                 }
                 
                 return cell
             }
             else if let cell = tableView.dequeueReusableCell(withIdentifier: "pickerCell", for: indexPath) as? PickerTableViewCell {
-                var time: Int = 0
-                if indexPath.row == 1 {
-                    posPickerView = cell.pickerView
-                    if !newTimer {
+                if indexPath.row == 3 || indexPath.row == 5 {
+                    var time: Int = 0
+                    if indexPath.row == 3 {
+                        posPickerView = cell.pickerView
                         time = workingTimerModel.startTime[.positive]!
                     }
-                }
-                else {
-                    negPickerView = cell.pickerView
-                    if !newTimer {
+                    else {
+                        negPickerView = cell.pickerView
                         time = workingTimerModel.startTime[.negative]!
                     }
+                    
+                    let minutes = abs(time) / 60
+                    let seconds = abs(time) % 60
+                    
+                    cell.pickerView.delegate = self
+                    cell.pickerView.selectRow(59 - minutes, inComponent: 0, animated: false)
+                    cell.pickerView.selectRow(59 - seconds, inComponent: 2, animated: false)
                 }
-                
-                let minutes = abs(time / 60)
-                let seconds = abs(time % 60)
-                
-                cell.pickerView.delegate = self
-                cell.pickerView.selectRow(59 - minutes, inComponent: 0, animated: false)
-                cell.pickerView.selectRow(59 - seconds, inComponent: 1, animated: false)
+                else {
+                    maxPickerView = cell.pickerView
+                    var minutes: Int = 12
+                    if !newTimer {
+                        minutes = workingTimerModel.maxMinutes
+                    }
+                    
+                    cell.pickerView.delegate = self
+                    cell.pickerView.selectRow(60 - minutes, inComponent: 0, animated: false)
+                }
                 
                 return cell
             }
@@ -185,7 +187,7 @@ class TimerSettingsTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "subtitleCell", for: indexPath)
             
             if indexPath.row == 0 {
-                if workingTimerModel.userDefinedTracking[.positive] != nil || selected.togglTimer[.positive]! {
+                if workingTimerModel.userDefinedTracking[.positive] != nil {
                     let trackingInfo = workingTimerModel.userDefinedTracking[.positive]!
                     cell.textLabel?.text = trackingInfo.desc
                     cell.detailTextLabel?.text = trackingInfo.project.name
@@ -195,10 +197,10 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.textLabel?.text = "Description of Positive Toggl Timer"
                     cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
                 }
-                cell.imageView?.image = UIImage(systemName: "plus")!
+                cell.imageView?.image = UIImage(systemName: "plus.circle")!
             }
             else {
-                if workingTimerModel.userDefinedTracking[.negative] != nil || selected.togglTimer[.negative]! {
+                if workingTimerModel.userDefinedTracking[.negative] != nil {
                     let trackingInfo = workingTimerModel.userDefinedTracking[.negative]!
                     cell.textLabel?.text = trackingInfo.desc
                     cell.detailTextLabel?.text = trackingInfo.project.name
@@ -208,7 +210,7 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.textLabel?.text = "Description of Positive Toggl Timer"
                     cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
                 }
-                cell.imageView?.image = UIImage(systemName: "minus")!
+                cell.imageView?.image = UIImage(systemName: "minus.circle")!
             }
 
             return cell
@@ -267,7 +269,7 @@ class TimerSettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch sections(rawValue: indexPath.section) {
         case .timerValues:
-            if indexPath.row == 1 {
+            if indexPath.row == 3 {
                 if posTimePickerHidden {
                     return 0
                 }
@@ -275,8 +277,16 @@ class TimerSettingsTableViewController: UITableViewController {
                     return 200
                 }
             }
-            else if indexPath.row == 3 {
+            else if indexPath.row == 5 {
                 if negTimePickerHidden {
+                    return 0
+                }
+                else {
+                    return 200
+                }
+            }
+            else if indexPath.row == 1 {
+                if maxTimePickerHidden {
                     return 0
                 }
                 else {
@@ -304,29 +314,28 @@ class TimerSettingsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch sections(rawValue: indexPath.section) {
         case .timerValues:
-            if indexPath.row == 0 || indexPath.row == 2 {
+            if indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 4 {
                 let pickerIndexPath: IndexPath
-                if indexPath.row == 0 {
-                    pickerIndexPath = IndexPath(row: 1, section: sections.timerValues.rawValue)
+                if indexPath.row == 2 {
+                    pickerIndexPath = IndexPath(row: 3, section: sections.timerValues.rawValue)
                     posTimePickerHidden = !posTimePickerHidden
-                    tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
-                    selected.timer[.positive] = true
+                }
+                else if indexPath.row == 4 {
+                    pickerIndexPath = IndexPath(row: 5, section: sections.timerValues.rawValue)
+                    negTimePickerHidden = !negTimePickerHidden
                 }
                 else {
-                    pickerIndexPath = IndexPath(row: 3, section: sections.timerValues.rawValue)
-                    negTimePickerHidden = !negTimePickerHidden
-                    selected.timer[.negative] = true
+                    maxTimePickerHidden = !maxTimePickerHidden
+                    pickerIndexPath = IndexPath(row: 1, section: sections.timerValues.rawValue)
                 }
                 tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
             }
         case .togglValues:
             var trackingType: TimerType
             if indexPath.row == 0 {
-                selected.togglTimer[.positive]! = true
                 trackingType = .positive
             }
             else {
-                selected.togglTimer[.negative] = true
                 trackingType = .negative
             }
             
@@ -396,73 +405,110 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        if maxPickerView == pickerView {
+            return 2
+        }
+        else {
         return components.numberOfComponents.rawValue
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch components(rawValue: component) {
-        case .minVal:
-            return 60
-        case .minLabel:
-            return 1
-        case .secVal:
-            return 60
-        case .secLabel:
-            return 1
-        default:
-            return 0
+        if pickerView == maxPickerView {
+            switch components(rawValue: component) {
+            case .minVal:
+                return 61
+            case .minLabel:
+                return 1
+            default:
+                return 0
+            }
+        }
+        else {
+            switch components(rawValue: component) {
+            case .minVal:
+                return 60
+            case .minLabel:
+                return 1
+            case .secVal:
+                return 60
+            case .secLabel:
+                return 1
+            default:
+                return 0
+            }
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch components(rawValue: component) {
-        case .minVal:
-            return String(59 - row)
-        case .minLabel:
-            return "m"
-        case .secVal:
-            return String(59 - row)
-        case .secLabel:
-            return "s"
-        default:
-            return nil
+        if pickerView == maxPickerView {
+            switch components(rawValue: component) {
+            case .minVal:
+                return String(60 - row)
+            case .minLabel:
+                return "m"
+            default:
+                return nil
+            }
+        }
+        else {
+            switch components(rawValue: component) {
+            case .minVal:
+                return String(59 - row)
+            case .minLabel:
+                return "m"
+            case .secVal:
+                return String(59 - row)
+            case .secLabel:
+                return "s"
+            default:
+                return nil
+            }
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        var seconds: Int = 0
-        var minutes: Int = 0
-        
-        switch components(rawValue: component) {
-        case .minVal:
-            minutes = 59 - row
-            seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
-        case .secVal:
-            seconds = 59 - row
-            minutes = 59 - pickerView.selectedRow(inComponent: components.minVal.rawValue)
-        default:
-            break
-        }
-        
-        seconds += minutes * 60
-        
-        print("[Timer Settings View] Picked \(seconds)")
-        
-        if pickerView == posPickerView {
-            workingTimerModel.startTime[.positive] = seconds
+        if pickerView == maxPickerView {
+            let minutes = 60 - row
+            workingTimerModel.maxMinutes = minutes
             let labelIndexPath = IndexPath(row: 0, section: sections.timerValues.rawValue)
             tableView.reloadRows(at: [labelIndexPath], with: .automatic)
         }
         else {
-            workingTimerModel.startTime[.negative] = -seconds
-            let labelIndexPath = IndexPath(row: 2, section: sections.timerValues.rawValue)
-            tableView.reloadRows(at: [labelIndexPath], with: .automatic)
+            var seconds: Int = 0
+            var minutes: Int = 0
+            
+            switch components(rawValue: component) {
+            case .minVal:
+                minutes = 59 - row
+                seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
+            case .secVal:
+                seconds = 59 - row
+                minutes = 59 - pickerView.selectedRow(inComponent: components.minVal.rawValue)
+            default:
+                break
+            }
+            
+            seconds += minutes * 60
+            
+            print("[Timer Settings View] Picked \(seconds)")
+            
+            if pickerView == posPickerView {
+                workingTimerModel.startTime[.positive] = seconds
+                let labelIndexPath = IndexPath(row: 2, section: sections.timerValues.rawValue)
+                tableView.reloadRows(at: [labelIndexPath], with: .automatic)
+            }
+            else {
+                workingTimerModel.startTime[.negative] = -seconds
+                let labelIndexPath = IndexPath(row: 4, section: sections.timerValues.rawValue)
+                tableView.reloadRows(at: [labelIndexPath], with: .automatic)
+            }
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
-        let timeWidth: CGFloat = 40
-        let labelWidth: CGFloat = 40
+        let timeWidth: CGFloat = 60
+        let labelWidth: CGFloat = 60
         switch components(rawValue: component) {
         case .minVal:
             return timeWidth

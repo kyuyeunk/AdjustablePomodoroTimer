@@ -15,6 +15,7 @@ class TimerViewController: UIViewController {
     var maxMinutes: Int = 0 {
         didSet {
             passedTimePie.maxTime = CGFloat(maxMinutes) * 60
+            mainTimer.reloadComponent(components.minVal.rawValue)
         }
     }
     var currTime: Int = 0
