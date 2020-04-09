@@ -12,6 +12,7 @@ import AudioToolbox
 
 class TimerViewController: UIViewController {
 
+    var lastPanFeedbackMin = 0
     let maxMinutes: Int = 12
     var currTime: Int = 0
     var panTimerType: TimerType = .positive
@@ -82,6 +83,7 @@ class TimerViewController: UIViewController {
             else {
                 panTimerType = .negative
             }
+            lastPanFeedbackMin = currTime / 60
         }
         else {
             guard let view = sender.view else {return}
@@ -131,6 +133,12 @@ class TimerViewController: UIViewController {
             print("[Timer View] Dragged to Circle x:\(Int(circleX)) y:\(Int(circleY)) angle:\(angle) time: \(time)")
             passedTimePie.setTime(time: time)
             passedTimePie.setNeedsDisplay()
+            
+            if abs(lastPanFeedbackMin - time / 60) >= 1 {
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+                lastPanFeedbackMin = time / 60
+            }
             
             if sender.state == .ended {
                 setTime(time: time, animated: true)
