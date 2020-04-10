@@ -74,6 +74,7 @@ class TimerSettingsTableViewController: UITableViewController {
         tableView.register(InputTableViewCell.self, forCellReuseIdentifier: "textInputCell")
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
         tableView.register(PickerTableViewCell.self, forCellReuseIdentifier: "pickerCell")
+        tableView.register(RightDetailTableViewCell.self, forCellReuseIdentifier: "rightDetailCell")
     }
     
     func initTimer() {
@@ -121,28 +122,29 @@ class TimerSettingsTableViewController: UITableViewController {
             }
         case .timerValues:
             if indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 4 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
-                var currType: TimerType
+                let cell = tableView.dequeueReusableCell(withIdentifier: "rightDetailCell", for: indexPath)
+                cell.accessoryType = .disclosureIndicator
                 
                 if indexPath.row == 2 || indexPath.row == 4 {
-                    var text: String
+                    var currType: TimerType
                     if indexPath.row == 2 {
-                        text = "Pos"
+                        cell.textLabel?.text = "Positive Time"
                         currType = .positive
                         cell.imageView?.image = UIImage(systemName: "plus.circle")!
                     }
                     else {
-                        text = "Neg"
+                        cell.textLabel?.text = "Negative Time"
                         currType = .negative
                         cell.imageView?.image = UIImage(systemName: "minus.circle")!
                     }
                     let time = abs(workingTimerModel.startTime[currType]!)
                     let seconds = time % 60
                     let minutes = time / 60
-                    cell.textLabel?.text = "\(text): \(minutes)m \(seconds)s"
+                    cell.detailTextLabel?.text = "\(minutes)m \(seconds)s"
                 }
                 else {
-                    cell.textLabel?.text = "Max Minutes: \(workingTimerModel.maxMinutes)"
+                    cell.textLabel?.text = "Maximum Minutes"
+                    cell.detailTextLabel?.text = "\(workingTimerModel.maxMinutes)m"
                     cell.imageView?.image = UIImage(systemName: "chevron.up.circle")!
                 }
                 
@@ -185,6 +187,7 @@ class TimerSettingsTableViewController: UITableViewController {
             }
         case .togglValues:
             let cell = tableView.dequeueReusableCell(withIdentifier: "subtitleCell", for: indexPath)
+            cell.accessoryType = .disclosureIndicator
             
             if indexPath.row == 0 {
                 if workingTimerModel.userDefinedTracking[.positive] != nil {
@@ -417,7 +420,7 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
         if pickerView == maxPickerView {
             switch components(rawValue: component) {
             case .minVal:
-                return 61
+                return 60
             case .minLabel:
                 return 1
             default:

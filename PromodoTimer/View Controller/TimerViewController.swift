@@ -453,63 +453,6 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             print("[Timer View] Moved timer during timing")
         }
     }
-
-    /*
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        let label = UILabel()
-        label.font = label.font.withSize(22)
-        label.textAlignment = .center
-        
-        var time = 0
-        
-        switch components(rawValue: component) {
-        case .sign:
-            if row == 0 {
-                label.text = "+"
-            }
-            else {
-                label.text = "-"
-            }
-        case .minVal:
-            let minutes = minuteMiddleRow - row
-            label.text = String(abs(minutes))
-            let seconds = prevPickerTime % 60
-            
-            let time = minutes * 60 + seconds
-            print("Min: minute: \(minutes) Second: \(seconds) prevPickerTime: \(prevPickerTime)")
-            
-            if ((prevPickerTime > 0 && time < 0) || (prevPickerTime < 0 && time > 0)) && abs(minutes) > 3{
-                print("Change triggered by minute picker")
-                prevPickerTime = minutes + seconds
-                
-                if minutes < 0 {
-                    pickerView.selectRow(1, inComponent: components.sign.rawValue, animated: true)
-                }
-                else {
-                    pickerView.selectRow(0, inComponent: components.sign.rawValue, animated: true)
-                }
-            }
-            
-        case .secVal:
-            let seconds = (secondMiddleRow - row) % 60
-            label.text = String(abs(seconds))
-            let minutes = (secondMiddleRow - row) / 60
-            time = minutes * 60 + seconds
-
-            print("Sec: minute: \(minutes) Second: \(seconds) prevPickerTime: \(prevPickerTime)")
-            
-            if prevPickerTime / 60 != minutes && (abs(seconds) > 10 && abs(seconds) < 50) {
-                print("Change triggered by second picker")
-                prevPickerTime = time
-                pickerView.selectRow(minuteMiddleRow - minutes, inComponent: components.minVal.rawValue, animated: true)
-            }
-        default:
-            label.text = ""
-        }
-        
-        return label
-    }
-     */
 }
 
 extension TimerViewController: TimeControllerDelegate {
