@@ -15,7 +15,16 @@ enum sections {
 }
 
 class SettingsTableViewController: UITableViewController {
-
+    enum sections: Int {
+        case toggl
+        case misc
+        case numberOfSections
+        
+        init?(indexPath: NSIndexPath) {
+            self.init(rawValue: indexPath.section)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,42 +34,49 @@ class SettingsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        switch sections(rawValue: section) {
+        case .toggl:
+            return 2
+        case .misc:
             return 1
+        default:
+            return 0
         }
-        else {
-            return 1
-        }
-        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return sections.numberOfSections.rawValue
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
+        switch sections(rawValue: section) {
+        case .toggl:
             return "Toggl ID"
-        }
-        else if section == 1 {
+        case .misc:
             return "Miscs"
-        }
-        else {
+        default:
             return nil
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row == 0 {
-            let loginView = LogInViewController()
-            navigationController?.pushViewController(loginView, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+        switch sections(rawValue: indexPath.section) {
+        case .toggl:
+            if indexPath.row == 0 {
+                let loginView = LogInViewController()
+                navigationController?.pushViewController(loginView, animated: true)
+            }
+        default:
+            break
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+        switch sections(rawValue: indexPath.section) {
+        case .toggl:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
                 if let id = GlobalVar.settings.togglCredential.id {
                     cell.textLabel?.text = id
                 }
@@ -68,22 +84,37 @@ class SettingsTableViewController: UITableViewController {
                     cell.textLabel?.text = "Please input ID/PW"
                 }
                 cell.accessoryType = .disclosureIndicator
-                return cell
             }
-        }
-        else if indexPath.section == 1 {
+            else {
+                cell.textLabel?.text = "Log Out"
+                cell.textLabel?.textColor = .systemBlue
+                cell.textLabel?.textAlignment = .center
+            }
+            
+            return cell
+        case .misc:
             if indexPath.row == 0, let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as? SwitchTableViewCell {
                 cell.settingTextLabel.text = "Keep Display On"
                 cell.settingSwitch.isOn = GlobalVar.settings.dontSleep
                 cell.settingSwitch.addTarget(self, action: #selector(dontSleepSwitched(myswitch:)), for: .valueChanged)
                 return cell
             }
+        default:
+            break
         }
         
         return tableView.dequeueReusableCell(withIdentifier: "defaultCell", for: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch sections(rawValue: indexPath.section) {
+        case .toggl:
+            if indexPath.row == 1 && !GlobalVar.settings.togglLoggedIn {
+                return 0
+            }
+        default:
+            break
+        }
         return 43.5
     }
     

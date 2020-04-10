@@ -24,6 +24,10 @@ class Settings {
         return timerList[currTimerID]
     }
     
+    var togglLoggedIn: Bool {
+        return togglCredential.auth != nil
+    }
+    
     var projectList: [projectInfo] = []
     
     var togglCredential = credential()
