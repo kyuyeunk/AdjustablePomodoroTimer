@@ -18,6 +18,7 @@ class TimerViewController: UIViewController {
         didSet {
             passedTimePie.maxTime = CGFloat(maxMinutes) * 60
             mainTimer.reloadComponent(components.minVal.rawValue)
+            maxMinutesLabel.text = "\(maxMinutes)m"
         }
     }
     var currTime: Int = 0
@@ -27,7 +28,6 @@ class TimerViewController: UIViewController {
     var timeInfoStackView = UIStackView()
     var posInfoStackView = UIStackView()
     var negInfoStackView = UIStackView()
-    var pickerInfoStackView = UIStackView()
     
     var posTimeLabel = UILabel()
     var negTimeLabel = UILabel()
@@ -35,9 +35,7 @@ class TimerViewController: UIViewController {
     var posTimeValLabel = UILabel()
     var negTimeValLabel = UILabel()
     
-    var pickerInfoMinutesLabel = UILabel()
-    var pickerInfoSecondsLabel = UILabel()
-    
+    var maxMinutesLabel = UILabel()
     var mainTimer = UIPickerView()
     var startButton = UIButton(type: .system)
     
@@ -258,7 +256,7 @@ class TimerViewController: UIViewController {
         view.addSubview(pickerWindow)
         view.addSubview(passedTimeLabel)
         view.addSubview(timeInfoStackView)
-        view.addSubview(pickerInfoStackView)
+        view.addSubview(maxMinutesLabel)
         view.addSubview(mainTimer)
         view.addSubview(startButton)
         view.addSubview(clockImage)
@@ -271,9 +269,6 @@ class TimerViewController: UIViewController {
         
         negInfoStackView.addArrangedSubview(negTimeLabel)
         negInfoStackView.addArrangedSubview(negTimeValLabel)
-        
-        pickerInfoStackView.addArrangedSubview(pickerInfoMinutesLabel)
-        pickerInfoStackView.addArrangedSubview(pickerInfoSecondsLabel)
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(pan)
@@ -298,11 +293,7 @@ class TimerViewController: UIViewController {
         negTimeValLabel.text = "0m 0s"
         negTimeValLabel.textAlignment = .center
         
-        pickerInfoMinutesLabel.text = "Minutes"
-        pickerInfoMinutesLabel.textAlignment = .center
-        
-        pickerInfoSecondsLabel.text = "Secondsᵐⁱⁿ"
-        pickerInfoSecondsLabel.textAlignment = .center
+        maxMinutesLabel.text = "\(maxMinutes)m"
         
         startButton.setTitle("Start", for: .normal)
         startButton.titleLabel?.font = startButton.titleLabel?.font.withSize(25)
@@ -318,10 +309,6 @@ class TimerViewController: UIViewController {
         negInfoStackView.axis = .vertical
         negInfoStackView.distribution = .fillEqually
         negInfoStackView.spacing = 5
-        
-        pickerInfoStackView.axis = .horizontal
-        pickerInfoStackView.distribution = .fillEqually
-        pickerInfoStackView.spacing = 0
         
         passedTimePie.maxTime = CGFloat(maxMinutes * 60)
         
@@ -344,11 +331,10 @@ class TimerViewController: UIViewController {
         timeInfoStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
         timeInfoStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
         
-        pickerInfoStackView.translatesAutoresizingMaskIntoConstraints = false
-        pickerInfoStackView.bottomAnchor.constraint(equalTo: mainTimer.topAnchor, constant: -10).isActive = true
-        pickerInfoStackView.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor).isActive = true
-        pickerInfoStackView.widthAnchor.constraint(equalToConstant: 160).isActive = true
- 
+        maxMinutesLabel.translatesAutoresizingMaskIntoConstraints = false
+        maxMinutesLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
+        maxMinutesLabel.bottomAnchor.constraint(equalTo: clockImage.topAnchor, constant: 10).isActive = true
+        
         mainTimer.translatesAutoresizingMaskIntoConstraints = false
         mainTimer.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
         mainTimer.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor, constant: 20).isActive = true
@@ -377,8 +363,6 @@ class TimerViewController: UIViewController {
         pickerWindow.widthAnchor.constraint(equalToConstant: 140).isActive = true
         pickerWindow.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        //TODO: decide to keep this stackview or not
-        pickerInfoStackView.isHidden = true
     }
     
     func initUIFeatures() {
