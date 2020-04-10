@@ -222,7 +222,8 @@ class TimerViewController: UIViewController {
             print("[Timer View] Initializing timer to \(currTimer.startTime[.positive]!)")
             setTime(time: currTimer.startTime[.positive]!, animated: false)
         }
-        else if currTime >= maxMinutes {
+        else if currTime >= maxMinutes * 60 {
+            print("[Timer View] current time is larger than maxMinutes")
             setTime(time: maxMinutes * 60, animated: false)
         }
     }
