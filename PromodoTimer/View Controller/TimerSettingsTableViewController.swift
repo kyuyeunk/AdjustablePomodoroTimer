@@ -70,6 +70,8 @@ class TimerSettingsTableViewController: UITableViewController {
     func initUI() {
         navigationItem.title = "Timer Settings"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
+        navigationItem.backBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
+        
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "subtitleCell")
         tableView.register(SwitchTableViewCell.self, forCellReuseIdentifier: "switchCell")
         tableView.register(InputTableViewCell.self, forCellReuseIdentifier: "textInputCell")

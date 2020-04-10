@@ -26,6 +26,7 @@ class TimerListTableViewController: UITableViewController {
         navigationItem.title = "Timer List"
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "subtitleCell")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        navigationItem.backBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

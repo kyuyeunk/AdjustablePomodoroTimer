@@ -26,11 +26,11 @@ class TogglTimerSettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Toggl Timer"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
         tableView.register(InputTableViewCell.self, forCellReuseIdentifier: "inputCell")
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonPressed))
+        navigationItem.title = "Toggl Timer"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(doneButtonPressed))
     }
     
     @objc func doneButtonPressed() {
