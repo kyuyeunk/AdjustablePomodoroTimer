@@ -119,7 +119,7 @@ class TimerViewController: UIViewController {
             
             let time = passedTimePie.getTime(angle: relAngle)
             
-            print("[Timer View] Dragged to Circle x:\(Int(circleX)) y:\(Int(circleY)) angle:\(angle) time: \(time)")
+            print(String(format: "[Timer View] Dragged to Circle x:%.2f y:%.2f angle:%.2f time: %d", circleX, circleY, angle, time))
             passedTimePie.setTime(time: time)
             passedTimePie.setNeedsDisplay()
             

@@ -42,7 +42,7 @@ class TimePieView : UIView {
         path.fill()
         
         angle = startAngle - endAngle
-        print("[TimePieView] startAngle: \(startAngle) endAngle: \(endAngle) relAngle: \(angle)")
+        print(String(format: "[TimePieView] startAngle: %.2f endAngle: %.2f relAngle: %.2f", startAngle, endAngle, angle))
     }
     
     func setTime(time: Int) {
