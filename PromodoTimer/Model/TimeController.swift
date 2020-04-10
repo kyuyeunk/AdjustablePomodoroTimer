@@ -13,7 +13,7 @@ import AudioToolbox
 //Allow view controllers to change UI when timer event triggers
 //Allow TimeController to fetch current time from view controllers
 protocol TimeControllerDelegate {
-    func setSecondUI(currTime: Int, passedTime: [TimerType: Double], animated: Bool)
+    func setSecondUI(currTime: Int, passedTime: [TimerType: Double], animated: Bool, completion: (() -> ())?)
     func getCurrTime() -> Int
     func stopTimerUI()
     func startTimerUI()
@@ -52,12 +52,15 @@ class TimeController {
         }
         
         if autoRepeat {
-            timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true)
-            startTimer()
+            timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true) { () in
+                //As startTimer() fetches current time from UI,
+                //startTimer() should start after the UI function finishes
+                self.startTimer()
+            }
         }
         else {
             if prevTime == 0 {
-                timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true)
+                timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true, completion: nil)
             }
             timeControllerDelegate.stopTimerUI()
         }
@@ -121,7 +124,7 @@ class TimeController {
             self.startedTime[.positive]! = currTimeSince1970
             self.startedTime[.negative]! = currTimeSince1970
             
-            self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true)
+            self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true, completion: nil)
             
             if newTime == 0 {
                 print("[Timer] Reached 0 seconds, starting the alarm")

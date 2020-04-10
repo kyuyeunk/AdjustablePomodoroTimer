@@ -505,7 +505,7 @@ extension TimerViewController: TimeControllerDelegate {
         }
     }
     
-    func setSecondUI(currTime: Int, passedTime: [TimerType: Double], animated: Bool) {
+    func setSecondUI(currTime: Int, passedTime: [TimerType: Double], animated: Bool, completion: (() -> ())?) {
         let posTime = Int(passedTime[.positive]!)
         let negTime = Int(passedTime[.negative]!)
         
@@ -521,6 +521,10 @@ extension TimerViewController: TimeControllerDelegate {
             
             self.posTimeValLabel.text = "\(posMinutes)m \(posSeconds)s"
             self.negTimeValLabel.text = "\(negMinutes)m \(negSeconds)s"
+            
+            if let completion = completion {
+                completion()
+            }
         }
     }
     

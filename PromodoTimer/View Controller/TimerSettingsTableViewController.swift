@@ -166,7 +166,7 @@ class TimerSettingsTableViewController: UITableViewController {
                     let seconds = abs(time) % 60
                     
                     cell.pickerView.delegate = self
-                    cell.pickerView.selectRow(59 - minutes, inComponent: 0, animated: false)
+                    cell.pickerView.selectRow(workingTimerModel.maxMinutes - minutes, inComponent: 0, animated: false)
                     cell.pickerView.selectRow(59 - seconds, inComponent: 2, animated: false)
                 }
                 else {
@@ -444,7 +444,7 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
         else {
             switch components(rawValue: component) {
             case .minVal:
-                return 60
+                return workingTimerModel.maxMinutes + 1
             case .minLabel:
                 return 1
             case .secVal:
@@ -471,7 +471,7 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
         else {
             switch components(rawValue: component) {
             case .minVal:
-                return String(59 - row)
+                return String(workingTimerModel.maxMinutes - row)
             case .minLabel:
                 return "m"
             case .secVal:
@@ -497,13 +497,18 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
             
             switch components(rawValue: component) {
             case .minVal:
-                minutes = 59 - row
+                minutes = workingTimerModel.maxMinutes - row
                 seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
             case .secVal:
                 seconds = 59 - row
-                minutes = 59 - pickerView.selectedRow(inComponent: components.minVal.rawValue)
+                minutes = workingTimerModel.maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
             default:
                 break
+            }
+            
+            if minutes >= workingTimerModel.maxMinutes {
+                seconds = 0
+                pickerView.selectRow(59 - seconds, inComponent: components.secVal.rawValue, animated: true)
             }
             
             seconds += minutes * 60
