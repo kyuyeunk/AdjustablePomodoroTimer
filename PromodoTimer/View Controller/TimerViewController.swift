@@ -70,13 +70,13 @@ class TimerViewController: UIViewController {
         if sender.state == .began {
             if currTime >= 0 {
                 panTimerType = .positive
+                spins = 0
             }
             else {
                 panTimerType = .negative
+                spins = -1
             }
             lastPanFeedbackMin = currTime / 60
-            
-            spins = 0
             enteredThresholdRegion = false
         }
         else {
