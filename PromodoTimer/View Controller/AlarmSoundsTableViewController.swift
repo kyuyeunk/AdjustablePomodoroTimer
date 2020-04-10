@@ -19,6 +19,9 @@ class AlarmSoundsTableViewController: UITableViewController {
 
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "defaultCell")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonPressed))
+        navigationItem.title = "Alarms"
+        let selectedIndexPath = IndexPath(row: selectedAlarmID, section: 0)
+        tableView.selectRow(at: selectedIndexPath, animated: false, scrollPosition: .middle)
     }
 
     @objc func doneButtonPressed() {
