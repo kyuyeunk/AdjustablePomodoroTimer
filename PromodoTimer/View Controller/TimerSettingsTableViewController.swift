@@ -498,8 +498,8 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
                 let posLabelIndexPath = IndexPath(row: 2, section: sections.timerValues.rawValue)
                 tableView.reloadRows(at: [posLabelIndexPath], with: .automatic)
             }
-            if workingTimerModel.maxMinutes * 60 < workingTimerModel.startTime[.negative]! {
-                workingTimerModel.startTime[.negative] = workingTimerModel.maxMinutes * 60
+            if workingTimerModel.maxMinutes * 60 < -workingTimerModel.startTime[.negative]! {
+                workingTimerModel.startTime[.negative] = -workingTimerModel.maxMinutes * 60
                 negPickerView.selectRow(0, inComponent: 0, animated: true)
                 negPickerView.selectRow(59, inComponent: 2, animated: true)
                 let negLabelIndexPath = IndexPath(row: 4, section: sections.timerValues.rawValue)
