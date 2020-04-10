@@ -490,6 +490,24 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
             workingTimerModel.maxMinutes = minutes
             let labelIndexPath = IndexPath(row: 0, section: sections.timerValues.rawValue)
             tableView.reloadRows(at: [labelIndexPath], with: .automatic)
+                   
+            if workingTimerModel.maxMinutes * 60 < workingTimerModel.startTime[.positive]! {
+                workingTimerModel.startTime[.positive] = workingTimerModel.maxMinutes * 60
+                posPickerView.selectRow(0, inComponent: 0, animated: true)
+                posPickerView.selectRow(59, inComponent: 2, animated: true)
+                let posLabelIndexPath = IndexPath(row: 2, section: sections.timerValues.rawValue)
+                tableView.reloadRows(at: [posLabelIndexPath], with: .automatic)
+            }
+            if workingTimerModel.maxMinutes * 60 < workingTimerModel.startTime[.negative]! {
+                workingTimerModel.startTime[.negative] = workingTimerModel.maxMinutes * 60
+                negPickerView.selectRow(0, inComponent: 0, animated: true)
+                negPickerView.selectRow(59, inComponent: 2, animated: true)
+                let negLabelIndexPath = IndexPath(row: 4, section: sections.timerValues.rawValue)
+                tableView.reloadRows(at: [negLabelIndexPath], with: .automatic)
+            }
+            
+            posPickerView.reloadComponent(0)
+            negPickerView.reloadComponent(0)
         }
         else {
             var seconds: Int = 0
@@ -507,6 +525,7 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
             }
             
             if minutes >= workingTimerModel.maxMinutes {
+                minutes = workingTimerModel.maxMinutes
                 seconds = 0
                 pickerView.selectRow(59 - seconds, inComponent: components.secVal.rawValue, animated: true)
             }
