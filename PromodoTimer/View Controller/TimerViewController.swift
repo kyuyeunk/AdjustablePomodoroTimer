@@ -12,6 +12,8 @@ import AudioToolbox
 
 class TimerViewController: UIViewController {
     var lastPanFeedbackMin = 0
+    var spins = 0
+    var enteredThresholdRegion = false
     var maxMinutes: Int = 0 {
         didSet {
             passedTimePie.maxTime = CGFloat(maxMinutes) * 60
@@ -73,10 +75,14 @@ class TimerViewController: UIViewController {
                 panTimerType = .negative
             }
             lastPanFeedbackMin = currTime / 60
+            
+            spins = 0
+            enteredThresholdRegion = false
         }
         else {
             guard let view = sender.view else {return}
             let location = sender.location(in: view)
+            let velocity = sender.velocity(in: view)
             let center = mainTimer.center
             
             let circleX = location.x - center.x
@@ -104,20 +110,48 @@ class TimerViewController: UIViewController {
             }
             
             let threshold: CGFloat = 0.2
-            if passedTimePie.angle < threshold && relAngle > .pi * 2 - threshold {
-                print("Flipped to negative")
-                panTimerType = .negative
-            }
-            else if relAngle < threshold && passedTimePie.angle > threshold - 2 * .pi {
-                print("Flipped to positive")
-                panTimerType = .positive
-            }
+            if relAngle > .pi * 2 - threshold && velocity.x > 0 {
+                if enteredThresholdRegion == false {
+                    if panTimerType == .negative {
+                        print("Negative full circle?")
+                    }
+                    else {
+                        print("Flip to negative?")
+                        panTimerType = .negative
+                    }
+                    spins -= 1
+                    enteredThresholdRegion = true
+                }
                 
-            if panTimerType == .negative {
-                relAngle = relAngle - 2 * .pi
+            }
+            else if relAngle < threshold && velocity.x < 0 {
+                if enteredThresholdRegion == false {
+                    if panTimerType == .positive {
+                        print("Positive full circle?")
+                    }
+                    else {
+                        print("Flip to positive")
+                        panTimerType = .positive
+                    }
+                    spins += 1
+                    enteredThresholdRegion = true
+                }
+            }
+            else {
+                enteredThresholdRegion = false
             }
             
-            let time = passedTimePie.getTime(angle: relAngle)
+            relAngle = relAngle + CGFloat(spins) * 2 * .pi
+            
+            var time = passedTimePie.getTime(angle: relAngle)
+            if relAngle >= 2 * .pi {
+                relAngle = 2 * .pi
+                time = maxMinutes * 60
+            }
+            else if relAngle <= -2 * .pi {
+                relAngle = -2 * .pi
+                time = -maxMinutes * 60
+            }
             
             print(String(format: "[Timer View] Dragged to Circle x:%.2f y:%.2f angle:%.2f time: %d", circleX, circleY, angle, time))
             passedTimePie.setTime(time: time)
@@ -141,7 +175,7 @@ class TimerViewController: UIViewController {
         if minutes >= maxMinutes {
             minutes = maxMinutes
             seconds = 0
-            currTime = maxMinutes * 60 * minutes / abs(minutes)
+            currTime = maxMinutes * 60 * time / abs(time)
         }
         else {
             currTime = time
