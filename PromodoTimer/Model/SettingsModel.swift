@@ -181,11 +181,21 @@ struct projectInfo: Codable {
 }
 
 struct trackingInfo: Codable {
+    var auth: String
     var project: projectInfo
     var desc: String
+    
     init(project: projectInfo, desc: String) {
         self.project = project
         self.desc = desc
+        
+        if let auth = GlobalVar.settings.togglCredential.auth {
+            self.auth = auth
+        }
+        else {
+            print("ERROR: auth for this trackingInfo is not available")
+            self.auth = ""
+        }
     }
 }
 

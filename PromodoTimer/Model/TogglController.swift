@@ -47,8 +47,13 @@ class TogglController {
     
     //Start the timer based on .positive and .negative types
     func startTimer(type: TimerType) {
-        if let info = GlobalVar.settings.timerList[GlobalVar.settings.currTimerID].userDefinedTracking[type] {
-            startTimer(pid: info.project.pid, desc: info.desc)
+        if let info = GlobalVar.settings.currTimer.userDefinedTracking[type] {
+            if info.auth == GlobalVar.settings.togglCredential.auth {
+                startTimer(pid: info.project.pid, desc: info.desc)
+            }
+            else {
+                print("[Toggl] auth of userDefinedTracking does not match auth of current session")
+            }
         }
         else {
             print("[Toggl] userDefinedTracking is not set")
