@@ -12,8 +12,9 @@ class AlarmSounds {
     var list: [alarmSoundInfo] = []
     
     init() {
-        for i in 0 ..< availableSystemSoundID.count {
-            list.append(alarmSoundInfo(id: availableSystemSoundID[i], name: correspondingSystemSoundName[i]))
+        let soundList = availableSystemSounds.sorted { $0.0 < $1.0 }
+        for sound in soundList {
+            list.append(alarmSoundInfo(id: sound.key, name: sound.value))
         }
     }
 }
@@ -28,255 +29,129 @@ struct alarmSoundInfo {
     }
 }
 
-
-let availableSystemSoundID: [Int] = [ 1000
-    , 1001
-    , 1002
-    , 1003
-    , 1004
-    , 1005
-    , 1006
-    , 1007
-    , 1008
-    , 1009
-    , 1010
-    , 1011
-    , 1012
-    , 1013
-    , 1014
-    , 1015
-    , 1016
-    , 1020
-    , 1021
-    , 1022
-    , 1023
-    , 1024
-    , 1025
-    , 1026
-    , 1027
-    , 1028
-    , 1029
-    , 1030
-    , 1031
-    , 1032
-    , 1033
-    , 1034
-    , 1035
-    , 1036
-    , 1050
-    , 1051
-    , 1052
-    , 1053
-    , 1054
-    , 1055
-    , 1057
-    , 1070
-    , 1071
-    , 1072
-    , 1073
-    , 1074
-    , 1075
-    , 1100
-    , 1101
-    , 1102
-    , 1103
-    , 1104
-    , 1105
-    , 1106
-    , 1107
-    , 1108
-    , 1109
-    , 1110
-    , 1111
-    , 1112
-    , 1113
-    , 1114
-    , 1115
-    , 1116
-    , 1117
-    , 1118
-    , 1150
-    , 1151
-    , 1152
-    , 1153
-    , 1154
-    , 1200
-    , 1201
-    , 1202
-    , 1203
-    , 1204
-    , 1205
-    , 1206
-    , 1207
-    , 1208
-    , 1209
-    , 1210
-    , 1211
-    , 1254
-    , 1255
-    , 1256
-    , 1257
-    , 1258
-    , 1259
-    , 1300
-    , 1301
-    , 1302
-    , 1303
-    , 1304
-    , 1305
-    , 1306
-    , 1307
-    , 1308
-    , 1309
-    , 1310
-    , 1311
-    , 1312
-    , 1313
-    , 1314
-    , 1315
-    , 1320
-    , 1321
-    , 1322
-    , 1323
-    , 1324
-    , 1325
-    , 1326
-    , 1327
-    , 1328
-    , 1329
-    , 1330
-    , 1331
-    , 1332
-    , 1333
-    , 1334
-    , 1335
-    , 1336
-    , 1350
-    , 1351
-    , 4095 ]
-
-let correspondingSystemSoundName: [String] = [ "MailReceived"
-    , "MailSent"
-    , "VoicemailReceived"
-    , "SMSReceived"
-    , "SMSSent"
-    , "CalendarAlert"
-    , "LowPower"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Vibrate"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "-"
-    , "SMSSent"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "SMSReceived_Alert"
-    , "USSDAlert"
-    , "SIMToolkitTone"
-    , "SIMToolkitTone"
-    , "SIMToolkitTone"
-    , "SIMToolkitTone"
-    , "SIMToolkitTone"
-    , "PINKeyPressed"
-    , "AudioToneBusy"
-    , "AudioToneCongestion"
-    , "AudioTonePathAcknowledge"
-    , "AudioToneError"
-    , "AudioToneCallWaiting"
-    , "AudioToneKey2"
-    , "ScreenLocked"
-    , "ScreenUnlocked"
-    , "FailedUnlock"
-    , "KeyPressed"
-    , "KeyPressed"
-    , "KeyPressed"
-    , "ConnectedToPower"
-    , "RingerSwitchIndication"
-    , "CameraShutter"
-    , "ShakeToShuffle"
-    , "JBL_Begin"
-    , "JBL_Confirm"
-    , "JBL_Cancel"
-    , "BeginRecording"
-    , "EndRecording"
-    , "JBL_Ambiguous"
-    , "JBL_NoMatch"
-    , "BeginVideoRecording"
-    , "EndVideoRecording"
-    , "VCInvitationAccepted"
-    , "VCRinging"
-    , "VCEnded"
-    , "VCCallWaiting"
-    , "VCCallUpgrade"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "TouchTone"
-    , "Headset_StartCall"
-    , "Headset_Redial"
-    , "Headset_AnswerCall"
-    , "Headset_EndCall"
-    , "Headset_CallWaitingActions"
-    , "Headset_TransitionEnd"
-    , "SystemSoundPreview"
-    , "SystemSoundPreview"
-    , "SystemSoundPreview"
-    , "SystemSoundPreview"
-    , "SystemSoundPreview"
-    , "SystemSoundPreview"
-    , "KeyPressClickPreview"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Vibrate"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SystemSoundPreview"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "SMSReceived_Selection"
-    , "RingerVibeChanged"
-    , "SilentVibeChanged"
-    , "Vibrate" ]
+let availableSystemSounds: [Int: String] = [
+      1000: "MailReceived"
+    , 1001: "MailSent"
+    , 1002: "VoicemailReceived"
+    , 1003: "SMSReceived"
+    , 1004: "SMSSent"
+    , 1005: "CalendarAlert"
+    , 1006: "LowPower"
+    , 1007: "SMSReceived_Alert"
+    , 1008: "SMSReceived_Alert"
+    , 1009: "SMSReceived_Alert"
+    , 1010: "SMSReceived_Alert"
+    , 1011: "SMSReceived_Vibrate"
+    , 1012: "SMSReceived_Alert"
+    , 1013: "SMSReceived_Alert"
+    , 1014: "SMSReceived_Alert"
+    , 1015: "-"
+    , 1016: "SMSSent"
+    , 1020: "SMSReceived_Alert"
+    , 1021: "SMSReceived_Alert"
+    , 1022: "SMSReceived_Alert"
+    , 1023: "SMSReceived_Alert"
+    , 1024: "SMSReceived_Alert"
+    , 1025: "SMSReceived_Alert"
+    , 1026: "SMSReceived_Alert"
+    , 1027: "SMSReceived_Alert"
+    , 1028: "SMSReceived_Alert"
+    , 1029: "SMSReceived_Alert"
+    , 1030: "SMSReceived_Alert"
+    , 1031: "SMSReceived_Alert"
+    , 1032: "SMSReceived_Alert"
+    , 1033: "SMSReceived_Alert"
+    , 1034: "SMSReceived_Alert"
+    , 1035: "SMSReceived_Alert"
+    , 1036: "SMSReceived_Alert"
+    , 1050: "USSDAlert"
+    , 1051: "SIMToolkitTone"
+    , 1052: "SIMToolkitTone"
+    , 1053: "SIMToolkitTone"
+    , 1054: "SIMToolkitTone"
+    , 1055: "SIMToolkitTone"
+    , 1057: "PINKeyPressed"
+    , 1070: "AudioToneBusy"
+    , 1071: "AudioToneCongestion"
+    , 1072: "AudioTonePathAcknowledge"
+    , 1073: "AudioToneError"
+    , 1074: "AudioToneCallWaiting"
+    , 1075: "AudioToneKey2"
+    , 1100: "ScreenLocked"
+    , 1101: "ScreenUnlocked"
+    , 1102: "FailedUnlock"
+    , 1103: "KeyPressed"
+    , 1104: "KeyPressed"
+    , 1105: "KeyPressed"
+    , 1106: "ConnectedToPower"
+    , 1107: "RingerSwitchIndication"
+    , 1108: "CameraShutter"
+    , 1109: "ShakeToShuffle"
+    , 1110: "JBL_Begin"
+    , 1111: "JBL_Confirm"
+    , 1112: "JBL_Cancel"
+    , 1113: "BeginRecording"
+    , 1114: "EndRecording"
+    , 1115: "JBL_Ambiguous"
+    , 1116: "JBL_NoMatch"
+    , 1117: "BeginVideoRecording"
+    , 1118: "EndVideoRecording"
+    , 1150: "VCInvitationAccepted"
+    , 1151: "VCRinging"
+    , 1152: "VCEnded"
+    , 1153: "VCCallWaiting"
+    , 1154: "VCCallUpgrade"
+    , 1200: "TouchTone"
+    , 1201: "TouchTone"
+    , 1202: "TouchTone"
+    , 1203: "TouchTone"
+    , 1204: "TouchTone"
+    , 1205: "TouchTone"
+    , 1206: "TouchTone"
+    , 1207: "TouchTone"
+    , 1208: "TouchTone"
+    , 1209: "TouchTone"
+    , 1210: "TouchTone"
+    , 1211: "TouchTone"
+    , 1254: "Headset_StartCall"
+    , 1255: "Headset_Redial"
+    , 1256: "Headset_AnswerCall"
+    , 1257: "Headset_EndCall"
+    , 1258: "Headset_CallWaitingActions"
+    , 1259: "Headset_TransitionEnd"
+    , 1300: "SystemSoundPreview"
+    , 1301: "SystemSoundPreview"
+    , 1302: "SystemSoundPreview"
+    , 1303: "SystemSoundPreview"
+    , 1304: "SystemSoundPreview"
+    , 1305: "SystemSoundPreview"
+    , 1306: "KeyPressClickPreview"
+    , 1307: "SMSReceived_Selection"
+    , 1308: "SMSReceived_Selection"
+    , 1309: "SMSReceived_Selection"
+    , 1310: "SMSReceived_Selection"
+    , 1311: "SMSReceived_Vibrate"
+    , 1312: "SMSReceived_Selection"
+    , 1313: "SMSReceived_Selection"
+    , 1314: "SMSReceived_Selection"
+    , 1315: "SystemSoundPreview"
+    , 1320: "SMSReceived_Selection"
+    , 1321: "SMSReceived_Selection"
+    , 1322: "SMSReceived_Selection"
+    , 1323: "SMSReceived_Selection"
+    , 1324: "SMSReceived_Selection"
+    , 1325: "SMSReceived_Selection"
+    , 1326: "SMSReceived_Selection"
+    , 1327: "SMSReceived_Selection"
+    , 1328: "SMSReceived_Selection"
+    , 1329: "SMSReceived_Selection"
+    , 1330: "SMSReceived_Selection"
+    , 1331: "SMSReceived_Selection"
+    , 1332: "SMSReceived_Selection"
+    , 1333: "SMSReceived_Selection"
+    , 1334: "SMSReceived_Selection"
+    , 1335: "SMSReceived_Selection"
+    , 1336: "SMSReceived_Selection"
+    , 1350: "RingerVibeChanged"
+    , 1351: "SilentVibeChanged"
+    , 4095: "Vibrate" ]
