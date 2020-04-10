@@ -84,7 +84,11 @@ class LogInViewController: UIViewController {
     
     func initUIAttributes() {
         navigationItem.title = "Login Toggl"
-        view.backgroundColor = .black
+        if self.traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = .black
+        } else {
+            view.backgroundColor = .white
+        }
         
         loginStackView.axis = .vertical
         loginStackView.alignment = .fill

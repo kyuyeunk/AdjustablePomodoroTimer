@@ -206,9 +206,27 @@ class TimerViewController: UIViewController {
             print("Did user granted autorization? \(granted)")
         }
         
-        GlobalVar.timeController.timeControllerDelegate = self 
+        GlobalVar.timeController.timeControllerDelegate = self
+        
+        if self.traitCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = .black
+        } else {
+            view.backgroundColor = .white
+        }
     }
 
+    override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
+        if newCollection.userInterfaceStyle == .dark {
+            view.backgroundColor = .black
+            passedTimePie.backgroundColor = .black
+            clockImage.image = UIImage(named: "clockOutline2Inverted")
+        } else {
+            view.backgroundColor = .white
+            passedTimePie.backgroundColor = .white
+            clockImage.image = UIImage(named: "clockOutline2")
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -289,8 +307,6 @@ class TimerViewController: UIViewController {
         startButton.setTitle("Start", for: .normal)
         startButton.titleLabel?.font = startButton.titleLabel?.font.withSize(25)
         
-        clockImage.image = UIImage(named: "clockOutline2Inverted")
-        
         timeInfoStackView.axis = .horizontal
         timeInfoStackView.distribution = .fillEqually
         timeInfoStackView.spacing = 0
@@ -308,7 +324,14 @@ class TimerViewController: UIViewController {
         pickerInfoStackView.spacing = 0
         
         passedTimePie.maxTime = CGFloat(maxMinutes * 60)
-        passedTimePie.backgroundColor = .black
+        
+        if self.traitCollection.userInterfaceStyle == .dark {
+            passedTimePie.backgroundColor = .black
+            clockImage.image = UIImage(named: "clockOutline2Inverted")
+        } else {
+            passedTimePie.backgroundColor = .white
+            clockImage.image = UIImage(named: "clockOutline2")
+        }
     }
     
     func initUIConstraints() {
