@@ -85,7 +85,7 @@ class Settings {
         }
     }
     
-    func setAndSaveAuth(id: String, auth: String) {
+    func setAndSaveAuth(id: String?, auth: String?) {
         togglCredential.auth = auth
         togglCredential.id = id
         let cred = credential(id: id, auth: auth)
@@ -93,8 +93,14 @@ class Settings {
         let encodedCrednetial = try? propertyListEncoder.encode(cred)
         try? encodedCrednetial?.write(to: settingsDirectory.credentialArchieveURL)
         
-        print("[Save] id: \(id)")
-        print("[Save] auth: \(auth)")
+        if let id = id, let auth = auth {
+            print("[Save] id: \(id)")
+            print("[Save] auth: \(auth)")
+        }
+        else {
+            print("[Save] id: nil")
+            print("[Save] auth: nil")
+        }
     }
     
     func setAndSaveProjectList(projects: [[String: Any]]) {
@@ -155,7 +161,7 @@ struct credential: Codable {
     var id: String?
     var auth: String?
     
-    init(id: String, auth: String) {
+    init(id: String?, auth: String?) {
         self.id = id
         self.auth = auth
     }

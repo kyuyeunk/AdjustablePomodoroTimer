@@ -68,8 +68,7 @@ class SettingsTableViewController: UITableViewController {
                 navigationController?.pushViewController(loginView, animated: true)
             }
             else {
-                GlobalVar.settings.togglCredential.auth = nil
-                GlobalVar.settings.togglCredential.id = nil
+                GlobalVar.settings.setAndSaveAuth(id: nil, auth: nil)
                 
                 var alert: UIAlertController
                 var okButton: UIAlertAction
