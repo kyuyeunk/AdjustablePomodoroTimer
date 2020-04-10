@@ -53,3 +53,16 @@ extension Int {
         return ret + string
     }
 }
+
+// Inspired by https://stackoverflow.com/a/48496364
+extension UINavigationController {
+    func pushViewControllerFromLeft(controller: UIViewController) {
+        let transition = CATransition()
+        transition.duration = 0.45
+        transition.type = .push
+        transition.subtype = .fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: .default)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        pushViewController(controller, animated: false)
+    }
+}

@@ -65,7 +65,7 @@ class SettingsTableViewController: UITableViewController {
         case .toggl:
             if indexPath.row == 0 {
                 let loginView = LogInViewController()
-                navigationController?.pushViewController(loginView, animated: true)
+                navigationController?.pushViewControllerFromLeft(controller: loginView)
             }
             else {
                 GlobalVar.settings.setAndSaveAuth(id: nil, auth: nil)
