@@ -305,9 +305,6 @@ class TimerSettingsTableViewController: UITableViewController {
             if indexPath.row == 2 && !workingTimerModel.alertTimerEnd {
                 return 0
             }
-            else {
-                break
-            }
         default:
             break
         }

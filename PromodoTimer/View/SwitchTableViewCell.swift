@@ -30,6 +30,7 @@ class SwitchTableViewCell: UITableViewCell {
         settingStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         settingStackView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
         settingStackView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor).isActive = true
+        clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {

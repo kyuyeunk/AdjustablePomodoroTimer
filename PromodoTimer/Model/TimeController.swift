@@ -13,11 +13,11 @@ import AudioToolbox
 //Allow view controllers to change UI when timer event triggers
 //Allow TimeController to fetch current time from view controllers
 protocol TimeControllerDelegate {
-    func setSecondUI(currTime: Int, passedTime: [TimerType: Double], animated: Bool, completion: (() -> ())?)
+    func setSecondUI(currTime: Int, passedTime: [TimerType: Double], animated: Bool)
     func getCurrTime() -> Int
     func stopTimerUI()
     func startTimerUI()
-    func displayTimeoutAlert(completion: @escaping ((Bool) -> Void))
+    func displayTimeoutAlert(type: TimerType, completion: @escaping ((Bool) -> Void))
 }
 
 class TimeController {
@@ -40,26 +40,25 @@ class TimeController {
         
         GlobalVar.toggl.stopTimer()
         
-        //If prevTime is 0, assume timer stopped automatically
-        if autoRepeat {
-            print("[Timer] Setting up next auto timer")
-            var nextTimerTime: Int
-            if currType == .positive {
-                print("[Timer] Started as a Positive Timer")
-                nextTimerTime = GlobalVar.settings.currTimer.startTime[.negative]!
-            }
-            else {
-                print("[Timer] Started as a Negative Timer")
-                nextTimerTime = GlobalVar.settings.currTimer.startTime[.positive]!
-            }
-            
-            timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true) { () in
-                //As startTimer() fetches current time from UI,
-                //startTimer() should start after the UI function finishes
-                self.startTimer()
-            }
+        print("[Timer] Setting up next auto timer")
+        var nextTimerTime: Int
+        if currType == .positive {
+            print("[Timer] Started as a Positive Timer")
+            nextTimerTime = GlobalVar.settings.currTimer.startTime[.negative]!
         }
         else {
+            print("[Timer] Started as a Negative Timer")
+            nextTimerTime = GlobalVar.settings.currTimer.startTime[.positive]!
+        }
+        
+        if autoRepeat {
+            timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true)
+            startTimer()
+        }
+        else {
+            if prevTime == 0 {
+                timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true)
+            }
             timeControllerDelegate.stopTimerUI()
         }
     }
@@ -122,17 +121,17 @@ class TimeController {
             self.startedTime[.positive]! = currTimeSince1970
             self.startedTime[.negative]! = currTimeSince1970
             
-            self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true, completion: nil)
+            self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true)
             
             if newTime == 0 {
                 print("[Timer] Reached 0 seconds, starting the alarm")
                 
                 if GlobalVar.settings.currTimer.alertTimerEnd {
                     print("[Timer] Reached 0 seconds, starting the alert")
-                    self.timeControllerDelegate.displayTimeoutAlert { (autoRepeat: Bool) in
+                    self.timeControllerDelegate.displayTimeoutAlert(type: self.currType, completion: { (autoRepeat: Bool) in
                         print("[Timer] Did user decided to continue the timer?: \(autoRepeat)")
                         self.stopTimer(autoRepeat: autoRepeat)
-                    }
+                    })
                 }
                 else {
                     var systemAlarmID: Int

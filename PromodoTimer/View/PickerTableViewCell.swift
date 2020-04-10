@@ -23,6 +23,7 @@ class PickerTableViewCell: UITableViewCell {
         pickerView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         pickerView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
         pickerView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor).isActive = true
+        clipsToBounds = true
     }
     
     required init?(coder aDecoder: NSCoder) {

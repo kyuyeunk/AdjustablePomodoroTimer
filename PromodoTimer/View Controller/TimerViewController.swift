@@ -456,7 +456,7 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
 }
 
 extension TimerViewController: TimeControllerDelegate {
-    func displayTimeoutAlert(completion: @escaping ((Bool) -> Void)) {
+    func displayTimeoutAlert(type: TimerType, completion: @escaping ((Bool) -> Void)) {
         DispatchQueue.main.async {
             var alert: UIAlertController
             var continueButton: UIAlertAction
@@ -473,8 +473,7 @@ extension TimerViewController: TimeControllerDelegate {
             alert = UIAlertController(title: "Time out",
                                       message: message, preferredStyle: .alert)
 
-            //TODO: set different value for .positive and .negative timer
-            let systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.positive]!
+            let systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[type]!
             
             var timer = Timer()
             AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
@@ -506,7 +505,7 @@ extension TimerViewController: TimeControllerDelegate {
         }
     }
     
-    func setSecondUI(currTime: Int, passedTime: [TimerType: Double], animated: Bool, completion: (() -> ())?) {
+    func setSecondUI(currTime: Int, passedTime: [TimerType: Double], animated: Bool) {
         let posTime = Int(passedTime[.positive]!)
         let negTime = Int(passedTime[.negative]!)
         
@@ -522,10 +521,6 @@ extension TimerViewController: TimeControllerDelegate {
             
             self.posTimeValLabel.text = "\(posMinutes)m \(posSeconds)s"
             self.negTimeValLabel.text = "\(negMinutes)m \(negSeconds)s"
-            
-            if let completion = completion {
-                completion()
-            }
         }
     }
     

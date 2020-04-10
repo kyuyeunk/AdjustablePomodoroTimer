@@ -23,6 +23,7 @@ class InputTableViewCell: UITableViewCell {
         inputTextField.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5).isActive = true
         inputTextField.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor).isActive = true
         inputTextField.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor).isActive = true
+        clipsToBounds = true
     }
     
     required init?(coder aDecoder: NSCoder) {
