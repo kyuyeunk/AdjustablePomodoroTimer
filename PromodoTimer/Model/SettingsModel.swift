@@ -19,6 +19,11 @@ class Settings {
             saveMiscs()
         }
     }
+    var tickingSound: Bool = false {
+        didSet {
+            saveMiscs()
+        }
+    }
     
     var currTimer: TimerModel {
         return timerList[currTimerID]
@@ -82,6 +87,7 @@ class Settings {
             print("[Load] Miscs retrieved")
             currTimerID = decodedMiscs.currTimerID
             dontSleep = decodedMiscs.dontSleep
+            tickingSound = decodedMiscs.tickingSound
         }
     }
     
@@ -134,7 +140,7 @@ class Settings {
     
     func saveMiscs() {
         let propertyListEncoder = PropertyListEncoder()
-        let miscs = miscInfo(currTimerID: currTimerID, dontSleep: dontSleep)
+        let miscs = miscInfo(currTimerID: currTimerID, dontSleep: dontSleep, tickingSound: tickingSound)
         let encodedMiscs = try? propertyListEncoder.encode(miscs)
         try? encodedMiscs?.write(to: settingsDirectory.miscsArchieveURL)
         
@@ -202,8 +208,10 @@ struct trackingInfo: Codable {
 struct miscInfo: Codable {
     var currTimerID: Int
     var dontSleep: Bool
-    init(currTimerID: Int, dontSleep: Bool) {
+    var tickingSound: Bool
+    init(currTimerID: Int, dontSleep: Bool, tickingSound: Bool) {
         self.currTimerID = currTimerID
         self.dontSleep = dontSleep
+        self.tickingSound = tickingSound
     }
 }

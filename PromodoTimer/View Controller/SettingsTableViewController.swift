@@ -38,7 +38,7 @@ class SettingsTableViewController: UITableViewController {
         case .toggl:
             return 2
         case .misc:
-            return 1
+            return 2
         default:
             return 0
         }
@@ -109,10 +109,17 @@ class SettingsTableViewController: UITableViewController {
             
             return cell
         case .misc:
-            if indexPath.row == 0, let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as? SwitchTableViewCell {
-                cell.settingTextLabel.text = "Keep Display On"
-                cell.settingSwitch.isOn = GlobalVar.settings.dontSleep
-                cell.settingSwitch.addTarget(self, action: #selector(dontSleepSwitched(myswitch:)), for: .valueChanged)
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "switchCell", for: indexPath) as? SwitchTableViewCell {
+                if indexPath.row == 0 {
+                    cell.settingTextLabel.text = "Keep Display On"
+                    cell.settingSwitch.isOn = GlobalVar.settings.dontSleep
+                    cell.settingSwitch.addTarget(self, action: #selector(dontSleepSwitched(myswitch:)), for: .valueChanged)
+                }
+                else if indexPath.row == 1 {
+                    cell.settingTextLabel.text = "Making Ticking Sound"
+                    cell.settingSwitch.isOn = GlobalVar.settings.tickingSound
+                    cell.settingSwitch.addTarget(self, action: #selector(tickingSoundSwitched(myswitch:)), for: .valueChanged)
+                }
                 return cell
             }
         default:
@@ -141,6 +148,16 @@ class SettingsTableViewController: UITableViewController {
         }
         else {
             print("[Settings View] Don't Sleep switch turned off")
+        }
+    }
+    
+    @objc func tickingSoundSwitched(myswitch: UISwitch) {
+        GlobalVar.settings.tickingSound = myswitch.isOn
+        if myswitch.isOn {
+            print("[Settings View] Ticking Sound switch turned on")
+        }
+        else {
+            print("[Settings View] Ticking Sound switch turned off")
         }
     }
 }

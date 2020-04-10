@@ -125,6 +125,9 @@ class TimeController {
             self.startedTime[.negative]! = currTimeSince1970
             
             self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true, completion: nil)
+            if GlobalVar.settings.tickingSound {
+                AudioServicesPlaySystemSound(SystemSoundID(1104))
+            }
             
             if newTime == 0 {
                 print("[Timer] Reached 0 seconds, starting the alarm")
