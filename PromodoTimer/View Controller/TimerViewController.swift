@@ -511,7 +511,7 @@ extension TimerViewController: TimeControllerDelegate {
             alert = UIAlertController(title: "Time out",
                                       message: message, preferredStyle: .alert)
 
-            let systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[type]!
+            let systemAlarmID = GlobalVar.alarmSounds.list[GlobalVar.settings.currTimer.timerAlarmID[type]!].systemSoundID
             
             var timer = Timer()
             AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))

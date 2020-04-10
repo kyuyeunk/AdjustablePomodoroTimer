@@ -137,14 +137,7 @@ class TimeController {
                     })
                 }
                 else {
-                    var systemAlarmID: Int
-                    if self.currType == .positive {
-                        systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.positive]!
-                    }
-                    else {
-                        systemAlarmID = GlobalVar.settings.currTimer.timerAlarm[.negative]!
-                    }
-                    
+                    let systemAlarmID = GlobalVar.alarmSounds.list[GlobalVar.settings.currTimer.timerAlarmID[self.currType]!].systemSoundID
                     AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
                     let autoRepeat = GlobalVar.settings.currTimer.autoRepeat
                     print("[Timer] Stop the timer with auto repeat? \(autoRepeat)")

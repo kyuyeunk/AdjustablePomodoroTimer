@@ -26,6 +26,8 @@
 		2E80F90A241C663500554B12 /* GlobalVarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80F909241C663500554B12 /* GlobalVarModel.swift */; };
 		2E8B9F9B243F655700B13AA9 /* PickerWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9A243F655700B13AA9 /* PickerWindowView.swift */; };
 		2E8B9F9D244004BA00B13AA9 /* RightDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9C244004BA00B13AA9 /* RightDetailTableViewCell.swift */; };
+		2E8B9F9F2440AA1100B13AA9 /* AlarmSoundsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9E2440AA1000B13AA9 /* AlarmSoundsTableViewController.swift */; };
+		2E8B9FA12440ADB700B13AA9 /* AlarmSoundsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9FA02440ADB700B13AA9 /* AlarmSoundsInfo.swift */; };
 		2EC23D052417ADDA00EA7BD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */; };
 		2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */; };
 		2EC23D092417ADDA00EA7BD6 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D082417ADDA00EA7BD6 /* TimerViewController.swift */; };
@@ -54,6 +56,8 @@
 		2E80F90F241C67B400554B12 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E8B9F9A243F655700B13AA9 /* PickerWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWindowView.swift; sourceTree = "<group>"; };
 		2E8B9F9C244004BA00B13AA9 /* RightDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightDetailTableViewCell.swift; sourceTree = "<group>"; };
+		2E8B9F9E2440AA1000B13AA9 /* AlarmSoundsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundsTableViewController.swift; sourceTree = "<group>"; };
+		2E8B9FA02440ADB700B13AA9 /* AlarmSoundsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundsInfo.swift; sourceTree = "<group>"; };
 		2EC23D012417ADDA00EA7BD6 /* PromodoTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromodoTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 				2E0F26E8241DF4320076C5AC /* TogglTimerDetailTableViewController.swift */,
 				2E5D8BEC2420E71B00860E1B /* TimerListTableViewController.swift */,
 				2E5D8BF02420EFB300860E1B /* TimerSettingsTableViewController.swift */,
+				2E8B9F9E2440AA1000B13AA9 /* AlarmSoundsTableViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -104,6 +109,7 @@
 				2E80F909241C663500554B12 /* GlobalVarModel.swift */,
 				2E0F26ED241E4AEB0076C5AC /* SettingsModel.swift */,
 				2E5D8BEE2420E79600860E1B /* TimerModel.swift */,
+				2E8B9FA02440ADB700B13AA9 /* AlarmSoundsInfo.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -231,12 +237,14 @@
 				2E8B9F9D244004BA00B13AA9 /* RightDetailTableViewCell.swift in Sources */,
 				2E0F26E9241DF4320076C5AC /* TogglTimerDetailTableViewController.swift in Sources */,
 				2EC23D092417ADDA00EA7BD6 /* TimerViewController.swift in Sources */,
+				2E8B9F9F2440AA1100B13AA9 /* AlarmSoundsTableViewController.swift in Sources */,
 				2E5D8BED2420E71B00860E1B /* TimerListTableViewController.swift in Sources */,
 				2EC23D052417ADDA00EA7BD6 /* AppDelegate.swift in Sources */,
 				2E80F90A241C663500554B12 /* GlobalVarModel.swift in Sources */,
 				2E0FB9A9241904EB003AA41D /* SettingsTableViewController.swift in Sources */,
 				2E0FB9AF241A75CF003AA41D /* TogglController.swift in Sources */,
 				2E5D8BE9241FA67600860E1B /* SwitchTableViewCell.swift in Sources */,
+				2E8B9FA12440ADB700B13AA9 /* AlarmSoundsInfo.swift in Sources */,
 				2E5D8BF12420EFB300860E1B /* TimerSettingsTableViewController.swift in Sources */,
 				2E0FB9A52418F377003AA41D /* TimeController.swift in Sources */,
 				2E0F26EB241E34250076C5AC /* InputTableViewCell.swift in Sources */,

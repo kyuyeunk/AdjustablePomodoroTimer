@@ -12,6 +12,7 @@ class TimerSettingsTableViewController: UITableViewController {
     enum sections: Int {
         case timerName
         case timerValues
+        case alarmSounds
         case togglValues
         case misc
         case numberOfSections
@@ -102,6 +103,8 @@ class TimerSettingsTableViewController: UITableViewController {
             return 1
         case .timerValues:
             return 6
+        case .alarmSounds:
+            return 2
         case .togglValues:
             return 2
         case .misc:
@@ -185,6 +188,20 @@ class TimerSettingsTableViewController: UITableViewController {
             else {
                 break
             }
+        case .alarmSounds:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "rightDetailCell", for: indexPath)
+            if indexPath.row == 0 {
+                cell.imageView?.image = UIImage(systemName: "plus.circle")!
+                cell.textLabel?.text = "Positive Sound"
+                cell.detailTextLabel?.text = GlobalVar.alarmSounds.list[workingTimerModel.timerAlarmID[.positive]!].alarmName
+            }
+            else {
+                cell.imageView?.image = UIImage(systemName: "minus.circle")!
+                cell.textLabel?.text = "Negative Sound"
+                cell.detailTextLabel?.text = GlobalVar.alarmSounds.list[workingTimerModel.timerAlarmID[.negative]!].alarmName
+            }
+            cell.accessoryType = .disclosureIndicator
+            return cell
         case .togglValues:
             let cell = tableView.dequeueReusableCell(withIdentifier: "subtitleCell", for: indexPath)
             cell.accessoryType = .disclosureIndicator
@@ -260,6 +277,8 @@ class TimerSettingsTableViewController: UITableViewController {
             return "Timer Name"
         case .timerValues:
             return "Timer Values"
+        case .alarmSounds:
+            return "Alarm Sounds"
         case .togglValues:
             return "Toggl Timer values"
         case .misc:
@@ -330,6 +349,19 @@ class TimerSettingsTableViewController: UITableViewController {
                 }
                 tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
             }
+        case .alarmSounds:
+            let alarmSoundsList = AlarmSoundsTableViewController(style: .grouped)
+            
+            if indexPath.row == 0 {
+                alarmSoundsList.selectedAlarmID = workingTimerModel.timerAlarmID[.positive]!
+                alarmSoundsList.type = .positive
+            }
+            else {
+                alarmSoundsList.selectedAlarmID = workingTimerModel.timerAlarmID[.negative]!
+                alarmSoundsList.type = .negative
+            }
+ 
+            navigationController?.pushViewController(alarmSoundsList, animated: true)
         case .togglValues:
             if GlobalVar.settings.togglLoggedIn {
                 var trackingType: TimerType
