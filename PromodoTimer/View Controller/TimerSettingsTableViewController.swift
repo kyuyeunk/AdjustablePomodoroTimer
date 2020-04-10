@@ -334,17 +334,34 @@ class TimerSettingsTableViewController: UITableViewController {
                 tableView.reloadRows(at: [pickerIndexPath], with: .automatic)
             }
         case .togglValues:
-            var trackingType: TimerType
-            if indexPath.row == 0 {
-                trackingType = .positive
+            if GlobalVar.settings.togglLoggedIn {
+                var trackingType: TimerType
+                if indexPath.row == 0 {
+                    trackingType = .positive
+                }
+                else {
+                    trackingType = .negative
+                }
+                
+                let togglTimerDetailView = TogglTimerSettingsTableViewController(style: .grouped)
+                togglTimerDetailView.type = trackingType
+                navigationController?.pushViewController(togglTimerDetailView, animated: true)
             }
             else {
-                trackingType = .negative
+                print("[Timer Settings] Toggl was not logged in")
+                var alert: UIAlertController
+                var okButton: UIAlertAction
+                
+                let message = "Go To Settings and Log In Toggl"
+                
+                alert = UIAlertController(title: "Toggl Not Logged In",
+                                          message: message, preferredStyle: .alert)
+                
+                okButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                alert.addAction(okButton)
+                
+                present(alert, animated: true, completion: nil)
             }
-            
-            let togglTimerDetailView = TogglTimerSettingsTableViewController(style: .grouped)
-            togglTimerDetailView.type = trackingType
-            navigationController?.pushViewController(togglTimerDetailView, animated: true)
         default:
             break
         }

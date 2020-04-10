@@ -67,6 +67,23 @@ class SettingsTableViewController: UITableViewController {
                 let loginView = LogInViewController()
                 navigationController?.pushViewController(loginView, animated: true)
             }
+            else {
+                GlobalVar.settings.togglCredential.auth = nil
+                GlobalVar.settings.togglCredential.id = nil
+                
+                var alert: UIAlertController
+                var okButton: UIAlertAction
+                
+                let message = "Toggl Logged Out"
+                
+                alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+                
+                okButton = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                alert.addAction(okButton)
+                
+                present(alert, animated: true, completion: nil)
+                tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            }
         default:
             break
         }

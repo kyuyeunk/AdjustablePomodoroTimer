@@ -21,6 +21,8 @@ class TimerModel: Codable {
         return alertTimerEnd && repeatAlarmOption
     }
     
+    //TODO: add ability to check if userDefinedTracking's info corresponds
+    //With current toggl credential
     var userDefinedTracking: [TimerType: trackingInfo] = [:]
     init() {
         self.timerName = "Default Timer"
