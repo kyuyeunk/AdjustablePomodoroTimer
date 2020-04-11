@@ -13,7 +13,7 @@ struct TimerListView: View {
     
     var body: some View {
         List(timers) { timer in
-            NavigationLink(destination: TimerView()) {
+            NavigationLink(destination: TimerView(timer: timer)) {
                 VStack(alignment: .leading, spacing: 3) {
                     Text(timer.timerName)
                     TimerListCell(posTime: timer.startTime[.positive]!, negTime: timer.startTime[.negative]!)

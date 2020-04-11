@@ -9,19 +9,31 @@
 import SwiftUI
 
 struct TimerView: View {
+    var timer: TimerModel
     @State private var sign: Int = 0
-    @State private var min: Int = 59
-    @State private var sec: Int = 59
+    @State private var minRow: Int
+    @State private var secRow: Int
+    
+    let minMaxRow: Int
+    let secMaxRow = 59
+    
+    init(timer: TimerModel) {
+        self.timer = timer
+        minMaxRow = timer.maxMinutes
+        let startPosTime = timer.startTime[.positive]!
+        
+        let posMin = minMaxRow - startPosTime / 60
+        let posSec = secMaxRow - startPosTime % 60
+        
+        _minRow = .init(initialValue: posMin)
+        _secRow = .init(initialValue: posSec)
+    }
     
     var body: some View {
-        var time: [Int] = []
-        for i in (0 ..< 60).reversed() {
-            time.append(i)
-        }
         let signStr = ["+", "-"]
         
         let ret = VStack {
-            Text("\(signStr[sign]) \(time[min])m \(time[sec])s")
+            Text("\(signStr[sign]) \(minMaxRow - minRow)m \(secMaxRow - secRow)s")
             Spacer()
             .frame(height: 10)
             HStack {
@@ -33,30 +45,31 @@ struct TimerView: View {
                 .pickerStyle(WheelPickerStyle())
                 .frame(width: 24, height: 70)
                 
-                Picker(selection: $min, label: Text("Min")) {
-                    ForEach((0 ..< time.count)) { i in
-                        Text(String(time[i]))
+                Picker(selection: $minRow, label: Text("Min")) {
+                    ForEach((0 ..< minMaxRow + 1)) { i in
+                        Text(String(self.minMaxRow - i))
                     }
                 }
                 .frame(width: 36, height: 70)
                 
-                Picker(selection: $sec, label: Text("Min")) {
-                    ForEach((0 ..< time.count)) { i in
-                        Text(String(time[i])).tag(i)
+                Picker(selection: $secRow, label: Text("Sec")) {
+                    ForEach((0 ..< secMaxRow + 1)) { i in
+                        Text(String(self.secMaxRow - i))
                     }
                 }
                 .pickerStyle(WheelPickerStyle())
                 .frame(width: 36, height: 70)
             }
-            
-        }
+        }.navigationBarTitle("Timer")
         
         return ret
     }
 }
 
+/*
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
         TimerView()
     }
 }
+*/
