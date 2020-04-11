@@ -38,11 +38,12 @@
 		2EC48E562441595F0002FEBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E552441595F0002FEBE /* Assets.xcassets */; };
 		2EC48E592441595F0002FEBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E582441595F0002FEBE /* Preview Assets.xcassets */; };
 		2EC48E5D2441595F0002FEBE /* PromodoTimer for Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2EC48E3C244159570002FEBE /* PromodoTimer for Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2EC48E6A244159A70002FEBE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E66244159A60002FEBE /* ContentView.swift */; };
 		2EC48E6B244159A70002FEBE /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E67244159A60002FEBE /* ExtensionDelegate.swift */; };
 		2EC48E6C244159A70002FEBE /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E68244159A60002FEBE /* ComplicationController.swift */; };
 		2EC48E6D244159A70002FEBE /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E69244159A70002FEBE /* HostingController.swift */; };
 		2EC48E7024415A190002FEBE /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E6E24415A190002FEBE /* Interface.storyboard */; };
+		2EC48E7224416E630002FEBE /* TimerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E7124416E630002FEBE /* TimerListView.swift */; };
+		2EC48E742441727A0002FEBE /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E732441727A0002FEBE /* TimerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,11 +124,12 @@
 		2EC48E552441595F0002FEBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EC48E582441595F0002FEBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2EC48E5A2441595F0002FEBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2EC48E66244159A60002FEBE /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		2EC48E67244159A60002FEBE /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		2EC48E68244159A60002FEBE /* ComplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		2EC48E69244159A70002FEBE /* HostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		2EC48E6F24415A190002FEBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		2EC48E7124416E630002FEBE /* TimerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerListView.swift; sourceTree = "<group>"; };
+		2EC48E732441727A0002FEBE /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,10 +249,9 @@
 		2EC48E4C2441595C0002FEBE /* PromodoTimer for Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				2EC48E68244159A60002FEBE /* ComplicationController.swift */,
-				2EC48E66244159A60002FEBE /* ContentView.swift */,
-				2EC48E67244159A60002FEBE /* ExtensionDelegate.swift */,
-				2EC48E69244159A70002FEBE /* HostingController.swift */,
+				2EC48E77244184350002FEBE /* Others */,
+				2EC48E762441841C0002FEBE /* Model */,
+				2EC48E75244184100002FEBE /* View */,
 				2EC48E552441595F0002FEBE /* Assets.xcassets */,
 				2EC48E5A2441595F0002FEBE /* Info.plist */,
 				2EC48E572441595F0002FEBE /* Preview Content */,
@@ -264,6 +265,33 @@
 				2EC48E582441595F0002FEBE /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		2EC48E75244184100002FEBE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				2EC48E7124416E630002FEBE /* TimerListView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		2EC48E762441841C0002FEBE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2EC48E732441727A0002FEBE /* TimerModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		2EC48E77244184350002FEBE /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				2EC48E68244159A60002FEBE /* ComplicationController.swift */,
+				2EC48E69244159A70002FEBE /* HostingController.swift */,
+				2EC48E67244159A60002FEBE /* ExtensionDelegate.swift */,
+			);
+			name = Others;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -429,10 +457,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EC48E6A244159A70002FEBE /* ContentView.swift in Sources */,
 				2EC48E6D244159A70002FEBE /* HostingController.swift in Sources */,
 				2EC48E6B244159A70002FEBE /* ExtensionDelegate.swift in Sources */,
+				2EC48E742441727A0002FEBE /* TimerModel.swift in Sources */,
 				2EC48E6C244159A70002FEBE /* ComplicationController.swift in Sources */,
+				2EC48E7224416E630002FEBE /* TimerListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
