@@ -55,6 +55,7 @@ extension Int {
 }
 
 // Inspired by https://stackoverflow.com/a/48496364
+#if os(iOS)
 extension UINavigationController {
     func pushViewControllerFromLeft(controller: UIViewController) {
         let transition = CATransition()
@@ -66,3 +67,4 @@ extension UINavigationController {
         pushViewController(controller, animated: false)
     }
 }
+#endif

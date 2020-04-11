@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TimerModel: Codable {
+class TimerModel: Codable, Identifiable {
     var maxMinutes: Int
     var timerName: String
     var startTime: [TimerType: Int] = [:]

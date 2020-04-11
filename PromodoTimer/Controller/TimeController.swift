@@ -6,9 +6,11 @@
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
 //
 
-import UIKit
 import AVFoundation
+#if os(iOS)
+import UIKit
 import AudioToolbox
+#endif
 
 //Allow view controllers to change UI when timer event triggers
 //Allow TimeController to fetch current time from view controllers
@@ -106,7 +108,9 @@ class TimeController {
                 return
             }
             
+            #if os(iOS)
             self.createNotification(delayTime: abs(newTime))
+            #endif
             
             if newTime > 0 {
                 newTime -= 1
@@ -125,9 +129,11 @@ class TimeController {
             self.startedTime[.negative]! = currTimeSince1970
             
             self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true, completion: nil)
+            #if os(iOS)
             if GlobalVar.settings.tickingSound {
                 AudioServicesPlaySystemSound(SystemSoundID(1104))
             }
+            #endif
             
             if newTime == 0 {
                 print("[Timer] Reached 0 seconds, starting the alarm")
@@ -140,8 +146,10 @@ class TimeController {
                     })
                 }
                 else {
+                    #if os(iOS)
                     let systemAlarmID = GlobalVar.alarmSounds.list[GlobalVar.settings.currTimer.timerAlarmID[self.currType]!].systemSoundID
                     AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
+                    #endif
                     let autoRepeat = GlobalVar.settings.currTimer.autoRepeat
                     print("[Timer] Stop the timer with auto repeat? \(autoRepeat)")
                     self.stopTimer(autoRepeat: autoRepeat)
@@ -169,9 +177,12 @@ class TimeController {
     func stopButtonTapped() {
         stopTimer(autoRepeat: false)
         print("[Timer] Stopping notification")
+        #if os(iOS)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
+        #endif
     }
     
+    #if os(iOS)
     func createNotification(delayTime: Int) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
         let content = UNMutableNotificationContent()
@@ -194,4 +205,5 @@ class TimeController {
             //TODO
         }
     }
+    #endif
 }

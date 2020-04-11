@@ -9,25 +9,35 @@
 /* Begin PBXBuildFile section */
 		2E0F26E9241DF4320076C5AC /* TogglTimerDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F26E8241DF4320076C5AC /* TogglTimerDetailTableViewController.swift */; };
 		2E0F26EB241E34250076C5AC /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F26EA241E34250076C5AC /* InputTableViewCell.swift */; };
-		2E0F26EE241E4AEB0076C5AC /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F26ED241E4AEB0076C5AC /* SettingsModel.swift */; };
 		2E0FB9A32417E0D7003AA41D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A22417E0D7003AA41D /* README.md */; };
-		2E0FB9A52418F377003AA41D /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A42418F377003AA41D /* TimeController.swift */; };
 		2E0FB9A9241904EB003AA41D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */; };
-		2E0FB9AF241A75CF003AA41D /* TogglController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9AE241A75CF003AA41D /* TogglController.swift */; };
 		2E16120E241D5AA5007C55D8 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E16120D241D5AA5007C55D8 /* LogInViewController.swift */; };
-		2E444B30243BD67600A9E0AB /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E444B2F243BD67600A9E0AB /* Utility.swift */; };
 		2E444B32243C953700A9E0AB /* SubtitleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E444B31243C953700A9E0AB /* SubtitleTableViewCell.swift */; };
 		2E444B34243CDF9D00A9E0AB /* TimePieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E444B33243CDF9D00A9E0AB /* TimePieView.swift */; };
 		2E5D8BE9241FA67600860E1B /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BE8241FA67600860E1B /* SwitchTableViewCell.swift */; };
 		2E5D8BED2420E71B00860E1B /* TimerListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BEC2420E71B00860E1B /* TimerListTableViewController.swift */; };
-		2E5D8BEF2420E79600860E1B /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BEE2420E79600860E1B /* TimerModel.swift */; };
 		2E5D8BF12420EFB300860E1B /* TimerSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BF02420EFB300860E1B /* TimerSettingsTableViewController.swift */; };
 		2E5D8BF524222F8E00860E1B /* PickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BF424222F8E00860E1B /* PickerTableViewCell.swift */; };
-		2E80F90A241C663500554B12 /* GlobalVarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E80F909241C663500554B12 /* GlobalVarModel.swift */; };
+		2E6BA2832442207000DA8781 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2802442206F00DA8781 /* ExtensionDelegate.swift */; };
+		2E6BA2842442207000DA8781 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2812442207000DA8781 /* HostingController.swift */; };
+		2E6BA2852442207000DA8781 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2822442207000DA8781 /* ComplicationController.swift */; };
+		2E6BA28F244220EC00DA8781 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA27E24421E3500DA8781 /* Utility.swift */; };
+		2E6BA2962442211A00DA8781 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2902442211800DA8781 /* TimeController.swift */; };
+		2E6BA2972442211A00DA8781 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2912442211900DA8781 /* TimerModel.swift */; };
+		2E6BA2982442211A00DA8781 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2922442211900DA8781 /* SettingsModel.swift */; };
+		2E6BA2992442211A00DA8781 /* TogglController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2932442211900DA8781 /* TogglController.swift */; };
+		2E6BA29A2442211A00DA8781 /* GlobalVarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2942442211900DA8781 /* GlobalVarModel.swift */; };
+		2E6BA29B2442211A00DA8781 /* AlarmSoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2952442211900DA8781 /* AlarmSoundsModel.swift */; };
+		2E6BA2B6244224A800DA8781 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2B4244224A700DA8781 /* TimeController.swift */; };
+		2E6BA2B7244224A800DA8781 /* TogglController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2B5244224A800DA8781 /* TogglController.swift */; };
+		2E6BA2BC244224C500DA8781 /* AlarmSoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2B8244224C400DA8781 /* AlarmSoundsModel.swift */; };
+		2E6BA2BD244224C500DA8781 /* GlobalVarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2B9244224C400DA8781 /* GlobalVarModel.swift */; };
+		2E6BA2BE244224C500DA8781 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2BA244224C500DA8781 /* SettingsModel.swift */; };
+		2E6BA2BF244224C500DA8781 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2BB244224C500DA8781 /* TimerModel.swift */; };
+		2E6BA2C1244224E500DA8781 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2C0244224E400DA8781 /* Utility.swift */; };
 		2E8B9F9B243F655700B13AA9 /* PickerWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9A243F655700B13AA9 /* PickerWindowView.swift */; };
 		2E8B9F9D244004BA00B13AA9 /* RightDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9C244004BA00B13AA9 /* RightDetailTableViewCell.swift */; };
 		2E8B9F9F2440AA1100B13AA9 /* AlarmSoundsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9E2440AA1000B13AA9 /* AlarmSoundsTableViewController.swift */; };
-		2E8B9FA12440ADB700B13AA9 /* AlarmSoundsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9FA02440ADB700B13AA9 /* AlarmSoundsInfo.swift */; };
 		2E998E312441AD3400092F1B /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E998E302441AD3400092F1B /* TimerView.swift */; };
 		2EC23D052417ADDA00EA7BD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */; };
 		2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */; };
@@ -39,12 +49,8 @@
 		2EC48E562441595F0002FEBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E552441595F0002FEBE /* Assets.xcassets */; };
 		2EC48E592441595F0002FEBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E582441595F0002FEBE /* Preview Assets.xcassets */; };
 		2EC48E5D2441595F0002FEBE /* PromodoTimer for Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2EC48E3C244159570002FEBE /* PromodoTimer for Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2EC48E6B244159A70002FEBE /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E67244159A60002FEBE /* ExtensionDelegate.swift */; };
-		2EC48E6C244159A70002FEBE /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E68244159A60002FEBE /* ComplicationController.swift */; };
-		2EC48E6D244159A70002FEBE /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E69244159A70002FEBE /* HostingController.swift */; };
 		2EC48E7024415A190002FEBE /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E6E24415A190002FEBE /* Interface.storyboard */; };
 		2EC48E7224416E630002FEBE /* TimerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E7124416E630002FEBE /* TimerListView.swift */; };
-		2EC48E742441727A0002FEBE /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E732441727A0002FEBE /* TimerModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,26 +98,36 @@
 /* Begin PBXFileReference section */
 		2E0F26E8241DF4320076C5AC /* TogglTimerDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglTimerDetailTableViewController.swift; sourceTree = "<group>"; };
 		2E0F26EA241E34250076C5AC /* InputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
-		2E0F26ED241E4AEB0076C5AC /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		2E0FB9A22417E0D7003AA41D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		2E0FB9A42418F377003AA41D /* TimeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
 		2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
-		2E0FB9AE241A75CF003AA41D /* TogglController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglController.swift; sourceTree = "<group>"; };
 		2E16120D241D5AA5007C55D8 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
-		2E444B2F243BD67600A9E0AB /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		2E444B31243C953700A9E0AB /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
 		2E444B33243CDF9D00A9E0AB /* TimePieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TimePieView.swift; path = PromodoTimer/View/TimePieView.swift; sourceTree = SOURCE_ROOT; };
 		2E5D8BE8241FA67600860E1B /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		2E5D8BEC2420E71B00860E1B /* TimerListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerListTableViewController.swift; sourceTree = "<group>"; };
-		2E5D8BEE2420E79600860E1B /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		2E5D8BF02420EFB300860E1B /* TimerSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettingsTableViewController.swift; sourceTree = "<group>"; };
 		2E5D8BF424222F8E00860E1B /* PickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableViewCell.swift; sourceTree = "<group>"; };
-		2E80F909241C663500554B12 /* GlobalVarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVarModel.swift; sourceTree = "<group>"; };
+		2E6BA27E24421E3500DA8781 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = PromodoTimer/Others/Utility.swift; sourceTree = SOURCE_ROOT; };
+		2E6BA2802442206F00DA8781 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionDelegate.swift; path = "PromodoTimer for Watch Extension/Others/ExtensionDelegate.swift"; sourceTree = SOURCE_ROOT; };
+		2E6BA2812442207000DA8781 /* HostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HostingController.swift; path = "PromodoTimer for Watch Extension/Others/HostingController.swift"; sourceTree = SOURCE_ROOT; };
+		2E6BA2822442207000DA8781 /* ComplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComplicationController.swift; path = "PromodoTimer for Watch Extension/Others/ComplicationController.swift"; sourceTree = SOURCE_ROOT; };
+		2E6BA2902442211800DA8781 /* TimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
+		2E6BA2912442211900DA8781 /* TimerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
+		2E6BA2922442211900DA8781 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		2E6BA2932442211900DA8781 /* TogglController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TogglController.swift; sourceTree = "<group>"; };
+		2E6BA2942442211900DA8781 /* GlobalVarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVarModel.swift; sourceTree = "<group>"; };
+		2E6BA2952442211900DA8781 /* AlarmSoundsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundsModel.swift; sourceTree = "<group>"; };
+		2E6BA2B4244224A700DA8781 /* TimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
+		2E6BA2B5244224A800DA8781 /* TogglController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TogglController.swift; sourceTree = "<group>"; };
+		2E6BA2B8244224C400DA8781 /* AlarmSoundsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundsModel.swift; sourceTree = "<group>"; };
+		2E6BA2B9244224C400DA8781 /* GlobalVarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVarModel.swift; sourceTree = "<group>"; };
+		2E6BA2BA244224C500DA8781 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
+		2E6BA2BB244224C500DA8781 /* TimerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
+		2E6BA2C0244224E400DA8781 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		2E80F90F241C67B400554B12 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E8B9F9A243F655700B13AA9 /* PickerWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWindowView.swift; sourceTree = "<group>"; };
 		2E8B9F9C244004BA00B13AA9 /* RightDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E8B9F9E2440AA1000B13AA9 /* AlarmSoundsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundsTableViewController.swift; sourceTree = "<group>"; };
-		2E8B9FA02440ADB700B13AA9 /* AlarmSoundsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundsInfo.swift; sourceTree = "<group>"; };
 		2E998E302441AD3400092F1B /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		2EC23D012417ADDA00EA7BD6 /* PromodoTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromodoTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,12 +142,8 @@
 		2EC48E552441595F0002FEBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EC48E582441595F0002FEBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2EC48E5A2441595F0002FEBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2EC48E67244159A60002FEBE /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		2EC48E68244159A60002FEBE /* ComplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
-		2EC48E69244159A70002FEBE /* HostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		2EC48E6F24415A190002FEBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		2EC48E7124416E630002FEBE /* TimerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerListView.swift; sourceTree = "<group>"; };
-		2EC48E732441727A0002FEBE /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +169,7 @@
 			children = (
 				2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */,
 				2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */,
-				2E444B2F243BD67600A9E0AB /* Utility.swift */,
+				2E6BA27E24421E3500DA8781 /* Utility.swift */,
 			);
 			path = Others;
 			sourceTree = "<group>";
@@ -179,12 +191,10 @@
 		2E0FB9B1241A8974003AA41D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2E0FB9AE241A75CF003AA41D /* TogglController.swift */,
-				2E0FB9A42418F377003AA41D /* TimeController.swift */,
-				2E80F909241C663500554B12 /* GlobalVarModel.swift */,
-				2E0F26ED241E4AEB0076C5AC /* SettingsModel.swift */,
-				2E5D8BEE2420E79600860E1B /* TimerModel.swift */,
-				2E8B9FA02440ADB700B13AA9 /* AlarmSoundsInfo.swift */,
+				2E6BA2952442211900DA8781 /* AlarmSoundsModel.swift */,
+				2E6BA2942442211900DA8781 /* GlobalVarModel.swift */,
+				2E6BA2922442211900DA8781 /* SettingsModel.swift */,
+				2E6BA2912442211900DA8781 /* TimerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -202,6 +212,56 @@
 			);
 			path = View;
 			sourceTree = "<group>";
+		};
+		2E6BA2AA244221D800DA8781 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2E6BA2902442211800DA8781 /* TimeController.swift */,
+				2E6BA2932442211900DA8781 /* TogglController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		2E6BA2AF244223FD00DA8781 /* iOS Codes */ = {
+			isa = PBXGroup;
+			children = (
+				2E6BA2B32442247D00DA8781 /* Controller */,
+				2E6BA2B22442242F00DA8781 /* Model */,
+				2E6BA2B12442241700DA8781 /* Others */,
+			);
+			name = "iOS Codes";
+			sourceTree = "<group>";
+		};
+		2E6BA2B12442241700DA8781 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				2E6BA2C0244224E400DA8781 /* Utility.swift */,
+			);
+			name = Others;
+			path = PromodoTimer/Others;
+			sourceTree = SOURCE_ROOT;
+		};
+		2E6BA2B22442242F00DA8781 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2E6BA2B8244224C400DA8781 /* AlarmSoundsModel.swift */,
+				2E6BA2B9244224C400DA8781 /* GlobalVarModel.swift */,
+				2E6BA2BA244224C500DA8781 /* SettingsModel.swift */,
+				2E6BA2BB244224C500DA8781 /* TimerModel.swift */,
+			);
+			name = Model;
+			path = PromodoTimer/Model;
+			sourceTree = SOURCE_ROOT;
+		};
+		2E6BA2B32442247D00DA8781 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2E6BA2B4244224A700DA8781 /* TimeController.swift */,
+				2E6BA2B5244224A800DA8781 /* TogglController.swift */,
+			);
+			name = Controller;
+			path = PromodoTimer/Controller;
+			sourceTree = SOURCE_ROOT;
 		};
 		2EC23CF82417ADDA00EA7BD6 = {
 			isa = PBXGroup;
@@ -229,6 +289,7 @@
 			children = (
 				2E0F26EC241E3D2A0076C5AC /* Others */,
 				2E0FB9B1241A8974003AA41D /* Model */,
+				2E6BA2AA244221D800DA8781 /* Controller */,
 				2E5D8BE7241FA42500860E1B /* View */,
 				2E0FB9B0241A8963003AA41D /* View Controller */,
 				2EC23D0D2417ADE600EA7BD6 /* Assets.xcassets */,
@@ -251,8 +312,8 @@
 		2EC48E4C2441595C0002FEBE /* PromodoTimer for Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				2E6BA2AF244223FD00DA8781 /* iOS Codes */,
 				2EC48E77244184350002FEBE /* Others */,
-				2EC48E762441841C0002FEBE /* Model */,
 				2EC48E75244184100002FEBE /* View */,
 				2EC48E552441595F0002FEBE /* Assets.xcassets */,
 				2EC48E5A2441595F0002FEBE /* Info.plist */,
@@ -278,20 +339,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		2EC48E762441841C0002FEBE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2EC48E732441727A0002FEBE /* TimerModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		2EC48E77244184350002FEBE /* Others */ = {
 			isa = PBXGroup;
 			children = (
-				2EC48E68244159A60002FEBE /* ComplicationController.swift */,
-				2EC48E69244159A70002FEBE /* HostingController.swift */,
-				2EC48E67244159A60002FEBE /* ExtensionDelegate.swift */,
+				2E6BA2822442207000DA8781 /* ComplicationController.swift */,
+				2E6BA2802442206F00DA8781 /* ExtensionDelegate.swift */,
+				2E6BA2812442207000DA8781 /* HostingController.swift */,
 			);
 			name = Others;
 			path = "New Group";
@@ -430,27 +483,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E6BA28F244220EC00DA8781 /* Utility.swift in Sources */,
 				2E5D8BF524222F8E00860E1B /* PickerTableViewCell.swift in Sources */,
-				2E0F26EE241E4AEB0076C5AC /* SettingsModel.swift in Sources */,
+				2E6BA2962442211A00DA8781 /* TimeController.swift in Sources */,
 				2E444B32243C953700A9E0AB /* SubtitleTableViewCell.swift in Sources */,
-				2E444B30243BD67600A9E0AB /* Utility.swift in Sources */,
 				2E8B9F9D244004BA00B13AA9 /* RightDetailTableViewCell.swift in Sources */,
 				2E0F26E9241DF4320076C5AC /* TogglTimerDetailTableViewController.swift in Sources */,
 				2EC23D092417ADDA00EA7BD6 /* TimerViewController.swift in Sources */,
 				2E8B9F9F2440AA1100B13AA9 /* AlarmSoundsTableViewController.swift in Sources */,
 				2E5D8BED2420E71B00860E1B /* TimerListTableViewController.swift in Sources */,
 				2EC23D052417ADDA00EA7BD6 /* AppDelegate.swift in Sources */,
-				2E80F90A241C663500554B12 /* GlobalVarModel.swift in Sources */,
 				2E0FB9A9241904EB003AA41D /* SettingsTableViewController.swift in Sources */,
-				2E0FB9AF241A75CF003AA41D /* TogglController.swift in Sources */,
 				2E5D8BE9241FA67600860E1B /* SwitchTableViewCell.swift in Sources */,
-				2E8B9FA12440ADB700B13AA9 /* AlarmSoundsInfo.swift in Sources */,
 				2E5D8BF12420EFB300860E1B /* TimerSettingsTableViewController.swift in Sources */,
-				2E0FB9A52418F377003AA41D /* TimeController.swift in Sources */,
 				2E0F26EB241E34250076C5AC /* InputTableViewCell.swift in Sources */,
+				2E6BA29B2442211A00DA8781 /* AlarmSoundsModel.swift in Sources */,
 				2E444B34243CDF9D00A9E0AB /* TimePieView.swift in Sources */,
-				2E5D8BEF2420E79600860E1B /* TimerModel.swift in Sources */,
+				2E6BA2972442211A00DA8781 /* TimerModel.swift in Sources */,
+				2E6BA29A2442211A00DA8781 /* GlobalVarModel.swift in Sources */,
+				2E6BA2982442211A00DA8781 /* SettingsModel.swift in Sources */,
 				2E16120E241D5AA5007C55D8 /* LogInViewController.swift in Sources */,
+				2E6BA2992442211A00DA8781 /* TogglController.swift in Sources */,
 				2E8B9F9B243F655700B13AA9 /* PickerWindowView.swift in Sources */,
 				2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */,
 			);
@@ -460,11 +513,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E6BA2BF244224C500DA8781 /* TimerModel.swift in Sources */,
+				2E6BA2832442207000DA8781 /* ExtensionDelegate.swift in Sources */,
 				2E998E312441AD3400092F1B /* TimerView.swift in Sources */,
-				2EC48E6D244159A70002FEBE /* HostingController.swift in Sources */,
-				2EC48E6B244159A70002FEBE /* ExtensionDelegate.swift in Sources */,
-				2EC48E742441727A0002FEBE /* TimerModel.swift in Sources */,
-				2EC48E6C244159A70002FEBE /* ComplicationController.swift in Sources */,
+				2E6BA2B6244224A800DA8781 /* TimeController.swift in Sources */,
+				2E6BA2BC244224C500DA8781 /* AlarmSoundsModel.swift in Sources */,
+				2E6BA2BD244224C500DA8781 /* GlobalVarModel.swift in Sources */,
+				2E6BA2852442207000DA8781 /* ComplicationController.swift in Sources */,
+				2E6BA2BE244224C500DA8781 /* SettingsModel.swift in Sources */,
+				2E6BA2C1244224E500DA8781 /* Utility.swift in Sources */,
+				2E6BA2B7244224A800DA8781 /* TogglController.swift in Sources */,
+				2E6BA2842442207000DA8781 /* HostingController.swift in Sources */,
 				2EC48E7224416E630002FEBE /* TimerListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
