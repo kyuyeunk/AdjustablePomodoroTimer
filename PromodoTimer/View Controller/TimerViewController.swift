@@ -43,6 +43,7 @@ class TimerViewController: UIViewController {
     var passedTimePie = TimePieView()
     var pickerWindow = PickerWindowView()
     
+    // MARK: - UIButtons
     @objc func startButtonPressed(_ sender: Any) {
         if GlobalVar.timeController.timerStarted == false {
             print("[Timer View] Pressed Start Button")
@@ -64,6 +65,7 @@ class TimerViewController: UIViewController {
         navigationController?.pushViewController(timerListViewController, animated: true)
     }
     
+    // MARK: - Gesture
     @objc func panGesture(sender: UIPanGestureRecognizer) {
         if sender.state == .began {
             if currTime >= 0 {
@@ -193,6 +195,7 @@ class TimerViewController: UIViewController {
         passedTimePie.setTime(time: currTime)
     }
     
+    // MARK: - View Transition Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
@@ -244,6 +247,8 @@ class TimerViewController: UIViewController {
         }
     }
 
+    // MARK: - UI Initialization
+    
     func initUI() {
         addViews()
         initUIAttributes()
@@ -373,6 +378,8 @@ class TimerViewController: UIViewController {
     }
 }
 
+//MARK: - PickerView
+
 extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     enum components: Int {
         case sign
@@ -499,6 +506,8 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         }
     }
 }
+
+//MARK: TimeControllerDelegate
 
 extension TimerViewController: TimeControllerDelegate {
     func displayTimeoutAlert(type: TimerType, completion: @escaping ((Bool) -> Void)) {

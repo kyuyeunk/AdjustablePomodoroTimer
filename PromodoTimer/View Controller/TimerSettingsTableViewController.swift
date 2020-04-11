@@ -33,6 +33,7 @@ class TimerSettingsTableViewController: UITableViewController {
         }
     }
     
+    //MARK: - UIButton
     @objc func saveButtonTapped() {
         if newTimer {
             GlobalVar.settings.timerList.append(workingTimerModel)
@@ -50,7 +51,10 @@ class TimerSettingsTableViewController: UITableViewController {
             navigation.popViewController(animated: true)
         }
     }
-        
+    
+    
+    // MARK: UIInitialization
+    
     var posTimePickerHidden = true
     var negTimePickerHidden = true
     var maxTimePickerHidden = true
@@ -95,6 +99,7 @@ class TimerSettingsTableViewController: UITableViewController {
         }
     }
 
+    //MARK: - TableView
     override func numberOfSections(in tableView: UITableView) -> Int {
         return sections.numberOfSections.rawValue
     }
@@ -399,6 +404,7 @@ class TimerSettingsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    //MARK: Switch Functions
     @objc func autoRepeatSwitched(myswitch: UISwitch) {
         workingTimerModel.autoRepeat = myswitch.isOn
         if myswitch.isOn {
@@ -442,6 +448,7 @@ class TimerSettingsTableViewController: UITableViewController {
     }
 }
 
+//MARK: - PickerView
 extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerViewDelegate {
     enum components: Int {
         case minVal
