@@ -13,9 +13,12 @@ struct TimerListView: View {
     
     var body: some View {
         List(timers) { timer in
-            VStack(alignment: .leading) {
-                Text(timer.timerName)
-                TimerListCell(posTime: timer.startTime[.positive]!, negTime: timer.startTime[.negative]!)
+            NavigationLink(destination: TimerView()) {
+                VStack(alignment: .leading, spacing: 3) {
+                    Text(timer.timerName)
+                    TimerListCell(posTime: timer.startTime[.positive]!, negTime: timer.startTime[.negative]!)
+                }
+                .padding(3)
             }
         }
         .navigationBarTitle("Timers")
@@ -39,7 +42,7 @@ struct TimerListCell: View {
                 .foregroundColor(.red)
             Text(String("\(negMin)m \(negSec)s"))
                 .frame(maxWidth: .infinity, alignment: .center)
-            .foregroundColor(.blue)
+                .foregroundColor(.blue)
         }
     }
 }
