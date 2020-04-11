@@ -18,9 +18,6 @@
 		2E5D8BED2420E71B00860E1B /* TimerListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BEC2420E71B00860E1B /* TimerListTableViewController.swift */; };
 		2E5D8BF12420EFB300860E1B /* TimerSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BF02420EFB300860E1B /* TimerSettingsTableViewController.swift */; };
 		2E5D8BF524222F8E00860E1B /* PickerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E5D8BF424222F8E00860E1B /* PickerTableViewCell.swift */; };
-		2E6BA2832442207000DA8781 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2802442206F00DA8781 /* ExtensionDelegate.swift */; };
-		2E6BA2842442207000DA8781 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2812442207000DA8781 /* HostingController.swift */; };
-		2E6BA2852442207000DA8781 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2822442207000DA8781 /* ComplicationController.swift */; };
 		2E6BA28F244220EC00DA8781 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA27E24421E3500DA8781 /* Utility.swift */; };
 		2E6BA2962442211A00DA8781 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2902442211800DA8781 /* TimeController.swift */; };
 		2E6BA2972442211A00DA8781 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2912442211900DA8781 /* TimerModel.swift */; };
@@ -28,44 +25,46 @@
 		2E6BA2992442211A00DA8781 /* TogglController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2932442211900DA8781 /* TogglController.swift */; };
 		2E6BA29A2442211A00DA8781 /* GlobalVarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2942442211900DA8781 /* GlobalVarModel.swift */; };
 		2E6BA29B2442211A00DA8781 /* AlarmSoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2952442211900DA8781 /* AlarmSoundsModel.swift */; };
-		2E6BA2B6244224A800DA8781 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2B4244224A700DA8781 /* TimeController.swift */; };
-		2E6BA2B7244224A800DA8781 /* TogglController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2B5244224A800DA8781 /* TogglController.swift */; };
-		2E6BA2BC244224C500DA8781 /* AlarmSoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2B8244224C400DA8781 /* AlarmSoundsModel.swift */; };
-		2E6BA2BD244224C500DA8781 /* GlobalVarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2B9244224C400DA8781 /* GlobalVarModel.swift */; };
-		2E6BA2BE244224C500DA8781 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2BA244224C500DA8781 /* SettingsModel.swift */; };
-		2E6BA2BF244224C500DA8781 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2BB244224C500DA8781 /* TimerModel.swift */; };
-		2E6BA2C1244224E500DA8781 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2C0244224E400DA8781 /* Utility.swift */; };
 		2E8B9F9B243F655700B13AA9 /* PickerWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9A243F655700B13AA9 /* PickerWindowView.swift */; };
 		2E8B9F9D244004BA00B13AA9 /* RightDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9C244004BA00B13AA9 /* RightDetailTableViewCell.swift */; };
 		2E8B9F9F2440AA1100B13AA9 /* AlarmSoundsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9E2440AA1000B13AA9 /* AlarmSoundsTableViewController.swift */; };
-		2E998E312441AD3400092F1B /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E998E302441AD3400092F1B /* TimerView.swift */; };
 		2EC23D052417ADDA00EA7BD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */; };
 		2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */; };
 		2EC23D092417ADDA00EA7BD6 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D082417ADDA00EA7BD6 /* TimerViewController.swift */; };
 		2EC23D0E2417ADE600EA7BD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC23D0D2417ADE600EA7BD6 /* Assets.xcassets */; };
 		2EC23D112417ADE600EA7BD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EC23D0F2417ADE600EA7BD6 /* LaunchScreen.storyboard */; };
-		2EC48E422441595C0002FEBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E412441595B0002FEBE /* Assets.xcassets */; };
-		2EC48E492441595C0002FEBE /* PromodoTimer for Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2EC48E482441595C0002FEBE /* PromodoTimer for Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2EC48E562441595F0002FEBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E552441595F0002FEBE /* Assets.xcassets */; };
-		2EC48E592441595F0002FEBE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E582441595F0002FEBE /* Preview Assets.xcassets */; };
-		2EC48E5D2441595F0002FEBE /* PromodoTimer for Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2EC48E3C244159570002FEBE /* PromodoTimer for Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		2EC48E7024415A190002FEBE /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EC48E6E24415A190002FEBE /* Interface.storyboard */; };
-		2EC48E7224416E630002FEBE /* TimerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC48E7124416E630002FEBE /* TimerListView.swift */; };
+		2EF98730244242C2006EE167 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF9872E244242C2006EE167 /* Interface.storyboard */; };
+		2EF98732244242CD006EE167 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF98731244242CD006EE167 /* Assets.xcassets */; };
+		2EF98739244242CD006EE167 /* PromodoTimer for Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2EF98738244242CD006EE167 /* PromodoTimer for Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2EF98740244242CE006EE167 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF9873F244242CD006EE167 /* ExtensionDelegate.swift */; };
+		2EF98742244242CE006EE167 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF98741244242CE006EE167 /* ComplicationController.swift */; };
+		2EF98744244242D1006EE167 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF98743244242D1006EE167 /* Assets.xcassets */; };
+		2EF98748244242D2006EE167 /* PromodoTimer for Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2EF9872C244242C2006EE167 /* PromodoTimer for Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2EF987512442454B006EE167 /* TimerInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF987502442454B006EE167 /* TimerInfoCell.swift */; };
+		2EF987532442472F006EE167 /* TimerListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF987522442472F006EE167 /* TimerListController.swift */; };
+		2EF9875424424EA7006EE167 /* AlarmSoundsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2952442211900DA8781 /* AlarmSoundsModel.swift */; };
+		2EF9875524424EA9006EE167 /* GlobalVarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2942442211900DA8781 /* GlobalVarModel.swift */; };
+		2EF9875624424EAB006EE167 /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2922442211900DA8781 /* SettingsModel.swift */; };
+		2EF9875724424EAE006EE167 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2912442211900DA8781 /* TimerModel.swift */; };
+		2EF9875824424EB0006EE167 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA27E24421E3500DA8781 /* Utility.swift */; };
+		2EF9875924424EB3006EE167 /* TogglController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2932442211900DA8781 /* TogglController.swift */; };
+		2EF9875A24424EB6006EE167 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2902442211800DA8781 /* TimeController.swift */; };
+		2EF98760244251A2006EE167 /* TimePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF9875F244251A1006EE167 /* TimePickerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2EC48E4A2441595C0002FEBE /* PBXContainerItemProxy */ = {
+		2EF9873A244242CD006EE167 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2EC23CF92417ADDA00EA7BD6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 2EC48E472441595C0002FEBE;
+			remoteGlobalIDString = 2EF98737244242CD006EE167;
 			remoteInfo = "PromodoTimer for Watch Extension";
 		};
-		2EC48E5B2441595F0002FEBE /* PBXContainerItemProxy */ = {
+		2EF98746244242D2006EE167 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2EC23CF92417ADDA00EA7BD6 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 2EC48E3B244159570002FEBE;
+			remoteGlobalIDString = 2EF9872B244242C2006EE167;
 			remoteInfo = "PromodoTimer for Watch";
 		};
 /* End PBXContainerItemProxy section */
@@ -77,18 +76,18 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				2EC48E5D2441595F0002FEBE /* PromodoTimer for Watch.app in Embed Watch Content */,
+				2EF98748244242D2006EE167 /* PromodoTimer for Watch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2EC48E612441595F0002FEBE /* Embed App Extensions */ = {
+		2EF9874C244242D2006EE167 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				2EC48E492441595C0002FEBE /* PromodoTimer for Watch Extension.appex in Embed App Extensions */,
+				2EF98739244242CD006EE167 /* PromodoTimer for Watch Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -108,42 +107,34 @@
 		2E5D8BF02420EFB300860E1B /* TimerSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettingsTableViewController.swift; sourceTree = "<group>"; };
 		2E5D8BF424222F8E00860E1B /* PickerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerTableViewCell.swift; sourceTree = "<group>"; };
 		2E6BA27E24421E3500DA8781 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = PromodoTimer/Others/Utility.swift; sourceTree = SOURCE_ROOT; };
-		2E6BA2802442206F00DA8781 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionDelegate.swift; path = "PromodoTimer for Watch Extension/Others/ExtensionDelegate.swift"; sourceTree = SOURCE_ROOT; };
-		2E6BA2812442207000DA8781 /* HostingController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HostingController.swift; path = "PromodoTimer for Watch Extension/Others/HostingController.swift"; sourceTree = SOURCE_ROOT; };
-		2E6BA2822442207000DA8781 /* ComplicationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ComplicationController.swift; path = "PromodoTimer for Watch Extension/Others/ComplicationController.swift"; sourceTree = SOURCE_ROOT; };
 		2E6BA2902442211800DA8781 /* TimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
 		2E6BA2912442211900DA8781 /* TimerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
 		2E6BA2922442211900DA8781 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		2E6BA2932442211900DA8781 /* TogglController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TogglController.swift; sourceTree = "<group>"; };
 		2E6BA2942442211900DA8781 /* GlobalVarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVarModel.swift; sourceTree = "<group>"; };
 		2E6BA2952442211900DA8781 /* AlarmSoundsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundsModel.swift; sourceTree = "<group>"; };
-		2E6BA2B4244224A700DA8781 /* TimeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeController.swift; sourceTree = "<group>"; };
-		2E6BA2B5244224A800DA8781 /* TogglController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TogglController.swift; sourceTree = "<group>"; };
-		2E6BA2B8244224C400DA8781 /* AlarmSoundsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmSoundsModel.swift; sourceTree = "<group>"; };
-		2E6BA2B9244224C400DA8781 /* GlobalVarModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalVarModel.swift; sourceTree = "<group>"; };
-		2E6BA2BA244224C500DA8781 /* SettingsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
-		2E6BA2BB244224C500DA8781 /* TimerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
-		2E6BA2C0244224E400DA8781 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		2E80F90F241C67B400554B12 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E8B9F9A243F655700B13AA9 /* PickerWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerWindowView.swift; sourceTree = "<group>"; };
 		2E8B9F9C244004BA00B13AA9 /* RightDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E8B9F9E2440AA1000B13AA9 /* AlarmSoundsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundsTableViewController.swift; sourceTree = "<group>"; };
-		2E998E302441AD3400092F1B /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		2EC23D012417ADDA00EA7BD6 /* PromodoTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromodoTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2EC23D082417ADDA00EA7BD6 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		2EC23D0D2417ADE600EA7BD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EC23D102417ADE600EA7BD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		2EC48E3C244159570002FEBE /* PromodoTimer for Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PromodoTimer for Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EC48E412441595B0002FEBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2EC48E432441595C0002FEBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2EC48E482441595C0002FEBE /* PromodoTimer for Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "PromodoTimer for Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2EC48E552441595F0002FEBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2EC48E582441595F0002FEBE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		2EC48E5A2441595F0002FEBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2EC48E6F24415A190002FEBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		2EC48E7124416E630002FEBE /* TimerListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerListView.swift; sourceTree = "<group>"; };
+		2EF9872C244242C2006EE167 /* PromodoTimer for Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PromodoTimer for Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EF9872F244242C2006EE167 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		2EF98731244242CD006EE167 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2EF98733244242CD006EE167 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EF98738244242CD006EE167 /* PromodoTimer for Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "PromodoTimer for Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EF9873F244242CD006EE167 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		2EF98741244242CE006EE167 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		2EF98743244242D1006EE167 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2EF98745244242D2006EE167 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2EF987502442454B006EE167 /* TimerInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerInfoCell.swift; sourceTree = "<group>"; };
+		2EF987522442472F006EE167 /* TimerListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerListController.swift; sourceTree = "<group>"; };
+		2EF9875F244251A1006EE167 /* TimePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +145,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2EC48E452441595C0002FEBE /* Frameworks */ = {
+		2EF98735244242CD006EE167 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -222,54 +213,13 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		2E6BA2AF244223FD00DA8781 /* iOS Codes */ = {
-			isa = PBXGroup;
-			children = (
-				2E6BA2B32442247D00DA8781 /* Controller */,
-				2E6BA2B22442242F00DA8781 /* Model */,
-				2E6BA2B12442241700DA8781 /* Others */,
-			);
-			name = "iOS Codes";
-			sourceTree = "<group>";
-		};
-		2E6BA2B12442241700DA8781 /* Others */ = {
-			isa = PBXGroup;
-			children = (
-				2E6BA2C0244224E400DA8781 /* Utility.swift */,
-			);
-			name = Others;
-			path = PromodoTimer/Others;
-			sourceTree = SOURCE_ROOT;
-		};
-		2E6BA2B22442242F00DA8781 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				2E6BA2B8244224C400DA8781 /* AlarmSoundsModel.swift */,
-				2E6BA2B9244224C400DA8781 /* GlobalVarModel.swift */,
-				2E6BA2BA244224C500DA8781 /* SettingsModel.swift */,
-				2E6BA2BB244224C500DA8781 /* TimerModel.swift */,
-			);
-			name = Model;
-			path = PromodoTimer/Model;
-			sourceTree = SOURCE_ROOT;
-		};
-		2E6BA2B32442247D00DA8781 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				2E6BA2B4244224A700DA8781 /* TimeController.swift */,
-				2E6BA2B5244224A800DA8781 /* TogglController.swift */,
-			);
-			name = Controller;
-			path = PromodoTimer/Controller;
-			sourceTree = SOURCE_ROOT;
-		};
 		2EC23CF82417ADDA00EA7BD6 = {
 			isa = PBXGroup;
 			children = (
 				2E0FB9A22417E0D7003AA41D /* README.md */,
 				2EC23D032417ADDA00EA7BD6 /* PromodoTimer */,
-				2EC48E3D244159570002FEBE /* PromodoTimer for Watch */,
-				2EC48E4C2441595C0002FEBE /* PromodoTimer for Watch Extension */,
+				2EF9872D244242C2006EE167 /* PromodoTimer for Watch */,
+				2EF9873C244242CD006EE167 /* PromodoTimer for Watch Extension */,
 				2EC23D022417ADDA00EA7BD6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -278,8 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				2EC23D012417ADDA00EA7BD6 /* PromodoTimer.app */,
-				2EC48E3C244159570002FEBE /* PromodoTimer for Watch.app */,
-				2EC48E482441595C0002FEBE /* PromodoTimer for Watch Extension.appex */,
+				2EF9872C244242C2006EE167 /* PromodoTimer for Watch.app */,
+				2EF98738244242CD006EE167 /* PromodoTimer for Watch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -287,67 +237,56 @@
 		2EC23D032417ADDA00EA7BD6 /* PromodoTimer */ = {
 			isa = PBXGroup;
 			children = (
-				2E0F26EC241E3D2A0076C5AC /* Others */,
-				2E0FB9B1241A8974003AA41D /* Model */,
+				2E80F90F241C67B400554B12 /* Info.plist */,
+				2EC23D0D2417ADE600EA7BD6 /* Assets.xcassets */,
 				2E6BA2AA244221D800DA8781 /* Controller */,
+				2EC23D0F2417ADE600EA7BD6 /* LaunchScreen.storyboard */,
+				2E0FB9B1241A8974003AA41D /* Model */,
+				2E0F26EC241E3D2A0076C5AC /* Others */,
 				2E5D8BE7241FA42500860E1B /* View */,
 				2E0FB9B0241A8963003AA41D /* View Controller */,
-				2EC23D0D2417ADE600EA7BD6 /* Assets.xcassets */,
-				2EC23D0F2417ADE600EA7BD6 /* LaunchScreen.storyboard */,
-				2E80F90F241C67B400554B12 /* Info.plist */,
 			);
 			path = PromodoTimer;
 			sourceTree = "<group>";
 		};
-		2EC48E3D244159570002FEBE /* PromodoTimer for Watch */ = {
+		2EF9872D244242C2006EE167 /* PromodoTimer for Watch */ = {
 			isa = PBXGroup;
 			children = (
-				2EC48E6E24415A190002FEBE /* Interface.storyboard */,
-				2EC48E412441595B0002FEBE /* Assets.xcassets */,
-				2EC48E432441595C0002FEBE /* Info.plist */,
+				2EF9872E244242C2006EE167 /* Interface.storyboard */,
+				2EF98731244242CD006EE167 /* Assets.xcassets */,
+				2EF98733244242CD006EE167 /* Info.plist */,
 			);
 			path = "PromodoTimer for Watch";
 			sourceTree = "<group>";
 		};
-		2EC48E4C2441595C0002FEBE /* PromodoTimer for Watch Extension */ = {
+		2EF9873C244242CD006EE167 /* PromodoTimer for Watch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				2E6BA2AF244223FD00DA8781 /* iOS Codes */,
-				2EC48E77244184350002FEBE /* Others */,
-				2EC48E75244184100002FEBE /* View */,
-				2EC48E552441595F0002FEBE /* Assets.xcassets */,
-				2EC48E5A2441595F0002FEBE /* Info.plist */,
-				2EC48E572441595F0002FEBE /* Preview Content */,
+				2EF9875D24425050006EE167 /* View Controller */,
+				2EF9875E24425080006EE167 /* View */,
+				2EF9873F244242CD006EE167 /* ExtensionDelegate.swift */,
+				2EF98743244242D1006EE167 /* Assets.xcassets */,
+				2EF98745244242D2006EE167 /* Info.plist */,
 			);
 			path = "PromodoTimer for Watch Extension";
 			sourceTree = "<group>";
 		};
-		2EC48E572441595F0002FEBE /* Preview Content */ = {
+		2EF9875D24425050006EE167 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				2EC48E582441595F0002FEBE /* Preview Assets.xcassets */,
+				2EF9875F244251A1006EE167 /* TimePickerController.swift */,
+				2EF987522442472F006EE167 /* TimerListController.swift */,
+				2EF98741244242CE006EE167 /* ComplicationController.swift */,
 			);
-			path = "Preview Content";
+			path = "View Controller";
 			sourceTree = "<group>";
 		};
-		2EC48E75244184100002FEBE /* View */ = {
+		2EF9875E24425080006EE167 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2EC48E7124416E630002FEBE /* TimerListView.swift */,
-				2E998E302441AD3400092F1B /* TimerView.swift */,
+				2EF987502442454B006EE167 /* TimerInfoCell.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		2EC48E77244184350002FEBE /* Others */ = {
-			isa = PBXGroup;
-			children = (
-				2E6BA2822442207000DA8781 /* ComplicationController.swift */,
-				2E6BA2802442206F00DA8781 /* ExtensionDelegate.swift */,
-				2E6BA2812442207000DA8781 /* HostingController.swift */,
-			);
-			name = Others;
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,37 +304,37 @@
 			buildRules = (
 			);
 			dependencies = (
-				2EC48E5C2441595F0002FEBE /* PBXTargetDependency */,
+				2EF98747244242D2006EE167 /* PBXTargetDependency */,
 			);
 			name = PromodoTimer;
 			productName = PromodoTimer;
 			productReference = 2EC23D012417ADDA00EA7BD6 /* PromodoTimer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2EC48E3B244159570002FEBE /* PromodoTimer for Watch */ = {
+		2EF9872B244242C2006EE167 /* PromodoTimer for Watch */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2EC48E652441595F0002FEBE /* Build configuration list for PBXNativeTarget "PromodoTimer for Watch" */;
+			buildConfigurationList = 2EF9874D244242D2006EE167 /* Build configuration list for PBXNativeTarget "PromodoTimer for Watch" */;
 			buildPhases = (
-				2EC48E3A244159570002FEBE /* Resources */,
-				2EC48E612441595F0002FEBE /* Embed App Extensions */,
+				2EF9872A244242C2006EE167 /* Resources */,
+				2EF9874C244242D2006EE167 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2EC48E4B2441595C0002FEBE /* PBXTargetDependency */,
+				2EF9873B244242CD006EE167 /* PBXTargetDependency */,
 			);
 			name = "PromodoTimer for Watch";
 			productName = "PromodoTimer for Watch";
-			productReference = 2EC48E3C244159570002FEBE /* PromodoTimer for Watch.app */;
+			productReference = 2EF9872C244242C2006EE167 /* PromodoTimer for Watch.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
-		2EC48E472441595C0002FEBE /* PromodoTimer for Watch Extension */ = {
+		2EF98737244242CD006EE167 /* PromodoTimer for Watch Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2EC48E642441595F0002FEBE /* Build configuration list for PBXNativeTarget "PromodoTimer for Watch Extension" */;
+			buildConfigurationList = 2EF98749244242D2006EE167 /* Build configuration list for PBXNativeTarget "PromodoTimer for Watch Extension" */;
 			buildPhases = (
-				2EC48E442441595C0002FEBE /* Sources */,
-				2EC48E452441595C0002FEBE /* Frameworks */,
-				2EC48E462441595C0002FEBE /* Resources */,
+				2EF98734244242CD006EE167 /* Sources */,
+				2EF98735244242CD006EE167 /* Frameworks */,
+				2EF98736244242CD006EE167 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -403,7 +342,7 @@
 			);
 			name = "PromodoTimer for Watch Extension";
 			productName = "PromodoTimer for Watch Extension";
-			productReference = 2EC48E482441595C0002FEBE /* PromodoTimer for Watch Extension.appex */;
+			productReference = 2EF98738244242CD006EE167 /* PromodoTimer for Watch Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
@@ -419,10 +358,10 @@
 					2EC23D002417ADDA00EA7BD6 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
-					2EC48E3B244159570002FEBE = {
+					2EF9872B244242C2006EE167 = {
 						CreatedOnToolsVersion = 11.4;
 					};
-					2EC48E472441595C0002FEBE = {
+					2EF98737244242CD006EE167 = {
 						CreatedOnToolsVersion = 11.4;
 					};
 				};
@@ -441,8 +380,8 @@
 			projectRoot = "";
 			targets = (
 				2EC23D002417ADDA00EA7BD6 /* PromodoTimer */,
-				2EC48E3B244159570002FEBE /* PromodoTimer for Watch */,
-				2EC48E472441595C0002FEBE /* PromodoTimer for Watch Extension */,
+				2EF9872B244242C2006EE167 /* PromodoTimer for Watch */,
+				2EF98737244242CD006EE167 /* PromodoTimer for Watch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -458,21 +397,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2EC48E3A244159570002FEBE /* Resources */ = {
+		2EF9872A244242C2006EE167 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EC48E7024415A190002FEBE /* Interface.storyboard in Resources */,
-				2EC48E422441595C0002FEBE /* Assets.xcassets in Resources */,
+				2EF98732244242CD006EE167 /* Assets.xcassets in Resources */,
+				2EF98730244242C2006EE167 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2EC48E462441595C0002FEBE /* Resources */ = {
+		2EF98736244242CD006EE167 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EC48E592441595F0002FEBE /* Preview Assets.xcassets in Resources */,
-				2EC48E562441595F0002FEBE /* Assets.xcassets in Resources */,
+				2EF98744244242D1006EE167 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -509,37 +447,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2EC48E442441595C0002FEBE /* Sources */ = {
+		2EF98734244242CD006EE167 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E6BA2BF244224C500DA8781 /* TimerModel.swift in Sources */,
-				2E6BA2832442207000DA8781 /* ExtensionDelegate.swift in Sources */,
-				2E998E312441AD3400092F1B /* TimerView.swift in Sources */,
-				2E6BA2B6244224A800DA8781 /* TimeController.swift in Sources */,
-				2E6BA2BC244224C500DA8781 /* AlarmSoundsModel.swift in Sources */,
-				2E6BA2BD244224C500DA8781 /* GlobalVarModel.swift in Sources */,
-				2E6BA2852442207000DA8781 /* ComplicationController.swift in Sources */,
-				2E6BA2BE244224C500DA8781 /* SettingsModel.swift in Sources */,
-				2E6BA2C1244224E500DA8781 /* Utility.swift in Sources */,
-				2E6BA2B7244224A800DA8781 /* TogglController.swift in Sources */,
-				2E6BA2842442207000DA8781 /* HostingController.swift in Sources */,
-				2EC48E7224416E630002FEBE /* TimerListView.swift in Sources */,
+				2EF98740244242CE006EE167 /* ExtensionDelegate.swift in Sources */,
+				2EF9875924424EB3006EE167 /* TogglController.swift in Sources */,
+				2EF9875424424EA7006EE167 /* AlarmSoundsModel.swift in Sources */,
+				2EF9875824424EB0006EE167 /* Utility.swift in Sources */,
+				2EF9875A24424EB6006EE167 /* TimeController.swift in Sources */,
+				2EF987532442472F006EE167 /* TimerListController.swift in Sources */,
+				2EF98742244242CE006EE167 /* ComplicationController.swift in Sources */,
+				2EF9875524424EA9006EE167 /* GlobalVarModel.swift in Sources */,
+				2EF9875724424EAE006EE167 /* TimerModel.swift in Sources */,
+				2EF9875624424EAB006EE167 /* SettingsModel.swift in Sources */,
+				2EF98760244251A2006EE167 /* TimePickerController.swift in Sources */,
+				2EF987512442454B006EE167 /* TimerInfoCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2EC48E4B2441595C0002FEBE /* PBXTargetDependency */ = {
+		2EF9873B244242CD006EE167 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2EC48E472441595C0002FEBE /* PromodoTimer for Watch Extension */;
-			targetProxy = 2EC48E4A2441595C0002FEBE /* PBXContainerItemProxy */;
+			target = 2EF98737244242CD006EE167 /* PromodoTimer for Watch Extension */;
+			targetProxy = 2EF9873A244242CD006EE167 /* PBXContainerItemProxy */;
 		};
-		2EC48E5C2441595F0002FEBE /* PBXTargetDependency */ = {
+		2EF98747244242D2006EE167 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2EC48E3B244159570002FEBE /* PromodoTimer for Watch */;
-			targetProxy = 2EC48E5B2441595F0002FEBE /* PBXContainerItemProxy */;
+			target = 2EF9872B244242C2006EE167 /* PromodoTimer for Watch */;
+			targetProxy = 2EF98746244242D2006EE167 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -552,10 +490,10 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		2EC48E6E24415A190002FEBE /* Interface.storyboard */ = {
+		2EF9872E244242C2006EE167 /* Interface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2EC48E6F24415A190002FEBE /* Base */,
+				2EF9872F244242C2006EE167 /* Base */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -713,17 +651,20 @@
 			};
 			name = Release;
 		};
-		2EC48E5F2441595F0002FEBE /* Debug */ = {
+		2EF9874A244242D2006EE167 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72DH54VTLH;
-				IBSC_MODULE = PromodoTimer_for_Watch_Extension;
-				INFOPLIST_FILE = "PromodoTimer for Watch/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = kky.PromodoTimer.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "PromodoTimer for Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = kky.PromodoTimer.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -732,17 +673,20 @@
 			};
 			name = Debug;
 		};
-		2EC48E602441595F0002FEBE /* Release */ = {
+		2EF9874B244242D2006EE167 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72DH54VTLH;
-				IBSC_MODULE = PromodoTimer_for_Watch_Extension;
-				INFOPLIST_FILE = "PromodoTimer for Watch/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = kky.PromodoTimer.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "PromodoTimer for Watch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = kky.PromodoTimer.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -751,22 +695,17 @@
 			};
 			name = Release;
 		};
-		2EC48E622441595F0002FEBE /* Debug */ = {
+		2EF9874E244242D2006EE167 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"PromodoTimer for Watch Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 72DH54VTLH;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "PromodoTimer for Watch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = kky.PromodoTimer.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
+				IBSC_MODULE = PromodoTimer_for_Watch_Extension;
+				INFOPLIST_FILE = "PromodoTimer for Watch/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = kky.PromodoTimer.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -775,22 +714,17 @@
 			};
 			name = Debug;
 		};
-		2EC48E632441595F0002FEBE /* Release */ = {
+		2EF9874F244242D2006EE167 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"PromodoTimer for Watch Extension/Preview Content\"";
 				DEVELOPMENT_TEAM = 72DH54VTLH;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "PromodoTimer for Watch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = kky.PromodoTimer.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
+				IBSC_MODULE = PromodoTimer_for_Watch_Extension;
+				INFOPLIST_FILE = "PromodoTimer for Watch/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = kky.PromodoTimer.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -820,20 +754,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2EC48E642441595F0002FEBE /* Build configuration list for PBXNativeTarget "PromodoTimer for Watch Extension" */ = {
+		2EF98749244242D2006EE167 /* Build configuration list for PBXNativeTarget "PromodoTimer for Watch Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2EC48E622441595F0002FEBE /* Debug */,
-				2EC48E632441595F0002FEBE /* Release */,
+				2EF9874A244242D2006EE167 /* Debug */,
+				2EF9874B244242D2006EE167 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2EC48E652441595F0002FEBE /* Build configuration list for PBXNativeTarget "PromodoTimer for Watch" */ = {
+		2EF9874D244242D2006EE167 /* Build configuration list for PBXNativeTarget "PromodoTimer for Watch" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2EC48E5F2441595F0002FEBE /* Debug */,
-				2EC48E602441595F0002FEBE /* Release */,
+				2EF9874E244242D2006EE167 /* Debug */,
+				2EF9874F244242D2006EE167 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
