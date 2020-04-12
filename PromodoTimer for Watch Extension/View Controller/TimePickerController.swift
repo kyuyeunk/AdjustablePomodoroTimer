@@ -18,6 +18,7 @@ class TimePickerController: WKInterfaceController {
             GlobalVar.timeController.startButtonTapped()
         }
     }
+    var prevSignValue: Int = 0
     @IBAction func signPicked(_ value: Int) {
         let prevCurrTime = currTime
         if value == 0 {
@@ -27,7 +28,8 @@ class TimePickerController: WKInterfaceController {
             currTime = -(currMin * 60 + currSec)
         }
         print("[Time Picker] set signRow to \(value), currTime is \(currTime)")
-        if prevCurrTime != currTime {
+        if prevSignValue != value || prevCurrTime != currTime {
+            prevSignValue = value
             print("[Time Picker] currTime changed from \(prevCurrTime) to \(currTime), updating it")
             setTime(currTime: currTime)
         }
