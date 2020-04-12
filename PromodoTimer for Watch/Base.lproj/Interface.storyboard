@@ -110,7 +110,7 @@
                     <items>
                         <table alignment="left" id="OV6-Rj-Zqp">
                             <items>
-                                <tableRow identifier="timerSetting" id="wsV-y0-Gy2" customClass="TimerSettingCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="sliderSetting" id="wsV-y0-Gy2" customClass="SliderSettingCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="ILd-MD-xuc">
                                         <items>
                                             <group width="1" alignment="left" id="gPg-JC-s3c">
@@ -120,6 +120,7 @@
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </label>
                                                 </items>
+                                                <edgeInsets key="margins" left="5" right="5" top="2" bottom="2"/>
                                             </group>
                                             <slider width="1" alignment="left" value="1" maximum="60" steps="3" id="wAK-ow-oUc">
                                                 <connections>
@@ -127,12 +128,27 @@
                                                 </connections>
                                             </slider>
                                         </items>
-                                        <edgeInsets key="margins" left="5" right="5" top="5" bottom="5"/>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
                                     </group>
                                     <connections>
                                         <outlet property="settingLabel" destination="hVd-gR-Exi" id="1ur-Ha-KIk"/>
                                         <outlet property="settingValueLabel" destination="8SZ-F5-E3P" id="H6t-no-GDR"/>
                                         <outlet property="settingValueSlider" destination="wAK-ow-oUc" id="AnZ-su-kQZ"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="switchSetting" id="Vqh-GL-ibJ" customClass="SwitchSettingCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="TIU-qZ-r5d">
+                                        <items>
+                                            <switch width="1" alignment="left" value="YES" title="Switch" id="3uq-V6-gY1">
+                                                <connections>
+                                                    <action selector="switchTapped:" destination="Vqh-GL-ibJ" id="Veg-bB-Mei"/>
+                                                </connections>
+                                            </switch>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="settingValueSwitch" destination="3uq-V6-gY1" id="ysQ-6I-4Ab"/>
                                     </connections>
                                 </tableRow>
                             </items>
