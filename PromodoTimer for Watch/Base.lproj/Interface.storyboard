@@ -29,9 +29,6 @@
                                             </group>
                                         </items>
                                         <edgeInsets key="margins" left="3" right="3" top="3" bottom="3"/>
-                                        <connections>
-                                            <segue destination="uDq-ve-9HO" kind="push" id="mIn-fi-IXy"/>
-                                        </connections>
                                     </group>
                                     <connections>
                                         <outlet property="negTime" destination="e47-rh-6aQ" id="ilq-ec-3kW"/>
@@ -44,6 +41,7 @@
                     </items>
                     <connections>
                         <outlet property="timerList" destination="750-Hg-SLp" id="3dd-eH-4uL"/>
+                        <segue destination="uDq-ve-9HO" kind="relationship" relationship="nextPage" id="4rH-BH-FzA"/>
                     </connections>
                 </controller>
             </objects>
@@ -83,9 +81,6 @@
                                             </connections>
                                         </picker>
                                     </items>
-                                    <gestureRecognizers>
-                                        <tapGestureRecognizer id="ApD-89-PzD"/>
-                                    </gestureRecognizers>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </group>
                                 <button width="120" height="35" alignment="center" title="Start" id="quc-mP-tz4">
@@ -102,10 +97,45 @@
                         <outlet property="secPicker" destination="cgQ-tG-jl2" id="D6K-GZ-Az1"/>
                         <outlet property="signPicker" destination="HdU-Vg-E2x" id="PKH-Jy-EWE"/>
                         <outlet property="startButton" destination="quc-mP-tz4" id="kcl-tp-K7t"/>
+                        <segue destination="0VU-BR-2T4" kind="relationship" relationship="nextPage" id="Nk1-mn-Q7q"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="310" y="57"/>
+            <point key="canvasLocation" x="297" y="113"/>
+        </scene>
+        <!--Timer Settings-->
+        <scene sceneID="diP-t7-7Bh">
+            <objects>
+                <controller title="Timer Settings" id="0VU-BR-2T4" customClass="TimerSettingsController" customModule="PromodoTimer_for_Watch_Extension">
+                    <items>
+                        <table alignment="left" id="OV6-Rj-Zqp">
+                            <items>
+                                <tableRow identifier="timerSetting" id="wsV-y0-Gy2" customClass="TimerSettingCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="ILd-MD-xuc">
+                                        <items>
+                                            <label alignment="center" text="Label" id="hVd-gR-Exi"/>
+                                            <slider width="1" alignment="left" value="1" maximum="60" steps="3" id="wAK-ow-oUc">
+                                                <connections>
+                                                    <action selector="sliderTapped:" destination="wsV-y0-Gy2" id="mBv-C7-QXp"/>
+                                                </connections>
+                                            </slider>
+                                        </items>
+                                        <edgeInsets key="margins" left="3" right="3" top="3" bottom="3"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="settingLabel" destination="hVd-gR-Exi" id="1ur-Ha-KIk"/>
+                                        <outlet property="settingValue" destination="wAK-ow-oUc" id="AnZ-su-kQZ"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="timerSettingsTable" destination="OV6-Rj-Zqp" id="V97-hr-uiG"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="560" y="113"/>
         </scene>
     </scenes>
 </document>
