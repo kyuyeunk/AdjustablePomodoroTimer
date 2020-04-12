@@ -15,6 +15,7 @@ class TimePieView {
     var maxTime: Int
     var angle: CGFloat = 0
     let circleSKScene = SKScene(size: CGSize(width: 100, height: 100))
+    var isHighlighted = false
     
     init(maxMinute: Int, time endTime: Int) {
         circleSKScene.scaleMode = .aspectFit
@@ -23,8 +24,30 @@ class TimePieView {
         self.angle = 0
     }
     
-    func drawCircle() {
+    func draw() {
         circleSKScene.removeAllChildren()
+        drawOutline()
+        drawCircle()
+    }
+    
+    func drawOutline() {
+        let path = UIBezierPath(arcCenter: .zero, radius: 48.5, startAngle: 0, endAngle: 2 * .pi, clockwise: true).cgPath
+        let shapeNode = SKShapeNode(path: path)
+        var color: UIColor
+        if isHighlighted {
+            color = .green
+        }
+        else {
+            color = .lightGray
+        }
+        shapeNode.strokeColor = color
+        shapeNode.lineWidth = 3
+        shapeNode.position = CGPoint(x: circleSKScene.size.width / 2, y: circleSKScene.size.height / 2)
+        circleSKScene.backgroundColor = .black
+        circleSKScene.addChild(shapeNode)
+    }
+    
+    func drawCircle() {
         let startAngle: CGFloat = .pi / 2
         let endAngle = getAngle(time: endTime)
         var clockwise: Bool
@@ -44,11 +67,12 @@ class TimePieView {
         let path = UIBezierPath()
         let center: CGPoint = .zero
         path.move(to: center)
-        path.addArc(withCenter: center, radius: 42, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
+        path.addArc(withCenter: center, radius: 47, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
         path.close()
         
         let shapeNode = SKShapeNode(path: path.cgPath)
         shapeNode.fillColor = color
+        shapeNode.lineWidth = 0
         shapeNode.strokeColor = color
         shapeNode.position = CGPoint(x: circleSKScene.size.width / 2, y: circleSKScene.size.height / 2)
         circleSKScene.backgroundColor = .black
@@ -64,7 +88,7 @@ class TimePieView {
     
     func setTime(time: Int) {
         endTime = time
-        drawCircle()
+        draw()
     }
     
     func getTime(angle: CGFloat) -> Int{

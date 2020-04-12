@@ -61,6 +61,8 @@ class TimePickerController: WKInterfaceController {
     
     @IBAction func circleTapped(_ sender: Any) {
         print("Activate Circle")
+        timePieView.isHighlighted = true
+        timePieView.draw()
         crownSequencer.focus()
     }
 
