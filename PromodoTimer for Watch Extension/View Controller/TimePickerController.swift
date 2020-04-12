@@ -231,5 +231,9 @@ extension TimePickerController: WKCrownDelegate {
         print("new angle: \(newAngle) new time: \(newTime)")
         setTime(currTime: newTime)
         print("rotated \(rotationalDelta)")
+        if newTime / 60 != prevTickedMin {
+            WKInterfaceDevice.current().play(.click)
+            prevTickedMin = newTime / 60
+        }
     }
 }
