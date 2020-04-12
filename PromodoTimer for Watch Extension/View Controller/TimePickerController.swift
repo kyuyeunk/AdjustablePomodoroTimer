@@ -143,21 +143,21 @@ class TimePickerController: WKInterfaceController {
     
     func setTime(currTime: Int) {
         self.currTime = currTime
-        
-        currMin = abs(currTime) / 60
-        if abs(currMin) >= maxMinutes {
-            self.currTime = maxMinutes * 60
-            currSec = 0
-        }
-        else {
-            currSec = abs(currTime) % 60
-        }
-        
+       
         if currTime >= 0 {
             currSign = 1
         }
         else {
             currSign = -1
+        }
+        
+        currMin = abs(currTime) / 60
+        if abs(currMin) >= maxMinutes {
+            self.currTime = maxMinutes * 60 * currSign
+            currSec = 0
+        }
+        else {
+            currSec = abs(currTime) % 60
         }
         
         if currSign == 1 {
@@ -219,8 +219,6 @@ extension TimePickerController: TimeControllerDelegate {
     func displayTimeoutAlert(type: TimerType, completion: @escaping ((Bool) -> Void)) {
         completion(false)
     }
-    
-    
 }
 
 extension TimePickerController: WKCrownDelegate {
