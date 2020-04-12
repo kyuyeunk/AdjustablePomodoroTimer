@@ -113,18 +113,26 @@
                                 <tableRow identifier="timerSetting" id="wsV-y0-Gy2" customClass="TimerSettingCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="ILd-MD-xuc">
                                         <items>
-                                            <label alignment="center" text="Label" id="hVd-gR-Exi"/>
+                                            <group width="1" alignment="left" id="gPg-JC-s3c">
+                                                <items>
+                                                    <label alignment="left" text="Label" id="hVd-gR-Exi"/>
+                                                    <label alignment="right" text="Label" id="8SZ-F5-E3P">
+                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </label>
+                                                </items>
+                                            </group>
                                             <slider width="1" alignment="left" value="1" maximum="60" steps="3" id="wAK-ow-oUc">
                                                 <connections>
                                                     <action selector="sliderTapped:" destination="wsV-y0-Gy2" id="mBv-C7-QXp"/>
                                                 </connections>
                                             </slider>
                                         </items>
-                                        <edgeInsets key="margins" left="3" right="3" top="3" bottom="3"/>
+                                        <edgeInsets key="margins" left="5" right="5" top="5" bottom="5"/>
                                     </group>
                                     <connections>
                                         <outlet property="settingLabel" destination="hVd-gR-Exi" id="1ur-Ha-KIk"/>
-                                        <outlet property="settingValue" destination="wAK-ow-oUc" id="AnZ-su-kQZ"/>
+                                        <outlet property="settingValueLabel" destination="8SZ-F5-E3P" id="H6t-no-GDR"/>
+                                        <outlet property="settingValueSlider" destination="wAK-ow-oUc" id="AnZ-su-kQZ"/>
                                     </connections>
                                 </tableRow>
                             </items>

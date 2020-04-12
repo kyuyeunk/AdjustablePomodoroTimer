@@ -14,13 +14,26 @@ class TimerSettingsController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        timerSettingsTable.setNumberOfRows(1, withRowType: "timerSetting")
+        timerSettingsTable.setNumberOfRows(3, withRowType: "timerSetting")
         
-        let cell = timerSettingsTable.rowController(at: 0) as! TimerSettingCell
-        
-        cell.settingLabel.setText("Testing Label")
+        initCells()
+    }
+    
+    func initCells() {
+        var cell = timerSettingsTable.rowController(at: 0) as! TimerSettingCell
+        cell.settingLabel.setText("Max Minutes")
         cell.setValue(value: 20)
-        cell.settingValue.setNumberOfSteps(10)
+        cell.settingValueSlider.setNumberOfSteps(10)
+        
+        cell = timerSettingsTable.rowController(at: 1) as! TimerSettingCell
+        cell.settingLabel.setText("Pos Minutes")
+        cell.setValue(value: 20)
+        cell.settingValueSlider.setNumberOfSteps(10)
+        
+        cell = timerSettingsTable.rowController(at: 2) as! TimerSettingCell
+        cell.settingLabel.setText("Neg Minutes")
+        cell.setValue(value: 20)
+        cell.settingValueSlider.setNumberOfSteps(10)
     }
     
     override func willActivate() {

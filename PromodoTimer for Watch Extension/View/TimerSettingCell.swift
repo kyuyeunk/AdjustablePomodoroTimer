@@ -9,17 +9,24 @@
 import WatchKit
 
 class TimerSettingCell: NSObject {
+    @IBOutlet weak var settingValueLabel: WKInterfaceLabel!
     @IBOutlet weak var settingLabel: WKInterfaceLabel!
-    @IBOutlet weak var settingValue: WKInterfaceSlider!
+    @IBOutlet weak var settingValueSlider: WKInterfaceSlider!
     @IBAction func sliderTapped(_ value: Float) {
         print("Slider tapped to \(value)")
         currValue = value
+        updateLabel(value: Int(value))
     }
     
     var currValue: Float = 0
     
     func setValue(value: Int) {
         currValue = Float(value)
-        settingValue.setValue(Float(value))
+        settingValueSlider.setValue(Float(value))
+        settingValueLabel.setText(String(value))
+    }
+    
+    func updateLabel(value: Int) {
+        settingValueLabel.setText(String(value))
     }
 }
