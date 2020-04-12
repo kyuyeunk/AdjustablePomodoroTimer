@@ -40,7 +40,7 @@ class TimePieView : UIView {
         color.setFill()
         path.fill()
         
-        angle = startAngle - endAngle
+        angle = endAngle - angle
         print(String(format: "[TimePieView] startAngle: %.2f endAngle: %.2f relAngle: %.2f", startAngle, endAngle, angle))
     }
     

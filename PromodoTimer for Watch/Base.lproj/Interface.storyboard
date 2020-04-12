@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16096" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38"/>
+    <device id="watch40"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
@@ -54,16 +54,23 @@
             <objects>
                 <controller title="Timer" id="uDq-ve-9HO" customClass="TimePickerController" customModule="PromodoTimer_for_Watch_Extension">
                     <items>
-                        <spriteKitScene width="60" height="60" alignment="center" id="pjK-eS-Ihr">
-                            <gestureRecognizers>
-                                <tapGestureRecognizer id="8qp-5B-sff"/>
-                            </gestureRecognizers>
-                        </spriteKitScene>
                         <group width="136" alignment="center" verticalAlignment="center" layout="vertical" id="W15-Mq-eJn">
                             <items>
+                                <spriteKitScene width="60" height="60" alignment="center" id="pjK-eS-Ihr">
+                                    <gestureRecognizers>
+                                        <tapGestureRecognizer id="8qp-5B-sff">
+                                            <connections>
+                                                <action selector="circleTapped:" destination="uDq-ve-9HO" id="893-Gy-w2o"/>
+                                            </connections>
+                                        </tapGestureRecognizer>
+                                    </gestureRecognizers>
+                                </spriteKitScene>
                                 <group alignment="center" id="rhd-Ng-agm">
                                     <items>
                                         <picker width="30" height="48" alignment="left" focusStyle="stack" id="HdU-Vg-E2x">
+                                            <gestureRecognizers>
+                                                <tapGestureRecognizer cancelsTouchesInView="NO" delaysTouchesEnded="NO" id="3bh-84-6xI"/>
+                                            </gestureRecognizers>
                                             <connections>
                                                 <action selector="signPicked:" destination="uDq-ve-9HO" id="dLu-Nt-b4p"/>
                                             </connections>

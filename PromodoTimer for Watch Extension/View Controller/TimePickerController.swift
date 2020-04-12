@@ -11,6 +11,7 @@ import SpriteKit
 
 class TimePickerController: WKInterfaceController {
     @IBAction func startButtonTapped() {
+        print("Deactivate Circle from startButton")
         if GlobalVar.timeController.timerStarted {
             GlobalVar.timeController.stopButtonTapped()
         }
@@ -57,30 +58,38 @@ class TimePickerController: WKInterfaceController {
     @IBOutlet weak var signPicker: WKInterfacePicker!
     @IBOutlet weak var minPicker: WKInterfacePicker!
     @IBOutlet weak var circleScene: WKInterfaceSKScene!
-    let circleSKScene = SKScene(size: CGSize(width: 100, height: 100))
     
-    var maxMinutes: Int
+    @IBAction func circleTapped(_ sender: Any) {
+        print("Activate Circle")
+        crownSequencer.focus()
+    }
+
+    var circleSelected: Bool = false
+    var maxMinutes: Int = 0
     var currTimer: TimerModel = GlobalVar.settings.currTimer
     var currSign: Int = 0
     var currMin: Int = 0
     var currSec: Int = 0
-    var currTime: Int
-    
-    override init() {
-        maxMinutes = currTimer.maxMinutes
-        currTime = currTimer.startTime[.positive]!
-        super.init()
-        
-        GlobalVar.timeController.timeControllerDelegate = self
-    }
+    var currTime: Int = 0
+    var timePieView: TimePieView!
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+ 
+        maxMinutes = currTimer.maxMinutes
+        currTime = currTimer.startTime[.positive]!
+        GlobalVar.timeController.timeControllerDelegate = self
+        crownSequencer.delegate = self
+        crownSequencer.isHapticFeedbackEnabled = true
+        
         
         initPicker()
-        circleSKScene.scaleMode = .aspectFit
-        circleScene.presentScene(circleSKScene)
-        drawCircle()
+        
+        timePieView = TimePieView(maxMinute: maxMinutes, time: currTime)
+        circleScene.presentScene(timePieView.circleSKScene)
+        timePieView.setTime(time: currTime)
+        
+        setTime(currTime: currTime)
     }
     
     func initPicker() {
@@ -105,40 +114,6 @@ class TimePickerController: WKInterfaceController {
             secItem.append(temp)
         }
         secPicker.setItems(secItem)
-        
-        setTime(currTime: currTime)
-    }
-    
-    func drawCircle() {
-        circleSKScene.removeAllChildren()
-        let startAngle: CGFloat = .pi / 2
-        let endAngle = startAngle + CGFloat(currTime) / CGFloat(maxMinutes * 60) * CGFloat.pi * 2
-        var clockwise: Bool
-        var color: UIColor
-        if currTime >= 0 {
-            clockwise = true
-            color = .red
-        }
-        else {
-            clockwise = false
-            color = .blue
-        }
-        
-        print("[Draw Circle] startAngle: \(startAngle) endAngle: \(endAngle) clockwise: \(clockwise)")
-        let path = UIBezierPath()
-        let center: CGPoint = .zero
-        path.move(to: center)
-        path.addArc(withCenter: center, radius: 42, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
-        path.close()
-        color.setFill()
-        path.fill()
-        
-        let shapeNode = SKShapeNode(path: path.cgPath)
-        shapeNode.fillColor = color
-        shapeNode.strokeColor = color
-        shapeNode.position = CGPoint(x: circleSKScene.size.width / 2, y: circleSKScene.size.height / 2)
-        circleSKScene.backgroundColor = .black
-        circleSKScene.addChild(shapeNode)
     }
     
     func setTime(currTime: Int) {
@@ -146,6 +121,7 @@ class TimePickerController: WKInterfaceController {
         
         currMin = abs(currTime) / 60
         if abs(currMin) >= maxMinutes {
+            self.currTime = maxMinutes * 60
             currSec = 0
         }
         else {
@@ -167,9 +143,9 @@ class TimePickerController: WKInterfaceController {
         }
         minPicker.setSelectedItemIndex(maxMinutes - currMin)
         secPicker.setSelectedItemIndex(59 - currSec)
-        print("[Time Picker] setSeconds time: \(currTime) sign: \(self.currSign) min: \(self.currMin) sec: \(self.currSec)")
+        print("[Time Picker] setSeconds time: \(self.currTime) sign: \(self.currSign) min: \(self.currMin) sec: \(self.currSec)")
         print("Drawing circle")
-        drawCircle()
+        timePieView.setTime(time: self.currTime)
     }
     
     override func willActivate() {
@@ -208,4 +184,15 @@ extension TimePickerController: TimeControllerDelegate {
     }
     
     
+}
+
+extension TimePickerController: WKCrownDelegate {
+    func crownDidRotate(_ crownSequencer: WKCrownSequencer?, rotationalDelta: Double) {
+        let angle = timePieView.getCurrAngle()
+        let newAngle = angle - CGFloat(rotationalDelta)
+        let newTime = timePieView.getTime(angle: newAngle)
+        print("new angle: \(newAngle) new time: \(newTime)")
+        setTime(currTime: newTime)
+        print("rotated \(rotationalDelta)")
+    }
 }
