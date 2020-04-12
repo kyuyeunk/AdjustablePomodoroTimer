@@ -248,11 +248,11 @@ extension TimePickerController: WKCrownDelegate {
         let newAngle = angle - CGFloat(rotationalDelta)
         var newTime = timePieView.getTime(angle: newAngle)
         if currTime == newTime {
-            if newTime < 0 {
-                newTime -= 1
+            if rotationalDelta < 0 {
+                newTime += 1
             }
             else {
-                newTime += 1
+                newTime -= 1
             }
         }
         print("new angle: \(newAngle) new time: \(newTime)")
