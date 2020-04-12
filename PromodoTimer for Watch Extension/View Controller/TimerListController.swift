@@ -29,7 +29,7 @@ class TimerListController: WKInterfaceController {
             let posMin = posTime / 60
             let posSec = posTime % 60
             
-            let negTime = timer.startTime[.negative]!
+            let negTime = abs(timer.startTime[.negative]!)
             let negMin = negTime / 60
             let negSec = negTime % 60
             

@@ -200,7 +200,9 @@ extension TimePickerController: TimeControllerDelegate {
     func setSecondUI(currTime: Int, passedTime: [TimerType : Double], animated: Bool, completion: (() -> ())?) {
         print("setSecondUI called with \(currTime)")
         setTime(currTime: currTime)
-
+        if let completion = completion {
+            completion()
+        }
     }
     
     func getCurrTime() -> Int {
@@ -217,7 +219,7 @@ extension TimePickerController: TimeControllerDelegate {
     }
     
     func displayTimeoutAlert(type: TimerType, completion: @escaping ((Bool) -> Void)) {
-        completion(false)
+        completion(true)
     }
 }
 
