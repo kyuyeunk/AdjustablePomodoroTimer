@@ -46,8 +46,6 @@ class TimePieView {
         path.move(to: center)
         path.addArc(withCenter: center, radius: 42, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
         path.close()
-        color.setFill()
-        path.fill()
         
         let shapeNode = SKShapeNode(path: path.cgPath)
         shapeNode.fillColor = color

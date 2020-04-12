@@ -68,9 +68,6 @@
                                 <group alignment="center" id="rhd-Ng-agm">
                                     <items>
                                         <picker width="30" height="48" alignment="left" focusStyle="stack" id="HdU-Vg-E2x">
-                                            <gestureRecognizers>
-                                                <tapGestureRecognizer cancelsTouchesInView="NO" delaysTouchesEnded="NO" id="3bh-84-6xI"/>
-                                            </gestureRecognizers>
                                             <connections>
                                                 <action selector="signPicked:" destination="uDq-ve-9HO" id="dLu-Nt-b4p"/>
                                             </connections>
