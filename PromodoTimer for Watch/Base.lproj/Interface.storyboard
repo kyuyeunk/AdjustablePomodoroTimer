@@ -54,28 +54,33 @@
             <objects>
                 <controller title="Timer" id="uDq-ve-9HO" customClass="TimePickerController" customModule="PromodoTimer_for_Watch_Extension">
                     <items>
+                        <spriteKitScene width="60" height="60" alignment="center" id="pjK-eS-Ihr">
+                            <gestureRecognizers>
+                                <tapGestureRecognizer id="8qp-5B-sff"/>
+                            </gestureRecognizers>
+                        </spriteKitScene>
                         <group width="136" alignment="center" verticalAlignment="center" layout="vertical" id="W15-Mq-eJn">
                             <items>
                                 <group alignment="center" id="rhd-Ng-agm">
                                     <items>
-                                        <picker width="30" height="70" alignment="left" focusStyle="stack" id="HdU-Vg-E2x">
+                                        <picker width="30" height="48" alignment="left" focusStyle="stack" id="HdU-Vg-E2x">
                                             <connections>
                                                 <action selector="signPicked:" destination="uDq-ve-9HO" id="dLu-Nt-b4p"/>
                                             </connections>
                                         </picker>
-                                        <picker width="45" height="70" alignment="left" focusStyle="stack" id="wle-Hf-Y2l">
+                                        <picker width="45" height="48" alignment="left" focusStyle="stack" id="wle-Hf-Y2l">
                                             <connections>
                                                 <action selector="minPicked:" destination="uDq-ve-9HO" id="AcD-p4-vsm"/>
                                             </connections>
                                         </picker>
-                                        <picker width="45" height="70" alignment="left" focusStyle="stack" id="cgQ-tG-jl2">
+                                        <picker width="45" height="48" alignment="left" focusStyle="stack" id="cgQ-tG-jl2">
                                             <connections>
                                                 <action selector="secPicked:" destination="uDq-ve-9HO" id="Tlt-7y-eke"/>
                                             </connections>
                                         </picker>
                                     </items>
                                 </group>
-                                <button width="120" alignment="center" title="Start" id="quc-mP-tz4">
+                                <button width="120" height="35" alignment="center" title="Start" id="quc-mP-tz4">
                                     <connections>
                                         <action selector="startButtonTapped" destination="uDq-ve-9HO" id="k2e-X9-AKM"/>
                                     </connections>
@@ -84,6 +89,7 @@
                         </group>
                     </items>
                     <connections>
+                        <outlet property="circleScene" destination="pjK-eS-Ihr" id="mUA-q7-Q0i"/>
                         <outlet property="minPicker" destination="wle-Hf-Y2l" id="opw-eX-dWX"/>
                         <outlet property="secPicker" destination="cgQ-tG-jl2" id="D6K-GZ-Az1"/>
                         <outlet property="signPicker" destination="HdU-Vg-E2x" id="PKH-Jy-EWE"/>
@@ -91,7 +97,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="310" y="113"/>
+            <point key="canvasLocation" x="310" y="57"/>
         </scene>
     </scenes>
 </document>

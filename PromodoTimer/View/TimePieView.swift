@@ -13,7 +13,6 @@ class TimePieView : UIView {
     var endTime: CGFloat = 0
     var maxTime: CGFloat = 60 * 60
     var angle: CGFloat = 0
-    let path = UIBezierPath()
     
     override func draw(_ rect: CGRect) {
         let center = CGPoint(x: rect.origin.x + rect.width / 2, y: rect.origin.y + rect.height / 2)
@@ -25,7 +24,7 @@ class TimePieView : UIView {
         var clockwise: Bool
         var color: UIColor
         
-        if endTime > 0 {
+        if endTime >= 0 {
             clockwise = false
             color = .systemRed
         }
