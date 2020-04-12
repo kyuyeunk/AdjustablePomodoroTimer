@@ -171,6 +171,21 @@ class TimePickerController: WKInterfaceController {
         print("[Time Picker] setSeconds time: \(self.currTime) sign: \(self.currSign) min: \(self.currMin) sec: \(self.currSec)")
         print("Drawing circle")
         timePieView.setTime(time: self.currTime)
+        
+        refocus()
+    }
+    
+    func refocus() {
+        switch mySelectedPicker {
+        case .signPicker:
+            signPicker.focus()
+        case .minPicker:
+            minPicker.focus()
+        case .secPicker:
+            secPicker.focus()
+        default:
+            break
+        }
     }
     
     override func willActivate() {
@@ -231,7 +246,15 @@ extension TimePickerController: WKCrownDelegate {
     func crownDidRotate(_ crownSequencer: WKCrownSequencer?, rotationalDelta: Double) {
         let angle = timePieView.getCurrAngle()
         let newAngle = angle - CGFloat(rotationalDelta)
-        let newTime = timePieView.getTime(angle: newAngle)
+        var newTime = timePieView.getTime(angle: newAngle)
+        if currTime == newTime {
+            if newTime < 0 {
+                newTime -= 1
+            }
+            else {
+                newTime += 1
+            }
+        }
         print("new angle: \(newAngle) new time: \(newTime)")
         setTime(currTime: newTime)
         print("rotated \(rotationalDelta)")
