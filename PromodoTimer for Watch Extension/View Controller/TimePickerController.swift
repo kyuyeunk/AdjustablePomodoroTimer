@@ -212,10 +212,14 @@ extension TimePickerController: TimeControllerDelegate {
     
     func stopTimerUI() {
         startButton.setTitle("Start")
+        timePieView.isRunning = false
+        timePieView.draw()
     }
     
     func startTimerUI() {
         startButton.setTitle("Stop")
+        timePieView.isRunning = true
+        timePieView.draw()
     }
     
     func displayTimeoutAlert(type: TimerType, completion: @escaping ((Bool) -> Void)) {

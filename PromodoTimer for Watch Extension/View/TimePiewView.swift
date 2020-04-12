@@ -16,6 +16,7 @@ class TimePieView {
     var angle: CGFloat = 0
     let circleSKScene = SKScene(size: CGSize(width: 100, height: 100))
     var isHighlighted = false
+    var isRunning = false
     
     init(maxMinute: Int, time endTime: Int) {
         circleSKScene.scaleMode = .aspectFit
@@ -36,6 +37,9 @@ class TimePieView {
         var color: UIColor
         if isHighlighted {
             color = .green
+        }
+        else if isRunning {
+            color = .magenta
         }
         else {
             color = .lightGray
