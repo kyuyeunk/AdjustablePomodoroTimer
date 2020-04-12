@@ -10,6 +10,13 @@ import WatchKit
 import SpriteKit
 
 class TimePickerController: WKInterfaceController {
+    enum selectedPicker {
+        case circlePicker
+        case signPicker
+        case minPicker
+        case secPicker
+    }
+    
     @IBAction func startButtonTapped() {
         print("Deactivate Circle from startButton")
         if GlobalVar.timeController.timerStarted {
@@ -61,9 +68,7 @@ class TimePickerController: WKInterfaceController {
     
     @IBAction func circleTapped(_ sender: Any) {
         print("Activate Circle")
-        timePieView.isHighlighted = true
-        timePieView.draw()
-        crownSequencer.focus()
+        mySelectedPicker = .circlePicker
     }
 
     var circleSelected: Bool = false
@@ -74,6 +79,25 @@ class TimePickerController: WKInterfaceController {
     var currSec: Int = 0
     var currTime: Int = 0
     var timePieView: TimePieView!
+    var mySelectedPicker = selectedPicker.signPicker {
+        didSet {
+            if mySelectedPicker == .circlePicker {
+                if timePieView.isHighlighted == false {
+                    timePieView.isHighlighted = true
+                    crownSequencer.focus()
+                    timePieView.draw()
+                }
+            }
+            else {
+                if timePieView.isHighlighted == true {
+                    timePieView.isHighlighted = false
+                    timePieView.draw()
+                }
+            }
+        }
+    }
+    
+    var prevTickedMin: Int = 0
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -82,8 +106,7 @@ class TimePickerController: WKInterfaceController {
         currTime = currTimer.startTime[.positive]!
         GlobalVar.timeController.timeControllerDelegate = self
         crownSequencer.delegate = self
-        crownSequencer.isHapticFeedbackEnabled = true
-        
+        crownSequencer.isHapticFeedbackEnabled = false
         
         initPicker()
         
@@ -158,6 +181,18 @@ class TimePickerController: WKInterfaceController {
     override func didDeactivate() {
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
+    }
+    
+    override func pickerDidFocus(_ picker: WKInterfacePicker) {
+        if picker == signPicker {
+            mySelectedPicker = .signPicker
+        }
+        else if picker == minPicker {
+            mySelectedPicker = .minPicker
+        }
+        else if picker == secPicker {
+            mySelectedPicker = .secPicker
+        }
     }
 }
 

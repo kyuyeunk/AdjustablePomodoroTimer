@@ -83,6 +83,10 @@
                                             </connections>
                                         </picker>
                                     </items>
+                                    <gestureRecognizers>
+                                        <tapGestureRecognizer id="ApD-89-PzD"/>
+                                    </gestureRecognizers>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </group>
                                 <button width="120" height="35" alignment="center" title="Start" id="quc-mP-tz4">
                                     <connections>
