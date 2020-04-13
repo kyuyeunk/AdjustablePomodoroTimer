@@ -35,6 +35,7 @@ class TimerSettingsTableViewController: WKInterfaceController {
 
         buttonCell = timerSettingsTable.rowController(at: 0) as? ButtonViewCell
         buttonCell.button.setTitle("Save Timer")
+        buttonCell.buttonDelegate = self
         
         maxSliderCell = timerSettingsTable.rowController(at: 1) as? SliderSettingViewCell
         maxSliderCell.settingLabel.setText("Max Minutes")
@@ -132,6 +133,11 @@ extension TimerSettingsTableViewController: SwitchSettingDelegate {
             break
         }
     }
-    
-    
+}
+
+extension TimerSettingsTableViewController: ButtonDelegate {
+    func buttonTapped(buttonViewCell: ButtonViewCell) {
+        GlobalVar.settings.timerList[GlobalVar.settings.currTimerID] = workingTimer
+        GlobalVar.settings.saveTimerList()
+    }
 }

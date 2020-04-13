@@ -11,6 +11,7 @@ import WatchKit
 protocol SwitchSettingDelegate {
     func updateSwitchValue(switchSettingViewCell: SwitchSettingViewCell, value: Bool)
 }
+
 class SwitchSettingViewCell: NSObject {
     var switchSettingDelegate: SwitchSettingDelegate?
     @IBOutlet weak var settingValueSwitch: WKInterfaceSwitch!

@@ -8,9 +8,17 @@
 
 import WatchKit
 
+protocol ButtonDelegate {
+    func buttonTapped(buttonViewCell: ButtonViewCell)
+}
+
 class ButtonViewCell: NSObject {
+    var buttonDelegate: ButtonDelegate?
     @IBOutlet weak var button: WKInterfaceButton!
     @IBAction func buttonTapped() {
+        if let delegate = buttonDelegate {
+            delegate.buttonTapped(buttonViewCell: self)
+        }
     }
     
 }
