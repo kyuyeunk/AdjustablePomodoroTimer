@@ -12,4 +12,5 @@ class TimerInfoCell: NSObject {
     @IBOutlet weak var timerName: WKInterfaceLabel!
     @IBOutlet weak var posTime: WKInterfaceLabel!
     @IBOutlet weak var negTime: WKInterfaceLabel!
+    @IBOutlet weak var selectedSeparator: WKInterfaceSeparator!
 }

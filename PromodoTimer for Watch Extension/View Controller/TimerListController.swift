@@ -16,7 +16,7 @@ class TimerListController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        timerList.setNumberOfRows(1, withRowType: "timerInfo")
+        timerList.setNumberOfRows(GlobalVar.settings.timerList.count, withRowType: "timerInfo")
         // Configure interface objects here.
         
         
@@ -32,6 +32,13 @@ class TimerListController: WKInterfaceController {
             let negTime = abs(timer.startTime[.negative]!)
             let negMin = negTime / 60
             let negSec = negTime % 60
+            
+            if i == GlobalVar.settings.currTimerID {
+                row.selectedSeparator.setColor(.green)
+            }
+            else {
+                row.selectedSeparator.setColor(.lightGray)
+            }
             
             row.posTime.setText("\(posMin)m \(posSec)s")
             row.negTime.setText("\(negMin)m \(negSec)s")
