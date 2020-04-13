@@ -8,7 +8,7 @@
 
 import WatchKit
 
-class SliderSettingCell: NSObject {
+class SliderSettingViewCell: NSObject {
     @IBOutlet weak var settingValueLabel: WKInterfaceLabel!
     @IBOutlet weak var settingLabel: WKInterfaceLabel!
     @IBOutlet weak var settingValueSlider: WKInterfaceSlider!

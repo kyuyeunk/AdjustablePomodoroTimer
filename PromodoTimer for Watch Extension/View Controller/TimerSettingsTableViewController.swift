@@ -8,7 +8,7 @@
 
 import WatchKit
 
-class TimerSettingsController: WKInterfaceController {
+class TimerSettingsTableViewController: WKInterfaceController {
     @IBOutlet weak var timerSettingsTable: WKInterfaceTable!
     
     override func awake(withContext context: Any?) {
@@ -21,31 +21,31 @@ class TimerSettingsController: WKInterfaceController {
         
         timerSettingsTable.setRowTypes(["sliderSetting", "sliderSetting", "sliderSetting",
                                         "switchSetting", "switchSetting", "switchSetting"])
-        var sliderCell = timerSettingsTable.rowController(at: 0) as! SliderSettingCell
+        var sliderCell = timerSettingsTable.rowController(at: 0) as! SliderSettingViewCell
         sliderCell.settingLabel.setText("Max Minutes")
         sliderCell.setMaxValue(value: 60)
         sliderCell.setValue(value: currTimer.maxMinutes)
         
         
-        sliderCell = timerSettingsTable.rowController(at: 1) as! SliderSettingCell
+        sliderCell = timerSettingsTable.rowController(at: 1) as! SliderSettingViewCell
         sliderCell.settingLabel.setText("Pos Minutes")
         sliderCell.setMaxValue(value: currTimer.maxMinutes)
         sliderCell.setValue(value: currTimer.startTime[.positive]! / 60)
         
-        sliderCell = timerSettingsTable.rowController(at: 2) as! SliderSettingCell
+        sliderCell = timerSettingsTable.rowController(at: 2) as! SliderSettingViewCell
         sliderCell.settingLabel.setText("Neg Minutes")
         sliderCell.setMaxValue(value: currTimer.maxMinutes)
         sliderCell.setValue(value: abs(currTimer.startTime[.negative]! / 60))
         
-        var switchCell = timerSettingsTable.rowController(at: 3) as! SwitchSettingCell
+        var switchCell = timerSettingsTable.rowController(at: 3) as! SwitchSettingViewCell
         switchCell.settingValueSwitch.setTitle("Auto Repeat")
         switchCell.settingValueSwitch.setOn(currTimer.autoRepeat)
         
-        switchCell = timerSettingsTable.rowController(at: 4) as! SwitchSettingCell
+        switchCell = timerSettingsTable.rowController(at: 4) as! SwitchSettingViewCell
         switchCell.settingValueSwitch.setTitle("Pop-Up Alarm")
         switchCell.settingValueSwitch.setOn(currTimer.alertTimerEnd)
         
-        switchCell = timerSettingsTable.rowController(at: 5) as! SwitchSettingCell
+        switchCell = timerSettingsTable.rowController(at: 5) as! SwitchSettingViewCell
         switchCell.settingValueSwitch.setTitle("Repeat Alarm")
         switchCell.settingValueSwitch.setOn(currTimer.repeatAlarmOption)
         switchCell.settingValueSwitch.setEnabled(currTimer.alertTimerEnd)

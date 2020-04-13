@@ -10,7 +10,7 @@ import WatchKit
 import Foundation
 
 
-class TimerListController: WKInterfaceController {
+class TimerTableViewController: WKInterfaceController {
     
     @IBOutlet weak var timerList: WKInterfaceTable!
     override func awake(withContext context: Any?) {
@@ -21,7 +21,7 @@ class TimerListController: WKInterfaceController {
         
         
         for i in 0 ..< GlobalVar.settings.timerList.count {
-            let row = timerList.rowController(at: i) as! TimerInfoCell
+            let row = timerList.rowController(at: i) as! TimerInfoViewCell
             
             let timer = GlobalVar.settings.timerList[i]
             row.timerName.setText(timer.timerName)
@@ -53,9 +53,9 @@ class TimerListController: WKInterfaceController {
         let prevTimerID = GlobalVar.settings.currTimerID
         if rowIndex != prevTimerID {
             print("[Timer List] Selected \(rowIndex) differs from currTimerID \(prevTimerID)")
-            var row = timerList.rowController(at: prevTimerID) as! TimerInfoCell
+            var row = timerList.rowController(at: prevTimerID) as! TimerInfoViewCell
             row.selectedSeparator.setColor(.lightGray)
-            row = timerList.rowController(at: rowIndex) as! TimerInfoCell
+            row = timerList.rowController(at: rowIndex) as! TimerInfoViewCell
             row.selectedSeparator.setColor(.green)
             GlobalVar.settings.currTimerID = rowIndex
         }

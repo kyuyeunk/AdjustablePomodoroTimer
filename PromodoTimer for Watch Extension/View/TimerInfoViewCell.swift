@@ -8,7 +8,7 @@
 
 import WatchKit
 
-class TimerInfoCell: NSObject {
+class TimerInfoViewCell: NSObject {
     @IBOutlet weak var timerName: WKInterfaceLabel!
     @IBOutlet weak var posTime: WKInterfaceLabel!
     @IBOutlet weak var negTime: WKInterfaceLabel!

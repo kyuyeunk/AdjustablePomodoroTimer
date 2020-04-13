@@ -8,7 +8,7 @@
 
 import WatchKit
 
-class SwitchSettingCell: NSObject {
+class SwitchSettingViewCell: NSObject {
     @IBOutlet weak var settingValueSwitch: WKInterfaceSwitch!
     @IBAction func switchTapped(_ value: Bool) {
         print(value)

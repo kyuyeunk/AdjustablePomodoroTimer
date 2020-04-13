@@ -9,11 +9,11 @@
         <!--Timer List-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller title="Timer List" id="AgC-eL-Hgc" customClass="TimerListController" customModule="PromodoTimer_for_Watch_Extension">
+                <controller title="Timer List" id="AgC-eL-Hgc" customClass="TimerTableViewController" customModule="PromodoTimer_for_Watch_Extension">
                     <items>
                         <table alignment="left" id="750-Hg-SLp">
                             <items>
-                                <tableRow identifier="timerInfo" id="dLb-2U-Htp" customClass="TimerInfoCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="timerInfo" id="dLb-2U-Htp" customClass="TimerInfoViewCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" spacing="2" id="Vpo-3I-LwU">
                                         <items>
                                             <separator height="1" heightAdjustment="-4" alignment="left" verticalAlignment="center" id="SvK-BM-clC"/>
@@ -123,11 +123,11 @@
         <!--Timer Settings-->
         <scene sceneID="diP-t7-7Bh">
             <objects>
-                <controller title="Timer Settings" id="0VU-BR-2T4" customClass="TimerSettingsController" customModule="PromodoTimer_for_Watch_Extension">
+                <controller title="Timer Settings" id="0VU-BR-2T4" customClass="TimerSettingsTableViewController" customModule="PromodoTimer_for_Watch_Extension">
                     <items>
                         <table alignment="left" id="OV6-Rj-Zqp">
                             <items>
-                                <tableRow identifier="sliderSetting" id="wsV-y0-Gy2" customClass="SliderSettingCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="sliderSetting" id="wsV-y0-Gy2" customClass="SliderSettingViewCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="ILd-MD-xuc">
                                         <items>
                                             <group width="1" alignment="left" id="gPg-JC-s3c">
@@ -153,7 +153,7 @@
                                         <outlet property="settingValueSlider" destination="wAK-ow-oUc" id="AnZ-su-kQZ"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="switchSetting" id="Vqh-GL-ibJ" customClass="SwitchSettingCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="switchSetting" id="Vqh-GL-ibJ" customClass="SwitchSettingViewCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="TIU-qZ-r5d">
                                         <items>
                                             <switch width="1" alignment="left" value="YES" title="Switch" id="3uq-V6-gY1">
