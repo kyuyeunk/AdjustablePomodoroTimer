@@ -35,8 +35,6 @@ class SliderSettingViewCell: NSObject {
     var maxValue: Int = 60
     
     func setValue(value: Int) {
-        print("Setting value to \(value)")
-        
         currValue = value
         let sliderValue = Float(value) / Float(maxValue) * 100
         settingValueSlider.setValue(sliderValue)
@@ -44,13 +42,11 @@ class SliderSettingViewCell: NSObject {
     }
     
     func setMaxValue(value: Int) {
-        print("Setting Max Value to \(value)")
         maxValue = value
         settingValueSlider.setNumberOfSteps(value)
     }
     
     func updateLabel(value: Int) {
-        print("Setting label value to \(value)")
         settingValueLabel.setText("\(value)m")
     }
 }

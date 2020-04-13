@@ -73,8 +73,8 @@ class TimerViewController: WKInterfaceController {
     }
 
     var circleSelected: Bool = false
-    var maxMinutes: Int = 0
-    var currTimer: TimerModel = GlobalVar.settings.currTimer
+    var maxMinutes: Int { GlobalVar.settings.currTimer.maxMinutes }
+    var currTimer: TimerModel { GlobalVar.settings.currTimer }
     var currSign: Int = 0
     var currMin: Int = 0
     var currSec: Int = 0
@@ -108,7 +108,6 @@ class TimerViewController: WKInterfaceController {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
  
-        maxMinutes = currTimer.maxMinutes
         currTime = currTimer.startTime[.positive]!
         GlobalVar.timeController.timeControllerDelegate = self
         crownSequencer.delegate = self
@@ -199,7 +198,25 @@ class TimerViewController: WKInterfaceController {
     }
     
     override func didAppear() {
+        print("View Appeared")
         super.didAppear()
+        print("Maximum is set to \(maxMinutes * 60)")
+        
+        if timePieView.maxTime != maxMinutes * 60 {
+            timePieView.maxTime = maxMinutes * 60
+            initPicker()
+        }
+        
+        if !GlobalVar.timeController.timerStarted {
+            print("Timer isn't running, reset to .positive ")
+            currTime = currTimer.startTime[.positive]!
+            setTime(currTime: currTime)
+        }
+        else if currTime > maxMinutes * 60 {
+            print("Timer is running but it exceeds max, reset currTime to \(maxMinutes)m")
+            currTime = maxMinutes * 60
+            setTime(currTime: currTime)
+        }
         refocus()
     }
     
