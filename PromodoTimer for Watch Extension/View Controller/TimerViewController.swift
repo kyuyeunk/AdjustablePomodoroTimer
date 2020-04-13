@@ -19,7 +19,7 @@ class TimerViewController: WKInterfaceController {
     }
     
     @IBAction func startButtonTapped() {
-        print("Deactivate Circle from startButton")
+        WKInterfaceDevice.current().play(.click)
         if GlobalVar.timeController.timerStarted {
             GlobalVar.timeController.stopButtonTapped()
         }
@@ -36,28 +36,28 @@ class TimerViewController: WKInterfaceController {
         else {
             currTime = -(currMin * 60 + currSec)
         }
-        print("[Time Picker] set signRow to \(value), currTime is \(currTime)")
+        print("[Timer View] set signRow to \(value), currTime is \(currTime)")
         if prevSignValue != value || prevCurrTime != currTime {
             prevSignValue = value
-            print("[Time Picker] currTime changed from \(prevCurrTime) to \(currTime), updating it")
+            print("[Timer View] currTime changed from \(prevCurrTime) to \(currTime), updating it")
             setTime(currTime: currTime)
         }
     }
     @IBAction func minPicked(_ value: Int) {
         let prevCurrTime = currTime
         currTime = currSign * ((maxMinutes - value) * 60 + currSec)
-        print("[Time Picker] set minRow to \(value), currTime is \(currTime)")
+        print("[Timer View] set minRow to \(value), currTime is \(currTime)")
         if prevCurrTime != currTime {
-            print("[Time Picker] currTime changed from \(prevCurrTime) to \(currTime), updating it")
+            print("[Timer View] currTime changed from \(prevCurrTime) to \(currTime), updating it")
             setTime(currTime: currTime)
         }
     }
     @IBAction func secPicked(_ value: Int) {
         let prevCurrTime = currTime
         currTime = currSign * (currMin * 60 + (59 - value))
-        print("[Time Picker] set secRow to \(value), currTime is \(currTime)")
+        print("[Timer View] set secRow to \(value), currTime is \(currTime)")
         if prevCurrTime != currTime {
-            print("[Time Picker] currTime changed from \(prevCurrTime) to \(currTime), updating it")
+            print("[Timer View] currTime changed from \(prevCurrTime) to \(currTime), updating it")
             setTime(currTime: currTime)
         }
     }
@@ -68,7 +68,7 @@ class TimerViewController: WKInterfaceController {
     @IBOutlet weak var circleScene: WKInterfaceSKScene!
     
     @IBAction func circleTapped(_ sender: Any) {
-        print("Activate Circle")
+        print("[Timer View] Activate Circle")
         mySelectedPicker = .circlePicker
     }
 
@@ -174,7 +174,6 @@ class TimerViewController: WKInterfaceController {
         minPicker.setSelectedItemIndex(maxMinutes - currMin)
         secPicker.setSelectedItemIndex(59 - currSec)
         print("[Time Picker] setSeconds time: \(self.currTime) sign: \(self.currSign) min: \(self.currMin) sec: \(self.currSec)")
-        print("Drawing circle")
         timePieView.setTime(time: self.currTime)
         
         refocus()
@@ -198,22 +197,21 @@ class TimerViewController: WKInterfaceController {
     }
     
     override func didAppear() {
-        print("View Appeared")
         super.didAppear()
-        print("Maximum is set to \(maxMinutes * 60)")
         
         if timePieView.maxTime != maxMinutes * 60 {
+            print("[Timer View] Maximum is changed from \(timePieView.maxTime) to \(maxMinutes * 60)")
             timePieView.maxTime = maxMinutes * 60
             initPicker()
         }
         
         if !GlobalVar.timeController.timerStarted {
-            print("Timer isn't running, reset to .positive ")
+            print("[Timer View] Timer isn't running, reset to .positive ")
             currTime = currTimer.startTime[.positive]!
             setTime(currTime: currTime)
         }
         else if currTime > maxMinutes * 60 {
-            print("Timer is running but it exceeds max, reset currTime to \(maxMinutes)m")
+            print("[Timer View] Timer is running but it exceeds max, reset currTime to \(maxMinutes)m")
             currTime = maxMinutes * 60
             setTime(currTime: currTime)
         }

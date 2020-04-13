@@ -18,6 +18,7 @@ class SliderSettingViewCell: NSObject {
     @IBOutlet weak var settingLabel: WKInterfaceLabel!
     @IBOutlet weak var settingValueSlider: WKInterfaceSlider!
     @IBAction func sliderTapped(_ value: Float) {
+        WKInterfaceDevice.current().play(.click)
         print("Slider tapped to \(value)")
         currValue = Int(round(value / 100 * Float(maxValue)))
         if currValue == 0 {
