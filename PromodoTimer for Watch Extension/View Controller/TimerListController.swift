@@ -48,6 +48,19 @@ class TimerListController: WKInterfaceController {
         setTitle("Timer List")
     }
     
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        print("[Timer List] Selected row \(rowIndex)")
+        let prevTimerID = GlobalVar.settings.currTimerID
+        if rowIndex != prevTimerID {
+            print("[Timer List] Selected \(rowIndex) differs from currTimerID \(prevTimerID)")
+            var row = timerList.rowController(at: prevTimerID) as! TimerInfoCell
+            row.selectedSeparator.setColor(.lightGray)
+            row = timerList.rowController(at: rowIndex) as! TimerInfoCell
+            row.selectedSeparator.setColor(.green)
+            GlobalVar.settings.currTimerID = rowIndex
+        }
+    }
+    
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
