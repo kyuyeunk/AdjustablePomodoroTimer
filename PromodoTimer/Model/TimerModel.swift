@@ -24,15 +24,15 @@ class TimerModel: Codable, Identifiable {
     var userDefinedTracking: [TimerType: trackingInfo] = [:]
     init() {
         self.timerName = "Default Timer"
-        self.startTime[.positive] = 30
-        self.startTime[.negative] = -15
+        self.startTime[.positive] = 480
+        self.startTime[.negative] = -360
         self.autoRepeat = true
         self.accumulatePassedTime = false
         self.timerAlarmID[.positive] = 5
         self.timerAlarmID[.negative] = 4
         self.alertTimerEnd = false
         self.repeatAlarmOption = false
-        self.maxMinutes = 1
+        self.maxMinutes = 12
     }
     
     init(timerModel: TimerModel) {

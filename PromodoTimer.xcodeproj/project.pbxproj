@@ -53,7 +53,7 @@
 		2EF9875824424EB0006EE167 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA27E24421E3500DA8781 /* Utility.swift */; };
 		2EF9875924424EB3006EE167 /* TogglController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2932442211900DA8781 /* TogglController.swift */; };
 		2EF9875A24424EB6006EE167 /* TimeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E6BA2902442211800DA8781 /* TimeController.swift */; };
-		2EF98760244251A2006EE167 /* TimePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF9875F244251A1006EE167 /* TimePickerController.swift */; };
+		2EF98760244251A2006EE167 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EF9875F244251A1006EE167 /* TimerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,7 +142,7 @@
 		2EF98745244242D2006EE167 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2EF987502442454B006EE167 /* TimerInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerInfoCell.swift; sourceTree = "<group>"; };
 		2EF987522442472F006EE167 /* TimerListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerListController.swift; sourceTree = "<group>"; };
-		2EF9875F244251A1006EE167 /* TimePickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePickerController.swift; sourceTree = "<group>"; };
+		2EF9875F244251A1006EE167 /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,7 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				2E2AA9DF2443893700B4B515 /* TimerSettingsController.swift */,
-				2EF9875F244251A1006EE167 /* TimePickerController.swift */,
+				2EF9875F244251A1006EE167 /* TimerViewController.swift */,
 				2EF987522442472F006EE167 /* TimerListController.swift */,
 				2EF98741244242CE006EE167 /* ComplicationController.swift */,
 			);
@@ -476,7 +476,7 @@
 				2EF9875524424EA9006EE167 /* GlobalVarModel.swift in Sources */,
 				2EF9875724424EAE006EE167 /* TimerModel.swift in Sources */,
 				2EF9875624424EAB006EE167 /* SettingsModel.swift in Sources */,
-				2EF98760244251A2006EE167 /* TimePickerController.swift in Sources */,
+				2EF98760244251A2006EE167 /* TimerViewController.swift in Sources */,
 				2EF987512442454B006EE167 /* TimerInfoCell.swift in Sources */,
 				2E2AA9DE244388BB00B4B515 /* SliderSettingCell.swift in Sources */,
 			);

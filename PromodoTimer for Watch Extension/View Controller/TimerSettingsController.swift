@@ -13,42 +13,42 @@ class TimerSettingsController: WKInterfaceController {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
-        
-        
-        
+     
     }
     
     func initCells() {
+        let currTimer = GlobalVar.settings.currTimer
+        
         timerSettingsTable.setRowTypes(["sliderSetting", "sliderSetting", "sliderSetting",
                                         "switchSetting", "switchSetting", "switchSetting"])
         var sliderCell = timerSettingsTable.rowController(at: 0) as! SliderSettingCell
         sliderCell.settingLabel.setText("Max Minutes")
-        sliderCell.setValue(value: 20)
-        sliderCell.settingValueSlider.setNumberOfSteps(10)
+        sliderCell.setMaxValue(value: 60)
+        sliderCell.setValue(value: currTimer.maxMinutes)
+        
         
         sliderCell = timerSettingsTable.rowController(at: 1) as! SliderSettingCell
         sliderCell.settingLabel.setText("Pos Minutes")
-        sliderCell.setValue(value: 20)
-        sliderCell.settingValueSlider.setNumberOfSteps(10)
+        sliderCell.setMaxValue(value: currTimer.maxMinutes)
+        sliderCell.setValue(value: currTimer.startTime[.positive]! / 60)
         
         sliderCell = timerSettingsTable.rowController(at: 2) as! SliderSettingCell
         sliderCell.settingLabel.setText("Neg Minutes")
-        sliderCell.setValue(value: 20)
-        sliderCell.settingValueSlider.setNumberOfSteps(10)
+        sliderCell.setMaxValue(value: currTimer.maxMinutes)
+        sliderCell.setValue(value: abs(currTimer.startTime[.negative]! / 60))
         
         var switchCell = timerSettingsTable.rowController(at: 3) as! SwitchSettingCell
-        switchCell.settingValueSwitch.setTitle("Auto Start")
-        switchCell.settingValueSwitch.setOn(true)
+        switchCell.settingValueSwitch.setTitle("Auto Repeat")
+        switchCell.settingValueSwitch.setOn(currTimer.autoRepeat)
         
         switchCell = timerSettingsTable.rowController(at: 4) as! SwitchSettingCell
-        switchCell.settingValueSwitch.setTitle("Pop-Up")
-        switchCell.settingValueSwitch.setOn(false)
+        switchCell.settingValueSwitch.setTitle("Pop-Up Alarm")
+        switchCell.settingValueSwitch.setOn(currTimer.alertTimerEnd)
         
         switchCell = timerSettingsTable.rowController(at: 5) as! SwitchSettingCell
         switchCell.settingValueSwitch.setTitle("Repeat Alarm")
-        switchCell.settingValueSwitch.setOn(false)
-        switchCell.settingValueSwitch.setEnabled(false)
+        switchCell.settingValueSwitch.setOn(currTimer.repeatAlarmOption)
+        switchCell.settingValueSwitch.setEnabled(currTimer.alertTimerEnd)
     }
     
     override func willActivate() {

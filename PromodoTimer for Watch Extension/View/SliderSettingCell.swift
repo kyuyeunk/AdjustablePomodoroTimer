@@ -14,19 +14,30 @@ class SliderSettingCell: NSObject {
     @IBOutlet weak var settingValueSlider: WKInterfaceSlider!
     @IBAction func sliderTapped(_ value: Float) {
         print("Slider tapped to \(value)")
-        currValue = value
-        updateLabel(value: Int(value))
+        currValue = Int(round(value / 100 * Float(maxValue)))
+        updateLabel(value: currValue)
     }
     
-    var currValue: Float = 0
+    var currValue: Int = 0
+    var maxValue: Int = 60
     
     func setValue(value: Int) {
-        currValue = Float(value)
-        settingValueSlider.setValue(Float(value))
-        settingValueLabel.setText(String(value))
+        print("Setting value to \(value)")
+        
+        currValue = value
+        let sliderValue = Float(value) / Float(maxValue) * 100
+        settingValueSlider.setValue(sliderValue)
+        updateLabel(value: value)
+    }
+    
+    func setMaxValue(value: Int) {
+        print("Setting Max Value to \(value)")
+        maxValue = value
+        settingValueSlider.setNumberOfSteps(value)
     }
     
     func updateLabel(value: Int) {
-        settingValueLabel.setText(String(value))
+        print("Setting label value to \(value)")
+        settingValueLabel.setText("\(value)m")
     }
 }

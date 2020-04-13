@@ -9,7 +9,7 @@
 import WatchKit
 import SpriteKit
 
-class TimePickerController: WKInterfaceController {
+class TimerViewController: WKInterfaceController {
     enum selectedPicker {
         case circlePicker
         case signPicker
@@ -216,7 +216,7 @@ class TimePickerController: WKInterfaceController {
     }
 }
 
-extension TimePickerController: TimeControllerDelegate {
+extension TimerViewController: TimeControllerDelegate {
     func setSecondUI(currTime: Int, passedTime: [TimerType : Double], animated: Bool, completion: (() -> ())?) {
         print("setSecondUI called with \(currTime)")
         setTime(currTime: currTime)
@@ -247,7 +247,7 @@ extension TimePickerController: TimeControllerDelegate {
     }
 }
 
-extension TimePickerController: WKCrownDelegate {
+extension TimerViewController: WKCrownDelegate {
     func crownDidRotate(_ crownSequencer: WKCrownSequencer?, rotationalDelta: Double) {
         let angle = timePieView.getCurrAngle()
         let newAngle = angle - CGFloat(rotationalDelta)

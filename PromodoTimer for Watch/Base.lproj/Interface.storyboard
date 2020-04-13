@@ -67,7 +67,7 @@
         <!--Timer-->
         <scene sceneID="cNf-Mc-MQo">
             <objects>
-                <controller title="Timer" id="uDq-ve-9HO" customClass="TimePickerController" customModule="PromodoTimer_for_Watch_Extension">
+                <controller title="Timer" id="uDq-ve-9HO" customClass="TimerViewController" customModule="PromodoTimer_for_Watch_Extension">
                     <items>
                         <group width="136" alignment="center" verticalAlignment="center" layout="vertical" id="W15-Mq-eJn">
                             <items>
@@ -139,7 +139,7 @@
                                                 </items>
                                                 <edgeInsets key="margins" left="5" right="5" top="2" bottom="2"/>
                                             </group>
-                                            <slider width="1" alignment="left" value="1" maximum="60" steps="3" id="wAK-ow-oUc">
+                                            <slider width="1" alignment="left" value="1" maximum="100" steps="3" id="wAK-ow-oUc">
                                                 <connections>
                                                     <action selector="sliderTapped:" destination="wsV-y0-Gy2" id="mBv-C7-QXp"/>
                                                 </connections>
