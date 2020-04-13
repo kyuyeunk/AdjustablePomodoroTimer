@@ -198,15 +198,18 @@ class TimerViewController: WKInterfaceController {
         }
     }
     
-    override func willActivate() {
-        print("Reactivating")
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
+    override func didAppear() {
+        super.didAppear()
+        print("Appearing")
         refocus()
     }
     
+    override func willActivate() {
+        // This method is called when watch view controller is about to be visible to user
+        super.willActivate()
+    }
+    
     override func didDeactivate() {
-        print("Deactivating")
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }

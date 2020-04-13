@@ -15,13 +15,12 @@ class TimerTableViewController: WKInterfaceController {
     @IBOutlet weak var timerList: WKInterfaceTable!
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
-        timerList.setNumberOfRows(GlobalVar.settings.timerList.count, withRowType: "timerInfo")
-        // Configure interface objects here.
-        setTitle("Timer List")
     }
     
     func initCells() {
+        setTitle("Timer List")
+        timerList.setNumberOfRows(GlobalVar.settings.timerList.count, withRowType: "timerInfo")
+        
         for i in 0 ..< GlobalVar.settings.timerList.count {
             let row = timerList.rowController(at: i) as! TimerInfoViewCell
             

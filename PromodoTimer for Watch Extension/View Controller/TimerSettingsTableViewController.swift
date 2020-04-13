@@ -22,13 +22,13 @@ class TimerSettingsTableViewController: WKInterfaceController {
     var workingTimer = TimerModel()
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        timerSettingsTable.setRowTypes(["sliderSetting", "sliderSetting", "sliderSetting",
-                                     "switchSetting", "switchSetting", "switchSetting"])
     }
     
     func initCells() {
-        workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
+        timerSettingsTable.setRowTypes(["sliderSetting", "sliderSetting", "sliderSetting",
+                                     "switchSetting", "switchSetting", "switchSetting"])
         
+        workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
 
         maxSliderCell = timerSettingsTable.rowController(at: 0) as? SliderSettingViewCell
         maxSliderCell.settingLabel.setText("Max Minutes")
