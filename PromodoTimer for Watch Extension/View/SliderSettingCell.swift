@@ -15,7 +15,12 @@ class SliderSettingCell: NSObject {
     @IBAction func sliderTapped(_ value: Float) {
         print("Slider tapped to \(value)")
         currValue = Int(round(value / 100 * Float(maxValue)))
-        updateLabel(value: currValue)
+        if currValue == 0 {
+            setValue(value: 1)
+        }
+        else {
+            updateLabel(value: currValue)
+        }
     }
     
     var currValue: Int = 0
