@@ -16,19 +16,15 @@
                                 <tableRow identifier="timerInfo" id="dLb-2U-Htp" customClass="TimerInfoCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" spacing="2" id="Vpo-3I-LwU">
                                         <items>
-                                            <group width="1" alignment="left" layout="vertical" id="g3J-TV-6HR">
+                                            <label width="100" alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="1xA-98-WxJ"/>
+                                            <group width="1" alignment="center" verticalAlignment="center" id="v5z-Lu-ep3">
                                                 <items>
-                                                    <label width="100" alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="1xA-98-WxJ"/>
-                                                    <group width="1" alignment="center" verticalAlignment="center" id="v5z-Lu-ep3">
-                                                        <items>
-                                                            <label width="0.5" alignment="left" text="Label" textAlignment="center" id="Qdl-8K-jY5">
-                                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            </label>
-                                                            <label width="0.5" alignment="left" text="Label" textAlignment="center" id="e47-rh-6aQ">
-                                                                <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            </label>
-                                                        </items>
-                                                    </group>
+                                                    <label width="0.5" alignment="left" text="Label" textAlignment="center" id="Qdl-8K-jY5">
+                                                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </label>
+                                                    <label width="0.5" alignment="left" text="Label" textAlignment="center" id="e47-rh-6aQ">
+                                                        <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </label>
                                                 </items>
                                             </group>
                                         </items>
