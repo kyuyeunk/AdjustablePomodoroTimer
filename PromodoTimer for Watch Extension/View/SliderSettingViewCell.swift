@@ -8,11 +8,12 @@
 
 import WatchKit
 
-protocol SliderUpdateDelegate {
-    func updateMaxValue(sliderSettingViewCell: SliderSettingViewCell, value: Int)
+protocol SliderSettingDelegate {
+    func updateSliderValue(sliderSettingViewCell: SliderSettingViewCell, value: Int)
 }
+
 class SliderSettingViewCell: NSObject {
-    var sliderUpdateDelegate: SliderUpdateDelegate?
+    var sliderUpdateDelegate: SliderSettingDelegate?
     @IBOutlet weak var settingValueLabel: WKInterfaceLabel!
     @IBOutlet weak var settingLabel: WKInterfaceLabel!
     @IBOutlet weak var settingValueSlider: WKInterfaceSlider!
@@ -25,7 +26,7 @@ class SliderSettingViewCell: NSObject {
         else {
             updateLabel(value: currValue)
             if let delegate = sliderUpdateDelegate {
-                delegate.updateMaxValue(sliderSettingViewCell: self, value: currValue)
+                delegate.updateSliderValue(sliderSettingViewCell: self, value: currValue)
             }
         }
     }

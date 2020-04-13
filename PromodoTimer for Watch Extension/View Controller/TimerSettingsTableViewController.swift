@@ -11,16 +11,20 @@ import WatchKit
 class TimerSettingsTableViewController: WKInterfaceController {
     @IBOutlet weak var timerSettingsTable: WKInterfaceTable!
     
+    var maxSliderCell: SliderSettingViewCell!
+    var posSliderCell: SliderSettingViewCell!
+    var negSliderCell: SliderSettingViewCell!
+    
+    var autoRepeatSwitchCell: SwitchSettingViewCell!
+    var popupSwitchCell: SwitchSettingViewCell!
+    var repeatAlarmSwitchCell: SwitchSettingViewCell!
+    
     var workingTimer = TimerModel()
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         timerSettingsTable.setRowTypes(["sliderSetting", "sliderSetting", "sliderSetting",
                                      "switchSetting", "switchSetting", "switchSetting"])
     }
-    
-    var maxSliderCell: SliderSettingViewCell!
-    var posSliderCell: SliderSettingViewCell!
-    var negSliderCell: SliderSettingViewCell!
     
     func initCells() {
         workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
@@ -44,18 +48,21 @@ class TimerSettingsTableViewController: WKInterfaceController {
         negSliderCell.setValue(value: abs(workingTimer.startTime[.negative]! / 60))
         negSliderCell.sliderUpdateDelegate = self
         
-        var switchCell = timerSettingsTable.rowController(at: 3) as! SwitchSettingViewCell
-        switchCell.settingValueSwitch.setTitle("Auto Repeat")
-        switchCell.settingValueSwitch.setOn(workingTimer.autoRepeat)
+        autoRepeatSwitchCell = timerSettingsTable.rowController(at: 3) as? SwitchSettingViewCell
+        autoRepeatSwitchCell.settingValueSwitch.setTitle("Auto Repeat")
+        autoRepeatSwitchCell.settingValueSwitch.setOn(workingTimer.autoRepeat)
+        autoRepeatSwitchCell.switchSettingDelegate = self
         
-        switchCell = timerSettingsTable.rowController(at: 4) as! SwitchSettingViewCell
-        switchCell.settingValueSwitch.setTitle("Pop-Up Alarm")
-        switchCell.settingValueSwitch.setOn(workingTimer.alertTimerEnd)
+        popupSwitchCell = timerSettingsTable.rowController(at: 4) as? SwitchSettingViewCell
+        popupSwitchCell.settingValueSwitch.setTitle("Pop-Up Alarm")
+        popupSwitchCell.settingValueSwitch.setOn(workingTimer.alertTimerEnd)
+        popupSwitchCell.switchSettingDelegate = self
         
-        switchCell = timerSettingsTable.rowController(at: 5) as! SwitchSettingViewCell
-        switchCell.settingValueSwitch.setTitle("Repeat Alarm")
-        switchCell.settingValueSwitch.setOn(workingTimer.repeatAlarmOption)
-        switchCell.settingValueSwitch.setEnabled(workingTimer.alertTimerEnd)
+        repeatAlarmSwitchCell = timerSettingsTable.rowController(at: 5) as? SwitchSettingViewCell
+        repeatAlarmSwitchCell.settingValueSwitch.setTitle("Repeat Alarm")
+        repeatAlarmSwitchCell.settingValueSwitch.setOn(workingTimer.repeatAlarmOption)
+        repeatAlarmSwitchCell.settingValueSwitch.setEnabled(workingTimer.alertTimerEnd)
+        repeatAlarmSwitchCell.switchSettingDelegate = self
     }
     
     override func willActivate() {
@@ -70,8 +77,8 @@ class TimerSettingsTableViewController: WKInterfaceController {
     }
 }
 
-extension TimerSettingsTableViewController: SliderUpdateDelegate {
-    func updateMaxValue(sliderSettingViewCell: SliderSettingViewCell, value: Int) {
+extension TimerSettingsTableViewController: SliderSettingDelegate {
+    func updateSliderValue(sliderSettingViewCell: SliderSettingViewCell, value: Int) {
         switch(sliderSettingViewCell) {
         case maxSliderCell:
             print("[Timer Setting] Max cell slider tapped")
@@ -102,4 +109,25 @@ extension TimerSettingsTableViewController: SliderUpdateDelegate {
         }
         
     }
+}
+
+extension TimerSettingsTableViewController: SwitchSettingDelegate {
+    func updateSwitchValue(switchSettingViewCell: SwitchSettingViewCell, value: Bool) {
+        switch(switchSettingViewCell) {
+        case autoRepeatSwitchCell:
+            print("[Timer Setting] Auto repeat tapped")
+            workingTimer.autoRepeat = value
+        case popupSwitchCell:
+            print("[Timer Setting] Pop-up tapped")
+            workingTimer.alertTimerEnd = value
+            repeatAlarmSwitchCell.settingValueSwitch.setEnabled(value)
+        case repeatAlarmSwitchCell:
+            print("[Timer Setting] Repeat Alarm tapped")
+            workingTimer.repeatAlarmOption = value
+        default:
+            break
+        }
+    }
+    
+    
 }

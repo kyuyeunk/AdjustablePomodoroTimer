@@ -18,8 +18,10 @@ class TimerTableViewController: WKInterfaceController {
         
         timerList.setNumberOfRows(GlobalVar.settings.timerList.count, withRowType: "timerInfo")
         // Configure interface objects here.
-        
-        
+        setTitle("Timer List")
+    }
+    
+    func initCells() {
         for i in 0 ..< GlobalVar.settings.timerList.count {
             let row = timerList.rowController(at: i) as! TimerInfoViewCell
             
@@ -43,9 +45,6 @@ class TimerTableViewController: WKInterfaceController {
             row.posTime.setText("\(posMin)m \(posSec)s")
             row.negTime.setText("\(negMin)m \(negSec)s")
         }
-        
-        
-        setTitle("Timer List")
     }
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
@@ -64,6 +63,8 @@ class TimerTableViewController: WKInterfaceController {
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        
+        initCells()
     }
     
     override func didDeactivate() {

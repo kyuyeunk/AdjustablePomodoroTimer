@@ -8,10 +8,16 @@
 
 import WatchKit
 
+protocol SwitchSettingDelegate {
+    func updateSwitchValue(switchSettingViewCell: SwitchSettingViewCell, value: Bool)
+}
 class SwitchSettingViewCell: NSObject {
+    var switchSettingDelegate: SwitchSettingDelegate?
     @IBOutlet weak var settingValueSwitch: WKInterfaceSwitch!
     @IBAction func switchTapped(_ value: Bool) {
-        print(value)
+        print("Switch set to \(value)")
+        if let delegate = switchSettingDelegate {
+            delegate.updateSwitchValue(switchSettingViewCell: self, value: value)
+        }
     }
-    
 }

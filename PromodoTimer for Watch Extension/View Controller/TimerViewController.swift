@@ -15,6 +15,7 @@ class TimerViewController: WKInterfaceController {
         case signPicker
         case minPicker
         case secPicker
+        case none
     }
     
     @IBAction func startButtonTapped() {
@@ -84,9 +85,9 @@ class TimerViewController: WKInterfaceController {
             if mySelectedPicker == .circlePicker {
                 if timePieView.isHighlighted == false {
                     timePieView.isHighlighted = true
-                    crownSequencer.focus()
                     timePieView.draw()
                 }
+                crownSequencer.focus()
             }
             else {
                 if timePieView.isHighlighted == true {
@@ -182,6 +183,10 @@ class TimerViewController: WKInterfaceController {
     
     func refocus() {
         switch mySelectedPicker {
+        case .circlePicker:
+            timePieView.isHighlighted = true
+            timePieView.draw()
+            crownSequencer.focus()
         case .signPicker:
             signPicker.focus()
         case .minPicker:
@@ -194,11 +199,14 @@ class TimerViewController: WKInterfaceController {
     }
     
     override func willActivate() {
+        print("Reactivating")
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        refocus()
     }
     
     override func didDeactivate() {
+        print("Deactivating")
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
