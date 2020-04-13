@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16096" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16096" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Vet-9b-wuH">
     <device id="watch40"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
@@ -16,15 +16,19 @@
                                 <tableRow identifier="timerInfo" id="dLb-2U-Htp" customClass="TimerInfoCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" spacing="2" id="Vpo-3I-LwU">
                                         <items>
-                                            <label width="100" alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="1xA-98-WxJ"/>
-                                            <group width="1" alignment="center" verticalAlignment="center" id="v5z-Lu-ep3">
+                                            <group width="1" alignment="left" layout="vertical" id="g3J-TV-6HR">
                                                 <items>
-                                                    <label width="0.5" alignment="left" text="Label" textAlignment="center" id="Qdl-8K-jY5">
-                                                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </label>
-                                                    <label width="0.5" alignment="left" text="Label" textAlignment="center" id="e47-rh-6aQ">
-                                                        <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </label>
+                                                    <label width="100" alignment="center" verticalAlignment="center" text="Label" textAlignment="center" id="1xA-98-WxJ"/>
+                                                    <group width="1" alignment="center" verticalAlignment="center" id="v5z-Lu-ep3">
+                                                        <items>
+                                                            <label width="0.5" alignment="left" text="Label" textAlignment="center" id="Qdl-8K-jY5">
+                                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </label>
+                                                            <label width="0.5" alignment="left" text="Label" textAlignment="center" id="e47-rh-6aQ">
+                                                                <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </label>
+                                                        </items>
+                                                    </group>
                                                 </items>
                                             </group>
                                         </items>
@@ -41,11 +45,22 @@
                     </items>
                     <connections>
                         <outlet property="timerList" destination="750-Hg-SLp" id="3dd-eH-4uL"/>
-                        <segue destination="uDq-ve-9HO" kind="relationship" relationship="nextPage" id="4rH-BH-FzA"/>
+                        <segue destination="0VU-BR-2T4" kind="relationship" relationship="nextPage" id="sE3-li-QQa"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="33" y="113"/>
+            <point key="canvasLocation" x="301" y="113"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="3eB-Ew-VtZ">
+            <objects>
+                <controller title="Settings" id="Vet-9b-wuH">
+                    <connections>
+                        <segue destination="uDq-ve-9HO" kind="relationship" relationship="nextPage" id="vCc-bC-eO3"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="-191" y="113"/>
         </scene>
         <!--Timer-->
         <scene sceneID="cNf-Mc-MQo">
@@ -97,11 +112,11 @@
                         <outlet property="secPicker" destination="cgQ-tG-jl2" id="D6K-GZ-Az1"/>
                         <outlet property="signPicker" destination="HdU-Vg-E2x" id="PKH-Jy-EWE"/>
                         <outlet property="startButton" destination="quc-mP-tz4" id="kcl-tp-K7t"/>
-                        <segue destination="0VU-BR-2T4" kind="relationship" relationship="nextPage" id="Nk1-mn-Q7q"/>
+                        <segue destination="AgC-eL-Hgc" kind="relationship" relationship="nextPage" id="TDw-nY-AcI"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="297" y="113"/>
+            <point key="canvasLocation" x="55" y="113"/>
         </scene>
         <!--Timer Settings-->
         <scene sceneID="diP-t7-7Bh">

@@ -99,6 +99,11 @@ class TimePickerController: WKInterfaceController {
     
     var prevTickedMin: Int = 0
     
+    override init (){
+        super.init()
+        super.becomeCurrentPage()
+    }
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
  
