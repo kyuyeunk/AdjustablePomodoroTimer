@@ -200,7 +200,6 @@ class TimerViewController: WKInterfaceController {
     
     override func didAppear() {
         super.didAppear()
-        print("Appearing")
         refocus()
     }
     

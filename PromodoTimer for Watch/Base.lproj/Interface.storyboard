@@ -168,6 +168,21 @@
                                         <outlet property="settingValueSwitch" destination="3uq-V6-gY1" id="ysQ-6I-4Ab"/>
                                     </connections>
                                 </tableRow>
+                                <tableRow identifier="button" id="tFB-f1-DwZ" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="eg4-sT-lAb">
+                                        <items>
+                                            <button width="1" alignment="left" title="Button" id="Hza-bd-GHF">
+                                                <connections>
+                                                    <action selector="buttonTapped" destination="tFB-f1-DwZ" id="YD8-8H-6MV"/>
+                                                </connections>
+                                            </button>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="button" destination="Hza-bd-GHF" id="OYy-AD-LZ6"/>
+                                    </connections>
+                                </tableRow>
                             </items>
                         </table>
                     </items>

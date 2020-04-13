@@ -32,6 +32,7 @@
 		2E8B9F9D244004BA00B13AA9 /* RightDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9C244004BA00B13AA9 /* RightDetailTableViewCell.swift */; };
 		2E8B9F9F2440AA1100B13AA9 /* AlarmSoundsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E8B9F9E2440AA1000B13AA9 /* AlarmSoundsTableViewController.swift */; };
 		2EB4C5102443049800763279 /* TimePiewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4C50F2443049800763279 /* TimePiewView.swift */; };
+		2EBFDC3E2444B131003C580A /* ButtonViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBFDC3D2444B131003C580A /* ButtonViewCell.swift */; };
 		2EC23D052417ADDA00EA7BD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */; };
 		2EC23D072417ADDA00EA7BD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */; };
 		2EC23D092417ADDA00EA7BD6 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D082417ADDA00EA7BD6 /* TimerViewController.swift */; };
@@ -125,6 +126,7 @@
 		2E8B9F9C244004BA00B13AA9 /* RightDetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightDetailTableViewCell.swift; sourceTree = "<group>"; };
 		2E8B9F9E2440AA1000B13AA9 /* AlarmSoundsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSoundsTableViewController.swift; sourceTree = "<group>"; };
 		2EB4C50F2443049800763279 /* TimePiewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePiewView.swift; sourceTree = "<group>"; };
+		2EBFDC3D2444B131003C580A /* ButtonViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewCell.swift; sourceTree = "<group>"; };
 		2EC23D012417ADDA00EA7BD6 /* PromodoTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PromodoTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC23D042417ADDA00EA7BD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2EC23D062417ADDA00EA7BD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				2EB4C50F2443049800763279 /* TimePiewView.swift */,
 				2E2AA9DD244388BB00B4B515 /* SliderSettingViewCell.swift */,
 				2E899E8E244395790080A522 /* SwitchSettingViewCell.swift */,
+				2EBFDC3D2444B131003C580A /* ButtonViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				2EF9875624424EAB006EE167 /* SettingsModel.swift in Sources */,
 				2EF98760244251A2006EE167 /* TimerViewController.swift in Sources */,
 				2EF987512442454B006EE167 /* TimerInfoViewCell.swift in Sources */,
+				2EBFDC3E2444B131003C580A /* ButtonViewCell.swift in Sources */,
 				2E2AA9DE244388BB00B4B515 /* SliderSettingViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
