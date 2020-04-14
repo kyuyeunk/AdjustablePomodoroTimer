@@ -90,8 +90,10 @@ class TimerListTableViewController: UITableViewController {
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 if indexPath.row == GlobalVar.settings.currTimerID {
                     var newTimerIndexPath = indexPath
-                    newTimerIndexPath.row -= 1
-                    GlobalVar.settings.currTimerID -= 1
+                    if indexPath.row != 0 {
+                        newTimerIndexPath.row -= 1
+                        GlobalVar.settings.currTimerID -= 1
+                    }
                     tableView.reloadRows(at: [newTimerIndexPath], with: .fade)
                 }
             }

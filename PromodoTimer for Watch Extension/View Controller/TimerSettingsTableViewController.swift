@@ -14,6 +14,7 @@ class TimerSettingsTableViewController: WKInterfaceController {
     var timerNameViewCell: TimerNameViewCell!
     
     var saveButtonCell: ButtonViewCell!
+    var deleteButtonCell: ButtonViewCell!
     
     var maxSliderCell: SliderSettingViewCell!
     var posSliderCell: SliderSettingViewCell!
@@ -64,7 +65,7 @@ class TimerSettingsTableViewController: WKInterfaceController {
     
     func initCells() {
         timerSettingsTable.setRowTypes(["button", "textField", "sliderSetting", "sliderSetting", "sliderSetting",
-                                     "switchSetting", "switchSetting", "switchSetting"])
+                                     "switchSetting", "switchSetting", "switchSetting", "button"])
 
         saveButtonCell = timerSettingsTable.rowController(at: 0) as? ButtonViewCell
         saveButtonCell.button.setTitle("Save Timer")
@@ -107,6 +108,11 @@ class TimerSettingsTableViewController: WKInterfaceController {
         repeatAlarmSwitchCell.settingValueSwitch.setOn(workingTimer.repeatAlarmOption)
         repeatAlarmSwitchCell.settingValueSwitch.setEnabled(workingTimer.alertTimerEnd)
         repeatAlarmSwitchCell.switchSettingDelegate = self
+        
+        deleteButtonCell = timerSettingsTable.rowController(at: 8) as? ButtonViewCell
+        deleteButtonCell.button.setTitle("Delete")
+        deleteButtonCell.button.setBackgroundColor(.red)
+        deleteButtonCell.buttonDelegate = self
     }
     
     override func willActivate() {
@@ -174,16 +180,31 @@ extension TimerSettingsTableViewController: SwitchSettingDelegate {
 
 extension TimerSettingsTableViewController: ButtonDelegate {
     func buttonTapped(buttonViewCell: ButtonViewCell) {
-        if newTimer {
-            GlobalVar.settings.timerList.append(workingTimer)
-            GlobalVar.settings.currTimerID = GlobalVar.settings.timerList.count - 1
+        if buttonViewCell == saveButtonCell {
+            if newTimer {
+                GlobalVar.settings.timerList.append(workingTimer)
+                GlobalVar.settings.currTimerID = GlobalVar.settings.timerList.count - 1
+            }
+            else {
+                GlobalVar.settings.timerList[GlobalVar.settings.currTimerID] = workingTimer
+            }
+            GlobalVar.settings.saveTimerList()
+            NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
         }
-        else {
-            GlobalVar.settings.timerList[GlobalVar.settings.currTimerID] = workingTimer
-        }
-        GlobalVar.settings.saveTimerList()
-        
-        NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
+        else if buttonViewCell == deleteButtonCell {
+            if newTimer {
+                workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
+                newTimer = false
+            }
+            else {
+                GlobalVar.settings.timerList.remove(at:  GlobalVar.settings.currTimerID)
+                if GlobalVar.settings.currTimerID != 0 {
+                    GlobalVar.settings.currTimerID -= 1
+                }
+            }
+            //TODO: error handling when there is only one timer
+            NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
+        }    
     }
 }
 
