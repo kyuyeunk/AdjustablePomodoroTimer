@@ -41,6 +41,7 @@
 		2EC23D092417ADDA00EA7BD6 /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EC23D082417ADDA00EA7BD6 /* TimerViewController.swift */; };
 		2EC23D0E2417ADE600EA7BD6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EC23D0D2417ADE600EA7BD6 /* Assets.xcassets */; };
 		2EC23D112417ADE600EA7BD6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EC23D0F2417ADE600EA7BD6 /* LaunchScreen.storyboard */; };
+		2ED2F7B124461E72009F0D51 /* ButtonWithLabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F7B024461E72009F0D51 /* ButtonWithLabelViewCell.swift */; };
 		2EF98730244242C2006EE167 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF9872E244242C2006EE167 /* Interface.storyboard */; };
 		2EF98732244242CD006EE167 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF98731244242CD006EE167 /* Assets.xcassets */; };
 		2EF98739244242CD006EE167 /* PromodoTimer for Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2EF98738244242CD006EE167 /* PromodoTimer for Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -139,6 +140,7 @@
 		2EC23D082417ADDA00EA7BD6 /* TimerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		2EC23D0D2417ADE600EA7BD6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2EC23D102417ADE600EA7BD6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2ED2F7B024461E72009F0D51 /* ButtonWithLabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithLabelViewCell.swift; sourceTree = "<group>"; };
 		2EF9872C244242C2006EE167 /* PromodoTimer for Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PromodoTimer for Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF9872F244242C2006EE167 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		2EF98731244242CD006EE167 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				2E2AA9DD244388BB00B4B515 /* SliderSettingViewCell.swift */,
 				2E899E8E244395790080A522 /* SwitchSettingViewCell.swift */,
 				2EBFDC3D2444B131003C580A /* ButtonViewCell.swift */,
+				2ED2F7B024461E72009F0D51 /* ButtonWithLabelViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				2E0ECD482445F6C900FD3951 /* SettingsViewController.swift in Sources */,
 				2EF9875A24424EB6006EE167 /* TimeController.swift in Sources */,
 				2EF987532442472F006EE167 /* TimerListTableViewController.swift in Sources */,
+				2ED2F7B124461E72009F0D51 /* ButtonWithLabelViewCell.swift in Sources */,
 				2EF98742244242CE006EE167 /* ComplicationController.swift in Sources */,
 				2E2AA9E02443893700B4B515 /* TimerSettingsTableViewController.swift in Sources */,
 				2EB4C5102443049800763279 /* TimePieView.swift in Sources */,

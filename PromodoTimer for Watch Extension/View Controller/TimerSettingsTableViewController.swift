@@ -65,7 +65,7 @@ class TimerSettingsTableViewController: WKInterfaceController {
     
     func initCells() {
         timerSettingsTable.setRowTypes(["button", "textField", "sliderSetting", "sliderSetting", "sliderSetting",
-                                     "switchSetting", "switchSetting", "switchSetting", "button"])
+                                     "switchSetting", "switchSetting", "switchSetting", "button", "buttonWithLabel"])
 
         saveButtonCell = timerSettingsTable.rowController(at: 0) as? ButtonViewCell
         saveButtonCell.button.setTitle("Save Timer")

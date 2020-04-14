@@ -21,5 +21,4 @@ class ButtonViewCell: NSObject {
             delegate.buttonTapped(buttonViewCell: self)
         }
     }
-    
 }

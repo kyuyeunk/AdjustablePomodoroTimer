@@ -260,6 +260,22 @@
                                         <outlet property="textField" destination="OuA-CE-7le" id="QAa-bb-7MK"/>
                                     </connections>
                                 </tableRow>
+                                <tableRow identifier="buttonWithLabel" id="I50-Bm-OcU" customClass="ButtonWithLabelViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="uFE-6q-5aa">
+                                        <items>
+                                            <group width="1" alignment="left" id="qME-GL-I77">
+                                                <items>
+                                                    <label alignment="left" text="Label" textAlignment="left" id="Ts2-dW-2iW"/>
+                                                </items>
+                                                <edgeInsets key="margins" left="5" right="0.0" top="0.0" bottom="0.0"/>
+                                            </group>
+                                            <button width="1" alignment="left" title="Button" id="8pQ-he-DYs">
+                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                            </button>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                </tableRow>
                             </items>
                         </table>
                     </items>
