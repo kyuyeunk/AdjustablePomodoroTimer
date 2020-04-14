@@ -15,4 +15,5 @@ enum pageNames: Int {
     case settingsView
 }
 
+let resetTimerSettingsViewNotificationName = Notification.Name("resetTimerSettings")
 let changePageNotificationName = Notification.Name("changePage")

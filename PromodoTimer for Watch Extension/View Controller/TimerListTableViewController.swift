@@ -62,6 +62,7 @@ class TimerListTableViewController: WKInterfaceController {
     }
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        WKInterfaceDevice.current().play(.click)
         print("[Timer List] Selected row \(rowIndex)")
         let prevTimerID = GlobalVar.settings.currTimerID
         if rowIndex != prevTimerID {
@@ -72,6 +73,7 @@ class TimerListTableViewController: WKInterfaceController {
             row.selectedSeparator.setColor(.green)
             GlobalVar.settings.currTimerID = rowIndex
         }
+        NotificationCenter.default.post(name: resetTimerSettingsViewNotificationName, object: nil)
     }
     
     override func willActivate() {

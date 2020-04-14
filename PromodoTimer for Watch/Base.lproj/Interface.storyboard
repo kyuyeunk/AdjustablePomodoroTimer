@@ -172,6 +172,7 @@
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="eg4-sT-lAb">
                                         <items>
                                             <button width="1" alignment="left" title="Button" id="Hza-bd-GHF">
+                                                <fontDescription key="font" type="system" pointSize="17"/>
                                                 <connections>
                                                     <action selector="buttonTapped" destination="tFB-f1-DwZ" id="YD8-8H-6MV"/>
                                                 </connections>
@@ -181,6 +182,27 @@
                                     </group>
                                     <connections>
                                         <outlet property="button" destination="Hza-bd-GHF" id="OYy-AD-LZ6"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="textField" id="hOm-u5-64I" customClass="TimerNameViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="4eV-59-Uk4">
+                                        <items>
+                                            <group width="1" alignment="left" id="qow-62-a8H">
+                                                <items>
+                                                    <label alignment="left" text="Timer Name" textAlignment="left" id="OgJ-Kt-UUh"/>
+                                                </items>
+                                                <edgeInsets key="margins" left="5" right="0.0" top="0.0" bottom="0.0"/>
+                                            </group>
+                                            <textField width="1" alignment="left" text="Text" id="OuA-CE-7le">
+                                                <connections>
+                                                    <action selector="textFieldTapped:" destination="hOm-u5-64I" id="315-Uj-1BU"/>
+                                                </connections>
+                                            </textField>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="textField" destination="OuA-CE-7le" id="QAa-bb-7MK"/>
                                     </connections>
                                 </tableRow>
                             </items>
