@@ -25,6 +25,9 @@ class TimerSettingsTableViewController: WKInterfaceController {
     var popupSwitchCell: SwitchSettingViewCell!
     var repeatAlarmSwitchCell: SwitchSettingViewCell!
     
+    var togglPosProjectCell: ButtonWithLabelViewCell!
+    var togglNegProjectCell: ButtonWithLabelViewCell!
+    
     var workingTimer = TimerModel()
     var newTimer = false
     
@@ -64,11 +67,12 @@ class TimerSettingsTableViewController: WKInterfaceController {
     }
     
     func initCells() {
-        timerSettingsTable.setRowTypes(["button", "textField", "sliderSetting", "sliderSetting", "sliderSetting",
-                                     "switchSetting", "switchSetting", "switchSetting", "button", "buttonWithLabel"])
+        timerSettingsTable.setRowTypes(["button", "textField", "sliderSetting", "sliderSetting", "sliderSetting", "buttonWithLabel",
+                                        "buttonWithLabel", "switchSetting", "switchSetting", "switchSetting", "button"])
 
         saveButtonCell = timerSettingsTable.rowController(at: 0) as? ButtonViewCell
         saveButtonCell.button.setTitle("Save Timer")
+        saveButtonCell.button.setBackgroundColor(.blue)
         saveButtonCell.buttonDelegate = self
         
         timerNameViewCell = timerSettingsTable.rowController(at: 1) as? TextFieldViewCell
@@ -93,23 +97,31 @@ class TimerSettingsTableViewController: WKInterfaceController {
         negSliderCell.setValue(value: abs(workingTimer.startTime[.negative]! / 60))
         negSliderCell.sliderUpdateDelegate = self
         
-        autoRepeatSwitchCell = timerSettingsTable.rowController(at: 5) as? SwitchSettingViewCell
+        togglPosProjectCell = timerSettingsTable.rowController(at: 5) as? ButtonWithLabelViewCell
+        togglPosProjectCell.label.setText("Pos Toggl Project")
+        togglPosProjectCell.buttonDelegate = self
+        
+        togglNegProjectCell = timerSettingsTable.rowController(at: 6) as? ButtonWithLabelViewCell
+        togglNegProjectCell.label.setText("Neg Toggl Project")
+        togglNegProjectCell.buttonDelegate = self
+        
+        autoRepeatSwitchCell = timerSettingsTable.rowController(at: 7) as? SwitchSettingViewCell
         autoRepeatSwitchCell.settingValueSwitch.setTitle("Auto Repeat")
         autoRepeatSwitchCell.settingValueSwitch.setOn(workingTimer.autoRepeat)
         autoRepeatSwitchCell.switchSettingDelegate = self
         
-        popupSwitchCell = timerSettingsTable.rowController(at: 6) as? SwitchSettingViewCell
+        popupSwitchCell = timerSettingsTable.rowController(at: 8) as? SwitchSettingViewCell
         popupSwitchCell.settingValueSwitch.setTitle("Pop-Up Alarm")
         popupSwitchCell.settingValueSwitch.setOn(workingTimer.alertTimerEnd)
         popupSwitchCell.switchSettingDelegate = self
         
-        repeatAlarmSwitchCell = timerSettingsTable.rowController(at: 7) as? SwitchSettingViewCell
+        repeatAlarmSwitchCell = timerSettingsTable.rowController(at: 9) as? SwitchSettingViewCell
         repeatAlarmSwitchCell.settingValueSwitch.setTitle("Repeat Alarm")
         repeatAlarmSwitchCell.settingValueSwitch.setOn(workingTimer.repeatAlarmOption)
         repeatAlarmSwitchCell.settingValueSwitch.setEnabled(workingTimer.alertTimerEnd)
         repeatAlarmSwitchCell.switchSettingDelegate = self
         
-        deleteButtonCell = timerSettingsTable.rowController(at: 8) as? ButtonViewCell
+        deleteButtonCell = timerSettingsTable.rowController(at: 10) as? ButtonViewCell
         deleteButtonCell.button.setTitle("Delete")
         deleteButtonCell.button.setBackgroundColor(.red)
         deleteButtonCell.buttonDelegate = self
@@ -212,10 +224,21 @@ extension TimerSettingsTableViewController: ButtonDelegate {
     }
 }
 
-
-
 extension TimerSettingsTableViewController: TextFieldDelegate {
     func TextFieldTapped(value: String) {
         workingTimer.timerName = value
+    }
+}
+
+extension TimerSettingsTableViewController: ButtonWithLabelDelegate {
+    func buttonTapped(buttonWithLabelViewCell: ButtonWithLabelViewCell) {
+        if buttonWithLabelViewCell == togglPosProjectCell {
+            //Code about Toggl Positive Project
+            pushController(withName: "projectListView", context: nil)
+        }
+        else {
+            //Code about Toggl Negative Project
+            pushController(withName: "projectListView", context: nil)
+        }
     }
 }

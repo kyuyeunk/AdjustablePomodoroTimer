@@ -271,10 +271,17 @@
                                             </group>
                                             <button width="1" alignment="left" title="Button" id="8pQ-he-DYs">
                                                 <fontDescription key="font" type="system" pointSize="17"/>
+                                                <connections>
+                                                    <action selector="buttonTapped" destination="I50-Bm-OcU" id="Cdv-4J-29e"/>
+                                                </connections>
                                             </button>
                                         </items>
                                         <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
                                     </group>
+                                    <connections>
+                                        <outlet property="button" destination="8pQ-he-DYs" id="cld-3K-nAw"/>
+                                        <outlet property="label" destination="Ts2-dW-2iW" id="rZV-PI-IQZ"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
@@ -285,6 +292,13 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="560" y="113"/>
+        </scene>
+        <!--projectListView-->
+        <scene sceneID="9rb-OW-nQO">
+            <objects>
+                <controller identifier="projectListView" id="275-yi-7SQ"/>
+            </objects>
+            <point key="canvasLocation" x="886" y="113"/>
         </scene>
     </scenes>
 </document>
