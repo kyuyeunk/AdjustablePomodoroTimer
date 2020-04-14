@@ -13,7 +13,7 @@ protocol TextFieldDelegate {
 }
 
 
-class TimerNameViewCell: NSObject {
+class TextFieldViewCell: NSObject {
     var textFieldDelegate: TextFieldDelegate!
     
     @IBOutlet weak var textField: WKInterfaceTextField!

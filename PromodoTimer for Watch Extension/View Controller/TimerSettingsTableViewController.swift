@@ -11,7 +11,7 @@ import WatchKit
 class TimerSettingsTableViewController: WKInterfaceController {
     @IBOutlet weak var timerSettingsTable: WKInterfaceTable!
     
-    var timerNameViewCell: TimerNameViewCell!
+    var timerNameViewCell: TextFieldViewCell!
     
     var saveButtonCell: ButtonViewCell!
     var deleteButtonCell: ButtonViewCell!
@@ -71,7 +71,7 @@ class TimerSettingsTableViewController: WKInterfaceController {
         saveButtonCell.button.setTitle("Save Timer")
         saveButtonCell.buttonDelegate = self
         
-        timerNameViewCell = timerSettingsTable.rowController(at: 1) as? TimerNameViewCell
+        timerNameViewCell = timerSettingsTable.rowController(at: 1) as? TextFieldViewCell
         timerNameViewCell.textField.setText(workingTimer.timerName)
         timerNameViewCell.textFieldDelegate = self
         

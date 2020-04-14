@@ -239,7 +239,7 @@
                                         <outlet property="button" destination="Hza-bd-GHF" id="OYy-AD-LZ6"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="textField" id="hOm-u5-64I" customClass="TimerNameViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="textField" id="hOm-u5-64I" customClass="TextFieldViewCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="4eV-59-Uk4">
                                         <items>
                                             <group width="1" alignment="left" id="qow-62-a8H">
