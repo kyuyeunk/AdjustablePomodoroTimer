@@ -100,10 +100,37 @@ class TimerSettingsTableViewController: WKInterfaceController {
         togglPosProjectCell = timerSettingsTable.rowController(at: 5) as? ButtonWithLabelViewCell
         togglPosProjectCell.label.setText("Pos Toggl Project")
         togglPosProjectCell.buttonDelegate = self
+        togglPosProjectCell.button.setEnabled(GlobalVar.settings.togglLoggedIn)
+        if GlobalVar.settings.togglLoggedIn {
+            togglPosProjectCell.button.setEnabled(true)
+            if let togglPosProjectName = workingTimer.userDefinedTracking[TimerType.positive]?.project.name {
+                togglPosProjectCell.button.setTitle(togglPosProjectName)
+            }
+            else {
+                togglPosProjectCell.button.setTitle("Input Project")
+            }
+        }
+        else {
+            togglPosProjectCell.button.setTitle("Logged Out")
+            togglPosProjectCell.button.setEnabled(false)
+        }
         
         togglNegProjectCell = timerSettingsTable.rowController(at: 6) as? ButtonWithLabelViewCell
         togglNegProjectCell.label.setText("Neg Toggl Project")
         togglNegProjectCell.buttonDelegate = self
+        if GlobalVar.settings.togglLoggedIn {
+            togglNegProjectCell.button.setEnabled(true)
+            if let togglNegProjectName = workingTimer.userDefinedTracking[TimerType.negative]?.project.name {
+                togglNegProjectCell.button.setTitle(togglNegProjectName)
+            }
+            else {
+                togglNegProjectCell.button.setTitle("Input Project")
+            }
+        }
+        else {
+            togglNegProjectCell.button.setTitle("Logged Out")
+            togglNegProjectCell.button.setEnabled(false)
+        }
         
         autoRepeatSwitchCell = timerSettingsTable.rowController(at: 7) as? SwitchSettingViewCell
         autoRepeatSwitchCell.settingValueSwitch.setTitle("Auto Repeat")

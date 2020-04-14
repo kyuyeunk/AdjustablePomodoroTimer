@@ -296,7 +296,30 @@
         <!--projectListView-->
         <scene sceneID="9rb-OW-nQO">
             <objects>
-                <controller identifier="projectListView" id="275-yi-7SQ"/>
+                <controller identifier="projectListView" id="275-yi-7SQ" customClass="TogglProjectListTableViewController" customModule="PromodoTimer_for_Watch_Extension">
+                    <items>
+                        <table alignment="left" id="Dmg-RT-Hni">
+                            <items>
+                                <tableRow identifier="projectInfo" id="Obv-5k-ye3" customClass="ProjectInfoViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="mkZ-fr-Qfc">
+                                        <items>
+                                            <separator alignment="left" id="B0D-l2-Pzk"/>
+                                            <label alignment="center" verticalAlignment="center" text="Label" id="K1V-iP-Z5l"/>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="projectLabel" destination="K1V-iP-Z5l" id="pL8-WY-FW3"/>
+                                        <outlet property="projectSeparator" destination="B0D-l2-Pzk" id="HV8-lT-21c"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <connections>
+                        <outlet property="projectTable" destination="Dmg-RT-Hni" id="rsl-SX-x5U"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="886" y="113"/>
         </scene>
