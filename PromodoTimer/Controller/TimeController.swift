@@ -6,10 +6,11 @@
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
 //
 
-import AVFoundation
+import UserNotifications
 #if os(iOS)
 import UIKit
 import AudioToolbox
+import AVFoundation
 #elseif os(watchOS)
 import WatchKit
 #endif
@@ -110,9 +111,7 @@ class TimeController {
                 return
             }
             
-            #if os(iOS)
-            self.createNotification(delayTime: abs(newTime))
-            #endif
+            self.createNotification(delayTime: newTime)
             
             if newTime > 0 {
                 newTime -= 1
@@ -155,6 +154,14 @@ class TimeController {
                     #if os(iOS)
                     let systemAlarmID = GlobalVar.alarmSounds.list[GlobalVar.settings.currTimer.timerAlarmID[self.currType]!].systemSoundID
                     AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
+                    #elseif os(watchOS)
+                    //TODO: fix bug where sound wouldn't play
+                    if self.currType == .positive {
+                        WKInterfaceDevice.current().play(.success)
+                    }
+                    else {
+                        WKInterfaceDevice.current().play(.failure)
+                    }
                     #endif
                     let autoRepeat = GlobalVar.settings.currTimer.autoRepeat
                     print("[Timer] Stop the timer with auto repeat? \(autoRepeat)")
@@ -183,21 +190,18 @@ class TimeController {
     func stopButtonTapped() {
         stopTimer(autoRepeat: false)
         print("[Timer] Stopping notification")
-        #if os(iOS)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
-        #endif
     }
     
-    #if os(iOS)
     func createNotification(delayTime: Int) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
         let content = UNMutableNotificationContent()
         content.title = "Timer Ended"
         if delayTime > 0 {
-            content.body = "Your positive timer has ended"
+            content.body = "Positive timer ended"
         }
         else {
-            content.body = "Your negative timer has ended"
+            content.body = "Negative timer ended"
         }
         content.sound = UNNotificationSound.default
 
@@ -211,5 +215,4 @@ class TimeController {
             //TODO
         }
     }
-    #endif
 }
