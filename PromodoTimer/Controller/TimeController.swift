@@ -10,6 +10,8 @@ import AVFoundation
 #if os(iOS)
 import UIKit
 import AudioToolbox
+#elseif os(watchOS)
+import WatchKit
 #endif
 
 //Allow view controllers to change UI when timer event triggers
@@ -129,11 +131,15 @@ class TimeController {
             self.startedTime[.negative]! = currTimeSince1970
             
             self.timeControllerDelegate.setSecondUI(currTime: newTime, passedTime: self.passedTime, animated: true, completion: nil)
-            #if os(iOS)
+            
             if GlobalVar.settings.tickingSound {
+                #if os(iOS)
                 AudioServicesPlaySystemSound(SystemSoundID(1104))
+                #elseif os(watchOS)
+                WKInterfaceDevice.current().play(.click)
+                #endif
             }
-            #endif
+            
             
             if newTime == 0 {
                 print("[Timer] Reached 0 seconds, starting the alarm")
