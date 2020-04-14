@@ -72,8 +72,46 @@
         <!--Settings-->
         <scene sceneID="3eB-Ew-VtZ">
             <objects>
-                <controller title="Settings" id="Vet-9b-wuH">
+                <controller title="Settings" id="Vet-9b-wuH" customClass="SettingsViewController" customModule="PromodoTimer_for_Watch_Extension">
+                    <items>
+                        <table alignment="left" id="aES-YV-ybz">
+                            <items>
+                                <tableRow identifier="switchSetting" id="Rz7-5i-60m" customClass="SwitchSettingViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="TBX-Yh-VBK">
+                                        <items>
+                                            <switch width="1" alignment="left" value="YES" title="Switch" id="S2X-Kv-qsk">
+                                                <connections>
+                                                    <action selector="switchTapped:" destination="Rz7-5i-60m" id="fGo-qZ-3Ch"/>
+                                                </connections>
+                                            </switch>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="settingValueSwitch" destination="S2X-Kv-qsk" id="z3W-70-vL1"/>
+                                    </connections>
+                                </tableRow>
+                                <tableRow identifier="button" id="LJ8-th-fMM" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="i2r-wH-aH2">
+                                        <items>
+                                            <button width="1" alignment="left" title="Button" id="FwS-aP-1nN">
+                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                <connections>
+                                                    <action selector="buttonTapped" destination="LJ8-th-fMM" id="T9V-e3-lbh"/>
+                                                </connections>
+                                            </button>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="button" destination="FwS-aP-1nN" id="d3f-QQ-VRC"/>
+                                    </connections>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
                     <connections>
+                        <outlet property="settingsTable" destination="aES-YV-ybz" id="yWr-g4-LwQ"/>
                         <segue destination="uDq-ve-9HO" kind="relationship" relationship="nextPage" id="vCc-bC-eO3"/>
                     </connections>
                 </controller>
