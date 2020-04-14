@@ -198,7 +198,7 @@ extension TimerSettingsTableViewController: ButtonDelegate {
                 NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
             }
             else if GlobalVar.settings.timerList.count == 1 {
-                let action = WKAlertAction(title: "Ok", style: .cancel, handler: {})
+                let action = WKAlertAction(title: "Ok", style: .cancel, handler: {WKInterfaceDevice.current().play(.click)})
                 presentAlert(withTitle: "Error", message: "There should be at least one timer", preferredStyle: .alert, actions: [action])
             }
             else {
@@ -207,9 +207,7 @@ extension TimerSettingsTableViewController: ButtonDelegate {
                     GlobalVar.settings.currTimerID -= 1
                 }
                 NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
-            }
-
-            
+            } 
         }    
     }
 }

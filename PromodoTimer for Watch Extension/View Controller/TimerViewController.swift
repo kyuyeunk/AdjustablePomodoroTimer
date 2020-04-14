@@ -268,7 +268,47 @@ extension TimerViewController: TimeControllerDelegate {
     }
     
     func displayTimeoutAlert(type: TimerType, completion: @escaping ((Bool) -> Void)) {
-        completion(true)
+        var continueButton: WKAlertAction
+        var stopButton: WKAlertAction
+        
+        var message: String
+        if GlobalVar.settings.currTimer.autoRepeat {
+            message = "Press Continue to start the next timer or press Stop to stop the timer"
+        }
+        else {
+            message = "Press Stop to stop the timer"
+        }
+        
+        var timer = Timer()
+        WKInterfaceDevice.current().play(.success)
+        if GlobalVar.settings.currTimer.repeatAlarm {
+            timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
+                WKInterfaceDevice.current().play(.success)
+            })
+        }
+        
+        stopButton = WKAlertAction(title: "Stop", style: .default, handler: {
+            WKInterfaceDevice.current().play(.click)
+            completion(false)
+            if GlobalVar.settings.currTimer.repeatAlarm {
+                timer.invalidate()
+            }
+        })
+        
+        
+        if GlobalVar.settings.currTimer.autoRepeat {
+            continueButton = WKAlertAction(title: "Continue", style: .default, handler: {
+                WKInterfaceDevice.current().play(.click)
+                completion(true)
+                if GlobalVar.settings.currTimer.repeatAlarm {
+                    timer.invalidate()
+                }
+            })
+            presentAlert(withTitle: "Time Out", message: message, preferredStyle: .alert, actions: [continueButton, stopButton])
+        }
+        else {
+            presentAlert(withTitle: "Time Out", message: message, preferredStyle: .alert, actions: [stopButton])
+        }
     }
 }
 
