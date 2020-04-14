@@ -139,5 +139,7 @@ extension TimerSettingsTableViewController: ButtonDelegate {
     func buttonTapped(buttonViewCell: ButtonViewCell) {
         GlobalVar.settings.timerList[GlobalVar.settings.currTimerID] = workingTimer
         GlobalVar.settings.saveTimerList()
+        
+        NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerTableView.rawValue)
     }
 }

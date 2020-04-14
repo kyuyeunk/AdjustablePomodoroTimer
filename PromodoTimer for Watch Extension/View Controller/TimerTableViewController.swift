@@ -17,6 +17,21 @@ class TimerTableViewController: WKInterfaceController {
         super.awake(withContext: context)
     }
     
+    override init() {
+        super.init()
+        createObserver()
+    }
+    
+    func createObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(changeToCurrentPage),
+                                               name: changePageNotificationName, object: pageNames.timerTableView.rawValue)
+    }
+    
+    @objc func changeToCurrentPage() {
+        print("Will change to timer table view")
+        super.becomeCurrentPage()
+    }
+    
     func initCells() {
         setTitle("Timer List")
         timerList.setNumberOfRows(GlobalVar.settings.timerList.count, withRowType: "timerInfo")

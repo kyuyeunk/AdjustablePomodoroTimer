@@ -11,6 +11,7 @@
 		2E0F26EB241E34250076C5AC /* InputTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0F26EA241E34250076C5AC /* InputTableViewCell.swift */; };
 		2E0FB9A32417E0D7003AA41D /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A22417E0D7003AA41D /* README.md */; };
 		2E0FB9A9241904EB003AA41D /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */; };
+		2E13052A2445A69A00389400 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1305292445A69A00389400 /* Constants.swift */; };
 		2E16120E241D5AA5007C55D8 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E16120D241D5AA5007C55D8 /* LogInViewController.swift */; };
 		2E2AA9DE244388BB00B4B515 /* SliderSettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2AA9DD244388BB00B4B515 /* SliderSettingViewCell.swift */; };
 		2E2AA9E02443893700B4B515 /* TimerSettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2AA9DF2443893700B4B515 /* TimerSettingsTableViewController.swift */; };
@@ -104,6 +105,7 @@
 		2E0F26EA241E34250076C5AC /* InputTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTableViewCell.swift; sourceTree = "<group>"; };
 		2E0FB9A22417E0D7003AA41D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2E0FB9A8241904EB003AA41D /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		2E1305292445A69A00389400 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		2E16120D241D5AA5007C55D8 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		2E2AA9DD244388BB00B4B515 /* SliderSettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderSettingViewCell.swift; sourceTree = "<group>"; };
 		2E2AA9DF2443893700B4B515 /* TimerSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerSettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -200,6 +202,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2E1305282445A67D00389400 /* Others */ = {
+			isa = PBXGroup;
+			children = (
+				2EF9873F244242CD006EE167 /* ExtensionDelegate.swift */,
+				2E1305292445A69A00389400 /* Constants.swift */,
+			);
+			path = Others;
+			sourceTree = "<group>";
+		};
 		2E5D8BE7241FA42500860E1B /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -274,7 +285,7 @@
 			children = (
 				2EF9875D24425050006EE167 /* View Controller */,
 				2EF9875E24425080006EE167 /* View */,
-				2EF9873F244242CD006EE167 /* ExtensionDelegate.swift */,
+				2E1305282445A67D00389400 /* Others */,
 				2EF98743244242D1006EE167 /* Assets.xcassets */,
 				2EF98745244242D2006EE167 /* Info.plist */,
 			);
@@ -483,6 +494,7 @@
 				2EF987512442454B006EE167 /* TimerInfoViewCell.swift in Sources */,
 				2EBFDC3E2444B131003C580A /* ButtonViewCell.swift in Sources */,
 				2E2AA9DE244388BB00B4B515 /* SliderSettingViewCell.swift in Sources */,
+				2E13052A2445A69A00389400 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
