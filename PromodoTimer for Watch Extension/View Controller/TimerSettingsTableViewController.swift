@@ -140,6 +140,6 @@ extension TimerSettingsTableViewController: ButtonDelegate {
         GlobalVar.settings.timerList[GlobalVar.settings.currTimerID] = workingTimer
         GlobalVar.settings.saveTimerList()
         
-        NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerTableView.rawValue)
+        NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
     }
 }

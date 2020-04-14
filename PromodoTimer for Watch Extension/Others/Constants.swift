@@ -9,7 +9,7 @@
 import Foundation
 
 enum pageNames: Int {
-    case timerTableView
+    case timerListTableView
     case timerView
     case timerSettingsView
     case settingsView

@@ -10,7 +10,7 @@ import WatchKit
 import Foundation
 
 
-class TimerTableViewController: WKInterfaceController {
+class TimerListTableViewController: WKInterfaceController {
     
     @IBOutlet weak var timerList: WKInterfaceTable!
     override func awake(withContext context: Any?) {
@@ -24,7 +24,7 @@ class TimerTableViewController: WKInterfaceController {
     
     func createObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(changeToCurrentPage),
-                                               name: changePageNotificationName, object: pageNames.timerTableView.rawValue)
+                                               name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
     }
     
     @objc func changeToCurrentPage() {

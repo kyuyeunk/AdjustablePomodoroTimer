@@ -9,7 +9,7 @@
         <!--Timer List-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller title="Timer List" id="AgC-eL-Hgc" customClass="TimerTableViewController" customModule="PromodoTimer_for_Watch_Extension">
+                <controller title="Timer List" id="AgC-eL-Hgc" customClass="TimerListTableViewController" customModule="PromodoTimer_for_Watch_Extension">
                     <items>
                         <table alignment="left" id="750-Hg-SLp">
                             <items>
