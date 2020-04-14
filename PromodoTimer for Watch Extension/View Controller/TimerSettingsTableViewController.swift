@@ -195,18 +195,26 @@ extension TimerSettingsTableViewController: ButtonDelegate {
             if newTimer {
                 workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
                 newTimer = false
+                NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
+            }
+            else if GlobalVar.settings.timerList.count == 1 {
+                let action = WKAlertAction(title: "Ok", style: .cancel, handler: {})
+                presentAlert(withTitle: "Error", message: "There should be at least one timer", preferredStyle: .alert, actions: [action])
             }
             else {
                 GlobalVar.settings.timerList.remove(at:  GlobalVar.settings.currTimerID)
                 if GlobalVar.settings.currTimerID != 0 {
                     GlobalVar.settings.currTimerID -= 1
                 }
+                NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
             }
-            //TODO: error handling when there is only one timer
-            NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
+
+            
         }    
     }
 }
+
+
 
 extension TimerSettingsTableViewController: TextFieldDelegate {
     func TextFieldTapped(value: String) {
