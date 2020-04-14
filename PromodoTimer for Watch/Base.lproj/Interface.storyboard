@@ -42,6 +42,22 @@
                                         <outlet property="timerName" destination="1xA-98-WxJ" id="VWH-hj-r0W"/>
                                     </connections>
                                 </tableRow>
+                                <tableRow identifier="button" id="22W-xq-khC" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="OQf-Um-cwI">
+                                        <items>
+                                            <button width="1" alignment="left" title="Button" id="qSM-8r-AOU">
+                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                <connections>
+                                                    <action selector="buttonTapped" destination="22W-xq-khC" id="ZkL-Uz-V5j"/>
+                                                </connections>
+                                            </button>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="button" destination="qSM-8r-AOU" id="7Uj-LG-M9v"/>
+                                    </connections>
+                                </tableRow>
                             </items>
                         </table>
                     </items>
@@ -101,6 +117,7 @@
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </group>
                                 <button width="120" height="35" alignment="center" title="Start" id="quc-mP-tz4">
+                                    <fontDescription key="font" type="system" pointSize="17"/>
                                     <connections>
                                         <action selector="startButtonTapped" destination="uDq-ve-9HO" id="k2e-X9-AKM"/>
                                     </connections>

@@ -34,7 +34,15 @@ class TimerListTableViewController: WKInterfaceController {
     
     func initCells() {
         setTitle("Timer List")
-        timerList.setNumberOfRows(GlobalVar.settings.timerList.count, withRowType: "timerInfo")
+        
+        var rowList: [String] = []
+        
+        for _ in 0 ..< GlobalVar.settings.timerList.count {
+            rowList.append("timerInfo")
+        }
+        rowList.append("button")
+        
+        timerList.setRowTypes(rowList)
         
         for i in 0 ..< GlobalVar.settings.timerList.count {
             let row = timerList.rowController(at: i) as! TimerInfoViewCell
@@ -59,6 +67,11 @@ class TimerListTableViewController: WKInterfaceController {
             row.posTime.setText("\(posMin)m \(posSec)s")
             row.negTime.setText("\(negMin)m \(negSec)s")
         }
+        
+        let row = timerList.rowController(at: rowList.count - 1) as! ButtonViewCell
+        row.button.setTitle("Add Timer")
+        row.buttonDelegate = self
+        
     }
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
@@ -88,4 +101,12 @@ class TimerListTableViewController: WKInterfaceController {
         super.didDeactivate()
     }
 
+}
+
+extension TimerListTableViewController: ButtonDelegate {
+    func buttonTapped(buttonViewCell: ButtonViewCell) {
+        print("Add Timer Button Tapped")
+        //TODO: send info about new timer
+        NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerSettingsView.rawValue)
+    }
 }

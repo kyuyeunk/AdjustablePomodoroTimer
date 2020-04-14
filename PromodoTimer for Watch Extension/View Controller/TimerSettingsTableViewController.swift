@@ -33,7 +33,14 @@ class TimerSettingsTableViewController: WKInterfaceController {
     
     func createObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(resetWorkingTimer),
-        name: resetTimerSettingsViewNotificationName, object: nil)
+                                               name: resetTimerSettingsViewNotificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeToCurrentPage),
+                                               name: changePageNotificationName, object: pageNames.timerSettingsView.rawValue)
+    }
+    
+    @objc func changeToCurrentPage() {
+        print("Will change to timer settings view")
+        super.becomeCurrentPage()
     }
     
     @objc func resetWorkingTimer() {
