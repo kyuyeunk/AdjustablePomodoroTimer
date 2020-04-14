@@ -14,6 +14,8 @@ class TogglProjectListTableViewController: WKInterfaceController {
         super.init()
     }
     
+    var projectList: [projectInfo]!
+    
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
@@ -21,12 +23,32 @@ class TogglProjectListTableViewController: WKInterfaceController {
     }
     
     func initCells() {
-        let projectList = GlobalVar.settings.projectList
-        projectTable.setNumberOfRows(projectList.count, withRowType: "projectInfo")
+        projectList = GlobalVar.settings.projectList
+        var rows: [String] = ["button"]
+        for _ in 0 ..< projectList.count {
+            rows.append("projectInfo")
+        }
+        projectTable.setRowTypes(rows)
+        //projectTable.setNumberOfRows(projectList.count, withRowType: "projectInfo")
+        
+        let row = projectTable.rowController(at: 0) as! ButtonViewCell
+        row.button.setTitle("Save Selection")
+        row.buttonDelegate = self
         
         for i in 0 ..< projectList.count {
-            let row = projectTable.rowController(at: i) as! ProjectInfoViewCell
+            let row = projectTable.rowController(at: i + 1) as! ProjectInfoViewCell
             row.projectLabel.setText(projectList[i].name)
         }
+    }
+    
+    override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
+        WKInterfaceDevice.current().play(.click)
+        print("\(projectList[rowIndex - 1].name) selected")
+    }
+}
+
+extension TogglProjectListTableViewController: ButtonDelegate {
+    func buttonTapped(buttonViewCell: ButtonViewCell) {
+        pop()
     }
 }

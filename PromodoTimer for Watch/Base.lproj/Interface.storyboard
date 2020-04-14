@@ -223,22 +223,6 @@
                                         <outlet property="settingValueSwitch" destination="3uq-V6-gY1" id="ysQ-6I-4Ab"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="button" id="tFB-f1-DwZ" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
-                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="eg4-sT-lAb">
-                                        <items>
-                                            <button width="1" alignment="left" title="Button" id="Hza-bd-GHF">
-                                                <fontDescription key="font" type="system" pointSize="17"/>
-                                                <connections>
-                                                    <action selector="buttonTapped" destination="tFB-f1-DwZ" id="YD8-8H-6MV"/>
-                                                </connections>
-                                            </button>
-                                        </items>
-                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
-                                    </group>
-                                    <connections>
-                                        <outlet property="button" destination="Hza-bd-GHF" id="OYy-AD-LZ6"/>
-                                    </connections>
-                                </tableRow>
                                 <tableRow identifier="textField" id="hOm-u5-64I" customClass="TextFieldViewCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="4eV-59-Uk4">
                                         <items>
@@ -283,6 +267,22 @@
                                         <outlet property="label" destination="Ts2-dW-2iW" id="rZV-PI-IQZ"/>
                                     </connections>
                                 </tableRow>
+                                <tableRow identifier="button" id="Pqf-Be-2uq" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="z0q-rz-Uqi">
+                                        <items>
+                                            <button width="1" alignment="left" title="Button" id="6sb-yF-ndv">
+                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                <connections>
+                                                    <action selector="buttonTapped" destination="Pqf-Be-2uq" id="9Qe-Pb-pYg"/>
+                                                </connections>
+                                            </button>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="button" destination="6sb-yF-ndv" id="N4F-P3-Ywo"/>
+                                    </connections>
+                                </tableRow>
                             </items>
                         </table>
                     </items>
@@ -300,6 +300,22 @@
                     <items>
                         <table alignment="left" id="Dmg-RT-Hni">
                             <items>
+                                <tableRow identifier="button" id="tFB-f1-DwZ" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" id="eg4-sT-lAb">
+                                        <items>
+                                            <button width="1" alignment="left" title="Button" id="Hza-bd-GHF">
+                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                <connections>
+                                                    <action selector="buttonTapped" destination="tFB-f1-DwZ" id="tyi-Rv-OA2"/>
+                                                </connections>
+                                            </button>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="button" destination="Hza-bd-GHF" id="zoc-E3-94w"/>
+                                    </connections>
+                                </tableRow>
                                 <tableRow identifier="projectInfo" id="Obv-5k-ye3" customClass="ProjectInfoViewCell" customModule="PromodoTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="mkZ-fr-Qfc">
                                         <items>
