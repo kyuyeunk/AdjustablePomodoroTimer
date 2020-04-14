@@ -107,6 +107,8 @@ extension TimerListTableViewController: ButtonDelegate {
     func buttonTapped(buttonViewCell: ButtonViewCell) {
         print("Add Timer Button Tapped")
         //TODO: send info about new timer
+        let isNewTimer: [String: Bool] = ["isNewTimer": true]
+        NotificationCenter.default.post(name: resetTimerSettingsViewNotificationName, object: nil, userInfo: isNewTimer)
         NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerSettingsView.rawValue)
     }
 }

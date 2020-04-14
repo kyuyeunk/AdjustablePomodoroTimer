@@ -13,7 +13,7 @@ class TimerSettingsTableViewController: WKInterfaceController {
     
     var timerNameViewCell: TimerNameViewCell!
     
-    var buttonCell: ButtonViewCell!
+    var saveButtonCell: ButtonViewCell!
     
     var maxSliderCell: SliderSettingViewCell!
     var posSliderCell: SliderSettingViewCell!
@@ -25,14 +25,16 @@ class TimerSettingsTableViewController: WKInterfaceController {
     var repeatAlarmSwitchCell: SwitchSettingViewCell!
     
     var workingTimer = TimerModel()
+    var newTimer = false
     
     override init() {
         super.init()
         createObserver()
+        workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
     }
     
     func createObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(resetWorkingTimer),
+        NotificationCenter.default.addObserver(self, selector: #selector(resetWorkingTimer(_:)),
                                                name: resetTimerSettingsViewNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeToCurrentPage),
                                                name: changePageNotificationName, object: pageNames.timerSettingsView.rawValue)
@@ -43,22 +45,30 @@ class TimerSettingsTableViewController: WKInterfaceController {
         super.becomeCurrentPage()
     }
     
-    @objc func resetWorkingTimer() {
-        workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
+    @objc func resetWorkingTimer(_ notification: NSNotification) {
+        if let _ = notification.userInfo?["isNewTimer"] as? Bool{
+            print("Set New Timer")
+            workingTimer = TimerModel()
+            newTimer = true
+        }
+        else {
+            print("Set existing timer")
+            workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
+            newTimer = false
+        }
     }
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
     }
     
     func initCells() {
         timerSettingsTable.setRowTypes(["button", "textField", "sliderSetting", "sliderSetting", "sliderSetting",
                                      "switchSetting", "switchSetting", "switchSetting"])
 
-        buttonCell = timerSettingsTable.rowController(at: 0) as? ButtonViewCell
-        buttonCell.button.setTitle("Save Timer")
-        buttonCell.buttonDelegate = self
+        saveButtonCell = timerSettingsTable.rowController(at: 0) as? ButtonViewCell
+        saveButtonCell.button.setTitle("Save Timer")
+        saveButtonCell.buttonDelegate = self
         
         timerNameViewCell = timerSettingsTable.rowController(at: 1) as? TimerNameViewCell
         timerNameViewCell.textField.setText(workingTimer.timerName)
@@ -164,7 +174,13 @@ extension TimerSettingsTableViewController: SwitchSettingDelegate {
 
 extension TimerSettingsTableViewController: ButtonDelegate {
     func buttonTapped(buttonViewCell: ButtonViewCell) {
-        GlobalVar.settings.timerList[GlobalVar.settings.currTimerID] = workingTimer
+        if newTimer {
+            GlobalVar.settings.timerList.append(workingTimer)
+            GlobalVar.settings.currTimerID = GlobalVar.settings.timerList.count - 1
+        }
+        else {
+            GlobalVar.settings.timerList[GlobalVar.settings.currTimerID] = workingTimer
+        }
         GlobalVar.settings.saveTimerList()
         
         NotificationCenter.default.post(name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
