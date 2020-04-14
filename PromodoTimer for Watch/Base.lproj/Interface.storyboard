@@ -98,17 +98,17 @@
                                 </spriteKitScene>
                                 <group alignment="center" id="rhd-Ng-agm">
                                     <items>
-                                        <picker width="30" height="48" alignment="left" focusStyle="stack" id="HdU-Vg-E2x">
+                                        <picker width="30" height="50" alignment="left" focusStyle="stack" id="HdU-Vg-E2x">
                                             <connections>
                                                 <action selector="signPicked:" destination="uDq-ve-9HO" id="dLu-Nt-b4p"/>
                                             </connections>
                                         </picker>
-                                        <picker width="45" height="48" alignment="left" focusStyle="stack" id="wle-Hf-Y2l">
+                                        <picker width="45" height="50" alignment="left" focusStyle="stack" id="wle-Hf-Y2l">
                                             <connections>
                                                 <action selector="minPicked:" destination="uDq-ve-9HO" id="AcD-p4-vsm"/>
                                             </connections>
                                         </picker>
-                                        <picker width="45" height="48" alignment="left" focusStyle="stack" id="cgQ-tG-jl2">
+                                        <picker width="45" height="50" alignment="left" focusStyle="stack" id="cgQ-tG-jl2">
                                             <connections>
                                                 <action selector="secPicked:" destination="uDq-ve-9HO" id="Tlt-7y-eke"/>
                                             </connections>
