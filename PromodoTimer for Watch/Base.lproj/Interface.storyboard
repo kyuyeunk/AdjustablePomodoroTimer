@@ -322,7 +322,7 @@
                                             <separator alignment="left" id="B0D-l2-Pzk"/>
                                             <label alignment="center" verticalAlignment="center" text="Label" id="K1V-iP-Z5l"/>
                                         </items>
-                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                        <edgeInsets key="margins" left="10" right="10" top="10" bottom="10"/>
                                     </group>
                                     <connections>
                                         <outlet property="projectLabel" destination="K1V-iP-Z5l" id="pL8-WY-FW3"/>

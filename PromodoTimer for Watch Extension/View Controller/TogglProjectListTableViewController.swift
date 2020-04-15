@@ -14,6 +14,9 @@ class TogglProjectListTableViewController: WKInterfaceController {
         super.init()
     }
     
+    var timerType: TimerType!
+    var workingTimer: TimerModel!
+    
     var projectList: [projectInfo]!
     var selectedProjectID: Int?
     
@@ -21,6 +24,13 @@ class TogglProjectListTableViewController: WKInterfaceController {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
         initCells()
+    }
+    
+    override func awake(withContext context: Any?) {
+        if let receivedInfo = context as? contextWrapper {
+            workingTimer = receivedInfo.timerModel
+            timerType = receivedInfo.timerType
+        }
     }
     
     func initCells() {
@@ -64,6 +74,7 @@ class TogglProjectListTableViewController: WKInterfaceController {
 extension TogglProjectListTableViewController: ButtonDelegate {
     func buttonTapped(buttonViewCell: ButtonViewCell) {
         if let projectID = selectedProjectID {
+            workingTimer.userDefinedTracking[timerType] = trackingInfo(project: projectList[projectID], desc: "")
             pop()
         }
         else {

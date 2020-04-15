@@ -259,13 +259,13 @@ extension TimerSettingsTableViewController: TextFieldDelegate {
 
 extension TimerSettingsTableViewController: ButtonWithLabelDelegate {
     func buttonTapped(buttonWithLabelViewCell: ButtonWithLabelViewCell) {
+        var context: contextWrapper
         if buttonWithLabelViewCell == togglPosProjectCell {
-            //Code about Toggl Positive Project
-            pushController(withName: "projectListView", context: nil)
+            context = contextWrapper(timerModel: workingTimer, timerType: .positive)
         }
         else {
-            //Code about Toggl Negative Project
-            pushController(withName: "projectListView", context: nil)
+            context = contextWrapper(timerModel: workingTimer, timerType: .negative)
         }
+        pushController(withName: "projectListView", context: context)
     }
 }

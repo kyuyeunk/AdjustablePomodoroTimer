@@ -48,8 +48,8 @@ class Settings {
             timerList.append(TimerModel())
             currTimerID = 0
         }
-        else if timerList.count <= currTimerID {
-            print("ERROR: Bugfound, currTimerID is larger than timer count")
+        else if timerList.count <= currTimerID || currTimerID < 0 {
+            print("ERROR: Bugfound, currTimerID \(currTimerID) is not a valid number")
             currTimerID = 0
         }
     }

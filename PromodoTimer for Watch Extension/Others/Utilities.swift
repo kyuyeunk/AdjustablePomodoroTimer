@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  Utilities.swift
 //  PromodoTimer for Watch Extension
 //
 //  Created by Kyu Yeun Kim on 2020/04/14.
@@ -17,3 +17,8 @@ enum pageNames: Int {
 
 let resetTimerSettingsViewNotificationName = Notification.Name("resetTimerSettings")
 let changePageNotificationName = Notification.Name("changePage")
+
+struct contextWrapper {
+    var timerModel: TimerModel
+    var timerType: TimerType
+}

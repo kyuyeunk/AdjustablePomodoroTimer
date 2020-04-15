@@ -46,5 +46,6 @@ class TimerModel: Codable, Identifiable {
         self.alertTimerEnd = timerModel.alertTimerEnd
         self.repeatAlarmOption = timerModel.repeatAlarmOption
         self.maxMinutes = timerModel.maxMinutes
+        self.userDefinedTracking = timerModel.userDefinedTracking
     }
 }
