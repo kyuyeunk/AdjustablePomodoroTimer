@@ -18,7 +18,6 @@ class ButtonWithLabelViewCell: NSObject {
     @IBOutlet weak var button: WKInterfaceButton!
     @IBAction func buttonTapped() {
         WKInterfaceDevice.current().play(.click)
-        print("Button Tapped from ButtonWithLabelViewCell")
         if let delegate = buttonDelegate {
             delegate.buttonTapped(buttonWithLabelViewCell: self)
         }

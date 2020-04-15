@@ -15,6 +15,7 @@ class TogglProjectListTableViewController: WKInterfaceController {
     }
     
     var projectList: [projectInfo]!
+    var selectedProjectID: Int?
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
@@ -43,12 +44,30 @@ class TogglProjectListTableViewController: WKInterfaceController {
     
     override func table(_ table: WKInterfaceTable, didSelectRowAt rowIndex: Int) {
         WKInterfaceDevice.current().play(.click)
-        print("\(projectList[rowIndex - 1].name) selected")
+        
+        let prevSelectedProjectID = selectedProjectID
+        selectedProjectID = rowIndex - 1
+        print("\(projectList[selectedProjectID!].name) selected")
+        
+        if prevSelectedProjectID != selectedProjectID {
+            if prevSelectedProjectID != nil {
+                let prevRow = table.rowController(at: prevSelectedProjectID! + 1) as! ProjectInfoViewCell
+                prevRow.projectSeparator.setColor(.lightGray)
+            }
+            let row = table.rowController(at: selectedProjectID! + 1) as! ProjectInfoViewCell
+            row.projectSeparator.setColor(.green)
+        }
+        
     }
 }
 
 extension TogglProjectListTableViewController: ButtonDelegate {
     func buttonTapped(buttonViewCell: ButtonViewCell) {
-        pop()
+        if let projectID = selectedProjectID {
+            pop()
+        }
+        else {
+            print("Project not selected")
+        }
     }
 }
