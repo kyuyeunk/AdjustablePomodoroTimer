@@ -1,5 +1,5 @@
 //
-//  Utilities.swift
+//  watchOSUtilities.swift
 //  PromodoTimer for Watch Extension
 //
 //  Created by Kyu Yeun Kim on 2020/04/14.

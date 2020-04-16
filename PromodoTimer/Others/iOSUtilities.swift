@@ -1,28 +1,13 @@
 //
-//  Utility.swift
+//  iOSUtilities.swift
 //  PromodoTimer
 //
-//  Created by Kyu Yeun Kim on 2020/04/07.
+//  Created by Kyu Yeun Kim on 2020/04/17.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
 //
 
 import Foundation
 import UIKit
-
-// Copied from https://stackoverflow.com/a/35360697
-extension String {
-    func fromBase64() -> String? {
-        guard let data = Data(base64Encoded: self) else {
-            return nil
-        }
-
-        return String(data: data, encoding: .utf8)
-    }
-
-    func toBase64() -> String {
-        return Data(self.utf8).base64EncodedString()
-    }
-}
 
 extension Int {
     func toSuperscript() -> String {
@@ -55,7 +40,6 @@ extension Int {
 }
 
 // Inspired by https://stackoverflow.com/a/48496364
-#if os(iOS)
 extension UINavigationController {
     func pushViewControllerFromLeft(controller: UIViewController) {
         let transition = CATransition()
@@ -67,4 +51,3 @@ extension UINavigationController {
         pushViewController(controller, animated: false)
     }
 }
-#endif
