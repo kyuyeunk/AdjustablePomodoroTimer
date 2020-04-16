@@ -44,6 +44,8 @@
 		2ED2F7B124461E72009F0D51 /* ButtonWithLabelViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F7B024461E72009F0D51 /* ButtonWithLabelViewCell.swift */; };
 		2ED2F7B3244632EF009F0D51 /* TogglProjectListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F7B2244632EF009F0D51 /* TogglProjectListTableViewController.swift */; };
 		2ED2F7B524463389009F0D51 /* ProjectInfoViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F7B424463389009F0D51 /* ProjectInfoViewCell.swift */; };
+		2ED2F7BA244892D2009F0D51 /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F7B9244892D2009F0D51 /* SessionDelegater.swift */; };
+		2ED2F7BB244892D2009F0D51 /* SessionDelegater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED2F7B9244892D2009F0D51 /* SessionDelegater.swift */; };
 		2EF98730244242C2006EE167 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EF9872E244242C2006EE167 /* Interface.storyboard */; };
 		2EF98732244242CD006EE167 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2EF98731244242CD006EE167 /* Assets.xcassets */; };
 		2EF98739244242CD006EE167 /* PromodoTimer for Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 2EF98738244242CD006EE167 /* PromodoTimer for Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -145,6 +147,7 @@
 		2ED2F7B024461E72009F0D51 /* ButtonWithLabelViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithLabelViewCell.swift; sourceTree = "<group>"; };
 		2ED2F7B2244632EF009F0D51 /* TogglProjectListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglProjectListTableViewController.swift; sourceTree = "<group>"; };
 		2ED2F7B424463389009F0D51 /* ProjectInfoViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectInfoViewCell.swift; sourceTree = "<group>"; };
+		2ED2F7B9244892D2009F0D51 /* SessionDelegater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionDelegater.swift; sourceTree = "<group>"; };
 		2EF9872C244242C2006EE167 /* PromodoTimer for Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PromodoTimer for Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EF9872F244242C2006EE167 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		2EF98731244242CD006EE167 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -204,6 +207,7 @@
 		2E0FB9B1241A8974003AA41D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2ED2F7B9244892D2009F0D51 /* SessionDelegater.swift */,
 				2E6BA2952442211900DA8781 /* AlarmSoundsModel.swift */,
 				2E6BA2942442211900DA8781 /* GlobalVarModel.swift */,
 				2E6BA2922442211900DA8781 /* SettingsModel.swift */,
@@ -480,6 +484,7 @@
 				2E444B34243CDF9D00A9E0AB /* TimePieView.swift in Sources */,
 				2E6BA2972442211A00DA8781 /* TimerModel.swift in Sources */,
 				2E6BA29A2442211A00DA8781 /* GlobalVarModel.swift in Sources */,
+				2ED2F7BA244892D2009F0D51 /* SessionDelegater.swift in Sources */,
 				2E6BA2982442211A00DA8781 /* SettingsModel.swift in Sources */,
 				2E16120E241D5AA5007C55D8 /* LogInViewController.swift in Sources */,
 				2E6BA2992442211A00DA8781 /* TogglController.swift in Sources */,
@@ -510,6 +515,7 @@
 				2EF9875724424EAE006EE167 /* TimerModel.swift in Sources */,
 				2EF9875624424EAB006EE167 /* SettingsModel.swift in Sources */,
 				2EF98760244251A2006EE167 /* TimerViewController.swift in Sources */,
+				2ED2F7BB244892D2009F0D51 /* SessionDelegater.swift in Sources */,
 				2EF987512442454B006EE167 /* TimerInfoViewCell.swift in Sources */,
 				2EBFDC3E2444B131003C580A /* ButtonViewCell.swift in Sources */,
 				2E2AA9DE244388BB00B4B515 /* SliderSettingViewCell.swift in Sources */,

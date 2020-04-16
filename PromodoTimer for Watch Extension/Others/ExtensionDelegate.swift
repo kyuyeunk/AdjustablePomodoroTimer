@@ -7,11 +7,20 @@
 //
 
 import WatchKit
+import WatchConnectivity
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
-
+    
+    private lazy var sessionDelegater: SessionDelegater = {
+        return SessionDelegater()
+    }()
+    
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        if WCSession.isSupported() {
+            WCSession.default.delegate = sessionDelegater
+            WCSession.default.activate()
+        }
     }
 
     func applicationDidBecomeActive() {
@@ -52,5 +61,4 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
             }
         }
     }
-
 }

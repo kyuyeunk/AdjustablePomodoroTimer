@@ -8,6 +8,7 @@
 
 import WatchKit
 import SpriteKit
+import WatchConnectivity
 
 class TimerViewController: WKInterfaceController {
     enum selectedPicker {
@@ -19,6 +20,9 @@ class TimerViewController: WKInterfaceController {
     }
     
     @IBAction func startButtonTapped() {
+        let message = ["Secre": 123]
+        WCSession.default.sendMessage(message, replyHandler: nil, errorHandler: nil)
+        
         WKInterfaceDevice.current().play(.click)
         if GlobalVar.timeController.timerStarted {
             GlobalVar.timeController.stopButtonTapped()
@@ -105,9 +109,29 @@ class TimerViewController: WKInterfaceController {
         super.becomeCurrentPage()
     }
     
+    func initObserver() {
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(activationDidComplete),
+            name: .activationDidComplete, object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(messageReceived),
+            name: .messageReceived, object: nil
+        )
+    }
+    
+    @objc func activationDidComplete() {
+        print("Received")
+    }
+    
+    @objc func messageReceived() {
+        print("Message")
+    }
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
- 
+        initObserver()
+        
         currTime = currTimer.startTime[.positive]!
         GlobalVar.timeController.timeControllerDelegate = self
         crownSequencer.delegate = self
