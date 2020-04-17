@@ -6,6 +6,7 @@
 //
 
 import WatchKit
+import WatchConnectivity
 
 class SettingsViewController: WKInterfaceController {
     @IBOutlet weak var settingsTable: WKInterfaceTable!
@@ -47,5 +48,11 @@ extension SettingsViewController: SwitchSettingDelegate {
             print("Make ticking sound \(value)")
             GlobalVar.settings.tickingSound = value
         }
+    }
+}
+
+extension SettingsViewController: ButtonDelegate {
+    func buttonTapped(buttonViewCell: ButtonViewCell) {
+        GlobalVar.settings.sendData()
     }
 }

@@ -18,7 +18,7 @@ extension Notification.Name {
 class SessionDelegater: NSObject, WCSessionDelegate {
     #if os(iOS)
     func sessionDidBecomeInactive(_ session: WCSession) {
-        print("Hello")
+        //
     }
     
     func sessionDidDeactivate(_ session: WCSession) {
@@ -34,6 +34,17 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         print("Receiving")
         NotificationCenter.default.post(name: .messageReceived, object: nil)
+    }
+    
+    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        let propertyListDecoder = PropertyListDecoder()
+        if let decodedTimers = try? propertyListDecoder.decode([TimerModel].self, from: messageData) {
+            print("[Received] Timers retrieved")
+            let receivedTimers = decodedTimers
+            for timer in receivedTimers {
+                print("[Received] \(timer.timerName) w pos: \(timer.startTime[.positive]!), neg: \(timer.startTime[.negative]!)")
+            }
+        }
     }
 }
 

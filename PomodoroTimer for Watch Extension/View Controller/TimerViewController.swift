@@ -20,9 +20,6 @@ class TimerViewController: WKInterfaceController {
     }
     
     @IBAction func startButtonTapped() {
-        let message = ["Secre": 123]
-        WCSession.default.sendMessage(message, replyHandler: nil, errorHandler: nil)
-        
         WKInterfaceDevice.current().play(.click)
         if GlobalVar.timeController.timerStarted {
             GlobalVar.timeController.stopButtonTapped()

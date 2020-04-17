@@ -72,14 +72,14 @@
 			containerPortal = 2EC23CF92417ADDA00EA7BD6 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2EF98737244242CD006EE167;
-			remoteInfo = "PromodoTimer for Watch Extension";
+			remoteInfo = "PomodoroTimer for Watch Extension";
 		};
 		2EF98746244242D2006EE167 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2EC23CF92417ADDA00EA7BD6 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2EF9872B244242C2006EE167;
-			remoteInfo = "PromodoTimer for Watch";
+			remoteInfo = "PomodoroTimer for Watch";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -363,7 +363,7 @@
 				2EF98747244242D2006EE167 /* PBXTargetDependency */,
 			);
 			name = PomodoroTimer;
-			productName = PromodoTimer;
+			productName = PomodoroTimer;
 			productReference = 2EC23D012417ADDA00EA7BD6 /* PomodoroTimer.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -380,7 +380,7 @@
 				2EF9873B244242CD006EE167 /* PBXTargetDependency */,
 			);
 			name = "PomodoroTimer for Watch";
-			productName = "PromodoTimer for Watch";
+			productName = "PomodoroTimer for Watch";
 			productReference = 2EF9872C244242C2006EE167 /* PomodoroTimer for Watch.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
@@ -397,7 +397,7 @@
 			dependencies = (
 			);
 			name = "PomodoroTimer for Watch Extension";
-			productName = "PromodoTimer for Watch Extension";
+			productName = "PomodoroTimer for Watch Extension";
 			productReference = 2EF98738244242CD006EE167 /* PomodoroTimer for Watch Extension.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
 		};
@@ -772,7 +772,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72DH54VTLH;
-				IBSC_MODULE = PromodoTimer_for_Watch_Extension;
+				IBSC_MODULE = PomodoroTimer_for_Watch_Extension;
 				INFOPLIST_FILE = "PomodoroTimer for Watch/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = kky.PomodoroTimer.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -791,7 +791,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72DH54VTLH;
-				IBSC_MODULE = PromodoTimer_for_Watch_Extension;
+				IBSC_MODULE = PomodoroTimer_for_Watch_Extension;
 				INFOPLIST_FILE = "PomodoroTimer for Watch/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = kky.PomodoroTimer.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

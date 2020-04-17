@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WatchConnectivity
 
 class Settings {
     var currTimerID: Int = 0 {
@@ -145,6 +146,14 @@ class Settings {
         try? encodedMiscs?.write(to: settingsDirectory.miscsArchieveURL)
         
         print("[Save] Miscs saved")
+    }
+    
+    func sendData() {
+        print("Sending Data to other device")
+        let propertyListEncoder = PropertyListEncoder()
+        if let encodedtimers = try? propertyListEncoder.encode(self.timerList) {
+            WCSession.default.sendMessageData(encodedtimers, replyHandler: nil, errorHandler: nil)
+        }
     }
 }
 
