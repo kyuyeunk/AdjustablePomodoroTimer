@@ -73,15 +73,25 @@ extension SettingsViewController: ButtonWithLabelDelegate {
     func buttonTapped(buttonWithLabelViewCell: ButtonWithLabelViewCell) {
         print("Requesting Toggl Credential")
         let requestTogglCredential = [WCSessionRequest.request: WCSessionRequest.togglInfo]
-
-        WCSession.default.sendMessage(requestTogglCredential, replyHandler: { (data) in
-            print("Received Toggl Credential")
-            let propertyListDecoder = PropertyListDecoder()
-            if let data = data[WCSessionRequest.togglInfo] as? Data, let receivedTogglInfo = try? propertyListDecoder.decode(togglInfo.self, from: data) {
-                GlobalVar.settings.receiveTogglInfo(receivedTogglInfo: receivedTogglInfo)
+        
+        if WCSession.default.activationState == .notActivated {
+            WCSession.default.sendMessage(requestTogglCredential, replyHandler: { (data) in
+                print("Received Toggl Credential")
+                let propertyListDecoder = PropertyListDecoder()
+                if let data = data[WCSessionRequest.togglInfo] as? Data, let receivedTogglInfo = try? propertyListDecoder.decode(togglInfo.self, from: data) {
+                    GlobalVar.settings.receiveTogglInfo(receivedTogglInfo: receivedTogglInfo)
+                    if let togglID = GlobalVar.settings.togglCredential.id {
+                        self.togglButtonCell.button.setTitle(togglID)
+                    }
+                    else {
+                        self.togglButtonCell.button.setTitle("Tap to Sync")
+                    }
+                }
+            }) { (error) in
+                print("WCSession Error")
             }
-        }) { (error) in
-            print("Received error")
+            let message = "Please make sure iPhone is nearby"
+            self.presentAlert(withTitle: "Error", message: message, preferredStyle: .alert, actions: [])
         }
     }
 }

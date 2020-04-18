@@ -208,10 +208,8 @@ class TimeController {
 
         print("[Timer] Notification will start in \(delayTime)")
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(abs(delayTime)), repeats: false)
-        
         let request = UNNotificationRequest(identifier: uuidString, content: content, trigger: trigger)
         
-    
         UNUserNotificationCenter.current().add(request) { (error) in
             //TODO
         }
