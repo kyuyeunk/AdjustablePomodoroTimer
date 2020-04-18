@@ -28,14 +28,7 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         #if os(iOS)
-        print("Sending Toggl Credentials")
-        let propertyListEncoder = PropertyListEncoder()
-        if let encodedCrednetial = try? propertyListEncoder.encode(GlobalVar.settings.togglCredential) {
-            WCSession.default.sendMessageData(encodedCrednetial, replyHandler: nil, errorHandler: nil)
-        }
-        if let encodedProjects = try? propertyListEncoder.encode(GlobalVar.settings.projectList) {
-            WCSession.default.sendMessageData(encodedProjects, replyHandler: nil, errorHandler: nil)
-        }
+        GlobalVar.settings.sendTogglInfo()
         #endif
     }
     
@@ -55,20 +48,11 @@ class SessionDelegater: NSObject, WCSessionDelegate {
             }
         }
         else if let decodedCredential = try? propertyListDecoder.decode(credential.self, from: messageData) {
-            print("[Received] Toggl Credentials received")
-            
-            GlobalVar.settings.togglCredential = decodedCredential
-            if let id = decodedCredential.id, let auth = decodedCredential.auth {
-                print("[Load] id: \(id)")
-                print("[Load] auth: \(auth)")
-            }
+            GlobalVar.settings.receiveTogglCredential(credential: decodedCredential)
+
         }
         else if let decodedProjects = try? propertyListDecoder.decode([projectInfo].self, from: messageData) {
-            print("[Received] Projects retrieved")
-            GlobalVar.settings.projectList = decodedProjects
-            for project in decodedProjects {
-                print("[Received] \(project.pid): \(project.name)")
-            }
+            GlobalVar.settings.receiveTogglProjects(projectList: decodedProjects)
         }
     }
 }

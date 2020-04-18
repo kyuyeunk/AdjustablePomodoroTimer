@@ -148,11 +148,39 @@ class Settings {
         print("[Save] Miscs saved")
     }
     
-    func sendData() {
+    func sendTogglInfo() {
+        print("Sending Toggl Credentials")
+        let propertyListEncoder = PropertyListEncoder()
+        if let encodedCrednetial = try? propertyListEncoder.encode(GlobalVar.settings.togglCredential) {
+            WCSession.default.sendMessageData(encodedCrednetial, replyHandler: nil, errorHandler: nil)
+        }
+        if let encodedProjects = try? propertyListEncoder.encode(GlobalVar.settings.projectList) {
+            WCSession.default.sendMessageData(encodedProjects, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    func sendTimerData() {
         print("Sending Data to other device")
         let propertyListEncoder = PropertyListEncoder()
         if let encodedtimers = try? propertyListEncoder.encode(self.timerList) {
             WCSession.default.sendMessageData(encodedtimers, replyHandler: nil, errorHandler: nil)
+        }
+    }
+    
+    func receiveTogglCredential(credential: credential) {
+        print("[Received] Toggl Credentials received")
+        togglCredential = credential
+        if let id = togglCredential.id, let auth = togglCredential.auth {
+            print("[Received] id: \(id)")
+            print("[Received] auth: \(auth)")
+        }
+    }
+    
+    func receiveTogglProjects(projectList: [projectInfo]) {
+        print("[Received] Projects retrieved")
+        GlobalVar.settings.projectList = projectList
+        for project in projectList {
+            print("[Received] \(project.pid): \(project.name)")
         }
     }
 }
