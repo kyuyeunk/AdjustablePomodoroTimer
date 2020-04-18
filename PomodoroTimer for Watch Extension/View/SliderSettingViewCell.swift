@@ -1,6 +1,6 @@
 //
 //  TimerSettingCell.swift
-//  PromodoTimer for Watch Extension
+//  PomodoroTimer for Watch Extension
 //
 //  Created by Kyu Yeun Kim on 2020/04/13.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
@@ -32,8 +32,8 @@ class SliderSettingViewCell: NSObject {
         }
     }
     
-    var currValue: Int = 0
-    var maxValue: Int = 60
+    private var currValue: Int = 0
+    private var maxValue: Int = 60
     
     func setValue(value: Int) {
         currValue = value

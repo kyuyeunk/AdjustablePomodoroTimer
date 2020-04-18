@@ -1,6 +1,6 @@
 //
 //  InterfaceController.swift
-//  PromodoTimer for Watch Extension
+//  PomodoroTimer for Watch Extension
 //
 //  Created by Kyu Yeun Kim on 2020/04/12.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
@@ -22,7 +22,7 @@ class TimerListTableViewController: WKInterfaceController {
         createObserver()
     }
     
-    func createObserver() {
+    private func createObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(changeToCurrentPage),
                                                name: changePageNotificationName, object: pageNames.timerListTableView.rawValue)
     }
@@ -32,7 +32,7 @@ class TimerListTableViewController: WKInterfaceController {
         super.becomeCurrentPage()
     }
     
-    func initCells() {
+    private func initCells() {
         setTitle("Timer List")
         
         var rowList: [String] = []

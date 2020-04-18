@@ -1,6 +1,6 @@
 //
 //  SessionDelegate.swift
-//  PromodoTimer
+//  PomodoroTimer
 //
 //  Created by Kyu Yeun Kim on 2020/04/16.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
@@ -37,6 +37,7 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+        print("Receiving")
         let propertyListDecoder = PropertyListDecoder()
         if let decodedTimers = try? propertyListDecoder.decode([TimerModel].self, from: messageData) {
             print("[Received] Timers retrieved")

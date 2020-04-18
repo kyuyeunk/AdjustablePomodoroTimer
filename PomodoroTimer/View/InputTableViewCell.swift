@@ -1,6 +1,6 @@
 //
 //  InputTableViewCell.swift
-//  PromodoTimer
+//  PomodoroTimer
 //
 //  Created by Kyu Yeun Kim on 2020/03/15.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.

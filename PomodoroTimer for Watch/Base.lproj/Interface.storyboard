@@ -9,11 +9,11 @@
         <!--Timer List-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller title="Timer List" id="AgC-eL-Hgc" customClass="TimerListTableViewController" customModule="PromodoTimer_for_Watch_Extension">
+                <controller title="Timer List" id="AgC-eL-Hgc" customClass="TimerListTableViewController" customModule="PomodoroTimer_for_Watch_Extension">
                     <items>
                         <table alignment="left" id="750-Hg-SLp">
                             <items>
-                                <tableRow identifier="timerInfo" id="dLb-2U-Htp" customClass="TimerInfoViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="timerInfo" id="dLb-2U-Htp" customClass="TimerInfoViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" spacing="2" id="Vpo-3I-LwU">
                                         <items>
                                             <separator height="1" heightAdjustment="-4" alignment="left" verticalAlignment="center" id="SvK-BM-clC"/>
@@ -42,7 +42,7 @@
                                         <outlet property="timerName" destination="1xA-98-WxJ" id="VWH-hj-r0W"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="button" id="22W-xq-khC" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="button" id="22W-xq-khC" customClass="ButtonViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="OQf-Um-cwI">
                                         <items>
                                             <button width="1" alignment="left" title="Button" id="qSM-8r-AOU">
@@ -72,11 +72,11 @@
         <!--Settings-->
         <scene sceneID="3eB-Ew-VtZ">
             <objects>
-                <controller title="Settings" id="Vet-9b-wuH" customClass="SettingsViewController" customModule="PromodoTimer_for_Watch_Extension">
+                <controller title="Settings" id="Vet-9b-wuH" customClass="SettingsViewController" customModule="PomodoroTimer_for_Watch_Extension">
                     <items>
                         <table alignment="left" id="aES-YV-ybz">
                             <items>
-                                <tableRow identifier="switchSetting" id="Rz7-5i-60m" customClass="SwitchSettingViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="switchSetting" id="Rz7-5i-60m" customClass="SwitchSettingViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="TBX-Yh-VBK">
                                         <items>
                                             <switch width="1" alignment="left" value="YES" title="Switch" id="S2X-Kv-qsk">
@@ -91,7 +91,7 @@
                                         <outlet property="settingValueSwitch" destination="S2X-Kv-qsk" id="z3W-70-vL1"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="button" id="LJ8-th-fMM" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="button" id="LJ8-th-fMM" customClass="ButtonViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="i2r-wH-aH2">
                                         <items>
                                             <button width="1" alignment="left" title="Button" id="FwS-aP-1nN">
@@ -121,7 +121,7 @@
         <!--Timer-->
         <scene sceneID="cNf-Mc-MQo">
             <objects>
-                <controller title="Timer" id="uDq-ve-9HO" customClass="TimerViewController" customModule="PromodoTimer_for_Watch_Extension">
+                <controller title="Timer" id="uDq-ve-9HO" customClass="TimerViewController" customModule="PomodoroTimer_for_Watch_Extension">
                     <items>
                         <group width="136" alignment="center" verticalAlignment="center" layout="vertical" id="W15-Mq-eJn">
                             <items>
@@ -178,11 +178,11 @@
         <!--Timer Settings-->
         <scene sceneID="diP-t7-7Bh">
             <objects>
-                <controller title="Timer Settings" id="0VU-BR-2T4" customClass="TimerSettingsTableViewController" customModule="PromodoTimer_for_Watch_Extension">
+                <controller title="Timer Settings" id="0VU-BR-2T4" customClass="TimerSettingsTableViewController" customModule="PomodoroTimer_for_Watch_Extension">
                     <items>
                         <table alignment="left" id="OV6-Rj-Zqp">
                             <items>
-                                <tableRow identifier="sliderSetting" id="wsV-y0-Gy2" customClass="SliderSettingViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="sliderSetting" id="wsV-y0-Gy2" customClass="SliderSettingViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="ILd-MD-xuc">
                                         <items>
                                             <group width="1" alignment="left" id="gPg-JC-s3c">
@@ -208,7 +208,7 @@
                                         <outlet property="settingValueSlider" destination="wAK-ow-oUc" id="AnZ-su-kQZ"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="switchSetting" id="Vqh-GL-ibJ" customClass="SwitchSettingViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="switchSetting" id="Vqh-GL-ibJ" customClass="SwitchSettingViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="TIU-qZ-r5d">
                                         <items>
                                             <switch width="1" alignment="left" value="YES" title="Switch" id="3uq-V6-gY1">
@@ -223,7 +223,7 @@
                                         <outlet property="settingValueSwitch" destination="3uq-V6-gY1" id="ysQ-6I-4Ab"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="textField" id="hOm-u5-64I" customClass="TextFieldViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="textField" id="hOm-u5-64I" customClass="TextFieldViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="4eV-59-Uk4">
                                         <items>
                                             <group width="1" alignment="left" id="qow-62-a8H">
@@ -244,7 +244,7 @@
                                         <outlet property="textField" destination="OuA-CE-7le" id="QAa-bb-7MK"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="buttonWithLabel" id="I50-Bm-OcU" customClass="ButtonWithLabelViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="buttonWithLabel" id="I50-Bm-OcU" customClass="ButtonWithLabelViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="uFE-6q-5aa">
                                         <items>
                                             <group width="1" alignment="left" id="qME-GL-I77">
@@ -267,7 +267,7 @@
                                         <outlet property="label" destination="Ts2-dW-2iW" id="rZV-PI-IQZ"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="button" id="Pqf-Be-2uq" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="button" id="Pqf-Be-2uq" customClass="ButtonViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="z0q-rz-Uqi">
                                         <items>
                                             <button width="1" alignment="left" title="Button" id="6sb-yF-ndv">
@@ -296,11 +296,11 @@
         <!--projectListView-->
         <scene sceneID="9rb-OW-nQO">
             <objects>
-                <controller identifier="projectListView" id="275-yi-7SQ" customClass="TogglProjectListTableViewController" customModule="PromodoTimer_for_Watch_Extension">
+                <controller identifier="projectListView" id="275-yi-7SQ" customClass="TogglProjectListTableViewController" customModule="PomodoroTimer_for_Watch_Extension">
                     <items>
                         <table alignment="left" id="Dmg-RT-Hni">
                             <items>
-                                <tableRow identifier="button" id="tFB-f1-DwZ" customClass="ButtonViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="button" id="tFB-f1-DwZ" customClass="ButtonViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="eg4-sT-lAb">
                                         <items>
                                             <button width="1" alignment="left" title="Button" id="Hza-bd-GHF">
@@ -316,7 +316,7 @@
                                         <outlet property="button" destination="Hza-bd-GHF" id="zoc-E3-94w"/>
                                     </connections>
                                 </tableRow>
-                                <tableRow identifier="projectInfo" id="Obv-5k-ye3" customClass="ProjectInfoViewCell" customModule="PromodoTimer_for_Watch_Extension">
+                                <tableRow identifier="projectInfo" id="Obv-5k-ye3" customClass="ProjectInfoViewCell" customModule="PomodoroTimer_for_Watch_Extension">
                                     <group key="rootItem" width="1" height="0.0" alignment="left" id="mkZ-fr-Qfc">
                                         <items>
                                             <separator alignment="left" id="B0D-l2-Pzk"/>

@@ -1,6 +1,6 @@
 //
 //  TogglProjectListTableViewController.swift
-//  PromodoTimer for Watch Extension
+//  PomodoroTimer for Watch Extension
 //
 //  Created by Kyu Yeun Kim on 2020/04/15.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
@@ -14,11 +14,11 @@ class TogglProjectListTableViewController: WKInterfaceController {
         super.init()
     }
     
-    var timerType: TimerType!
-    var workingTimer: TimerModel!
+    private var timerType: TimerType!
+    private var workingTimer: TimerModel!
     
-    var projectList: [projectInfo]!
-    var selectedProjectID: Int?
+    private var projectList: [projectInfo]!
+    private var selectedProjectID: Int?
     
     override func willActivate() {
         // This method is called when watch view controller is about to be visible to user
@@ -33,7 +33,7 @@ class TogglProjectListTableViewController: WKInterfaceController {
         }
     }
     
-    func initCells() {
+    private func initCells() {
         projectList = GlobalVar.settings.projectList
         var rows: [String] = ["button"]
         for _ in 0 ..< projectList.count {

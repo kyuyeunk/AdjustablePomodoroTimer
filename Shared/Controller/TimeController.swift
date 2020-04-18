@@ -1,6 +1,6 @@
 //
 //  TimeController.swift
-//  PromodoTimer
+//  PomodoroTimer
 //
 //  Created by Kyu Yeun Kim on 2020/03/11.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
@@ -28,17 +28,18 @@ protocol TimeControllerDelegate {
 class TimeController {
     var timeControllerDelegate: TimeControllerDelegate!
     
-    let uuidString = UUID().uuidString
-    var currType: TimerType = .positive
-    var prevTime = GlobalVar.settings.currTimer.startTime[.positive]!
-    var passedTime: [TimerType: Double] = [.positive: 0, .negative: 0]
-    var startedTime: [TimerType: TimeInterval] = [.positive: Date().timeIntervalSince1970, .negative: Date().timeIntervalSince1970]
-    var timer = Timer()
+    private let uuidString = UUID().uuidString
+    private var currType: TimerType = .positive
+    private var prevTime = GlobalVar.settings.currTimer.startTime[.positive]!
+    private var passedTime: [TimerType: Double] = [.positive: 0, .negative: 0]
+    private var startedTime: [TimerType: TimeInterval] = [.positive: Date().timeIntervalSince1970, .negative: Date().timeIntervalSince1970]
+    private var timer = Timer()
+    
     var timerStarted: Bool {
         return timer.isValid
     }
     
-    func stopTimer(autoRepeat: Bool) {
+    private func stopTimer(autoRepeat: Bool) {
         if timer.isValid {
             timer.invalidate()
         }
@@ -71,7 +72,7 @@ class TimeController {
         }
     }
     
-    func startTimer() {
+    private func startTimer() {
         //Always assume that starting time is set by UI
         let startTime = self.timeControllerDelegate.getCurrTime()
         if startTime > 0 {
@@ -90,7 +91,7 @@ class TimeController {
         startScheduledTimer()
     }
     
-    func startScheduledTimer() {
+    private func startScheduledTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {timer in
             //New time should always be fetched from the UI
             var newTime = self.timeControllerDelegate.getCurrTime()
@@ -193,7 +194,7 @@ class TimeController {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
     }
     
-    func createNotification(delayTime: Int) {
+    private func createNotification(delayTime: Int) {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers:[uuidString])
         let content = UNMutableNotificationContent()
         content.title = "Timer Ended"

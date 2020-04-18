@@ -1,6 +1,6 @@
 //
 //  TimePiewView.swift
-//  PromodoTimer for Watch Extension
+//  PomodoroTimer for Watch Extension
 //
 //  Created by Kyu Yeun Kim on 2020/04/12.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
@@ -83,9 +83,6 @@ class TimePieView {
         circleSKScene.addChild(shapeNode)
     }
     
-    func getCurrAngle() -> CGFloat {
-        return angle
-    }
     func getAngle(time: Int) -> CGFloat {
         return .pi / 2 + CGFloat(time) / CGFloat(maxTime) * CGFloat.pi * 2
     }

@@ -1,6 +1,6 @@
 //
 //  TimePickerController.swift
-//  PromodoTimer for Watch Extension
+//  PomodoroTimer for Watch Extension
 //
 //  Created by Kyu Yeun Kim on 2020/04/12.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
@@ -28,7 +28,9 @@ class TimerViewController: WKInterfaceController {
             GlobalVar.timeController.startButtonTapped()
         }
     }
-    var prevSignValue: Int = 0
+    
+    private var prevSignValue: Int = 0
+    
     @IBAction func signPicked(_ value: Int) {
         let prevCurrTime = currTime
         if value == 0 {
@@ -72,16 +74,16 @@ class TimerViewController: WKInterfaceController {
         print("[Timer View] Activate Circle")
         mySelectedPicker = .circlePicker
     }
-
-    var circleSelected: Bool = false
-    var maxMinutes: Int { GlobalVar.settings.currTimer.maxMinutes }
-    var currTimer: TimerModel { GlobalVar.settings.currTimer }
-    var currSign: Int = 0
-    var currMin: Int = 0
-    var currSec: Int = 0
-    var currTime: Int = 0
-    var timePieView: TimePieView!
-    var mySelectedPicker = selectedPicker.signPicker {
+    
+    private var circleSelected: Bool = false
+    private var maxMinutes: Int { GlobalVar.settings.currTimer.maxMinutes }
+    private var currTimer: TimerModel { GlobalVar.settings.currTimer }
+    private var currSign: Int = 0
+    private var currMin: Int = 0
+    private var currSec: Int = 0
+    private var currTime: Int = 0
+    private var timePieView: TimePieView!
+    private var mySelectedPicker = selectedPicker.signPicker {
         didSet {
             if mySelectedPicker == .circlePicker {
                 if timePieView.isHighlighted == false {
@@ -99,7 +101,7 @@ class TimerViewController: WKInterfaceController {
         }
     }
     
-    var prevTickedMin: Int = 0
+    private var prevTickedMin: Int = 0
     
     override init (){
         super.init()
@@ -143,7 +145,7 @@ class TimerViewController: WKInterfaceController {
         setTime(currTime: currTime)
     }
     
-    func initPicker() {
+    private func initPicker() {
         let plus = WKPickerItem()
         plus.title = "+"
         let minus = WKPickerItem()
@@ -200,7 +202,7 @@ class TimerViewController: WKInterfaceController {
         refocus()
     }
     
-    func refocus() {
+    private func refocus() {
         switch mySelectedPicker {
         case .circlePicker:
             timePieView.isHighlighted = true
@@ -335,7 +337,7 @@ extension TimerViewController: TimeControllerDelegate {
 
 extension TimerViewController: WKCrownDelegate {
     func crownDidRotate(_ crownSequencer: WKCrownSequencer?, rotationalDelta: Double) {
-        let angle = timePieView.getCurrAngle()
+        let angle = timePieView.angle
         let newAngle = angle - CGFloat(rotationalDelta)
         var newTime = timePieView.getTime(angle: newAngle)
         if currTime == newTime {

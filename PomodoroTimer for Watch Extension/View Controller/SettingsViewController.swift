@@ -11,8 +11,8 @@ import WatchConnectivity
 class SettingsViewController: WKInterfaceController {
     @IBOutlet weak var settingsTable: WKInterfaceTable!
     
-    var tickingSoundSwitchCell: SwitchSettingViewCell!
-    var syncButtonCell: ButtonViewCell!
+    private var tickingSoundSwitchCell: SwitchSettingViewCell!
+    private var syncButtonCell: ButtonViewCell!
     
     override func awake(withContext context: Any?) {
          super.awake(withContext: context)
@@ -34,6 +34,7 @@ class SettingsViewController: WKInterfaceController {
         
         syncButtonCell = settingsTable.rowController(at: 1) as? ButtonViewCell
         syncButtonCell.button.setTitle("Sync Timers")
+        syncButtonCell.buttonDelegate = self
     }
     
     override func didDeactivate() {

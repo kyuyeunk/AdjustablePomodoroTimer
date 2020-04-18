@@ -1,6 +1,6 @@
 //
 //  TogglController.swift
-//  PromodoTimer
+//  PomodoroTimer
 //
 //  Created by Kyu Yeun Kim on 2020/03/12.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
@@ -9,12 +9,12 @@
 import Foundation
 
 class TogglController {
-    let baseInfoURL = URL(string: "https://www.toggl.com/api/v8/me")!
-    let projectInfoURL = URL(string: "https://www.toggl.com/api/v8/me?with_related_data=true")!
-    let startTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/start")!
-    let currentTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/current")!
+    private let baseInfoURL = URL(string: "https://www.toggl.com/api/v8/me")!
+    private let projectInfoURL = URL(string: "https://www.toggl.com/api/v8/me?with_related_data=true")!
+    private let startTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/start")!
+    private let currentTimerURL = URL(string: "https://www.toggl.com/api/v8/time_entries/current")!
     //Get URL that stops the timer. Returns nil if no timer is currently running
-    var stopTimerURL: URL? {
+    private var stopTimerURL: URL? {
         if let entry_id = time_entry_id {
             return URL(string: "https://www.toggl.com/api/v8/time_entries/\(entry_id)/stop")!
         }
@@ -23,10 +23,10 @@ class TogglController {
         }
     }
 
-    var time_entry_id: Int?
+    private var time_entry_id: Int?
     
     //Send url reqeust from given requestURL
-    func getDataFromRequest(requestURL: URLRequest, completion: @escaping (Data) -> Void) {
+    private func getDataFromRequest(requestURL: URLRequest, completion: @escaping (Data) -> Void) {
         guard let auth = GlobalVar.settings.togglCredential.auth else {
             print("Error: Authentication has not been set")
             return
@@ -61,8 +61,8 @@ class TogglController {
     }
     
     //Start the timer with given pid and description
-    func startTimer(pid: Int, desc: String) {
-        let created_with = "PromodoTimer"
+    private func startTimer(pid: Int, desc: String) {
+        let created_with = "PomodoroTimer"
         
         let data = ["time_entry": ["description": desc, "pid": String(pid), "created_with": created_with]]
         
@@ -128,7 +128,7 @@ class TogglController {
     }
 
     //Fetch list of projects of current user and save it to projects.plist
-    func setProjectInfo() {
+    private func setProjectInfo() {
         getDataFromRequest(requestURL: URLRequest(url: projectInfoURL)) { (data) in
             if let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                 let toggl_data = json["data"] as? [String: Any],
@@ -138,9 +138,4 @@ class TogglController {
             }
         }
     }
-}
-
-enum TimerType: Int, Codable {
-    case positive
-    case negative
 }

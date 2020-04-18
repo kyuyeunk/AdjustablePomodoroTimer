@@ -1,6 +1,6 @@
 //
 //  ProjectInfoViewCell.swift
-//  PromodoTimer for Watch Extension
+//  PomodoroTimer for Watch Extension
 //
 //  Created by Kyu Yeun Kim on 2020/04/15.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.

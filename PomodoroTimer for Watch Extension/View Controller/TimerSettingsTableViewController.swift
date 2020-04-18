@@ -1,6 +1,6 @@
 //
 //  TimerSettingsController.swift
-//  PromodoTimer for Watch Extension
+//  PomodoroTimer for Watch Extension
 //
 //  Created by Kyu Yeun Kim on 2020/04/13.
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
@@ -11,25 +11,25 @@ import WatchKit
 class TimerSettingsTableViewController: WKInterfaceController {
     @IBOutlet weak var timerSettingsTable: WKInterfaceTable!
     
-    var timerNameViewCell: TextFieldViewCell!
+    private var timerNameViewCell: TextFieldViewCell!
     
-    var saveButtonCell: ButtonViewCell!
-    var deleteButtonCell: ButtonViewCell!
+    private var saveButtonCell: ButtonViewCell!
+    private var deleteButtonCell: ButtonViewCell!
     
-    var maxSliderCell: SliderSettingViewCell!
-    var posSliderCell: SliderSettingViewCell!
-    var negSliderCell: SliderSettingViewCell!
+    private var maxSliderCell: SliderSettingViewCell!
+    private var posSliderCell: SliderSettingViewCell!
+    private var negSliderCell: SliderSettingViewCell!
     
     
-    var autoRepeatSwitchCell: SwitchSettingViewCell!
-    var popupSwitchCell: SwitchSettingViewCell!
-    var repeatAlarmSwitchCell: SwitchSettingViewCell!
-    
-    var togglPosProjectCell: ButtonWithLabelViewCell!
-    var togglNegProjectCell: ButtonWithLabelViewCell!
-    
-    var workingTimer = TimerModel()
-    var newTimer = false
+    private var autoRepeatSwitchCell: SwitchSettingViewCell!
+    private var popupSwitchCell: SwitchSettingViewCell!
+    private var repeatAlarmSwitchCell: SwitchSettingViewCell!
+
+    private var togglPosProjectCell: ButtonWithLabelViewCell!
+    private var togglNegProjectCell: ButtonWithLabelViewCell!
+
+    private var workingTimer = TimerModel()
+    private var newTimer = false
     
     override init() {
         super.init()
@@ -37,7 +37,7 @@ class TimerSettingsTableViewController: WKInterfaceController {
         workingTimer = TimerModel(timerModel: GlobalVar.settings.currTimer)
     }
     
-    func createObserver() {
+    private func createObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(resetWorkingTimer(_:)),
                                                name: resetTimerSettingsViewNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeToCurrentPage),
@@ -66,7 +66,7 @@ class TimerSettingsTableViewController: WKInterfaceController {
         super.awake(withContext: context)
     }
     
-    func initCells() {
+    private func initCells() {
         timerSettingsTable.setRowTypes(["button", "textField", "sliderSetting", "sliderSetting", "sliderSetting", "buttonWithLabel",
                                         "buttonWithLabel", "switchSetting", "switchSetting", "switchSetting", "button"])
 
