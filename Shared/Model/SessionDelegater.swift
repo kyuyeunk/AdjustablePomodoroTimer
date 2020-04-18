@@ -29,7 +29,7 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("Activated")
         #if os(iOS)
-        GlobalVar.settings.sendTogglInfo()
+        GlobalVar.settings.sendTogglInfo(replyHandler: nil)
         #endif
     }
     
@@ -37,16 +37,7 @@ class SessionDelegater: NSObject, WCSessionDelegate {
         print("Received Message with Handler")
         if message[WCSessionRequest.request] as? String == WCSessionRequest.togglInfo {
             print("Sending Toggl Info")
-            let propertyListEncoder = PropertyListEncoder()
-            
-            let currCredential = GlobalVar.settings.togglCredential
-            let currProjectList = GlobalVar.settings.projectList
-            let currTogglInfo = togglInfo(credential: currCredential, projectList: currProjectList)
-            
-            if let encodedTogglInfo = try? propertyListEncoder.encode(currTogglInfo) {
-                let replyMessage = [WCSessionRequest.togglInfo: encodedTogglInfo]
-                replyHandler(replyMessage)
-            }
+            GlobalVar.settings.sendTogglInfo(replyHandler: replyHandler)
         }
     }
     

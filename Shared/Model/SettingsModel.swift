@@ -148,7 +148,7 @@ class Settings {
         print("[Save] Miscs saved")
     }
     
-    func sendTogglInfo() {
+    func sendTogglInfo(replyHandler: (([String : Any]) -> Void)?) {
         print("Sending Toggl Credentials")
         let propertyListEncoder = PropertyListEncoder()
         
@@ -157,7 +157,13 @@ class Settings {
         let currTogglInfo = togglInfo(credential: currCredential, projectList: currProjectList)
         
         if let encodedTogglInfo = try? propertyListEncoder.encode(currTogglInfo) {
-            WCSession.default.sendMessageData(encodedTogglInfo, replyHandler: nil, errorHandler: nil)
+            if let handler = replyHandler {
+                let replyMessage = [WCSessionRequest.togglInfo: encodedTogglInfo]
+                handler(replyMessage)
+            }
+            else {
+                WCSession.default.sendMessageData(encodedTogglInfo, replyHandler: nil, errorHandler: nil)
+            }
         }
     }
     
