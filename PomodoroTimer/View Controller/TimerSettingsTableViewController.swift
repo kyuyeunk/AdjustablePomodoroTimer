@@ -9,7 +9,7 @@
 import UIKit
 
 class TimerSettingsTableViewController: UITableViewController {
-    enum sections: Int {
+    private enum sections: Int {
         case timerName
         case timerValues
         case alarmSounds
@@ -24,7 +24,7 @@ class TimerSettingsTableViewController: UITableViewController {
     
     var workingTimerID: Int!
     var workingTimerModel: TimerModel!
-    var newTimer: Bool {
+    private var newTimer: Bool {
         if workingTimerID < GlobalVar.settings.timerList.count {
             return false
         }
@@ -55,14 +55,14 @@ class TimerSettingsTableViewController: UITableViewController {
     
     // MARK: UIInitialization
     
-    var posTimePickerHidden = true
-    var negTimePickerHidden = true
-    var maxTimePickerHidden = true
+    private var posTimePickerHidden = true
+    private var negTimePickerHidden = true
+    private var maxTimePickerHidden = true
     
-    var secondRows: [Int] = []
-    var posPickerView: UIPickerView!
-    var negPickerView: UIPickerView!
-    var maxPickerView: UIPickerView!
+    private var secondRows: [Int] = []
+    private var posPickerView: UIPickerView!
+    private var negPickerView: UIPickerView!
+    private var maxPickerView: UIPickerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +71,7 @@ class TimerSettingsTableViewController: UITableViewController {
         initTimer()
     }
     
-    func initUI() {
+    private func initUI() {
         navigationItem.title = "Timer Settings"
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
         navigationItem.backBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: nil)
@@ -84,7 +84,7 @@ class TimerSettingsTableViewController: UITableViewController {
         tableView.register(RightDetailTableViewCell.self, forCellReuseIdentifier: "rightDetailCell")
     }
     
-    func initTimer() {
+    private func initTimer() {
         if let id = workingTimerID {
             print("[Timer Settings] Working on timer \(id)")
         }
@@ -450,7 +450,7 @@ class TimerSettingsTableViewController: UITableViewController {
 
 //MARK: - PickerView
 extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerViewDelegate {
-    enum components: Int {
+    private enum components: Int {
         case minVal
         case minLabel
         case secVal

@@ -9,7 +9,7 @@
 import UIKit
 
 class TogglTimerSettingsTableViewController: UITableViewController {
-    enum sections: Int {
+    private enum sections: Int {
         case description
         case selectedProject
         case projectList
@@ -20,8 +20,8 @@ class TogglTimerSettingsTableViewController: UITableViewController {
         }
     }
     var type: TimerType!
-    var selectedProject: projectInfo?
-    var desc: String?
+    private var selectedProject: projectInfo?
+    private var desc: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -8,14 +8,8 @@
 
 import UIKit
 
-enum sections {
-    case togglID
-    case togglTimersSettings
-    case timerSettings
-}
-
 class SettingsTableViewController: UITableViewController {
-    enum sections: Int {
+    private enum sections: Int {
         case toggl
         case misc
         case numberOfSections

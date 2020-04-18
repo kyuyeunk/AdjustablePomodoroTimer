@@ -9,15 +9,15 @@
 import UIKit
 
 class LogInViewController: UIViewController {
-    var loginStackView = UIStackView()
-    var togglLabel = UILabel()
-    var idStackView = UIStackView()
-    var pwStackView = UIStackView()
-    var idLabel = UILabel()
-    var idTextField = UITextField()
-    var pwLabel = UILabel()
-    var pwTextField = UITextField()
-    var loginButton = UIButton(type: .system)
+    private var loginStackView = UIStackView()
+    private var togglLabel = UILabel()
+    private var idStackView = UIStackView()
+    private var pwStackView = UIStackView()
+    private var idLabel = UILabel()
+    private var idTextField = UITextField()
+    private var pwLabel = UILabel()
+    private var pwTextField = UITextField()
+    private var loginButton = UIButton(type: .system)
     
     @objc func loginButtonPressed() {
         guard let id = idTextField.text else {
@@ -67,7 +67,7 @@ class LogInViewController: UIViewController {
         initUIFeatures()
     }
     
-    func addViews() {
+    private func addViews() {
         view.addSubview(loginStackView)
         
         loginStackView.addArrangedSubview(togglLabel)
@@ -82,7 +82,7 @@ class LogInViewController: UIViewController {
         pwStackView.addArrangedSubview(pwTextField)
     }
     
-    func initUIAttributes() {
+    private func initUIAttributes() {
         navigationItem.title = "Login Toggl"
         if self.traitCollection.userInterfaceStyle == .dark {
             view.backgroundColor = .black
@@ -114,7 +114,7 @@ class LogInViewController: UIViewController {
         pwStackView.axis = .horizontal
     }
     
-    func initUIConstraints() {
+    private func initUIConstraints() {
         loginStackView.translatesAutoresizingMaskIntoConstraints = false
         loginStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor).isActive = true
         loginStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
@@ -127,7 +127,7 @@ class LogInViewController: UIViewController {
         pwLabel.widthAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
-    func initUIFeatures() {
+    private func initUIFeatures() {
         idTextField.delegate = self
         pwTextField.delegate = self
         

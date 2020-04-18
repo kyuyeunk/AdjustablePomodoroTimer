@@ -22,7 +22,7 @@ class TimerListTableViewController: UITableViewController {
         initUI()
     }
 
-    func initUI() {
+    private func initUI() {
         navigationItem.title = "Timer List"
         tableView.register(SubtitleTableViewCell.self, forCellReuseIdentifier: "subtitleCell")
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))

@@ -11,37 +11,37 @@ import AVFoundation
 import AudioToolbox
 
 class TimerViewController: UIViewController {
-    var lastPanFeedbackMin = 0
-    var spins = 0
-    var enteredThresholdRegion = false
-    var maxMinutes: Int = 0 {
+    private var lastPanFeedbackMin = 0
+    private var spins = 0
+    private var enteredThresholdRegion = false
+    private var maxMinutes: Int = 0 {
         didSet {
             passedTimePie.maxTime = CGFloat(maxMinutes) * 60
             mainTimer.reloadComponent(components.minVal.rawValue)
             maxMinutesLabel.text = "\(maxMinutes)m"
         }
     }
-    var currTime: Int = 0
-    var panTimerType: TimerType = .positive
+    private var currTime: Int = 0
+    private var panTimerType: TimerType = .positive
 
-    var passedTimeLabel = UILabel()
-    var timeInfoStackView = UIStackView()
-    var posInfoStackView = UIStackView()
-    var negInfoStackView = UIStackView()
+    private var passedTimeLabel = UILabel()
+    private var timeInfoStackView = UIStackView()
+    private var posInfoStackView = UIStackView()
+    private var negInfoStackView = UIStackView()
     
-    var posTimeLabel = UILabel()
-    var negTimeLabel = UILabel()
+    private var posTimeLabel = UILabel()
+    private var negTimeLabel = UILabel()
     
-    var posTimeValLabel = UILabel()
-    var negTimeValLabel = UILabel()
+    private var posTimeValLabel = UILabel()
+    private var negTimeValLabel = UILabel()
     
-    var maxMinutesLabel = UILabel()
-    var mainTimer = UIPickerView()
-    var startButton = UIButton(type: .system)
+    private var maxMinutesLabel = UILabel()
+    private var mainTimer = UIPickerView()
+    private var startButton = UIButton(type: .system)
     
-    var clockImage = UIImageView()
-    var passedTimePie = TimePieView()
-    var pickerWindow = PickerWindowView()
+    private var clockImage = UIImageView()
+    private var passedTimePie = TimePieView()
+    private var pickerWindow = PickerWindowView()
     
     // MARK: - UIButtons
     @objc func startButtonPressed(_ sender: Any) {
@@ -168,7 +168,7 @@ class TimerViewController: UIViewController {
 
     }
     
-    func setTime(time: Int, animated: Bool) {
+    private func setTime(time: Int, animated: Bool) {
         var seconds = abs(time) % 60
         var minutes = abs(time) / 60
         
@@ -249,14 +249,14 @@ class TimerViewController: UIViewController {
 
     // MARK: - UI Initialization
     
-    func initUI() {
+    private func initUI() {
         addViews()
         initUIAttributes()
         initUIConstraints()
         initUIFeatures()
     }
     
-    func addViews() {
+    private func addViews() {
         view.addSubview(passedTimePie)
         view.addSubview(pickerWindow)
         view.addSubview(passedTimeLabel)
@@ -279,7 +279,7 @@ class TimerViewController: UIViewController {
         view.addGestureRecognizer(pan)
     }
     
-    func initUIAttributes() {
+    private func initUIAttributes() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(leftBarPressed))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Timers", style: .plain, target: self, action: #selector(rightBarPressed))
         
@@ -326,7 +326,7 @@ class TimerViewController: UIViewController {
         }
     }
     
-    func initUIConstraints() {
+    private func initUIConstraints() {
         passedTimeLabel.translatesAutoresizingMaskIntoConstraints = false
         passedTimeLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 40).isActive = true
         passedTimeLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
@@ -370,7 +370,7 @@ class TimerViewController: UIViewController {
         
     }
     
-    func initUIFeatures() {
+    private func initUIFeatures() {
         mainTimer.dataSource = self
         mainTimer.delegate = self
         
@@ -381,7 +381,7 @@ class TimerViewController: UIViewController {
 //MARK: - PickerView
 
 extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    enum components: Int {
+    private enum components: Int {
         case sign
         case minVal
         case secVal
