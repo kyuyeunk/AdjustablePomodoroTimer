@@ -35,19 +35,18 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         print("Received Message with Handler")
-        if message[WCSessionRequest.request] as? String == WCSessionRequest.togglCredential {
-            print("Sending Credential")
-            //TODO: Should also send project list
+        if message[WCSessionRequest.request] as? String == WCSessionRequest.togglInfo {
+            print("Sending Toggl Info")
             let propertyListEncoder = PropertyListEncoder()
-            guard let encodedCrednetial = try? propertyListEncoder.encode(GlobalVar.settings.togglCredential) else {
-                return
-            }
-            guard let encodedProjects = try? propertyListEncoder.encode(GlobalVar.settings.projectList) else {
-                return
-            }
             
-            let replyMessage = [WCSessionRequest.togglCredential: [encodedCrednetial, encodedProjects]]
-            replyHandler(replyMessage)
+            let currCredential = GlobalVar.settings.togglCredential
+            let currProjectList = GlobalVar.settings.projectList
+            let currTogglInfo = togglInfo(credential: currCredential, projectList: currProjectList)
+            
+            if let encodedTogglInfo = try? propertyListEncoder.encode(currTogglInfo) {
+                let replyMessage = [WCSessionRequest.togglInfo: encodedTogglInfo]
+                replyHandler(replyMessage)
+            }
         }
     }
     
@@ -61,12 +60,8 @@ class SessionDelegater: NSObject, WCSessionDelegate {
                 print("[Received] \(timer.timerName) w pos: \(timer.startTime[.positive]!), neg: \(timer.startTime[.negative]!)")
             }
         }
-        else if let decodedCredential = try? propertyListDecoder.decode(credential.self, from: messageData) {
-            GlobalVar.settings.receiveTogglCredential(credential: decodedCredential)
-
-        }
-        else if let decodedProjects = try? propertyListDecoder.decode([projectInfo].self, from: messageData) {
-            GlobalVar.settings.receiveTogglProjects(projectList: decodedProjects)
+        else if let receivedTogglInfo = try? propertyListDecoder.decode(togglInfo.self, from: messageData)  {
+            GlobalVar.settings.receiveTogglInfo(receivedTogglInfo: receivedTogglInfo)
         }
     }
 }

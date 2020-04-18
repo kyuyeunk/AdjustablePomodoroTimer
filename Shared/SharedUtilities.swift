@@ -31,6 +31,6 @@ enum TimerType: Int, Codable {
 
 struct WCSessionRequest {
     static let request = "Request"
-    static let togglCredential = "TogglCredential"
+    static let togglInfo = "TogglInfo"
     static let timerList = "TimerList"
 }

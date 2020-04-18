@@ -151,11 +151,13 @@ class Settings {
     func sendTogglInfo() {
         print("Sending Toggl Credentials")
         let propertyListEncoder = PropertyListEncoder()
-        if let encodedCrednetial = try? propertyListEncoder.encode(GlobalVar.settings.togglCredential) {
-            WCSession.default.sendMessageData(encodedCrednetial, replyHandler: nil, errorHandler: nil)
-        }
-        if let encodedProjects = try? propertyListEncoder.encode(GlobalVar.settings.projectList) {
-            WCSession.default.sendMessageData(encodedProjects, replyHandler: nil, errorHandler: nil)
+        
+        let currCredential = togglCredential
+        let currProjectList = projectList
+        let currTogglInfo = togglInfo(credential: currCredential, projectList: currProjectList)
+        
+        if let encodedTogglInfo = try? propertyListEncoder.encode(currTogglInfo) {
+            WCSession.default.sendMessageData(encodedTogglInfo, replyHandler: nil, errorHandler: nil)
         }
     }
     
@@ -167,37 +169,13 @@ class Settings {
         }
     }
     
-    func receiveTogglInfo(receivedData: [Data]) {
-        let propertyListDecoder = PropertyListDecoder()
-        
-        if let decodedCredential = try? propertyListDecoder.decode(credential.self, from: receivedData[0]) {
-            togglCredential = decodedCredential
-            if let id = togglCredential.id, let auth = togglCredential.auth {
-                print("[Received] id: \(id)")
-                print("[Received] auth: \(auth)")
-            }
-        }
-        
-        if let decodedProjects = try? propertyListDecoder.decode([projectInfo].self, from: receivedData[1]) {
-            self.projectList = decodedProjects
-            for project in projectList {
-                print("[Received] \(project.pid): \(project.name)")
-            }
-        }
-    }
-    
-    func receiveTogglCredential(credential: credential) {
-        print("[Received] Toggl Credentials received")
-        togglCredential = credential
+    func receiveTogglInfo(receivedTogglInfo: togglInfo) {
+        togglCredential = receivedTogglInfo.credential
         if let id = togglCredential.id, let auth = togglCredential.auth {
             print("[Received] id: \(id)")
             print("[Received] auth: \(auth)")
         }
-    }
-    
-    func receiveTogglProjects(projectList: [projectInfo]) {
-        print("[Received] Projects retrieved")
-        self.projectList = projectList
+        projectList = receivedTogglInfo.projectList
         for project in projectList {
             print("[Received] \(project.pid): \(project.name)")
         }
@@ -270,4 +248,9 @@ struct miscInfo: Codable {
         self.dontSleep = dontSleep
         self.tickingSound = tickingSound
     }
+}
+
+struct togglInfo: Codable {
+    var credential: credential
+    var projectList: [projectInfo]
 }

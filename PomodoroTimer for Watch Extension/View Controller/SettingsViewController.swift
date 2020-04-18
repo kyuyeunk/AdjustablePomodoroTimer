@@ -72,12 +72,13 @@ extension SettingsViewController: ButtonDelegate {
 extension SettingsViewController: ButtonWithLabelDelegate {
     func buttonTapped(buttonWithLabelViewCell: ButtonWithLabelViewCell) {
         print("Requesting Toggl Credential")
-        let requestTogglCredential = [WCSessionRequest.request: WCSessionRequest.togglCredential]
+        let requestTogglCredential = [WCSessionRequest.request: WCSessionRequest.togglInfo]
 
         WCSession.default.sendMessage(requestTogglCredential, replyHandler: { (data) in
             print("Received Toggl Credential")
-            if let receivedData = data[WCSessionRequest.togglCredential] as? [Data] {
-                GlobalVar.settings.receiveTogglInfo(receivedData: receivedData)
+            let propertyListDecoder = PropertyListDecoder()
+            if let data = data[WCSessionRequest.togglInfo] as? Data, let receivedTogglInfo = try? propertyListDecoder.decode(togglInfo.self, from: data) {
+                GlobalVar.settings.receiveTogglInfo(receivedTogglInfo: receivedTogglInfo)
             }
         }) { (error) in
             print("Received error")
