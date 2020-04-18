@@ -11,6 +11,7 @@ import WatchConnectivity
 class SettingsViewController: WKInterfaceController {
     @IBOutlet weak var settingsTable: WKInterfaceTable!
     
+    private var togglButtonCell: ButtonWithLabelViewCell!
     private var tickingSoundSwitchCell: SwitchSettingViewCell!
     private var syncButtonCell: ButtonViewCell!
     
@@ -25,14 +26,24 @@ class SettingsViewController: WKInterfaceController {
     }
     
     func initCells() {
-        settingsTable.setRowTypes([ "switchSetting", "button"])
+        settingsTable.setRowTypes([ "buttonWithLabel", "switchSetting", "button"])
         
-        tickingSoundSwitchCell = settingsTable.rowController(at: 0) as? SwitchSettingViewCell
+        togglButtonCell = settingsTable.rowController(at: 0) as? ButtonWithLabelViewCell
+        togglButtonCell.label.setText("Toggl ID")
+        if let togglID = GlobalVar.settings.togglCredential.id {
+            togglButtonCell.button.setTitle(togglID)
+        }
+        else {
+            togglButtonCell.button.setTitle("Tap to Sync")
+        }
+        togglButtonCell.buttonDelegate = self
+        
+        tickingSoundSwitchCell = settingsTable.rowController(at: 1) as? SwitchSettingViewCell
         tickingSoundSwitchCell.settingValueSwitch.setTitle("Ticking Sound")
         tickingSoundSwitchCell.settingValueSwitch.setOn(GlobalVar.settings.tickingSound)
         tickingSoundSwitchCell.switchSettingDelegate = self
         
-        syncButtonCell = settingsTable.rowController(at: 1) as? ButtonViewCell
+        syncButtonCell = settingsTable.rowController(at: 2) as? ButtonViewCell
         syncButtonCell.button.setTitle("Sync Timers")
         syncButtonCell.buttonDelegate = self
     }
@@ -55,5 +66,21 @@ extension SettingsViewController: SwitchSettingDelegate {
 extension SettingsViewController: ButtonDelegate {
     func buttonTapped(buttonViewCell: ButtonViewCell) {
         GlobalVar.settings.sendTimerData()
+    }
+}
+
+extension SettingsViewController: ButtonWithLabelDelegate {
+    func buttonTapped(buttonWithLabelViewCell: ButtonWithLabelViewCell) {
+        print("Requesting Toggl Credential")
+        let requestTogglCredential = [WCSessionRequest.request: WCSessionRequest.togglCredential]
+
+        WCSession.default.sendMessage(requestTogglCredential, replyHandler: { (data) in
+            print("Received Toggl Credential")
+            if let receivedData = data[WCSessionRequest.togglCredential] as? [Data] {
+                GlobalVar.settings.receiveTogglInfo(receivedData: receivedData)
+            }
+        }) { (error) in
+            print("Received error")
+        }
     }
 }

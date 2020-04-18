@@ -107,6 +107,29 @@
                                         <outlet property="button" destination="FwS-aP-1nN" id="d3f-QQ-VRC"/>
                                     </connections>
                                 </tableRow>
+                                <tableRow identifier="buttonWithLabel" id="5et-I5-3Df" customClass="ButtonWithLabelViewCell" customModule="PomodoroTimer_for_Watch_Extension">
+                                    <group key="rootItem" width="1" height="0.0" alignment="left" layout="vertical" id="yJM-wF-7vC">
+                                        <items>
+                                            <group width="1" alignment="left" id="HeN-Iq-8v5">
+                                                <items>
+                                                    <label alignment="left" text="Label" textAlignment="left" id="vWb-SN-fPB"/>
+                                                </items>
+                                                <edgeInsets key="margins" left="5" right="0.0" top="0.0" bottom="0.0"/>
+                                            </group>
+                                            <button width="1" alignment="left" title="Button" id="eht-hi-kwo">
+                                                <fontDescription key="font" type="system" pointSize="17"/>
+                                                <connections>
+                                                    <action selector="buttonTapped" destination="5et-I5-3Df" id="ztV-8C-wqF"/>
+                                                </connections>
+                                            </button>
+                                        </items>
+                                        <edgeInsets key="margins" left="10" right="10" top="5" bottom="5"/>
+                                    </group>
+                                    <connections>
+                                        <outlet property="button" destination="eht-hi-kwo" id="PhQ-ar-cpz"/>
+                                        <outlet property="label" destination="vWb-SN-fPB" id="wSh-Of-MtB"/>
+                                    </connections>
+                                </tableRow>
                             </items>
                         </table>
                     </items>
@@ -293,10 +316,10 @@
             </objects>
             <point key="canvasLocation" x="560" y="113"/>
         </scene>
-        <!--projectListView-->
+        <!--Project List-->
         <scene sceneID="9rb-OW-nQO">
             <objects>
-                <controller identifier="projectListView" id="275-yi-7SQ" customClass="TogglProjectListTableViewController" customModule="PomodoroTimer_for_Watch_Extension">
+                <controller identifier="projectListView" title="Project List" id="275-yi-7SQ" customClass="TogglProjectListTableViewController" customModule="PomodoroTimer_for_Watch_Extension">
                     <items>
                         <table alignment="left" id="Dmg-RT-Hni">
                             <items>

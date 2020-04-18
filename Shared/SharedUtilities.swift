@@ -28,3 +28,9 @@ enum TimerType: Int, Codable {
     case positive
     case negative
 }
+
+struct WCSessionRequest {
+    static let request = "Request"
+    static let togglCredential = "TogglCredential"
+    static let timerList = "TimerList"
+}

@@ -27,18 +27,32 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     #endif
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("Activated")
         #if os(iOS)
         GlobalVar.settings.sendTogglInfo()
         #endif
     }
     
-    func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
-        print("Receiving Message")
-        NotificationCenter.default.post(name: .messageReceived, object: nil)
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        print("Received Message with Handler")
+        if message[WCSessionRequest.request] as? String == WCSessionRequest.togglCredential {
+            print("Sending Credential")
+            //TODO: Should also send project list
+            let propertyListEncoder = PropertyListEncoder()
+            guard let encodedCrednetial = try? propertyListEncoder.encode(GlobalVar.settings.togglCredential) else {
+                return
+            }
+            guard let encodedProjects = try? propertyListEncoder.encode(GlobalVar.settings.projectList) else {
+                return
+            }
+            
+            let replyMessage = [WCSessionRequest.togglCredential: [encodedCrednetial, encodedProjects]]
+            replyHandler(replyMessage)
+        }
     }
     
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
-        print("Receiving")
+        print("Received Message Data")
         let propertyListDecoder = PropertyListDecoder()
         if let decodedTimers = try? propertyListDecoder.decode([TimerModel].self, from: messageData) {
             print("[Received] Timers received")

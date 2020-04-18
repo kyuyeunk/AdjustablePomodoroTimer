@@ -167,6 +167,25 @@ class Settings {
         }
     }
     
+    func receiveTogglInfo(receivedData: [Data]) {
+        let propertyListDecoder = PropertyListDecoder()
+        
+        if let decodedCredential = try? propertyListDecoder.decode(credential.self, from: receivedData[0]) {
+            togglCredential = decodedCredential
+            if let id = togglCredential.id, let auth = togglCredential.auth {
+                print("[Received] id: \(id)")
+                print("[Received] auth: \(auth)")
+            }
+        }
+        
+        if let decodedProjects = try? propertyListDecoder.decode([projectInfo].self, from: receivedData[1]) {
+            self.projectList = decodedProjects
+            for project in projectList {
+                print("[Received] \(project.pid): \(project.name)")
+            }
+        }
+    }
+    
     func receiveTogglCredential(credential: credential) {
         print("[Received] Toggl Credentials received")
         togglCredential = credential
@@ -178,7 +197,7 @@ class Settings {
     
     func receiveTogglProjects(projectList: [projectInfo]) {
         print("[Received] Projects retrieved")
-        GlobalVar.settings.projectList = projectList
+        self.projectList = projectList
         for project in projectList {
             print("[Received] \(project.pid): \(project.name)")
         }

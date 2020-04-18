@@ -31,7 +31,7 @@ class TimePieView {
         drawCircle()
     }
     
-    func drawOutline() {
+    private func drawOutline() {
         let path = UIBezierPath(arcCenter: .zero, radius: 48.5, startAngle: 0, endAngle: 2 * .pi, clockwise: true).cgPath
         let shapeNode = SKShapeNode(path: path)
         var color: UIColor
@@ -51,7 +51,7 @@ class TimePieView {
         circleSKScene.addChild(shapeNode)
     }
     
-    func drawCircle() {
+    private func drawCircle() {
         let startAngle: CGFloat = .pi / 2
         let endAngle = getAngle(time: endTime)
         var clockwise: Bool
