@@ -214,27 +214,6 @@ class TimerViewController: UIViewController {
         } else {
             view.backgroundColor = .white
         }
-        
-        initObserver()
-    }
-
-    func initObserver() {
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(activationDidComplete),
-            name: .activationDidComplete, object: nil
-        )
-        NotificationCenter.default.addObserver(
-            self, selector: #selector(messageReceived),
-            name: .messageReceived, object: nil
-        )
-    }
-    
-    @objc func activationDidComplete() {
-        print("Received")
-    }
-    
-    @objc func messageReceived() {
-        print("Message")
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
