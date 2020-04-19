@@ -167,11 +167,20 @@ class Settings {
         }
     }
     
-    func sendTimerData() {
-        print("Sending Data to other device")
+    func syncTimerList() {
+        print("Sending TimerList to other device")
         let propertyListEncoder = PropertyListEncoder()
-        if let encodedtimers = try? propertyListEncoder.encode(self.timerList) {
-            WCSession.default.sendMessageData(encodedtimers, replyHandler: nil, errorHandler: nil)
+        if let encodedTimers = try? propertyListEncoder.encode(self.timerList) {
+            WCSession.default.sendMessageData(encodedTimers, replyHandler: { (data) in
+                print("Received TimerList from other device")
+                let propertyListDecoder = PropertyListDecoder()
+                if let receivedTimerList = try? propertyListDecoder.decode([TimerModel].self, from: data) {
+                    self.timerList = receivedTimerList
+                    for timer in receivedTimerList {
+                        print("[Resulting] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
+                    }
+                }
+            }, errorHandler: nil)
         }
     }
     
@@ -187,7 +196,7 @@ class Settings {
         }
     }
     
-    func receiveTimerList(receivedTimerList: [TimerModel]) {
+    func receiveTimerList(receivedTimerList: [TimerModel], replyHandler: ((Data) -> Void)?) {
         for timer in receivedTimerList {
             print("[Received] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
         }
@@ -195,6 +204,7 @@ class Settings {
             print("[Existing] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
         }
         
+        //TODO: Code about deleting existing timer
         for (receivedIndex, receivedTimer) in receivedTimerList.enumerated() {
             var newTimer = true
             for (existingIndex, existingTimer) in timerList.enumerated() {
@@ -225,6 +235,13 @@ class Settings {
         }
         for timer in timerList {
             print("[Resulting] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
+        }
+        
+        if let handler = replyHandler {
+            let propertyListEncoder = PropertyListEncoder()
+            if let encodedTimers = try? propertyListEncoder.encode(self.timerList) {
+                handler(encodedTimers)
+            }
         }
     }
 }

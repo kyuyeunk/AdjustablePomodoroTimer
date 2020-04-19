@@ -65,7 +65,7 @@ extension SettingsViewController: SwitchSettingDelegate {
 
 extension SettingsViewController: ButtonDelegate {
     func buttonTapped(buttonViewCell: ButtonViewCell) {
-        GlobalVar.settings.sendTimerData()
+        GlobalVar.settings.syncTimerList()
     }
 }
 
