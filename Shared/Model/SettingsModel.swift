@@ -186,6 +186,10 @@ class Settings {
             print("[Received] \(project.pid): \(project.name)")
         }
     }
+    
+    func receiveTimerList(receivedTimerList: [TimerModel]) {
+        print("TODO")
+    }
 }
 
 struct directories {

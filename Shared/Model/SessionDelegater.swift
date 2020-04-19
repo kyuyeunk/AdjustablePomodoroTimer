@@ -44,12 +44,16 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
         print("Received Message Data")
         let propertyListDecoder = PropertyListDecoder()
-        if let decodedTimers = try? propertyListDecoder.decode([TimerModel].self, from: messageData) {
+        if let receivedTimerList = try? propertyListDecoder.decode([TimerModel].self, from: messageData) {
             print("[Received] Timers received")
+            GlobalVar.settings.receiveTimerList(receivedTimerList: receivedTimerList)
+            
+            /*
             let receivedTimers = decodedTimers
             for timer in receivedTimers {
                 print("[Received] \(timer.timerName) w pos: \(timer.startTime[.positive]!), neg: \(timer.startTime[.negative]!)")
             }
+            */
         }
         else if let receivedTogglInfo = try? propertyListDecoder.decode(togglInfo.self, from: messageData)  {
             GlobalVar.settings.receiveTogglInfo(receivedTogglInfo: receivedTogglInfo)

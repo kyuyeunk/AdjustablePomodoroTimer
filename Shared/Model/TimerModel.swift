@@ -9,17 +9,19 @@
 import Foundation
 
 class TimerModel: Codable, Identifiable {
-    var maxMinutes: Int
-    var timerName: String
-    var startTime: [TimerType: Int] = [:]
-    var autoRepeat: Bool
-    var accumulatePassedTime: Bool
-    var timerAlarmID: [TimerType: Int] = [:]
-    var alertTimerEnd: Bool
-    var repeatAlarmOption: Bool
+    var maxMinutes: Int { didSet { modifiedDate = Date().timeIntervalSince1970 } }
+    var timerName: String{ didSet { modifiedDate = Date().timeIntervalSince1970 } }
+    var startTime: [TimerType: Int] = [:] { didSet { modifiedDate = Date().timeIntervalSince1970 } }
+    var autoRepeat: Bool { didSet { modifiedDate = Date().timeIntervalSince1970 } }
+    var accumulatePassedTime: Bool { didSet { modifiedDate = Date().timeIntervalSince1970 } }
+    var timerAlarmID: [TimerType: Int] = [:] { didSet { modifiedDate = Date().timeIntervalSince1970 } }
+    var alertTimerEnd: Bool { didSet { modifiedDate = Date().timeIntervalSince1970 } }
+    var repeatAlarmOption: Bool { didSet { modifiedDate = Date().timeIntervalSince1970 } }
     var repeatAlarm: Bool {
         return alertTimerEnd && repeatAlarmOption
     }
+    var createdDate: TimeInterval
+    var modifiedDate: TimeInterval
     
     var userDefinedTracking: [TimerType: trackingInfo] = [:]
     
@@ -34,6 +36,8 @@ class TimerModel: Codable, Identifiable {
         self.alertTimerEnd = false
         self.repeatAlarmOption = false
         self.maxMinutes = 12
+        self.createdDate = Date().timeIntervalSince1970
+        self.modifiedDate = self.createdDate
     }
     
     init(timerModel: TimerModel) {
@@ -48,5 +52,31 @@ class TimerModel: Codable, Identifiable {
         self.repeatAlarmOption = timerModel.repeatAlarmOption
         self.maxMinutes = timerModel.maxMinutes
         self.userDefinedTracking = timerModel.userDefinedTracking
+        self.createdDate = timerModel.createdDate
+        self.modifiedDate = timerModel.modifiedDate
+    }
+    
+    enum timerModelComparison {
+        case same
+        case different
+        case newer
+        case older
+    }
+    
+    func compare(timerModel: TimerModel) -> timerModelComparison {
+        if self.createdDate == timerModel.createdDate {
+            if self.modifiedDate == timerModel.modifiedDate {
+                return .same
+            }
+            else if self.modifiedDate > timerModel.modifiedDate {
+                return .older
+            }
+            else {
+                return .newer
+            }
+        }
+        else {
+            return .different
+        }
     }
 }
