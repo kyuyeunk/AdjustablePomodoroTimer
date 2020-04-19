@@ -85,8 +85,7 @@ class TimerListTableViewController: UITableViewController {
                 }
             }
             else {
-                GlobalVar.settings.timerList.remove(at: indexPath.row)
-                GlobalVar.settings.saveTimerList()
+                GlobalVar.settings.deleteTimer(index: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 if indexPath.row == GlobalVar.settings.currTimerID {
                     var newTimerIndexPath = indexPath

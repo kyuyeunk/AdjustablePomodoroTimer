@@ -39,6 +39,7 @@ class Settings {
     var togglCredential = credential()
 
     var timerList: [TimerModel] = []
+    var deletedTimerList: [TimerModel] = []
     
     private var settingsDirectory = directories()
     
@@ -167,10 +168,23 @@ class Settings {
         }
     }
     
+    func deleteTimer(index: Int) {
+        let timer = timerList[index]
+        timerList.remove(at: index)
+        deletedTimerList.append(timer)
+        GlobalVar.settings.saveTimerList()
+        
+        for deletedTimer in deletedTimerList {
+            print("[Deleted] \(deletedTimer.timerName) w created: \(deletedTimer.createdDate) modified: \(deletedTimer.modifiedDate)")
+        }
+        //TODO: impelement ability to save deleted timer list as well
+    }
+    
     func syncTimerList() {
         print("Sending TimerList to other device")
+        let sendSyncListInfo = syncListInfo(timerList: timerList, deletedTimerList: deletedTimerList)
         let propertyListEncoder = PropertyListEncoder()
-        if let encodedTimers = try? propertyListEncoder.encode(self.timerList) {
+        if let encodedTimers = try? propertyListEncoder.encode(sendSyncListInfo) {
             WCSession.default.sendMessageData(encodedTimers, replyHandler: { (data) in
                 print("Received TimerList from other device")
                 let propertyListDecoder = PropertyListDecoder()
@@ -179,6 +193,7 @@ class Settings {
                     for timer in receivedTimerList {
                         print("[Resulting] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
                     }
+                    self.deletedTimerList = []
                 }
             }, errorHandler: nil)
         }
@@ -196,7 +211,10 @@ class Settings {
         }
     }
     
-    func receiveTimerList(receivedTimerList: [TimerModel], replyHandler: ((Data) -> Void)?) {
+    func receiveTimerList(receivedSyncListInfo: syncListInfo, replyHandler: ((Data) -> Void)?) {
+        let receivedTimerList = receivedSyncListInfo.timerList
+        let receivedDeletedTimerList = receivedSyncListInfo.deletedTimerList
+        
         for timer in receivedTimerList {
             print("[Received] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
         }
@@ -317,4 +335,9 @@ struct miscInfo: Codable {
 struct togglInfo: Codable {
     var credential: credential
     var projectList: [projectInfo]
+}
+
+struct syncListInfo: Codable {
+    var timerList: [TimerModel]
+    var deletedTimerList: [TimerModel]
 }

@@ -44,9 +44,9 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
         print("[Session Delegater] Received Message Data with Handler")
         let propertyListDecoder = PropertyListDecoder()
-        if let receivedTimerList = try? propertyListDecoder.decode([TimerModel].self, from: messageData) {
+        if let receivedSyncListInfo = try? propertyListDecoder.decode(syncListInfo.self, from: messageData) {
             print("[Session Delegater] Timers received")
-            GlobalVar.settings.receiveTimerList(receivedTimerList: receivedTimerList, replyHandler: replyHandler)
+            GlobalVar.settings.receiveTimerList(receivedSyncListInfo: receivedSyncListInfo, replyHandler: replyHandler)
         }
     }
     

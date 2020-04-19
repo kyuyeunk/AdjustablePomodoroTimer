@@ -241,7 +241,7 @@ extension TimerSettingsTableViewController: ButtonDelegate {
                 presentAlert(withTitle: "Error", message: "There should be at least one timer", preferredStyle: .alert, actions: [action])
             }
             else {
-                GlobalVar.settings.timerList.remove(at:  GlobalVar.settings.currTimerID)
+                GlobalVar.settings.deleteTimer(index: GlobalVar.settings.currTimerID)
                 if GlobalVar.settings.currTimerID != 0 {
                     GlobalVar.settings.currTimerID -= 1
                 }
