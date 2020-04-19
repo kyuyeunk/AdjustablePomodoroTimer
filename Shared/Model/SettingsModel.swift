@@ -188,7 +188,44 @@ class Settings {
     }
     
     func receiveTimerList(receivedTimerList: [TimerModel]) {
-        print("TODO")
+        for timer in receivedTimerList {
+            print("[Received] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
+        }
+        for timer in timerList {
+            print("[Existing] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
+        }
+        
+        for (receivedIndex, receivedTimer) in receivedTimerList.enumerated() {
+            var newTimer = true
+            for (existingIndex, existingTimer) in timerList.enumerated() {
+                let comparison = existingTimer.compare(timerModel: receivedTimer)
+                switch(comparison) {
+                case .same:
+                    print("Received: \(receivedIndex) is same as existing: \(existingIndex)")
+                    newTimer = false
+                    break
+                case .older:
+                    print("Received: \(receivedIndex) is older than existing: \(existingIndex)")
+                    newTimer = false
+                    break
+                case .newer:
+                    print("Received: \(receivedIndex) is newer than existing: \(existingIndex)")
+                    print("Updating existing: \(existingIndex)")
+                    timerList[existingIndex] = receivedTimer
+                    newTimer = false
+                    break
+                case .different:
+                    continue
+                }
+            }
+            if newTimer {
+                print("Adding received: \(receivedIndex) to timer list")
+                timerList.append(receivedTimer)
+            }
+        }
+        for timer in timerList {
+            print("[Resulting] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
+        }
     }
 }
 
