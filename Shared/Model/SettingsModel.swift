@@ -222,7 +222,20 @@ class Settings {
             print("[Existing] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
         }
         
-        //TODO: Code about deleting existing timer
+        
+        for receivedDeletedTimer in receivedDeletedTimerList {
+            for (existingIndex, existingTimer) in timerList.enumerated() {
+                let comparison = existingTimer.compare(timerModel: receivedDeletedTimer)
+                switch(comparison) {
+                case .different:
+                    continue
+               default:
+                    timerList.remove(at: existingIndex)
+                    break
+                }
+            }
+        }
+        
         for (receivedIndex, receivedTimer) in receivedTimerList.enumerated() {
             var newTimer = true
             for (existingIndex, existingTimer) in timerList.enumerated() {
