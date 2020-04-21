@@ -35,25 +35,25 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         print("Received Message with Handler")
-        if message[WCSessionRequest.request] as? String == WCSessionRequest.togglInfo {
+        
+        if message[WCSessionMessageType.requestTogglInfo] as? Bool == true {
             print("Sending Toggl Info")
             GlobalVar.settings.sendTogglInfo(replyHandler: replyHandler)
         }
-    }
-    
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data, replyHandler: @escaping (Data) -> Void) {
-        print("[Session Delegater] Received Message Data with Handler")
-        let propertyListDecoder = PropertyListDecoder()
-        if let receivedSyncListInfo = try? propertyListDecoder.decode(syncListInfo.self, from: messageData) {
-            print("[Session Delegater] Timers received")
-            GlobalVar.settings.receiveTimerList(receivedSyncListInfo: receivedSyncListInfo, replyHandler: replyHandler)
+        else if let messageData = message[WCSessionMessageType.timerList] as? Data {
+            let propertyListDecoder = PropertyListDecoder()
+            if let receivedSyncListInfo = try? propertyListDecoder.decode(syncListInfo.self, from: messageData) {
+                print("[Session Delegater] Timers received")
+                GlobalVar.settings.receiveTimerList(receivedSyncListInfo: receivedSyncListInfo, replyHandler: replyHandler)
+            }
         }
     }
     
-    func session(_ session: WCSession, didReceiveMessageData messageData: Data) {
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         print("[Session Delegater] Received Message Data")
         let propertyListDecoder = PropertyListDecoder()
-        if let receivedTogglInfo = try? propertyListDecoder.decode(togglInfo.self, from: messageData)  {
+        if let messageData = message[WCSessionMessageType.togglInfo] as? Data,
+            let receivedTogglInfo = try? propertyListDecoder.decode(togglInfo.self, from: messageData)  {
             GlobalVar.settings.receiveTogglInfo(receivedTogglInfo: receivedTogglInfo)
         }
     }

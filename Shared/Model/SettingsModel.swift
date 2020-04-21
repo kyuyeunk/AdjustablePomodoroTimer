@@ -159,11 +159,12 @@ class Settings {
         
         if let encodedTogglInfo = try? propertyListEncoder.encode(currTogglInfo) {
             if let handler = replyHandler {
-                let replyMessage = [WCSessionRequest.togglInfo: encodedTogglInfo]
+                let replyMessage = [WCSessionMessageType.togglInfo: encodedTogglInfo]
                 handler(replyMessage)
             }
             else {
-                WCSession.default.sendMessageData(encodedTogglInfo, replyHandler: nil, errorHandler: nil)
+                let message = [WCSessionMessageType.togglInfo: encodedTogglInfo]
+                WCSession.default.sendMessage(message, replyHandler: nil, errorHandler: nil)
             }
         }
     }
@@ -185,10 +186,14 @@ class Settings {
         let sendSyncListInfo = syncListInfo(timerList: timerList, deletedTimerList: deletedTimerList)
         let propertyListEncoder = PropertyListEncoder()
         if let encodedTimers = try? propertyListEncoder.encode(sendSyncListInfo) {
-            WCSession.default.sendMessageData(encodedTimers, replyHandler: { (data) in
+            let message = [WCSessionMessageType.timerList: encodedTimers]
+            WCSession.default.sendMessage(message, replyHandler: { (receivedMessage) in
                 print("Received TimerList from other device")
+                
                 let propertyListDecoder = PropertyListDecoder()
-                if let receivedTimerList = try? propertyListDecoder.decode([TimerModel].self, from: data) {
+                if let data = receivedMessage[WCSessionMessageType.timerList] as? Data,
+                    let receivedTimerList = try? propertyListDecoder.decode([TimerModel].self, from: data) {
+                    
                     self.timerList = receivedTimerList
                     for timer in receivedTimerList {
                         print("[Resulting] \(timer.timerName) w created: \(timer.createdDate) modified: \(timer.modifiedDate)")
@@ -211,7 +216,7 @@ class Settings {
         }
     }
     
-    func receiveTimerList(receivedSyncListInfo: syncListInfo, replyHandler: ((Data) -> Void)?) {
+    func receiveTimerList(receivedSyncListInfo: syncListInfo, replyHandler: (([String : Any]) -> Void)?) {
         let receivedTimerList = receivedSyncListInfo.timerList
         let receivedDeletedTimerList = receivedSyncListInfo.deletedTimerList
         
@@ -271,7 +276,8 @@ class Settings {
         if let handler = replyHandler {
             let propertyListEncoder = PropertyListEncoder()
             if let encodedTimers = try? propertyListEncoder.encode(self.timerList) {
-                handler(encodedTimers)
+                let message = [WCSessionMessageType.timerList : encodedTimers]
+                handler(message)
             }
         }
     }
