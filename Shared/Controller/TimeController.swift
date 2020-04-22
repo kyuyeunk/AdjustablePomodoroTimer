@@ -6,6 +6,7 @@
 //  Copyright © 2020 Kyu Yeun Kim. All rights reserved.
 //
 
+import WatchConnectivity
 import UserNotifications
 #if os(iOS)
 import UIKit
@@ -69,6 +70,7 @@ class TimeController {
                 timeControllerDelegate.setSecondUI(currTime: nextTimerTime, passedTime: passedTime, animated: true, completion: nil)
             }
             timeControllerDelegate.stopTimerUI()
+            sendStopTimer()
         }
     }
     
@@ -89,6 +91,7 @@ class TimeController {
         timeControllerDelegate.startTimerUI()
         
         startScheduledTimer()
+        sendStartTimer()
     }
     
     private func startScheduledTimer() {
@@ -213,5 +216,17 @@ class TimeController {
         UNUserNotificationCenter.current().add(request) { (error) in
             //TODO
         }
+    }
+    
+    private func sendStartTimer() {
+        print("Sending start timer")
+        let message = [WCSessionMessageType.startTimer: self.prevTime]
+        WCSession.default.sendMessage(message, replyHandler: nil, errorHandler: nil)
+    }
+    
+    private func sendStopTimer() {
+        print("Sending stop timer")
+        let message = [WCSessionMessageType.stopTimer: true]
+        WCSession.default.sendMessage(message, replyHandler: nil, errorHandler: nil)
     }
 }

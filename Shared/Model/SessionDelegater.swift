@@ -27,17 +27,17 @@ class SessionDelegater: NSObject, WCSessionDelegate {
     #endif
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("Activated")
+        print("[Session Delegater] Activated")
         #if os(iOS)
         GlobalVar.settings.sendTogglInfo(replyHandler: nil)
         #endif
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        print("Received Message with Handler")
+        print("[Session Delegater] Received Message with Handler")
         
         if message[WCSessionMessageType.requestTogglInfo] as? Bool == true {
-            print("Sending Toggl Info")
+            print("[Session Delegater] Sending Toggl Info")
             GlobalVar.settings.sendTogglInfo(replyHandler: replyHandler)
         }
         else if let messageData = message[WCSessionMessageType.timerList] as? Data {
@@ -55,6 +55,12 @@ class SessionDelegater: NSObject, WCSessionDelegate {
         if let messageData = message[WCSessionMessageType.togglInfo] as? Data,
             let receivedTogglInfo = try? propertyListDecoder.decode(togglInfo.self, from: messageData)  {
             GlobalVar.settings.receiveTogglInfo(receivedTogglInfo: receivedTogglInfo)
+        }
+        else if let messageData = message[WCSessionMessageType.startTimer] as? Int {
+            print("Received start timer \(messageData)")
+        }
+        else if message[WCSessionMessageType.stopTimer] as? Bool == true {
+            print("Received stop timer")
         }
     }
 }
