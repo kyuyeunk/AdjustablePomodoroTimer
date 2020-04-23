@@ -61,6 +61,7 @@ class SessionDelegater: NSObject, WCSessionDelegate {
         }
         else if message[WCSessionMessageType.stopTimer] as? Bool == true {
             print("Received stop timer")
+            GlobalVar.timeController.stopButtonTapped()
         }
     }
 }
