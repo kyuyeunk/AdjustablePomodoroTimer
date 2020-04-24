@@ -58,6 +58,7 @@ class SessionDelegater: NSObject, WCSessionDelegate {
         }
         else if let messageData = message[WCSessionMessageType.startTimer] as? Int {
             print("Received start timer \(messageData)")
+            GlobalVar.timeController.receiveStartTimer()
         }
         else if message[WCSessionMessageType.stopTimer] as? Bool == true {
             print("Received stop timer")

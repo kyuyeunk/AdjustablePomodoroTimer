@@ -229,4 +229,8 @@ class TimeController {
         let message = [WCSessionMessageType.stopTimer: true]
         WCSession.default.sendMessage(message, replyHandler: nil, errorHandler: nil)
     }
+    
+    func receiveStartTimer() {
+        print("Received start timer")
+    }
 }
