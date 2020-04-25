@@ -230,7 +230,7 @@ class TimeController {
         WCSession.default.sendMessage(message, replyHandler: nil, errorHandler: nil)
     }
     
-    func receiveStartTimer() {
-        print("Received start timer")
+    func receiveStartTimer(time: Int) {
+        print("Received start timer with start time \(time)")
     }
 }
