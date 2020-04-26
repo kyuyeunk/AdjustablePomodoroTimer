@@ -232,5 +232,10 @@ class TimeController {
     
     func receiveStartTimer(time: Int) {
         print("Received start timer with start time \(time)")
+        timeControllerDelegate.setSecondUI(currTime: time, passedTime: passedTime, animated: true) {
+            if self.timerStarted {
+                self.startTimer()
+            }
+        }
     }
 }
