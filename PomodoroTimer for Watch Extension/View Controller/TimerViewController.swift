@@ -48,7 +48,7 @@ class TimerViewController: WKInterfaceController {
     }
     @IBAction func minPicked(_ value: Int) {
         let prevCurrTime = currTime
-        currTime = currSign * ((maxMinutes - value) * 60 + currSec)
+        currTime = currSign * (value * 60 + currSec)
         print("[Timer View] set minRow to \(value), currTime is \(currTime)")
         if prevCurrTime != currTime {
             print("[Timer View] currTime changed from \(prevCurrTime) to \(currTime), updating it")
@@ -57,7 +57,7 @@ class TimerViewController: WKInterfaceController {
     }
     @IBAction func secPicked(_ value: Int) {
         let prevCurrTime = currTime
-        currTime = currSign * (currMin * 60 + (59 - value))
+        currTime = currSign * (currMin * 60 + value)
         print("[Timer View] set secRow to \(value), currTime is \(currTime)")
         if prevCurrTime != currTime {
             print("[Timer View] currTime changed from \(prevCurrTime) to \(currTime), updating it")
@@ -153,7 +153,7 @@ class TimerViewController: WKInterfaceController {
         signPicker.setItems([plus, minus])
         
         var minItem: [WKPickerItem] = []
-        for i in (0 ... maxMinutes).reversed() {
+        for i in (0 ... maxMinutes) {
             let temp = WKPickerItem()
             temp.title = String(i)
             minItem.append(temp)
@@ -161,7 +161,7 @@ class TimerViewController: WKInterfaceController {
         minPicker.setItems(minItem)
         
         var secItem: [WKPickerItem] = []
-        for i in (0 ..< 60).reversed() {
+        for i in (0 ..< 60) {
             let temp = WKPickerItem()
             temp.title = String(i)
             secItem.append(temp)
@@ -194,8 +194,8 @@ class TimerViewController: WKInterfaceController {
         else {
             signPicker.setSelectedItemIndex(1)
         }
-        minPicker.setSelectedItemIndex(maxMinutes - currMin)
-        secPicker.setSelectedItemIndex(59 - currSec)
+        minPicker.setSelectedItemIndex(currMin)
+        secPicker.setSelectedItemIndex(currSec)
         print("[Time Picker] setSeconds time: \(self.currTime) sign: \(self.currSign) min: \(self.currMin) sec: \(self.currSec)")
         timePieView.setTime(time: self.currTime)
         

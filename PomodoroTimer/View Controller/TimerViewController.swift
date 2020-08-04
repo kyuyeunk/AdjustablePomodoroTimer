@@ -182,8 +182,8 @@ class TimerViewController: UIViewController {
         }
 
         print("[Timer View] setTime to \(currTime)")
-        mainTimer.selectRow(59 - seconds, inComponent: components.secVal.rawValue, animated: animated)
-        mainTimer.selectRow(maxMinutes - minutes, inComponent: components.minVal.rawValue, animated: animated)
+        mainTimer.selectRow(seconds, inComponent: components.secVal.rawValue, animated: animated)
+        mainTimer.selectRow(minutes, inComponent: components.minVal.rawValue, animated: animated)
 
         if currTime >= 0 {
             mainTimer.selectRow(0, inComponent: components.sign.rawValue, animated: animated)
@@ -436,9 +436,9 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
                 return "-"
             }
         case .minVal:
-            return String(maxMinutes - row)
+            return String(row)
         case .secVal:
-            return String(59 - row)
+            return String(row)
         default:
             return nil
         }
@@ -448,8 +448,8 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         switch components(rawValue: component) {
         case .sign:
             print("[Timer View] Sign picker moved")
-            let minutes = maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
-            let seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
+            let minutes = pickerView.selectedRow(inComponent: components.minVal.rawValue)
+            let seconds = pickerView.selectedRow(inComponent: components.secVal.rawValue)
             
             var sign: Int
             if row == 0 {
@@ -465,8 +465,8 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             setTime(time: time, animated: true)
         case .minVal:
             print("[Timer View] Minute picker moved")
-            let minutes = maxMinutes - row
-            let seconds = 59 - pickerView.selectedRow(inComponent: components.secVal.rawValue)
+            let minutes = row
+            let seconds = pickerView.selectedRow(inComponent: components.secVal.rawValue)
             var sign: Int
             if pickerView.selectedRow(inComponent:components.sign.rawValue) == 0 {
                 sign = 1
@@ -480,10 +480,10 @@ extension TimerViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             setTime(time: time, animated: true)
         case .secVal:
             print("[Timer View] Second picker moved")
-            var seconds = 59 - row
-            let minutes = maxMinutes - pickerView.selectedRow(inComponent: components.minVal.rawValue)
+            var seconds = row
+            let minutes = pickerView.selectedRow(inComponent: components.minVal.rawValue)
             if minutes == maxMinutes && seconds > 0 {
-                pickerView.selectRow(59, inComponent: components.secVal.rawValue, animated: true)
+                pickerView.selectRow(0, inComponent: components.secVal.rawValue, animated: true)
                 seconds = 0
             }
             var sign: Int
