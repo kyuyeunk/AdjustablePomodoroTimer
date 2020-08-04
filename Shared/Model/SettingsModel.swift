@@ -138,6 +138,7 @@ class Settings {
         for timer in self.timerList {
             print("[Save] \(timer.timerName) w pos: \(timer.startTime[.positive]!), neg: \(timer.startTime[.negative]!)")
         }
+        GlobalVar.settings.syncTimerList()
     }
     
     func saveMiscs() {
