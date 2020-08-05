@@ -30,6 +30,7 @@ struct alarmSoundInfo {
 }
 
 let availableSystemSounds: [Int: String] = [
+    0: "Silent",
     1000: "MailReceived"
     , 1001: "MailSent"
     , 1002: "VoicemailReceived"

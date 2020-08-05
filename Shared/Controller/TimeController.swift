@@ -157,7 +157,9 @@ class TimeController {
                 else {
                     #if os(iOS)
                     let systemAlarmID = GlobalVar.alarmSounds.list[GlobalVar.settings.currTimer.timerAlarmID[self.currType]!].systemSoundID
-                    AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
+                    if systemAlarmID != 0 {
+                        AudioServicesPlaySystemSound(SystemSoundID(systemAlarmID))
+                    }
                     #elseif os(watchOS)
                     //TODO: fix bug where sound wouldn't play
                     if self.currType == .positive {
