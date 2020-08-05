@@ -24,16 +24,20 @@ class TimerViewController: UIViewController {
     private var currTime: Int = 0
     private var panTimerType: TimerType = .positive
 
-    private var passedTimeLabel = UILabel()
-    private var timeInfoStackView = UIStackView()
+    private var defaultTimeInfoStackView = UIStackView()
     private var posInfoStackView = UIStackView()
     private var negInfoStackView = UIStackView()
+   
+    private var defaultPosTimeLabel = UILabel()
+    private var defaultNegTimeLabel = UILabel()
     
-    private var posTimeLabel = UILabel()
-    private var negTimeLabel = UILabel()
+    private var defaultPosTimeValLabel = UILabel()
+    private var defaultNegTimeValLabel = UILabel()
     
-    private var posTimeValLabel = UILabel()
-    private var negTimeValLabel = UILabel()
+    private var passedTimeInfoStackView = UIStackView()
+    
+    private var passedPosTimeValLabel = UILabel()
+    private var passedNegTimeValLabel = UILabel()
     
     private var maxMinutesLabel = UILabel()
     private var mainTimer = UIPickerView()
@@ -245,6 +249,11 @@ class TimerViewController: UIViewController {
             print("[Timer View] current time is larger than maxMinutes")
             setTime(time: maxMinutes * 60, animated: false)
         }
+        
+        let posTime = currTimer.startTime[.positive]!
+        let negTime = currTimer.startTime[.negative]!
+        defaultPosTimeValLabel.text = "\(posTime / 60)m \(posTime % 60)"
+        defaultNegTimeValLabel.text = "\(abs(negTime / 60))m \(negTime % 60)"
     }
 
     // MARK: - UI Initialization
@@ -259,21 +268,24 @@ class TimerViewController: UIViewController {
     private func addViews() {
         view.addSubview(passedTimePie)
         view.addSubview(pickerWindow)
-        view.addSubview(passedTimeLabel)
-        view.addSubview(timeInfoStackView)
+        view.addSubview(defaultTimeInfoStackView)
+        view.addSubview(passedTimeInfoStackView)
         view.addSubview(maxMinutesLabel)
         view.addSubview(mainTimer)
         view.addSubview(startButton)
         view.addSubview(clockImage)
         
-        timeInfoStackView.addArrangedSubview(posInfoStackView)
-        timeInfoStackView.addArrangedSubview(negInfoStackView)
+        defaultTimeInfoStackView.addArrangedSubview(posInfoStackView)
+        defaultTimeInfoStackView.addArrangedSubview(negInfoStackView)
         
-        posInfoStackView.addArrangedSubview(posTimeLabel)
-        posInfoStackView.addArrangedSubview(posTimeValLabel)
+        posInfoStackView.addArrangedSubview(defaultPosTimeLabel)
+        posInfoStackView.addArrangedSubview(defaultPosTimeValLabel)
         
-        negInfoStackView.addArrangedSubview(negTimeLabel)
-        negInfoStackView.addArrangedSubview(negTimeValLabel)
+        negInfoStackView.addArrangedSubview(defaultNegTimeLabel)
+        negInfoStackView.addArrangedSubview(defaultNegTimeValLabel)
+        
+        passedTimeInfoStackView.addArrangedSubview(passedPosTimeValLabel)
+        passedTimeInfoStackView.addArrangedSubview(passedNegTimeValLabel)
         
         let pan = UIPanGestureRecognizer(target: self, action: #selector(panGesture))
         view.addGestureRecognizer(pan)
@@ -283,29 +295,32 @@ class TimerViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(leftBarPressed))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Timers", style: .plain, target: self, action: #selector(rightBarPressed))
         
-        passedTimeLabel.text = "Passed Time"
-        passedTimeLabel.font = passedTimeLabel.font.withSize(25)
+        defaultPosTimeLabel.text = "Positive:"
+        defaultPosTimeLabel.textAlignment = .center
         
-        posTimeLabel.text = "Positive:"
-        posTimeLabel.textAlignment = .center
+        defaultNegTimeLabel.text = "Negative:"
+        defaultNegTimeLabel.textAlignment = .center
         
-        negTimeLabel.text = "Negative:"
-        negTimeLabel.textAlignment = .center
+        defaultPosTimeValLabel.text = "0m 0s"
+        defaultPosTimeValLabel.textAlignment = .center
         
-        posTimeValLabel.text = "0m 0s"
-        posTimeValLabel.textAlignment = .center
+        defaultNegTimeValLabel.text = "0m 0s"
+        defaultNegTimeValLabel.textAlignment = .center
         
-        negTimeValLabel.text = "0m 0s"
-        negTimeValLabel.textAlignment = .center
+        passedPosTimeValLabel.text = "0m 0s"
+        passedPosTimeValLabel.textAlignment = .left
+        
+        passedNegTimeValLabel.text = "0m 0s"
+        passedNegTimeValLabel.textAlignment = .right
         
         maxMinutesLabel.text = "\(maxMinutes)m"
         
         startButton.setTitle("Start", for: .normal)
         startButton.titleLabel?.font = startButton.titleLabel?.font.withSize(25)
         
-        timeInfoStackView.axis = .horizontal
-        timeInfoStackView.distribution = .fillEqually
-        timeInfoStackView.spacing = 0
+        defaultTimeInfoStackView.axis = .horizontal
+        defaultTimeInfoStackView.distribution = .fillEqually
+        defaultTimeInfoStackView.spacing = 0
         
         posInfoStackView.axis = .vertical
         posInfoStackView.distribution = .fillEqually
@@ -314,6 +329,10 @@ class TimerViewController: UIViewController {
         negInfoStackView.axis = .vertical
         negInfoStackView.distribution = .fillEqually
         negInfoStackView.spacing = 5
+        
+        passedTimeInfoStackView.axis = .horizontal
+        passedTimeInfoStackView.distribution = .fillEqually
+        passedTimeInfoStackView.spacing = 0
         
         passedTimePie.maxTime = CGFloat(maxMinutes * 60)
         
@@ -327,14 +346,15 @@ class TimerViewController: UIViewController {
     }
     
     private func initUIConstraints() {
-        passedTimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        passedTimeLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 40).isActive = true
-        passedTimeLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
+        defaultTimeInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+        defaultTimeInfoStackView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 20).isActive = true
+        defaultTimeInfoStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
+        defaultTimeInfoStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
         
-        timeInfoStackView.translatesAutoresizingMaskIntoConstraints = false
-        timeInfoStackView.topAnchor.constraint(equalTo: passedTimeLabel.bottomAnchor, constant: 20).isActive = true
-        timeInfoStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 0).isActive = true
-        timeInfoStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 0).isActive = true
+        passedTimeInfoStackView.translatesAutoresizingMaskIntoConstraints = false
+        passedTimeInfoStackView.bottomAnchor.constraint(equalTo: clockImage.topAnchor, constant: 20).isActive = true
+        passedTimeInfoStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 40).isActive = true
+        passedTimeInfoStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -40).isActive = true
         
         maxMinutesLabel.translatesAutoresizingMaskIntoConstraints = false
         maxMinutesLabel.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor, constant: 0).isActive = true
@@ -573,8 +593,8 @@ extension TimerViewController: TimeControllerDelegate {
             print("[Timer View] Setting timer UI to \(currTime) seconds")
             self.setTime(time: currTime, animated: animated)
             
-            self.posTimeValLabel.text = "\(posMinutes)m \(posSeconds)s"
-            self.negTimeValLabel.text = "\(negMinutes)m \(negSeconds)s"
+            self.passedPosTimeValLabel.text = "\(posMinutes)m \(posSeconds)s"
+            self.passedNegTimeValLabel.text = "\(negMinutes)m \(negSeconds)s"
             
             if let completion = completion {
                 completion()
@@ -588,19 +608,19 @@ extension TimerViewController: TimeControllerDelegate {
     
     func stopTimerUI() {
         startButton.setTitle("Start", for: .normal)
-        posTimeValLabel.textColor = .none
-        negTimeValLabel.textColor = .none
+        passedPosTimeValLabel.textColor = .none
+        passedNegTimeValLabel.textColor = .none
     }
     
     func startTimerUI() {
         startButton.setTitle("Stop", for: .normal)
         if getCurrTime() > 0 {
-            posTimeValLabel.textColor = .cyan
-            negTimeValLabel.textColor = .none
+            passedPosTimeValLabel.textColor = .cyan
+            passedNegTimeValLabel.textColor = .none
         }
         else {
-            negTimeValLabel.textColor = .cyan
-            posTimeValLabel.textColor = .none
+            passedNegTimeValLabel.textColor = .cyan
+            passedPosTimeValLabel.textColor = .none
         }
     }
 }
