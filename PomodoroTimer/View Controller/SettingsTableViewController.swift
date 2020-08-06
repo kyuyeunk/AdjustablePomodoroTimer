@@ -110,7 +110,7 @@ class SettingsTableViewController: UITableViewController {
                     cell.settingSwitch.addTarget(self, action: #selector(dontSleepSwitched(myswitch:)), for: .valueChanged)
                 }
                 else if indexPath.row == 1 {
-                    cell.settingTextLabel.text = "Making Ticking Sound"
+                    cell.settingTextLabel.text = "Make Ticking Sound"
                     cell.settingSwitch.isOn = GlobalVar.settings.tickingSound
                     cell.settingSwitch.addTarget(self, action: #selector(tickingSoundSwitched(myswitch:)), for: .valueChanged)
                 }

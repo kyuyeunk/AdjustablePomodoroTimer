@@ -24,9 +24,9 @@ Open PomodoroTimer.xcodeproj with Xcode to build the project
 
 ## How To Use
 
-### Timer View
+### <a name="timer-view"></a>Timer View
 
-![Initial Screen](Images/StartScreen.PNG)
+![Timer View](Images/TimerView.PNG)
 
 * Tap **Start** button to start the time
 * Upper numbers denote default positive and negative times
@@ -47,7 +47,7 @@ Open PomodoroTimer.xcodeproj with Xcode to build the project
 
 ### Timer List View
 
-![Initial Screen](Images/TimerList.PNG)
+![Timer List](Images/TimerList.PNG)
 
 * Tap **+** button to create a new timer
 * Tap **ⓘ** button to modify existing timer
@@ -58,7 +58,19 @@ Open PomodoroTimer.xcodeproj with Xcode to build the project
 
 ### <a name="timer-settings"></a>Timer Settings View
 
-![Initial Screen](Images/TimerSettings.JPG)
+![Timer Settings](Images/TimerSettings.JPG)
+
+* Use textfield **Timer Name** to set the timer name
+* Use **Timer Values** to set maximumm, default positive, default negative time
+* Use **Alarm Sounds** to set the sound when timer finishes
+    * Use `Silent` to have no sound playing
+* Use **Toggl Timer Values** to define toggl timers played when timer starts
+    * If user is not log in via **Settings** screen, app will alert user
+    * **Settings** screen can be accessed from [Timer View](#timer-view)
+* Use **Misc** to set additional settings 
+    * If `Auto-repeat Timer` is set, negative or positive timer will start automatically when a timer reaches `0m 0s`
+    * If `Show Alert When Timer Ends` is set, user will be notified via pop up when timer finishes
+    * If `Accumulate Passed Time Data` is set, `passed time` from [Timer View](#timer-view) will not reset to `0m 0s` when **Start** is tapped again
 
 
 ## Notes
