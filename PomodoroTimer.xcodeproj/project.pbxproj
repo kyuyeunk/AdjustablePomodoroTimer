@@ -121,7 +121,9 @@
 		2E2AA9DF2443893700B4B515 /* TimerSettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerSettingsTableViewController.swift; sourceTree = "<group>"; };
 		2E2C65A1244904D2003E7284 /* TimePieView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimePieView.swift; sourceTree = "<group>"; };
 		2E444B31243C953700A9E0AB /* SubtitleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubtitleTableViewCell.swift; sourceTree = "<group>"; };
-		2E4DA9B324DAE53800998565 /* StartScreen.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = StartScreen.jpeg; sourceTree = "<group>"; };
+		2E4DA9B424DBE17500998565 /* StartScreen.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StartScreen.PNG; sourceTree = "<group>"; };
+		2E4DA9B524DBE1A700998565 /* TimerList.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TimerList.PNG; sourceTree = "<group>"; };
+		2E4DA9B724DBE41400998565 /* TimerSettings.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TimerSettings.JPG; sourceTree = "<group>"; };
 		2E5D8BE8241FA67600860E1B /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		2E5D8BEC2420E71B00860E1B /* TimerListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerListTableViewController.swift; sourceTree = "<group>"; };
 		2E5D8BF02420EFB300860E1B /* TimerSettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerSettingsTableViewController.swift; sourceTree = "<group>"; };
@@ -231,7 +233,9 @@
 		2E4DA9B224D98E5900998565 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				2E4DA9B324DAE53800998565 /* StartScreen.jpeg */,
+				2E4DA9B424DBE17500998565 /* StartScreen.PNG */,
+				2E4DA9B524DBE1A700998565 /* TimerList.PNG */,
+				2E4DA9B724DBE41400998565 /* TimerSettings.JPG */,
 			);
 			path = Images;
 			sourceTree = "<group>";

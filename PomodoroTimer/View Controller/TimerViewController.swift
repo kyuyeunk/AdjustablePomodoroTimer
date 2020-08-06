@@ -252,8 +252,8 @@ class TimerViewController: UIViewController {
         
         let posTime = currTimer.startTime[.positive]!
         let negTime = currTimer.startTime[.negative]!
-        defaultPosTimeValLabel.text = "\(posTime / 60)m \(posTime % 60)"
-        defaultNegTimeValLabel.text = "\(abs(negTime / 60))m \(negTime % 60)"
+        defaultPosTimeValLabel.text = "\(posTime / 60)m \(posTime % 60)s"
+        defaultNegTimeValLabel.text = "\(abs(negTime / 60))m \(negTime % 60)s"
     }
 
     // MARK: - UI Initialization
