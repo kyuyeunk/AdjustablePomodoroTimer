@@ -45,8 +45,7 @@ class TimerSettingsTableViewController: UITableViewController {
         GlobalVar.settings.saveTimerList()
         
         if let navigation = self.navigationController,
-            let timerList = navigation.viewControllers[1] as? TimerListTableViewController {
-            
+           let timerList = navigation.viewControllers[1] as? TimerListTableViewController {
             timerList.tableView.reloadData()
             navigation.popViewController(animated: true)
         }
@@ -161,6 +160,9 @@ class TimerSettingsTableViewController: UITableViewController {
                 return cell
             }
             else if let cell = tableView.dequeueReusableCell(withIdentifier: "pickerCell", for: indexPath) as? PickerTableViewCell {
+                cell.pickerView.delegate = self
+                cell.bringSubviewToFront(cell.pickerView)
+
                 if indexPath.row == 3 || indexPath.row == 5 {
                     var time: Int = 0
                     if indexPath.row == 3 {
@@ -175,7 +177,6 @@ class TimerSettingsTableViewController: UITableViewController {
                     let minutes = abs(time) / 60
                     let seconds = abs(time) % 60
                     
-                    cell.pickerView.delegate = self
                     cell.pickerView.selectRow(minutes, inComponent: 0, animated: false)
                     cell.pickerView.selectRow(seconds, inComponent: 2, animated: false)
                 }
@@ -186,7 +187,6 @@ class TimerSettingsTableViewController: UITableViewController {
                         minutes = workingTimerModel.maxMinutes
                     }
                     
-                    cell.pickerView.delegate = self
                     cell.pickerView.selectRow(minutes - 1, inComponent: 0, animated: false)
                 }
                 
@@ -220,7 +220,7 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.detailTextLabel?.text = trackingInfo.project.name
                 }
                 else {
-                   print("[Timer Settings View] userDefinedTracking[.positive] has not been set")
+                    print("[Timer Settings View] userDefinedTracking[.positive] has not been set")
                     cell.textLabel?.text = "Description of Positive Toggl Timer"
                     cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
                 }
@@ -233,7 +233,7 @@ class TimerSettingsTableViewController: UITableViewController {
                     cell.detailTextLabel?.text = trackingInfo.project.name
                 }
                 else {
-                   print("[Timer Settings View] userDefinedTracking[.negative] has not been set")
+                    print("[Timer Settings View] userDefinedTracking[.negative] has not been set")
                     cell.textLabel?.text = "Description of Positive Toggl Timer"
                     cell.detailTextLabel?.text = "Project Name of Positive Toggl Timer"
                 }
@@ -367,7 +367,7 @@ class TimerSettingsTableViewController: UITableViewController {
                 alarmSoundsList.selectedAlarmID = workingTimerModel.timerAlarmID[.negative]!
                 alarmSoundsList.type = .negative
             }
- 
+
             navigationController?.pushViewController(alarmSoundsList, animated: true)
         case .togglValues:
             if GlobalVar.settings.togglLoggedIn {
@@ -467,7 +467,7 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
             return 2
         }
         else {
-        return components.numberOfComponents.rawValue
+            return components.numberOfComponents.rawValue
         }
     }
     
@@ -531,7 +531,7 @@ extension TimerSettingsTableViewController: UIPickerViewDataSource, UIPickerView
             workingTimerModel.maxMinutes = minutes
             let labelIndexPath = IndexPath(row: 0, section: sections.timerValues.rawValue)
             tableView.reloadRows(at: [labelIndexPath], with: .automatic)
-                   
+
             if workingTimerModel.maxMinutes * 60 < workingTimerModel.startTime[.positive]! {
                 workingTimerModel.startTime[.positive] = workingTimerModel.maxMinutes * 60
                 posPickerView.selectRow(59, inComponent: 0, animated: true)
